@@ -1,0 +1,35 @@
+name: PublishNPM
+
+on:
+  push:
+    branches: [publish-fit-ui]
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+
+    name: "publish npm"
+
+    environment: npm
+
+    steps:
+      - uses: actions/checkout@master
+      - uses: pnpm/action-setup@v2.1.0
+        with:
+          version: latest
+      - name: Change NPM mirror to Taobao
+        run: npm config set registry  https://registry.npmmirror.com/
+      - name: Install modules
+        run: pnpm install
+      - name: "PNPM Build"
+        run: cd packages/fit-ui && pnpm run build
+      - name: Back NPM mirror to Npm
+        run: npm config set registry https://registry.npmjs.org/
+      - name: "Publish to the npm registry"
+        uses: primer/publish@3.0.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.FIT_UI_GITHUB }}
+          NPM_AUTH_TOKEN: ${{ secrets.FIT_UI_NPM }} # 跟前面步骤中的 NPM_AUTH_TOKEN 保持一致
+        with:
+          default_branch: "publish-fit-ui"
+          dir: "packages/fit-ui"
