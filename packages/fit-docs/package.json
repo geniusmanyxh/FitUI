@@ -1,0 +1,23 @@
+{
+  "name": "fit-docs",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "d:dev": "vitepress dev docs",
+    "d:build": "vitepress build docs",
+    "d:serve": "vitepress serve docs"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@vitejs/plugin-vue-jsx": "3.0.1",
+    "unocss": "^0.54.1",
+    "vitepress": "1.0.0-beta.7",
+    "vitest": "0.28.1"
+  },
+  "dependencies": {
+    "@geniusmanyxh/fit-ui": "workspace:^"
+  }
+}

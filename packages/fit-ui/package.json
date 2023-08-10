@@ -1,0 +1,41 @@
+{
+  "name": "@geniusmanyxh/fit-ui",
+  "version": "1.0.0",
+  "description": "",
+  "files": [
+    "dist"
+  ],
+  "main": "./dist/fit-ui.umd.js",
+  "module": "./dist/fit-ui.mjs",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "test": "vitest",
+    "test:run": "vitest run",
+    "lint": "eslint --fix --ext .ts,.vue src",
+    "format": "prettier --write \"src/**/*.ts\" \"src/**/*.vue\""
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@iconify-json/ic": "^1.1.13",
+    "@typescript-eslint/eslint-plugin": "^6.3.0",
+    "@typescript-eslint/parser": "^6.3.0",
+    "@vitejs/plugin-vue": "^4.2.3",
+    "@vitejs/plugin-vue-jsx": "3.0.1",
+    "@vue/eslint-config-prettier": "^8.0.0",
+    "@vue/test-utils": "^2.4.1",
+    "eslint": "^8.46.0",
+    "eslint-formatter-pretty": "^5.0.0",
+    "eslint-plugin-json": "^3.1.0",
+    "eslint-plugin-prettier": "^5.0.0",
+    "eslint-plugin-vue": "^9.17.0",
+    "happy-dom": "^10.9.0",
+    "prettier": "^3.0.1",
+    "typescript": "^5.0.2",
+    "unocss": "^0.54.1",
+    "vitest": "^0.34.1",
+    "vue": "^3.3.4"
+  }
+}
