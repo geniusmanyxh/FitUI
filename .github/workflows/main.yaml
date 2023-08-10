@@ -1,9 +1,9 @@
 name: CI
 on:
   push:
-    branches: [ master ] // github默认分支是main,我这里是master
+    branches: [ master ] # github默认分支是main,我这里是master
   pull_request:
-    branches: [ master ] // github默认分支是main,我这里是master
+    branches: [ master ] # github默认分支是main,我这里是master
 jobs:
   # Lint:
     # Lint任务
