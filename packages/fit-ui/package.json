@@ -5,7 +5,7 @@
   "files": [
     "dist/**/*"
   ],
-  "private":"false",
+  "private":false,
   "main": "./dist/fit-ui.umd.js",
   "module": "./dist/fit-ui.mjs",
   "scripts": {
@@ -17,7 +17,7 @@
     "format": "prettier --write \"src/**/*.ts\" \"src/**/*.vue\""
   },
   "keywords": [],
-  "author": "",
+  "author": "geniusmanyxh",
   "license": "ISC",
   "devDependencies": {
     "@iconify-json/ic": "^1.1.13",
