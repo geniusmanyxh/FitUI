@@ -15,7 +15,9 @@ jobs:
       - uses: actions/checkout@v2
       - uses: pnpm/action-setup@v2.1.0
         with:
-          version: 7.2.1
+          version: latest
+      - name: Change NPM mirror to Taobao
+        run: npm config set registry  https://registry.npmmirror.com/
       - name: Install modules
         run: cd packages/fit-ui && pnpm install
       - name: Run Test
