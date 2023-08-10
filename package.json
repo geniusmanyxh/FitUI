@@ -1,14 +1,14 @@
 {
   "name": "fitui",
   "version": "1.0.0",
-  "description": "",
+  "description": "一个练手的UI组件库",
   "main": "index.js",
   "scripts": {
     "preinstall": "node ./scripts/preinstall.js",
     "prepare": "husky install"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": ["fit","ui","vue3","typescript","unocss","vite"],
+  "author": "geniusmanyxh",
   "license": "ISC",
   "dependencies": {
     "vite": "^4.4.7"
