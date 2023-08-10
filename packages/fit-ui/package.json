@@ -1,11 +1,11 @@
 {
   "name": "@geniusmanyxh/fit-ui",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "",
   "files": [
     "dist/**/*"
   ],
-  "private":false,
+  "private": false,
   "main": "./dist/fit-ui.umd.js",
   "module": "./dist/fit-ui.mjs",
   "scripts": {
