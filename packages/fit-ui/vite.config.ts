@@ -32,8 +32,10 @@ export default defineConfig({
 
   build: {
     rollupOptions,
-    minify: false,
-    cssCodeSplit: true, // 追加
+    minify: 'terser', // boolean | 'terser' | 'esbuild'
+    cssCodeSplit: true, // 追加css代码分割 
+    sourcemap: true, // 生成代码源文件映射文件
+    reportCompressedSize: true, // 生成压缩大小报告
     lib: {
       entry: './src/entry.ts',
       name: 'FitUI',

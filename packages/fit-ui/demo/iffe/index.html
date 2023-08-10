@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test IFFE</title>
+    <link rel="stylesheet" href="../../dist/entry.css">
+    <script src="../../node_modules/vue/dist/vue.global.js"></script>
+    <script src="../../dist/fit-ui.iife.js"></script>
+</head>
+<body>
+    <h1>Demo IFFE</h1>
+    <div id="app"></div>
+
+    <script>
+        console.log('111')
+        const { createApp } = Vue
+        console.log('vue', Vue)
+        console.log('FitUI', FitUI)
+        createApp({
+            template: `
+            <div style="margin-bottom:20px;">
+                <JSXButton color="blue">主要按钮</JSXButton>
+                <JSXButton color="green">绿色按钮</JSXButton>
+                <JSXButton color="gray">灰色按钮</JSXButton>
+                <JSXButton color="yellow">黄色按钮</JSXButton>
+                <JSXButton color="red">红色按钮</JSXButton>
+            </div>
+           
+            <div style="margin-bottom:20px;">
+                <JSXButton color="blue"  icon="search">搜索按钮</JSXButton>
+                <JSXButton color="green"  icon="edit">编辑按钮</JSXButton>
+                <JSXButton color="gray"  icon="check">成功按钮</JSXButton>
+                <JSXButton color="yellow"  icon="message">提示按钮</JSXButton>
+                <JSXButton color="red"  icon="delete">删除按钮</JSXButton>
+            </div>
+            <div style="margin-bottom:20px;">
+                <JSXButton color="blue"  icon="search"></JSXButton>
+                <JSXButton color="green"  icon="edit"></JSXButton>
+                <JSXButton color="gray" icon="check"></JSXButton>
+                <JSXButton color="yellow"  icon="message"></JSXButton>
+                <JSXButton color="red"  icon="delete"></JSXButton>
+            </div>
+        `}).use(FitUI.default).mount('#app')
+    </script>
+</body>
+</html>

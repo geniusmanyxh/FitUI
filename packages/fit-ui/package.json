@@ -33,6 +33,7 @@
     "eslint-plugin-vue": "^9.17.0",
     "happy-dom": "^10.9.0",
     "prettier": "^3.0.1",
+    "terser": "^5.19.2",
     "typescript": "^5.0.2",
     "unocss": "^0.54.1",
     "vitest": "^0.34.1",
