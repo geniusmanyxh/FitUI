@@ -4,6 +4,7 @@ import type { UserConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import vueJsx from '@vitejs/plugin-vue-jsx'
 import UnoCSS from './config/unocss'
+import dts from 'vite-plugin-dts'
 
 type ExportsType = 'default' | 'named' | 'none' | 'auto'
 const rollupOptions = {
@@ -26,6 +27,7 @@ export default defineConfig({
     vue(), // VUE插件
     vueJsx(), // VUEJSX插件
     UnoCSS(),
+    dts()
   ],
 
   // 添加库模式配置
