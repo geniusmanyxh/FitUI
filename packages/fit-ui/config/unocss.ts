@@ -1,6 +1,6 @@
 import { presetUno, presetAttributify, presetIcons } from 'unocss'
 import Unocss from 'unocss/vite'
-
+// import type { IconsOptions } from '@unocss/preset-icons'
 const colors = [
   'white',
   'black',
@@ -34,5 +34,14 @@ const safelist = [
 export default () =>
   Unocss({
     safelist,
-    presets: [presetUno(), presetAttributify(), presetIcons()],
+    presets: [
+      presetUno(),
+      presetAttributify(),
+      presetIcons({
+        prefix: 'i-',
+        extraProperties: {
+          display: 'inline-block',
+        },
+      }),
+    ],
   })

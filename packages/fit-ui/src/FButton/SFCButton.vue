@@ -8,7 +8,7 @@
 import { ref } from "vue";
 
 export default {
-  name: "SFCButton",
+  name: "FButton",
   props: {
     initialValue: {
       type: Number,

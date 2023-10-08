@@ -5,9 +5,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Test IFFE</title>
-    <link rel="stylesheet" href="../../dist/entry.css">
+    <link rel="stylesheet" href="../../dist/FButton/index.css">
     <script src="../../node_modules/vue/dist/vue.global.js"></script>
-    <script src="../../dist/fit-ui.iife.js"></script>
+    <script src="../../dist/FButton/index.umd.js"></script>
 </head>
 <body>
     <h1>Demo IFFE</h1>
@@ -17,7 +17,7 @@
         console.log('111')
         const { createApp } = Vue
         console.log('vue', Vue)
-        console.log('FitUI', FitUI)
+        // console.log('FitUI', FButton)
         createApp({
             template: `
             <div style="margin-bottom:20px;">
@@ -42,7 +42,7 @@
                 <JSXButton color="yellow"  icon="message"></JSXButton>
                 <JSXButton color="red"  icon="delete"></JSXButton>
             </div>
-        `}).use(FitUI.default).mount('#app')
+        `}).use(JSXButton.default).mount('#app')
     </script>
 </body>
 </html>
