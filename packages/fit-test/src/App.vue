@@ -1,35 +1,9 @@
 <script setup lang="ts">
-import HelloWorld from './components/HelloWorld.vue'
-// @ts-expect-error
-import {SFCButton,JSXButton} from '@geniusmanyxh/fit-ui'
-import '@geniusmanyxh/fit-ui/dist/entry.css'
+import {FButton,FIcon} from '@geniusmanyxh/fit-ui'
+
 </script>
 
 <template>
-  <div>
-    <a href="https://vitejs.dev" target="_blank">
-      <img src="/vite.svg" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://vuejs.org/" target="_blank">
-      <img src="./assets/vue.svg" class="logo vue" alt="Vue logo" />
-    </a>
-  </div>
-  <SFCButton/>
-  <JSXButton icon="add">add</JSXButton>
-  <HelloWorld msg="Vite + Vue" />
+  <FIcon></FIcon>
+  <FButton>5145</FButton>
 </template>
-
-<style scoped>
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.vue:hover {
-  filter: drop-shadow(0 0 2em #42b883aa);
-}
-</style>

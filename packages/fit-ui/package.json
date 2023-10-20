@@ -7,7 +7,7 @@
   ],
   "private": false,
   "main": "./dist/lib/fit-ui.js",
-  "module": "./dist/es/fit-ui.mjs",
+  "module": "./dist/es/fit-ui.js",
   "types": "./dist/es/src/entry.d.ts",
   "scripts": {
     "dev": "vite",
