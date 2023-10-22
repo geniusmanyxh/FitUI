@@ -1,0 +1,210 @@
+button {
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+  box-sizing: border-box;
+  @apply flex justify-center items-center focus:outline-none focus:ring-1;
+}
+
+.small_but {
+  @apply px-2 py-1 shadow-sm rounded-sm text-xs;
+}
+.small_but.button_round {
+  @apply rounded-full;
+}
+
+.medium_but {
+  @apply px-3 py-2 shadow-md rounded-md text-sm;
+}
+.medium_but.button_round {
+  @apply rounded-full;
+}
+
+.large_but {
+  @apply px-3 py-2 shadow-lg rounded-lg text-base;
+}
+.large_but.button_round {
+  @apply rounded-full;
+}
+
+.default_button {
+  @apply bg-gray-200;
+}
+.default_button:hover {
+  @apply bg-blue-100 text-blue-500;
+}
+.default_button:active {
+  @apply bg-blue-200 border border-blue-500 ring-blue-500;
+}
+.default_button.f-active {
+  @apply bg-blue-100 text-blue-500;
+}
+
+.primary_button {
+  @apply bg-blue-500 text-white;
+}
+.primary_button:hover {
+  @apply bg-blue-400;
+}
+.primary_button:active {
+  @apply bg-blue-800 border border-blue-500 ring-blue-500;
+}
+.primary_button.f-active {
+  @apply bg-blue-400;
+}
+
+.success_button {
+  @apply bg-green-500 text-white;
+}
+.success_button:hover {
+  @apply bg-green-400;
+}
+.success_button:active {
+  @apply bg-green-800 border border-green-500 ring-green-500;
+}
+.success_button.f-active {
+  @apply bg-green-400;
+}
+
+.info_button {
+  @apply bg-gray-500 text-white;
+}
+.info_button:hover {
+  @apply bg-gray-400;
+}
+.info_button:active {
+  @apply bg-gray-800 border border-gray-500 ring-gray-500;
+}
+.info_button.f-active {
+  @apply bg-gray-400;
+}
+
+.danger_button {
+  @apply bg-red-500 text-white;
+}
+.danger_button:hover {
+  @apply bg-red-400;
+}
+.danger_button:active {
+  @apply bg-red-800 border border-red-500 ring-red-500;
+}
+.danger_button.f-active {
+  @apply bg-red-400;
+}
+
+.warning_button {
+  @apply bg-yellow-500 text-white;
+}
+.warning_button:hover {
+  @apply bg-yellow-400;
+}
+.warning_button:active {
+  @apply bg-yellow-800 border border-yellow-500 ring-yellow-500;
+}
+.warning_button.f-active {
+  @apply bg-yellow-400;
+}
+
+.default_button_plain {
+  @apply bg-white text-black border ring-black ring-.5;
+}
+.default_button_plain:hover {
+  @apply text-blue-500 border-blue-500 ring-blue-500;
+}
+.default_button_plain.f-active {
+  @apply text-blue-500 border-blue-500 ring-blue-500;
+}
+
+.primary_button_plain {
+  @apply bg-blue-100 text-blue-500 border border-blue-500 ring-blue-500;
+}
+.primary_button_plain:hover {
+  color: white;
+  @apply bg-blue-500;
+}
+.primary_button_plain:active {
+  @apply bg-blue-800;
+}
+.primary_button_plain.f-active {
+  color: white;
+  @apply bg-blue-500;
+}
+
+.success_button_plain {
+  @apply bg-green-100 text-green-500 border border-green-500 ring-green-500;
+}
+.success_button_plain:hover {
+  color: white;
+  @apply bg-green-500;
+}
+.success_button_plain:active {
+  @apply bg-green-800;
+}
+.success_button_plain.f-active {
+  color: white;
+  @apply bg-green-500;
+}
+
+.info_button_plain {
+  @apply bg-gray-100 text-gray-500 border border-gray-500 ring-gray-500;
+}
+.info_button_plain:hover {
+  color: white;
+  @apply bg-gray-500;
+}
+.info_button_plain:active {
+  @apply bg-gray-800;
+}
+.info_button_plain.f-active {
+  color: white;
+  @apply bg-gray-500;
+}
+
+.warning_button_plain {
+  @apply bg-yellow-100 text-yellow-500 border border-yellow-500 ring-yellow-500;
+}
+.warning_button_plain:hover {
+  color: white;
+  @apply bg-yellow-500;
+}
+.warning_button_plain:active {
+  @apply bg-yellow-800;
+}
+.warning_button_plain.f-active {
+  color: white;
+  @apply bg-yellow-500;
+}
+
+.danger_button_plain {
+  @apply bg-red-100 text-red-500 border border-red-500 ring-red-500;
+}
+.danger_button_plain:hover {
+  color: white;
+  @apply bg-red-500;
+}
+.danger_button_plain:active {
+  @apply bg-red-800;
+}
+.danger_button_plain.f-active {
+  color: white;
+  @apply bg-red-500;
+}
+
+.btn_icon {
+  margin-right: 2px;
+}
+.btn_icon.white {
+  color: white;
+}
+.btn_icon.black {
+  color: black;
+}
+.btn_icon.small {
+  font-size: 12px;
+}
+.btn_icon.medium {
+  font-size: 16px;
+}
+.btn_icon.large {
+  font-size: 18px;
+}/*# sourceMappingURL=button.css.map */

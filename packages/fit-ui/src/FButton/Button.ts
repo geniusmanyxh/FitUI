@@ -1,15 +1,14 @@
-import { defineComponent, h } from "vue";
-
-export default defineComponent({
-  name: "MyButton",
-
-  // template:'<button>MyButton</button>'
-
-  render() {
-    return h("button", null, "MyButton");
-  },
-});
 
 
+const btnType = ['default','primary','success', 'info', 'warning', 'danger'] as const
+const btnClass:{[key:string]:string} = {}
+
+type ButtonType =typeof btnType[number]
+
+btnType.forEach(val => {
+  btnClass[val] =`${val}_button`
+})
+
+export {type ButtonType, btnClass}
 
 

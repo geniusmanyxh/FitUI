@@ -1,7 +1,7 @@
 <template>
   <div>App
-    <FButton></FButton>
-    <FIcon></FIcon>
+    <FButton type="success" icon="typescript"  size="large">Primary</FButton>
+    <FIcon icon="typescript" :size="50"></FIcon>
   </div>
 </template>
 

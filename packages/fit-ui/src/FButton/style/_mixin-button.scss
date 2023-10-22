@@ -1,0 +1,38 @@
+@mixin button-style($bgColor, $textColor, $hoverColor, $activeColor) {
+  
+  @apply #{$bgColor} #{$textColor};
+
+  &:hover {
+    @apply bg-#{$hoverColor}-400 ;
+  }
+
+  &:active {
+    @apply bg-#{$activeColor}-800 border border-#{$activeColor}-500 ring-#{$activeColor}-500;
+  }
+
+  &.f-active {
+    @apply bg-#{$hoverColor}-400 ;
+  }
+}
+
+@mixin button-plain($bgColor) {
+  @apply bg-#{$bgColor}-100 text-#{$bgColor}-500 border border-#{$bgColor}-500 ring-#{$bgColor}-500;
+
+  &:hover {
+    color: white;
+    @apply bg-#{$bgColor}-500 
+  }
+
+  &:active {
+    @apply bg-#{$bgColor}-800;
+  }
+
+  &.f-active {
+    color: white;
+    @apply bg-#{$bgColor}-500 
+  }
+}
+
+@mixin button-round () {
+  @apply rounded-full;
+}
