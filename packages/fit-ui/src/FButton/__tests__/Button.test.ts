@@ -14,7 +14,7 @@ describe("Button", () => {
     });
 
     // 断言
-    expect(wrapper.text()).toBe("0");
+    expect(wrapper.text()).toBe('Button');
   });
 });
 
