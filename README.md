@@ -1,2 +1,2 @@
 # FitUI
-一个适合自己的UI
+基于 Vue3 + Vite + UnoCSS 的UI组件库
