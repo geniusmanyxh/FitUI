@@ -13,7 +13,7 @@ permissions:
   id-token: write
  
 jobs:
-  deploy:
+  setup:
     runs-on: ubuntu-latest
     steps:
       # 1 将代码仓库的内容拉取（或称为检出）到工作目录中，以便在下面的工作流程中使用
