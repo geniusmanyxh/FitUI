@@ -1,14 +1,14 @@
 {
   "name": "@geniusmanyxh/fit-ui",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "",
   "files": [
     "dist/**/*"
   ],
   "private": false,
-  "main": "./dist/lib/fit-ui.js",
-  "module": "./dist/es/fit-ui.js",
-  "types": "./dist/es/src/entry.d.ts",
+  "main": "dist/lib/fit-ui.js",
+  "module": "dist/es/fit-ui.js",
+  "types": "dist/es/src/entry.d.ts",
   "scripts": {
     "dev": "vite",
     "build": "pnpm build:components",

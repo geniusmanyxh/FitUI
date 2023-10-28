@@ -1,4 +1,5 @@
 import Theme from 'vitepress/dist/client/theme-default/index.js'
+
 import FitUI from '@geniusmanyxh/fit-ui'
 import '@geniusmanyxh/fit-ui/dist/es/style.css'
 import demo from 'vitepress-demoblock/demo.vue'
