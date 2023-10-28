@@ -21,6 +21,23 @@ const sidebar = {
 const config:UserConfig = {
   themeConfig: {
     sidebar,
+    siteTitle: false,
+    logo:'/logo.png',
+    search: {
+      provider: 'local'
+    },
+    footer: {
+      message: 'Released under the MIT License.',
+      copyright: 'Copyright © 2023-present 天界程序员'
+    },
+    nav: [
+      { text: 'Guide', link: '/guide' },
+      { text: 'Conponents', link: '/components/' },
+      { text: 'Changelog', link: 'https://github.com/...' }
+    ],
+    socialLinks: [
+      { icon: 'github', link: 'https://github.com/geniusmanyxh/FitUI' },
+    ]
   },
   markdown: {
     config: (md) => {

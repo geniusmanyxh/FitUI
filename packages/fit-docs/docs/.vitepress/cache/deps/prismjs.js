@@ -1,6 +1,6 @@
 import {
   __commonJS
-} from "./chunk-CQXHTUV2.js";
+} from "./chunk-76J2PTFD.js";
 
 // ../../node_modules/.pnpm/prismjs@1.29.0/node_modules/prismjs/prism.js
 var require_prism = __commonJS({

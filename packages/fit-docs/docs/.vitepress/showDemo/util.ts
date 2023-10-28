@@ -1,5 +1,5 @@
 import loadLanguages from 'prismjs/components/index';
-import Prism,{ highlight } from 'prismjs'
+import Prism from 'prismjs'
 // import escapeHtml from 'escape-html';
 
 export type CurLangType = 'vue'|'html' | 'js' | 'ts'
@@ -26,7 +26,7 @@ export function highlightCode(code:string, language:CurLangType) {
     return code;
   }
  
-  const highlightedCode = highlight(code, grammar, language);
+  const highlightedCode =Prism.highlight(code, grammar, language);
   return  `<pre class="language-${language}"><code >${highlightedCode}</code></pre>`;
 }
 
