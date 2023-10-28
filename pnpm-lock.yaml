@@ -38,11 +38,10 @@ importers:
         version: 3.6.0(@types/node@20.8.8)(typescript@5.0.4)(vite@4.4.7)
 
   packages/fit-docs:
-    dependencies:
-      '@geniusmanyxh/fit-ui':
-        specifier: ^0.0.2
-        version: link:../fit-ui
     devDependencies:
+      '@geniusmanyxh/fit-ui':
+        specifier: workspace:^
+        version: link:../fit-ui
       '@types/markdown-it':
         specifier: ^13.0.5
         version: 13.0.5
