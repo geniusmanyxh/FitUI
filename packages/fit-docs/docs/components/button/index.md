@@ -1,12 +1,24 @@
-## Button 组件
+# Button 组件
 
-<MyButton/>
-<JSXButton/>
-<SFCButton>SFC</SFCButton>
-  <div>
-  <JSXButton color="blue" icon="search">蓝色按钮</JSXButton>
-  <JSXButton color="green" icon="edit">绿色按钮</JSXButton>
-  <JSXButton color="gray" icon="message">灰色按钮</JSXButton>
-  <JSXButton color="yellow" icon="add">黄色按钮</JSXButton>
-  <JSXButton color="red" icon="delete">红色按钮</JSXButton>
-</div>
+## 常用按钮
+
+常用的按钮可以使用`type` 和 `plain` 来定义按钮。
+- `type`属性可以选择:`primary、success、info、warning、danger`
+- `plain`属性可以选择:`true、false`
+
+<sdemo filePath="button/index.vue"/>
+
+## round按钮
+
+可以使用`round` 属性开启按钮的圆角。
+- `round`属性可以选择：`true、false`
+<sdemo filePath="button/round.vue"></sdemo>
+
+## icon按钮
+可以使用`icon`属性定义按钮图标
+<sdemo filePath="button/button_icon.vue"></sdemo>
+
+## 按钮尺寸
+可以使用`size`属性定义按钮大小
+- `size`属性可以选择：`small、medium、large` , 默认值是：`medium`
+<sdemo filePath="button/button_size.vue"></sdemo>

@@ -7,7 +7,14 @@
     "preinstall": "node ./scripts/preinstall.js",
     "prepare": "husky install"
   },
-  "keywords": ["fit","ui","vue3","typescript","unocss","vite"],
+  "keywords": [
+    "fit",
+    "ui",
+    "vue3",
+    "typescript",
+    "unocss",
+    "vite"
+  ],
   "author": "geniusmanyxh",
   "license": "ISC",
   "dependencies": {
@@ -16,6 +23,11 @@
   "devDependencies": {
     "@commitlint/cli": "17.0.2",
     "@commitlint/config-conventional": "17.0.2",
-    "husky": "^8.0.3"
+    "@types/less": "^3.0.3",
+    "cpy": "^10.1.0",
+    "fast-glob": "^3.3.1",
+    "husky": "^8.0.3",
+    "typescript": "^5.0.2",
+    "vite-plugin-dts": "^3.5.2"
   }
 }

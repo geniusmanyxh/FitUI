@@ -1,11 +1,24 @@
 {
-  "compilerOptions": { 
+  "compilerOptions": {
     "declaration": true /* 生成相关的 '.d.ts' 文件。 */,
     "declarationDir": "./dist/types" /* '.d.ts' 文件输出目录 */,
-    "jsx": "preserve"
+    "jsx": "preserve",
+    "strict": true,
+    "target": "ES2015",
+    "module": "ESNext",
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "moduleResolution": "Node",
+    "lib": ["esnext", "dom"],
+    "baseUrl": ".",
+    "rootDir": "./",
+    "paths": {
+      "@/*": ["src/*"]
+    },
+    "types": ["unplugin-vue-define-options/macros-global"]
   },
   "include": ["./**/*.*", "./src/shims-vue.d.ts"],
-  "exclude": ["node_modules"],
-  "esModuleInterop": true, 
-  "allowSyntheticDefaultImports": "true" 
+  "exclude": ["node_modules","dist","demo"],
+  "esModuleInterop": true,
+  "allowSyntheticDefaultImports": true
 }

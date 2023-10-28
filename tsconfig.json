@@ -1,0 +1,6 @@
+{
+
+  "references": [
+    {"path": "packages/fit-ui/tsconfig.json"}
+  ],
+}

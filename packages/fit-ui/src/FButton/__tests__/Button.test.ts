@@ -14,7 +14,7 @@ describe("Button", () => {
     });
 
     // 断言
-    expect(wrapper.text()).toBe("MyButton");
+    expect(wrapper.text()).toBe('Button');
   });
 });
 

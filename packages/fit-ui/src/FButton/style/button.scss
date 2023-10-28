@@ -1,0 +1,134 @@
+@import "./mixin-button";
+
+button {
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+  box-sizing: border-box;
+  @apply mr-2 mb-2 flex justify-center items-center focus:outline-none focus:ring-1;
+}
+
+.small_but {
+  @apply px-2 py-1 shadow-sn rounded-md text-xs;
+
+  &.button_round {
+    @include button-round;
+  }
+}
+
+.medium_but {
+  @apply px-3 py-2 shadow-md rounded-md text-sm;
+
+  &.button_round {
+    @include button-round;
+  }
+}
+
+.large_but {
+  @apply px-3 py-2 shadow-lg rounded-lg text-base;
+
+  &.button_round {
+    @include button-round;
+  }
+}
+
+// 默认按钮样式
+.default_button {
+  @apply bg-gray-200 text-black;
+
+  &:hover {
+    @apply bg-blue-100 text-blue-500;
+  }
+
+  &:active {
+    @apply bg-blue-200 border border-blue-500 ring-blue-500;
+  }
+
+  &.f-active {
+    @apply bg-blue-100 text-blue-500;
+  }
+}
+
+// primary按钮样式
+.primary_button {
+  @include button-style($bgColor: "bg-blue-500", $textColor: "text-white", $hoverColor: "blue", $activeColor: "blue");
+}
+
+.success_button {
+  @include button-style(
+    $bgColor: "bg-green-500",
+    $textColor: "text-white",
+    $hoverColor: "green",
+    $activeColor: "green"
+  );
+}
+
+.info_button {
+  @include button-style($bgColor: "bg-gray-500", $textColor: "text-white", $hoverColor: "gray", $activeColor: "gray");
+}
+
+.danger_button {
+  @include button-style($bgColor: "bg-red-500", $textColor: "text-white", $hoverColor: "red", $activeColor: "red");
+}
+
+.warning_button {
+  @include button-style(
+    $bgColor: "bg-yellow-500",
+    $textColor: "text-white",
+    $hoverColor: "yellow",
+    $activeColor: "yellow"
+  );
+}
+
+// -------plain------
+
+.default_button_plain {
+  @apply bg-white text-black border ring-black ring-.5;
+
+  &:hover {
+    @apply text-blue-500 border-blue-500 ring-blue-500;
+  }
+
+  &.f-active {
+    @apply text-blue-500 border-blue-500 ring-blue-500 ;
+  }
+}
+
+.primary_button_plain {
+  @include button-plain($bgColor: "blue");
+}
+
+.success_button_plain {
+  @include button-plain($bgColor: "green");
+}
+
+.info_button_plain {
+  @include button-plain($bgColor: "gray");
+}
+
+.warning_button_plain {
+  @include button-plain($bgColor: "yellow");
+}
+
+.danger_button_plain {
+  @include button-plain($bgColor: "red");
+}
+
+.btn_icon {
+  margin-right: 2px;
+  &.white {
+    color:white;
+  }
+  &.black {
+    color: black;
+  }
+  &.small {
+    font-size: 12px;
+  }
+  &.medium {
+    font-size: 16px;
+  }
+  &.large {
+    font-size: 18px;
+  }
+}

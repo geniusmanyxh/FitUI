@@ -1,19 +1,41 @@
 {
-  "hash": "0a86a1a0",
-  "browserHash": "8f214593",
+  "hash": "ce9782bd",
+  "browserHash": "41fe0ddc",
   "optimized": {
     "vue": {
-      "src": "../../../../../../node_modules/.pnpm/vue@3.3.4/node_modules/vue/dist/vue.runtime.esm-browser.js",
+      "src": "../../../../../../node_modules/.pnpm/vue@3.3.4/node_modules/vue/dist/vue.runtime.esm-bundler.js",
       "file": "vue.js",
-      "fileHash": "8c664fe6",
+      "fileHash": "c8e52af3",
       "needsInterop": false
     },
     "vitepress > @vue/devtools-api": {
-      "src": "../../../../../../node_modules/.pnpm/@vue+devtools-api@6.5.0/node_modules/@vue/devtools-api/lib/esm/index.js",
+      "src": "../../../../../../node_modules/.pnpm/@vue+devtools-api@6.5.1/node_modules/@vue/devtools-api/lib/esm/index.js",
       "file": "vitepress___@vue_devtools-api.js",
-      "fileHash": "a5e5aaab",
+      "fileHash": "1d4497ad",
       "needsInterop": false
+    },
+    "prismjs/components/index": {
+      "src": "../../../../../../node_modules/.pnpm/prismjs@1.29.0/node_modules/prismjs/components/index.js",
+      "file": "prismjs_components_index.js",
+      "fileHash": "f410022f",
+      "needsInterop": true
+    },
+    "prismjs": {
+      "src": "../../../../../../node_modules/.pnpm/prismjs@1.29.0/node_modules/prismjs/prism.js",
+      "file": "prismjs.js",
+      "fileHash": "9380d91d",
+      "needsInterop": true
+    },
+    "escape-html": {
+      "src": "../../../../../../node_modules/.pnpm/escape-html@1.0.3/node_modules/escape-html/index.js",
+      "file": "escape-html.js",
+      "fileHash": "82580e79",
+      "needsInterop": true
     }
   },
-  "chunks": {}
+  "chunks": {
+    "chunk-CQXHTUV2": {
+      "file": "chunk-CQXHTUV2.js"
+    }
+  }
 }
