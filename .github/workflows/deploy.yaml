@@ -50,7 +50,7 @@ jobs:
 
       # 3 安装检索依赖
       - name: Install dependencies (安装依赖)
-        run: cd packages/fit-docs && pnpm install
+        run: pnpm install
 
       # 4 如果变化重新设置缓存 node_modules
       - name: restore cache from node_modules
