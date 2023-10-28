@@ -28,7 +28,7 @@ const props = defineProps<{
 
 const fbutton = ref()
 const plainSty = '_plain'
-const activeSty = 'f-active'
+// const activeSty = 'f-active'
 const roundSty = 'button_round'
 
 const buttonSizeClass = ref(btnSizeClass['medium'])
@@ -101,19 +101,19 @@ const handleBtnIcon = (i: allIconType | undefined) => {
   curBtnIcon.value = i
 
   // 如果不是default，图标颜色为白色,否则为黑色
-  if (buttonType.value !== 'default') {
-    if (!btnIconClassArr.includes('white')) {
-      btnIconClassArr = btnIconClassArr.filter(val => val !== 'black')
-      btnIconClassArr.push('white')
-    }
+  // if (buttonType.value !== 'default') {
+  //   if (!btnIconClassArr.includes('white')) {
+  //     btnIconClassArr = btnIconClassArr.filter(val => val !== 'black')
+  //     btnIconClassArr.push('white')
+  //   }
 
-  } else {
-    if (!btnIconClassArr.includes('black')) {
-      btnIconClassArr = btnIconClassArr.filter(val => val !== 'white')
-      btnIconClassArr.push('black')
-    }
+  // } else {
+  //   if (!btnIconClassArr.includes('black')) {
+  //     btnIconClassArr = btnIconClassArr.filter(val => val !== 'white')
+  //     btnIconClassArr.push('black')
+  //   }
 
-  }
+  // }
   // 根据按钮尺寸修改图标大小
   let size = buttonSizeClass.value.split('_')[0];
   if (!btnIconClassArr.includes(size)) {
@@ -136,12 +136,14 @@ const handleBtnIcon = (i: allIconType | undefined) => {
     if (buttonType.value !== 'default') {
       btnIconClassArr = btnIconClassArr.filter(val => {
         let color = Object.keys(iconColor).
-          map(v => `text-${v}-500`).
-          concat(['black', 'white'])
-
+          map(v => `text-${v}-500`);
+        color = [...color, 'black', 'white']
         return !color.includes(val)
       })
       btnIconClassArr.push(`text-${curColor}-500`)
+    } 
+    else {
+      btnIconClassArr = btnIconClassArr.filter(val =>val !== 'black' && val !=='white')
     }
   }
 }
@@ -169,10 +171,10 @@ const handleEvent = (e: Event) => {
   if (fbutton.value) {
     const el = fbutton.value as HTMLElement
     if (!el.contains(e.target as HTMLElement)) {
-      el.classList.remove(activeSty)
+      // el.classList.remove(activeSty)
 
     } else {
-      el.classList.add(activeSty)
+      // el.classList.add(activeSty)
 
     }
 

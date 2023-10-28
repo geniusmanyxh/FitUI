@@ -5,11 +5,11 @@ button {
   border: none;
   cursor: pointer;
   box-sizing: border-box;
-  @apply flex justify-center items-center focus:outline-none focus:ring-1;
+  @apply mr-2 mb-2 flex justify-center items-center focus:outline-none focus:ring-1;
 }
 
 .small_but {
-  @apply px-2 py-1 shadow-sm rounded-sm text-xs;
+  @apply px-2 py-1 shadow-sn rounded-md text-xs;
 
   &.button_round {
     @include button-round;
@@ -34,7 +34,7 @@ button {
 
 // 默认按钮样式
 .default_button {
-  @apply bg-gray-200;
+  @apply bg-gray-200 text-black;
 
   &:hover {
     @apply bg-blue-100 text-blue-500;

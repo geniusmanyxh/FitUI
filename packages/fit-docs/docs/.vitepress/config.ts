@@ -1,3 +1,5 @@
+import {type UserConfig, defineConfig } from 'vitepress'
+
 const sidebar = {
   '/': [
     {
@@ -16,16 +18,14 @@ const sidebar = {
     }
   ]
 }
-const config = {
+const config:UserConfig = {
   themeConfig: {
     sidebar,
   },
-  // markdown: {
-  //   config: (md) => {
-  //     // 添加DemoBlock插槽
-  //     const { demoBlockPlugin } = require('vitepress-theme-demoblock')
-  //     md.use(demoBlockPlugin)
-  //   }
-  // }
+  markdown: {
+    config: (md) => {
+      // md.use(demoblock)
+  }
+  },
 }
 export default config
