@@ -37,6 +37,9 @@ jobs:
       # 1 将代码仓库的内容拉取（或称为检出）到工作目录中，以便在下面的工作流程中使用
       - name: checkout
         uses: actions/checkout@v3
+       - uses: pnpm/action-setup@v2
+        with:
+          version: 8
 
       # 2 安装 node 环境，并设置版本为 16（不装默认会最新版本）
       - name: Setup Node.js (设置 node 版本)
