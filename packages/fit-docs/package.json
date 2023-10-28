@@ -38,6 +38,6 @@
     "vue-tsc": "^1.8.5"
   },
   "dependencies": {
-    "@geniusmanyxh/fit-ui": "workspace:^"
+    "@geniusmanyxh/fit-ui": "^0.0.2"
   }
 }

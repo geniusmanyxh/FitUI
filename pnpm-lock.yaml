@@ -40,7 +40,7 @@ importers:
   packages/fit-docs:
     dependencies:
       '@geniusmanyxh/fit-ui':
-        specifier: workspace:^
+        specifier: ^0.0.2
         version: link:../fit-ui
     devDependencies:
       '@types/markdown-it':
