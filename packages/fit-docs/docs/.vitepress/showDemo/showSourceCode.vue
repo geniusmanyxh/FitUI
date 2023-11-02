@@ -11,6 +11,7 @@
 <script setup lang="ts">
 import { ref, watch } from 'vue';
 import { type CurLangType, highlightCode } from './util'
+import * as clipboard from "clipboard-polyfill";
 import 'prismjs/themes/prism-okaidia.min.css'
 
 // @ts-expect-error
@@ -29,7 +30,8 @@ const isCopy = ref(false)
 const copyTip = ref('复制失败!')
 const copyCode = async () => {
   try {
-    await navigator.clipboard.writeText(modules[props.filePath]);
+    // await navigator.clipboard.writeText(modules[props.filePath]);
+    await clipboard.writeText(modules[props.filePath]);
     // console.log('Text copied successfully!');
     copyTip.value = '复制成功!'
     isCopy.value = true

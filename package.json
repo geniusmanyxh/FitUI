@@ -18,6 +18,7 @@
   "author": "geniusmanyxh",
   "license": "ISC",
   "dependencies": {
+    "@geniusmanyxh/fit-ui": "workspace:^",
     "vite": "^4.4.7"
   },
   "devDependencies": {

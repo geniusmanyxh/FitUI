@@ -8,6 +8,9 @@ importers:
 
   .:
     dependencies:
+      '@geniusmanyxh/fit-ui':
+        specifier: workspace:^
+        version: link:packages/fit-ui
       vite:
         specifier: ^4.4.7
         version: 4.4.7(@types/node@20.8.8)
@@ -38,6 +41,10 @@ importers:
         version: 3.6.0(@types/node@20.8.8)(typescript@5.0.4)(vite@4.4.7)
 
   packages/fit-docs:
+    dependencies:
+      clipboard-polyfill:
+        specifier: ^4.0.1
+        version: 4.0.1
     devDependencies:
       '@geniusmanyxh/fit-ui':
         specifier: workspace:^
@@ -3395,6 +3402,10 @@ packages:
       slice-ansi: 5.0.0
       string-width: 5.1.2
     dev: true
+
+  /clipboard-polyfill@4.0.1:
+    resolution: {integrity: sha512-oOxooaJd9dzy78jk1fw4IL+J0SiBn+W24KqUYUwsr0OWEsb5aZlKAWglr9Fg/XEFQMT3ZmJ2AnRoRMZZOMcOQQ==}
+    dev: false
 
   /cliui@8.0.1:
     resolution: {integrity: sha512-BSeNnyus75C4//NQ9gQt1/csTXyo/8Sb+afLAkzAptFuMsod9HFokGNudZpi/oQV73hnVK+sR+5PVRMd+Dr7YQ==}

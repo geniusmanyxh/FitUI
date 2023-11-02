@@ -27,6 +27,7 @@ import type { Component } from 'vue'
 import type { CurLangType } from './util'
 import showSourceCode from "./showSourceCode.vue";
 
+
 const props = withDefaults(defineProps<{
   rootPath?: string
   filePath?: string
@@ -42,13 +43,17 @@ const props = withDefaults(defineProps<{
 const slots = useSlots()
 const hasSlots = ref(slots.default !== undefined ? true : false)
 const hasDescSlots = ref(slots.desc !== undefined ? true : false)
+// @ts-expect-error
+const components = import.meta.glob('../../examples/*/*.vue')
 
 // 渲染动态组件
 const fullPath = ref(`${props.rootPath}/${props.filePath}`)
 const dynamicComponent = shallowRef<Component>();
+// const test = defineAsyncComponent(() => import(/* @vite-ignore */fullPath.value))
+
 const loadDynamicComponent = async (path: string) => {
   // const { default: component } = await import(/* @vite-ignore */ path)
-  dynamicComponent.value = defineAsyncComponent(() => import(/* @vite-ignore */path))
+  dynamicComponent.value = defineAsyncComponent(components[path])
 }
 
 // 查看组件代码
