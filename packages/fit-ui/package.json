@@ -9,6 +9,17 @@
   "main": "dist/lib/fit-ui.js",
   "module": "dist/es/fit-ui.js",
   "types": "dist/es/src/entry.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/es/src/entry.d.ts",
+      "import": "./dist/es/fit-ui.js",
+      "require": "./dist/lib/fit-ui.js"
+    },
+    "./*": [
+      "./*",
+      "./*.d.ts"
+    ]
+  },
   "scripts": {
     "dev": "vite",
     "build": "pnpm build:components",
