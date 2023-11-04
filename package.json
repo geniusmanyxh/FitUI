@@ -4,7 +4,8 @@
   "description": "基于vue3+vite+unocss的UI组件库",
   "main": "index.js",
   "scripts": {
-    "docs:build": "pnpm recursive run d:build --filter fit-docs",
+    "docs:build": "pnpm recursive run build --filter fit-docs",
+    "docs:build:dev": "pnpm recursive run build:dev --filter fit-docs",
     "docs:dev": "pnpm recursive run d:dev --filter fit-docs",
     "ui:build": "pnpm recursive run build:all --filter fit-ui",
     "ui:dev": "pnpm recursive run dev --filter fit-ui",

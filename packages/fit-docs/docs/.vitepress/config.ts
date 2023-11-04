@@ -1,4 +1,5 @@
 import {type UserConfig, defineConfig } from 'vitepress'
+import { envVal } from './envConfig'
 
 const sidebar = {
   '/': [
@@ -19,7 +20,9 @@ const sidebar = {
   ]
 }
 const config:UserConfig = {
+  base:envVal.VITE_BASE_URL,
   themeConfig: {
+    
     sidebar,
     siteTitle: false,
     logo:'/logo.png',
