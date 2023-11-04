@@ -24,6 +24,9 @@ importers:
       '@types/less':
         specifier: ^3.0.3
         version: 3.0.3
+      conventional-changelog-atom:
+        specifier: ^4.0.0
+        version: 4.0.0
       cpy:
         specifier: ^10.1.0
         version: 10.1.0
@@ -3490,6 +3493,11 @@ packages:
     engines: {node: '>=14'}
     dependencies:
       compare-func: 2.0.0
+    dev: true
+
+  /conventional-changelog-atom@4.0.0:
+    resolution: {integrity: sha512-q2YtiN7rnT1TGwPTwjjBSIPIzDJCRE+XAUahWxnh+buKK99Kks4WLMHoexw38GXx9OUxAsrp44f9qXe5VEMYhw==}
+    engines: {node: '>=16'}
     dev: true
 
   /conventional-changelog-conventionalcommits@5.0.0:

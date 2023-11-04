@@ -1,9 +1,13 @@
 {
   "name": "fitui",
   "version": "1.0.0",
-  "description": "一个练手的UI组件库",
+  "description": "基于vue3+vite+unocss的UI组件库",
   "main": "index.js",
   "scripts": {
+    "docs:build": "pnpm recursive run d:build --filter fit-docs",
+    "docs:dev": "pnpm recursive run d:dev --filter fit-docs",
+    "ui:build": "pnpm recursive run build:all --filter fit-ui",
+    "ui:dev": "pnpm recursive run dev --filter fit-ui",
     "preinstall": "node ./scripts/preinstall.js",
     "prepare": "husky install"
   },
@@ -25,6 +29,7 @@
     "@commitlint/cli": "17.0.2",
     "@commitlint/config-conventional": "17.0.2",
     "@types/less": "^3.0.3",
+    "conventional-changelog-atom": "^4.0.0",
     "cpy": "^10.1.0",
     "fast-glob": "^3.3.1",
     "husky": "^8.0.3",
