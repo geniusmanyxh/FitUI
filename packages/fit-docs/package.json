@@ -1,7 +1,7 @@
 {
   "name": "fit-docs",
   "version": "1.0.0",
-  "description": "",
+  "description": "Fit-UI组件库文档,静态站点",
   "main": "index.js",
   "scripts": {
     "d:dev": "vitepress dev docs",
