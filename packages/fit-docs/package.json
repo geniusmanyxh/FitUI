@@ -4,6 +4,7 @@
   "description": "Fit-UI组件库文档,静态站点",
   "main": "index.js",
   "scripts": {
+    "copy:pages":"pnpm  exec -- cp -R ./docs/.vitepress/dist/** ./gitpages",
     "d:dev": "vitepress dev docs",
     "d:build": "vitepress build docs",
     "d:serve": "vitepress serve docs"
