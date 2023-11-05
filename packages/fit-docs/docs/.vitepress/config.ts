@@ -48,4 +48,4 @@ const config:UserConfig = {
   }
   },
 }
-export default config
+export default defineConfig(config)
