@@ -82,16 +82,18 @@ export const config = {
 
 
 
-    dts({
-      entryRoot: "src",
-      outDir: [
-        resolve(__dirname, "./dist/es/src"),
-        resolve(__dirname, "./dist/lib/src"),
-      ],
-      include: ['**/**/*.ts', '**/**/*.tsx', '**/**/*.d.ts'],
-      //指定使用的tsconfig.json为我们整个项目根目录下掉,如果不配置,你也可以在components下新建tsconfig.json
-      tsconfigPath: './tsconfig.json',
-    }),
+    dts(
+    //   {
+    //   entryRoot: "src",
+    //   outDir: [
+    //     resolve(__dirname, "./dist/es/src"),
+    //     resolve(__dirname, "./dist/lib/src"),
+    //   ],
+    //   include: ['**/**/*.ts', '**/**/*.tsx', '**/**/*.d.ts'],
+    //   //指定使用的tsconfig.json为我们整个项目根目录下掉,如果不配置,你也可以在components下新建tsconfig.json
+    //   tsconfigPath: './tsconfig.json',
+    // }
+    ),
     // changeCSS,
     DefineOptions()
 

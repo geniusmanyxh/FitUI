@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "copy:pages": "pnpm  exec -- cp -R ./docs/.vitepress/dist/** ./gitpages",
-    "d:dev": "vitepress dev docs",
+    "d:dev": "vitepress dev docs --env_type dev",
     "d:build:dev": "vitepress build docs --env_type dev",
     "d:build:prod": "vitepress build docs --env_type prod",
     "d:serve": "vitepress serve docs",

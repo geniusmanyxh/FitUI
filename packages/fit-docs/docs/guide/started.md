@@ -1,15 +1,6 @@
-# FitUI
-基于 Vue3 + Vite + UnoCSS 的UI组件库
+# 快速上手
 
-
-
-[默认文档网站](http://fitui.itbooks.work): http://fitui.itbooks.work
-
-[github Pages 文档网站](https://geniusmanyxh.github.io/FitUI):https://geniusmanyxh.github.io/FitUI
-
-
-
-### 使用npm安装
+## 使用npm安装
 
 在现有Vue3项目中使用 FitUI 时，可以通过 npm 进行安装：
 
@@ -28,7 +19,7 @@
   pnpm add @geniusmanyxh/fit-ui
 ```
 
-### 引入组件
+## 引入组件
 
 ```js
 import { createApp } from 'vue';
@@ -43,7 +34,7 @@ const app = createApp();
 app.use(FButton);
 ```
 
-### `<script setup>`
+## `<script setup>`
 
 ```html
 <template>

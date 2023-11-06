@@ -9,5 +9,8 @@ export default defineConfig({
     // 添加JSX插件
     vueJsxPlugin(),
     VueSetupExtend()
-  ]
+  ],
+  // build: {
+  //   target:''
+  // }
 })

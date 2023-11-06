@@ -1,20 +1,18 @@
-import {type UserConfig, defineConfig } from 'vitepress'
+import type {UserConfig}  from 'vitepress'
 import { envVal } from './envConfig'
-
 const sidebar = {
   '/': [
     {
       text: 'Guide',
       items: [
-        { text: '快速开始', link: '/' }, 
-        { text: '通用', link: '/components/button/' }, 
+        { text: '快速开始', link: '/guide/started' }, 
       ]
     },
     {
       text: 'Components',
       items: [
-        { text: '组件', link: '/components/' },
         { text: '按钮', link: '/components/button/' }, 
+        { text: 'icon', link: '/components/icon/' }, 
       ]
     }
   ]
@@ -48,4 +46,4 @@ const config:UserConfig = {
   }
   },
 }
-export default defineConfig(config)
+export default config
