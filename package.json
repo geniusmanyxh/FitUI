@@ -4,7 +4,7 @@
   "description": "基于vue3+vite+unocss的UI组件库",
   "main": "index.js",
   "scripts": {
-    "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s ",
+    "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s",
     "changelog:init": "conventional-changelog -p angular -i CHANGELOG.md -s -r 0",
     "docs:build": "pnpm recursive run build --filter fit-docs --env_type prod",
     "docs:build:dev": "pnpm recursive run build:dev --filter fit-docs --env_type dev",

@@ -1,4 +1,4 @@
-# [1.0.0](https://github.com2/geniusmanyxh/FitUI/compare/0.0.1-alpha...1.0.0) (2023-11-07)
+## [1.0.1](https://github.com2/geniusmanyxh/FitUI/compare/0.0.1-alpha...v1.0.1) (2023-11-07)
 
 
 ### Bug Fixes
