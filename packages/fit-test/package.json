@@ -1,7 +1,8 @@
 {
   "name": "fit-test",
   "private": true,
-  "version": "0.0.0",
+  "version": "0.0.1",
+  "description": "基于vue3+vite+unocss的UI组件库测试",
   "type": "module",
   "scripts": {
     "dev": "vite",
