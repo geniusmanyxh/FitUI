@@ -9,7 +9,7 @@
     "d:build:dev": "vitepress build docs --env_type dev",
     "d:build:prod": "vitepress build docs --env_type prod",
     "d:serve": "vitepress serve docs",
-    "build": "pnpm run d:build:prod && pnpm run copy:pages",
+    "d:build": "pnpm run d:build:prod && pnpm run copy:pages",
     "build:dev": "pnpm run d:build:dev"
 
   },
