@@ -6,7 +6,7 @@ hero:
   text: 基于 Vue3 + Vite + UnoCSS 的UI组件库。
   tagline: 方便、有效、易用.
   image:
-    src: /logo.png
+    src: /Fit.png
     alt: fit ui
   actions:
     - theme: brand

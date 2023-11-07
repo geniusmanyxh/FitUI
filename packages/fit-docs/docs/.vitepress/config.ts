@@ -19,10 +19,15 @@ const sidebar = {
 }
 const config: UserConfig = {
   base: envVal.VITE_BASE_URL,
+  title: 'Fit-UI',
+  description: 'Vue 3 组件库.',
+  head: [
+    ['link', { rel: 'icon', href: '/Fit.png' }],
+  ],
   themeConfig: {
     sidebar,
     siteTitle: false,
-    logo: '/logo.png',
+    logo: '/Fit.png',
     search: {
       provider: 'local'
     },
