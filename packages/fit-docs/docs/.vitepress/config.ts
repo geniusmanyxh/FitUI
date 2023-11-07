@@ -1,29 +1,28 @@
-import type {UserConfig}  from 'vitepress'
+import type { UserConfig } from 'vitepress'
 import { envVal } from './envConfig'
 const sidebar = {
   '/': [
     {
       text: 'Guide',
       items: [
-        { text: '快速开始', link: '/guide/started' }, 
+        { text: '快速开始', link: '/guide/started' },
       ]
     },
     {
       text: 'Components',
       items: [
-        { text: '按钮', link: '/components/button/' }, 
-        { text: 'icon', link: '/components/icon/' }, 
+        { text: '按钮', link: '/components/button/' },
+        { text: 'icon', link: '/components/icon/' },
       ]
     }
   ]
 }
-const config:UserConfig = {
-  base:envVal.VITE_BASE_URL,
+const config: UserConfig = {
+  base: envVal.VITE_BASE_URL,
   themeConfig: {
-    
     sidebar,
     siteTitle: false,
-    logo:'/logo.png',
+    logo: '/logo.png',
     search: {
       provider: 'local'
     },
@@ -32,8 +31,8 @@ const config:UserConfig = {
       copyright: 'Copyright © 2023-present 天界程序员'
     },
     nav: [
-      { text: 'Guide', link: '/guide' },
-      { text: 'Conponents', link: '/components/' },
+      { text: 'Guide', link: '/guide/started' },
+      { text: 'Conponents', link: '/components/button/' },
       { text: 'Changelog', link: 'https://github.com/...' }
     ],
     socialLinks: [
@@ -43,7 +42,7 @@ const config:UserConfig = {
   markdown: {
     config: (md) => {
       // md.use(demoblock)
-  }
+    }
   },
 }
 export default config
