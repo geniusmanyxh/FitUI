@@ -11,7 +11,7 @@ hero:
   actions:
     - theme: brand
       text: 查阅文档
-      link: /components/
+      link: /guide/started
     - theme: alt
       text: GitHub源码地址
       link: https://github.com/geniusmanyxh/FitUI

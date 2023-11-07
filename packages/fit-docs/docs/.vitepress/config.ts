@@ -33,7 +33,7 @@ const config: UserConfig = {
     nav: [
       { text: 'Guide', link: '/guide/started' },
       { text: 'Conponents', link: '/components/button/' },
-      { text: 'Changelog', link: 'https://github.com/...' }
+      { text: 'Changelog', link: 'https://github.com/geniusmanyxh/FitUI/blob/master/CHANGELOG.md' }
     ],
     socialLinks: [
       { icon: 'github', link: 'https://github.com/geniusmanyxh/FitUI' },
