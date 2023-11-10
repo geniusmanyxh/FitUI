@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
     "composite": true,
+    "resolveJsonModule": true,
     "declaration": true /* 生成相关的 '.d.ts' 文件。 */,
     "declarationDir": "./dist/types" /* '.d.ts' 文件输出目录 */,
     "jsx": "preserve",
@@ -18,7 +19,7 @@
     },
     "types": ["unplugin-vue-define-options/macros-global"]
   },
-  "include": ["./**/*.*", "./src/shims-vue.d.ts"],
+  "include": ["./**/*.*", "./src/shims-vue.d.ts","./utils/**/*.*"],
   "exclude": ["node_modules","dist","demo"],
   "esModuleInterop": true,
   "allowSyntheticDefaultImports": true

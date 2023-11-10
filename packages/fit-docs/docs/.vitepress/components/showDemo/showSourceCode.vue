@@ -15,13 +15,13 @@ import * as clipboard from "clipboard-polyfill";
 import 'prismjs/themes/prism-okaidia.min.css'
 
 // @ts-expect-error
-const modules = import.meta.glob('../../examples/*/*.vue', { as: 'raw', eager: true })
+const modules = import.meta.glob('../../../examples/*/*.vue', { as: 'raw', eager: true })
 
 const props = withDefaults(defineProps<{
   filePath?: string
   lang?: CurLangType
 }>(), {
-  filePath: '../../examples/button/index.vue',
+  filePath: '../../../examples/button/index.vue',
   lang: 'html'
 })
 

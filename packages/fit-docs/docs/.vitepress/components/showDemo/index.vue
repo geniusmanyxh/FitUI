@@ -34,7 +34,7 @@ const props = withDefaults(defineProps<{
   desc?: string | null
   lang?: CurLangType
 }>(), {
-  rootPath: '../../examples',
+  rootPath: '../../../examples',
   filePath: 'button/index.vue',
   desc: null,
   lang: 'vue'
@@ -44,7 +44,7 @@ const slots = useSlots()
 const hasSlots = ref(slots.default !== undefined ? true : false)
 const hasDescSlots = ref(slots.desc !== undefined ? true : false)
 // @ts-expect-error
-const components = import.meta.glob('../../examples/*/*.vue')
+const components = import.meta.glob('../../../examples/*/*.vue')
 
 // 渲染动态组件
 const fullPath = ref(`${props.rootPath}/${props.filePath}`)
