@@ -162,7 +162,6 @@ const monoIcon = [
   "storm",
   "strikethrough",
   "sun",
-  "sunrise-1",
   "sunrise",
   "sunset",
   "switch",

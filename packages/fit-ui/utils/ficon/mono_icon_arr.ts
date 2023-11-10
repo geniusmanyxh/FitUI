@@ -151,7 +151,6 @@ export default  [
   "storm",
   "strikethrough",
   "sun",
-  "sunrise-1",
   "sunrise",
   "sunset",
   "switch",
