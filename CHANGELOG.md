@@ -1,8 +1,9 @@
-## [1.0.3](https://github.com2/geniusmanyxh/FitUI/compare/v1.0.2...v1.0.3) (2023-11-07)
+# [2.0.0](https://github.com2/geniusmanyxh/FitUI/compare/v1.0.3...v2.0.0) (2023-11-10)
 
 
+### Features
 
-## [1.0.2](https://github.com2/geniusmanyxh/FitUI/compare/v1.0.1...v1.0.2) (2023-11-07)
+* **icon:** 新增mono—icon ([25e7a8d](https://github.com2/geniusmanyxh/FitUI/commit/25e7a8dd095c6480cd5543266b7dc924a92d6b33))
 
 
 
@@ -29,6 +30,3 @@
 ### Bug Fixes
 
 * 修复github工作流代码注释错误 ([93ae1f1](https://github.com2/geniusmanyxh/FitUI/commit/93ae1f1d59c7ab1705f26ce0bbebdc76b29bf983))
-
-
-
