@@ -1,6 +1,6 @@
 {
   "name": "fitui",
-  "version": "1.0.3",
+  "version": "2.0.0",
   "description": "基于vue3+vite+unocss的UI组件库",
   "main": "index.js",
   "scripts": {
