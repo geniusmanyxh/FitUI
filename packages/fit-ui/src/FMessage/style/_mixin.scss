@@ -1,0 +1,3 @@
+@mixin msg-bgcolor($color) {
+  @apply bg-#{$color}-100 text-#{$color}-500 border border-#{$color}-500 ring-#{$color}-500;
+}

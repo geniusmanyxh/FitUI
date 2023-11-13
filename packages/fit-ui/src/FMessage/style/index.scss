@@ -1,0 +1,68 @@
+@import "./mixin.scss";
+.f-message {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  padding-left: 5px;
+  padding-right: 5px;
+  top: 40%;
+  left: 50%;
+  transform: translate(-40%, -50%);
+  border-radius: 5px;
+  box-sizing: border-box;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  // background-color: rgba(0, 0, 0, 0.6);
+  // backdrop-filter: blur(10px);
+  user-select: none;
+  z-index: 999;
+
+  &-content {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: row;
+    font-size: 18px;
+    box-sizing: border-box;
+    @apply px-2 py-2;
+  }
+
+  &-close{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+    @apply cursor-pointer;
+
+    &:hover {
+      color: white;
+    }
+  }
+
+  &.msg_success {
+    @include msg-bgcolor($color: "green");
+  }
+
+  &.msg_error {
+    @include msg-bgcolor($color: "red");
+  }
+
+  &.msg_warn {
+    @include msg-bgcolor($color: "yellow");
+  }
+
+  &.msg_info {
+    @include msg-bgcolor($color: "gray");
+  }
+
+  &.msg_default {
+    @include msg-bgcolor($color: "blue");
+  }
+
+}
+
+.flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
