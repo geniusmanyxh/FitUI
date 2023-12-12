@@ -1,4 +1,4 @@
 import { createEl } from './createEl'
+import { removeElById } from './removeEL'
 
-
-export { createEl }
+export { createEl,removeElById }

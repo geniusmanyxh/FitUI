@@ -5,7 +5,7 @@
         <f-icon :icon="defaultIcon" size="medium" class="-m-1.5 mr-1"></f-icon>
         <span>你好</span>
       </div>
-      <div class="f-message-close " @click="close">
+      <div class="f-message-close " @click="closeMessage">
         <f-icon icon="close" size="medium" class="-m-1.5 mr-1"></f-icon>
       </div>
     </div>
@@ -13,8 +13,8 @@
 </template>
 
 <script setup lang="ts">
-import { ref, watch } from 'vue'
-import { createEl } from '../../utils/tsHooks'
+import { ref, watch,onUnmounted } from 'vue'
+import { createEl,removeElById } from '../../utils/tsHooks'
 import FIcon from '@/FIcon'
 type MsgType = 'success' | 'error' | 'warn' | 'info' | 'default'
 
@@ -34,12 +34,21 @@ const props = withDefaults(defineProps<{
   icon: 'circle-information',
   showClose: false
 })
-
+onUnmounted(()=>{
+  console.log('unmounted')
+})
 
 const isShow = ref(true);
 // eslint-disable-next-line no-unused-vars
 const curType = ref('default');
-const defaultIcon = ref('circle-information')
+const defaultIcon = ref<any>('circle-information')
+
+const closeMessage = () => {
+  isShow.value = false
+
+  removeElById('f-message-box')
+ 
+}
 
 watch(
   () => props.type,

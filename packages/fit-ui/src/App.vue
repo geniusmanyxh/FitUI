@@ -5,6 +5,7 @@
   <f-button size="medium">medium</f-button>
   <f-button size="large">large</f-button>
     <FIcon icon="typescript" :size="50"></FIcon> -->
+    <div id="f-message-box">111</div>
     <FMessage></FMessage>
   </div>
 </template>
