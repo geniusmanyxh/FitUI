@@ -6,9 +6,9 @@
   position: fixed;
   padding-left: 5px;
   padding-right: 5px;
-  top: 40%;
+  top: 30%;
   left: 50%;
-  transform: translate(-40%, -50%);
+  transform: translate(-30%, -50%);
   border-radius: 5px;
   box-sizing: border-box;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
@@ -27,7 +27,7 @@
     @apply px-2 py-2;
   }
 
-  &-close{
+  &-close {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -58,11 +58,35 @@
   &.msg_default {
     @include msg-bgcolor($color: "blue");
   }
-
 }
 
 .flex-center {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.fadeIn {
+  @include fade-in(0.5s); // 动画时长为2秒，无限循环
+}
+
+/* 在现有的样式基础上新增 CSS 过渡类 */
+// .fade-message-enter-active {
+//   @include fade-in(0.5s);
+// }
+.fade-message-enter-active,
+.fade-message-leave-active {
+  transition: all 0.5s ease-in-out;
+  opacity: 1;
+}
+
+.fade-message-enter-from,
+.fade-message-leave-to {
+  transform: translate(-30%, 100px); /* 初始时从底部之外进入 */
+  opacity: 0;
+}
+
+.fade-message-leave-active {
+  transform: translate(-30%, -100px); /* 消失时向上移出 */
+  opacity: 0;
 }

@@ -34,8 +34,7 @@ export const createEl = (selectorName:string,selectorType:selecorType = 'id',elT
 
         document.body.appendChild(cEl)
 
-        onBeforeUnmount(() => {
-          
+        onBeforeUnmount(() => { 
           document.body.removeChild(cEl)
         })
       } else {

@@ -1,3 +1,38 @@
 @mixin msg-bgcolor($color) {
   @apply bg-#{$color}-100 text-#{$color}-500 border border-#{$color}-500 ring-#{$color}-500;
 }
+
+// 定义一个包含动画参数的 mixin
+@mixin fade-animation($duration, $delay: 0s, $iteration-count: infinite) {
+  animation: fadeInOut $duration $delay $iteration-count;
+}
+
+// 定义动画名称和关键帧
+@keyframes fadeInOut {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@mixin fade-in($duration, $delay: 0s, $iteration-count: ease-in-out) {
+  animation: fadeIn $duration $delay $iteration-count;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    filter: blur(5px);
+    transform: translateY(100px) translate(-40%, -50%);
+  }
+  100% {
+    opacity: 1;
+    filter: blur(0px);
+    transform: translateY(0) translate(-40%, -50%);
+  }
+}
