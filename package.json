@@ -26,6 +26,7 @@
   "license": "ISC",
   "dependencies": {
     "@geniusmanyxh/fit-ui": "workspace:^",
+    "@geniusmanyxh/fui": "^1.0.0",
     "vite": "^4.4.7"
   },
   "devDependencies": {

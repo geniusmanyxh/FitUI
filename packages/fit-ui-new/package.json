@@ -1,15 +1,37 @@
 {
-  "name": "fit-ui-new",
+  "name": "@geniusmanyxh/fui",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "files": [
+    "dist/**/*"
+  ],
+  "main": "dist/lib/entry/entry.js",
+  "module": "dist/es/entry/entry.js",
+  "types": "dist/fui.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/fui.d.ts",
+      "import": "./dist/es/entry/entry.js",
+      "require": "./dist/lib/entry/entry.js"
+    },
+    "./*": [
+      "./*",
+      "./*.d.ts"
+    ]
+  },
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "clear": "rm -rf dist",
+    "prebuild": "pnpm run clear"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "Vue3",
+    "Vite",
+    "TypeScript"
+  ],
+  "author": "geniusmanyxh",
   "license": "ISC",
   "browserslist": [
     "> 0.5%",
@@ -41,10 +63,11 @@
     "terser": "^5.19.2",
     "typescript": "^5.0.2",
     "unplugin-vue-define-options": "^1.4.3",
+    "vite": "^4.5.0",
     "vite-plugin-dts": "^3.9.0",
     "vite-plugin-vue-setup-extend": "^0.4.0",
     "vitest": "^1.5.2",
-    "vue": "^3.3.4"
+    "vue": "^3.4.26"
   },
   "dependencies": {
     "@vanilla-extract/css": "^1.14.2"
