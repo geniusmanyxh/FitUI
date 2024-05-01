@@ -1,4 +1,4 @@
-import icon from './FIcon.vue'
+import icon from './index.vue'
 import {withInstall} from '../../utils/install'
 
 const FIcon = withInstall(icon)

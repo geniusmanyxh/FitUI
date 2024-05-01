@@ -141,9 +141,9 @@ const handleBtnIcon = (i: allIconType | undefined) => {
         return !color.includes(val)
       })
       btnIconClassArr.push(`text-${curColor}-500`)
-    } 
+    }
     else {
-      btnIconClassArr = btnIconClassArr.filter(val =>val !== 'black' && val !=='white')
+      btnIconClassArr = btnIconClassArr.filter(val => val !== 'black' && val !== 'white')
     }
   }
 }

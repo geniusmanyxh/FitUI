@@ -9,7 +9,7 @@
     "docs:build": "pnpm recursive run d:build --filter fit-docs --env_type prod",
     "docs:build:dev": "pnpm recursive run build:dev --filter fit-docs --env_type dev",
     "docs:dev": "pnpm recursive run d:dev --filter fit-docs --env_type dev",
-    "ui:build": "pnpm recursive run build:all --filter fit-ui",
+    "ui:build": "pnpm recursive run build --filter fit-ui",
     "ui:dev": "pnpm recursive run dev --filter fit-ui",
     "preinstall": "node ./scripts/preinstall.js",
     "prepare": "husky install"

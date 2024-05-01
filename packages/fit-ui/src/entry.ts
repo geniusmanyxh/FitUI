@@ -6,8 +6,11 @@ import 'uno.css'
 export { FButton, FIcon, FMessage }
 
 const components = [FButton, FIcon, FMessage]
+
+const install = (app: App):any => {
+  components.forEach((c) => app.use(c))
+}
+
 export default {
-  install(app: App) {
-    components.forEach((c) => app.use(c))
-  },
+  install
 }
