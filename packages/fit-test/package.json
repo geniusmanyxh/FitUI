@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "@geniusmanyxh/fit-ui": "workspace:^",
-    "vue": "^3.3.4"
+    "vue": "^3.4.26"
   },
   "devDependencies": {
     "@iconify-json/ic": "^1.1.13",

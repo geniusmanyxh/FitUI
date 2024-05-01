@@ -11,7 +11,6 @@
     "d:serve": "vitepress serve docs",
     "d:build": "pnpm run d:build:prod && pnpm run copy:pages",
     "build:dev": "pnpm run d:build:dev"
-
   },
   "keywords": [],
   "author": "",
@@ -41,7 +40,7 @@
     "vitepress-demoblock": "^1.0.4",
     "vitepress-theme-demoblock": "^3.0.3",
     "vitest": "0.28.1",
-    "vue": "^3.3.4",
+    "vue": "^3.4.26",
     "vue-tsc": "^1.8.5"
   },
   "dependencies": {
