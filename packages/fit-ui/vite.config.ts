@@ -9,7 +9,7 @@ import dts from 'vite-plugin-dts'
 import { resolve } from 'path'
 import DefineOptions from 'unplugin-vue-define-options/vite'
 
-import { formatAssetFile,formatChunkFile,formatEntryFile } from './config/formatBuildFileName'
+// import { formatAssetFile,formatChunkFile,formatEntryFile } from './config/formatBuildFileName'
 
 type ExportsType = 'default' | 'named' | 'none' | 'auto'
 
@@ -60,6 +60,10 @@ const rollupOptions = {
 }
 
 export const config = {
+  define: {
+    // 启用生产环境构建下激活不匹配的详细警告
+    __VUE_PROD_HYDRATION_MISMATCH_DETAILS__: 'true'
+  },
   resolve: {
     alias: {
       // vue: 'vue/dist/vue.esm-bundler.js',

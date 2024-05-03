@@ -5,11 +5,16 @@ button {
   border: none;
   cursor: pointer;
   box-sizing: border-box;
-  @apply mr-2 mb-2 flex justify-center items-center focus:outline-none focus:ring-1;
+  @apply m-0 flex justify-center items-center focus:outline-none focus:ring-1;
+
+  & div:last-child {
+    margin-left: 2px;
+    line-height: normal;
+  }
 }
 
 .small_but {
-  @apply px-2 py-1 shadow-sn rounded-md text-xs;
+  @apply py-1 px-2 shadow-sn rounded-md text-xs;
 
   &.button_round {
     @include button-round;
@@ -17,7 +22,7 @@ button {
 }
 
 .medium_but {
-  @apply px-3 py-2 shadow-md rounded-md text-sm;
+  @apply px-2 py-1 shadow-md rounded-md text-sm;
 
   &.button_round {
     @include button-round;
@@ -25,7 +30,7 @@ button {
 }
 
 .large_but {
-  @apply px-3 py-2 shadow-lg rounded-lg text-base;
+  @apply py-2 px-3 shadow-lg rounded-lg text-base;
 
   &.button_round {
     @include button-round;
@@ -90,7 +95,7 @@ button {
   }
 
   &.f-active {
-    @apply text-blue-500 border-blue-500 ring-blue-500 ;
+    @apply text-blue-500 border-blue-500 ring-blue-500;
   }
 }
 
@@ -115,9 +120,9 @@ button {
 }
 
 .btn_icon {
-  margin-right: 2px;
+  // margin-right: 2px;
   &.white {
-    color:white;
+    color: white;
   }
   &.black {
     color: black;

@@ -12,13 +12,13 @@ import { FIcon } from "@geniusmanyxh/fit-ui";
 </script>
 
 <style scoped lang="scss">
-  .icon {
-    &_red {
-      color: red;
-    }
-
-    &_blue {
-      color: rgb(19, 19, 217);
-    }
+.icon {
+  &_red {
+    color: red;
   }
+
+  &_blue {
+    color: rgb(19, 19, 217);
+  }
+}
 </style>

@@ -34,7 +34,6 @@
     </div>
   </div>
 </template>
-
 <script setup lang="ts">
 import { FButton } from '@geniusmanyxh/fit-ui'
 </script>

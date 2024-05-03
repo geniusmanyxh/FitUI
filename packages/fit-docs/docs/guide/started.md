@@ -26,7 +26,7 @@ import { createApp } from 'vue';
 // 1. 引入你需要的组件
 import { FButton } from '@geniusmanyxh/fit-ui';
 // 2. 引入组件样式
-import '@geniusmanyxh/fit-ui/dist/es/style.css';
+import '@geniusmanyxh/fit-ui/dist/es/css/style.css';
 
 const app = createApp();
 
