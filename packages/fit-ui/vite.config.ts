@@ -68,6 +68,8 @@ export const config = {
     alias: {
       // vue: 'vue/dist/vue.esm-bundler.js',
       '@': resolve(__dirname, 'src'),
+      '@utils': resolve(__dirname, 'utils'),
+      '@enums': resolve(__dirname, 'enums'),
     },
   },
   plugins: [
@@ -78,7 +80,12 @@ export const config = {
     dts({rollupTypes: true}),
     DefineOptions()
   ],
-
+  server: {
+    host: '0.0.0.0',
+    port: 3000,
+    open: false,
+    https: false,
+  },
   // 添加库模式配置
 
   build: {

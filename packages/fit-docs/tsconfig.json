@@ -7,7 +7,7 @@
     "module": "ESNext",
     "moduleResolution": "Node",
   },
-  "include": ["./**/*.*", "docs/.vitepress/config.ts", "env.d.ts"],
+  "include": ["./**/*.*", "docs/.vitepress/config.ts", "env.d.ts","./shims-vue.d.ts"],
   "exclude": ["node_modules"],
   "esModuleInterop": true, 
   

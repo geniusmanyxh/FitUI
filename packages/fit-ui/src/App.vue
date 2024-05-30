@@ -5,16 +5,30 @@
   <f-button size="medium">medium</f-button>
   <f-button size="large">large</f-button>
     <FIcon icon="typescript" :size="50"></FIcon> -->
-    <div id="f-message-box" @click="changeMsg">111</div>
-    <FMessage duration="notime" :show-close="true" v-if="flag"></FMessage>
-    <FMessage type="success" :show-close="true" :duration="2000"></FMessage>
+    <div id="f-message-box1" @click="test1">111</div>
+    <div id="f-message-box1" @click="test2">111</div>
+    <div><FMessage duration="notime" :show-close="true" v-if="flag"></FMessage>
+    </div>
+    <div><FMessage type="success" :show-close="true" :duration="2000"></FMessage></div>
   </div>
 </template>
 
 <script setup lang="ts">
+import {useMessage} from '../utils/tsHooks/useMessage';
 import { FMessage } from './entry'
 import { ref } from 'vue';
 const flag = ref(true);
+const {showMessage:showMsg} = useMessage();
+const test1 = () => {
+  showMsg({ type: 'success', msg: 'success', duration: 'notime',showClose: true,onShow:(res)=>{
+    console.log('show',res);
+  },onClose:(res)=>{
+    console.log('close',res);}
+})
+}
+const test2 = () => {
+  showMsg({type:'warn',  msg: 'info', duration: 2000 })
+}
 
 const changeMsg = () => {
   flag.value = !flag.value

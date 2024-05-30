@@ -4,10 +4,10 @@
 
 <script setup lang="ts">
 import { reactive, ref, watch } from 'vue'
-import { allIconObj } from '../../utils/ficon'
-import { computeIconSize } from '../../utils/fsize'
-import type { allIconType } from '../../utils/ficon'
-import type { IconSize } from '../../utils/fsize'
+import { allIconObj } from '@utils/ficon'
+import { computeIconSize } from '@utils/fsize'
+import type { allIconType } from '@utils/ficon'
+import type { IconSize } from '@utils/fsize'
 
 
 defineOptions({ name: 'FIcon', inheritAttrs: false, })
