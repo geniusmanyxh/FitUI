@@ -4,13 +4,14 @@
   "description": "Fit-UI组件库文档,静态站点",
   "main": "index.js",
   "scripts": {
-    "copy:pages": "pnpm  exec -- cp -R ./docs/.vitepress/dist/** ./gitpages",
+    "copy:powershell": "pnpm exec powershell -Command Copy-Item -Path './docs/.vitepress/dist' -Destination './gitpages' -Recurse -Force",
+    "copy:pages": "pnpm exec -- cp -R ./docs/.vitepress/dist/** ./gitpages",
     "dev": "pnpm run d:dev",
     "d:dev": "vitepress dev docs --port 8443 --env_type dev ",
     "d:build:dev": "vitepress build docs --env_type dev",
     "d:build:prod": "vitepress build docs --env_type prod",
     "d:serve": "vitepress serve docs",
-    "d:build": "pnpm run d:build:prod && pnpm run copy:pages",
+    "d:build": "pnpm run d:build:prod && npx pnpm run copy:powershell",
     "build:dev": "pnpm run d:build:dev"
   },
   "keywords": [],
