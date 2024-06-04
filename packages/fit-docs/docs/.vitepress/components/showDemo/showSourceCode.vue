@@ -2,14 +2,15 @@
   <div class="source-code-box">
     <div v-html="curCodeStr"></div>
     <div class="copy-code" @click="copyCode">复制</div>
-    <Transition>
+    <!-- <Transition>
       <div class="copy-code-tip" :class="isCopy?'':'fail'" v-if="isCopy">{{ copyTip }}</div>
-    </Transition>
+    </Transition> -->
   </div>
 </template>
 
 <script setup lang="ts">
 import { ref, watch } from 'vue';
+import { useMessage } from '@geniusmanyxh/fit-ui'
 import { type CurLangType, highlightCode } from './util'
 import * as clipboard from "clipboard-polyfill";
 import 'prismjs/themes/prism-okaidia.min.css'
@@ -24,7 +25,7 @@ const props = withDefaults(defineProps<{
   filePath: '../../../examples/button/index.vue',
   lang: 'html'
 })
-
+const MSG = useMessage()
 const curCodeStr = ref<string>('')
 const isCopy = ref(false)
 const copyTip = ref('复制失败!')
@@ -33,17 +34,15 @@ const copyCode = async () => {
     // await navigator.clipboard.writeText(modules[props.filePath]);
     await clipboard.writeText(modules[props.filePath]);
     // console.log('Text copied successfully!');
-    copyTip.value = '复制成功!'
-    isCopy.value = true
+    MSG.success('复制成功!')
+    // copyTip.value = '复制成功!'
+    // isCopy.value = true
   } catch (error) {
-    copyTip.value = '复制失败!'
-    isCopy.value = false
+    MSG.error('复制失败!')
+    // copyTip.value = '复制失败!'
+    // isCopy.value = false
     // console.error('Failed to copy text:', error);
-  } finally {
-    setTimeout(() => {
-      isCopy.value = false
-    }, 2000);
-  }
+  } 
 }
 
 

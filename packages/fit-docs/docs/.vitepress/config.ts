@@ -11,8 +11,9 @@ const sidebar = {
     {
       text: 'Components',
       items: [
-        { text: '按钮', link: '/components/button/' },
-        { text: 'icon', link: '/components/icon/' },
+        { text: 'FButton', link: '/components/button/' },
+        { text: 'FIcon', link: '/components/icon/' },
+        { text: 'FMessage', link: '/components/message/' },
       ]
     }
   ]

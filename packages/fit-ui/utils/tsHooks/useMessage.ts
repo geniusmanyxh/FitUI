@@ -56,10 +56,14 @@ export const useMessage = () => {
    * 根据选项显示消息
    * @param options 消息选项，部分msgProps类型
    */
-  const message = (options: Partial<msgProps>) => {
+  const message = (options: msgProps) => {
       const { curEl, container } = createContainer();
       // console.log('message',curEl)
       // console.log('message container',container)
+      // 如果duration为0或notime，则显示关闭按钮
+      if (options.duration === 'notime' || options.duration === 0) {
+        options.showClose = true
+      }
       // 创建Vue应用，渲染消息组件
       const app = createApp({
         render() {
