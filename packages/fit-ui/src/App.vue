@@ -18,16 +18,16 @@ import {useMessage} from '../utils/tsHooks/useMessage';
 import { FMessage } from './entry'
 import { ref } from 'vue';
 const flag = ref(true);
-const {showMessage:showMsg} = useMessage();
+const $Msg= useMessage();
 const test1 = () => {
-  showMsg({ type: 'success', msg: 'success', duration: 'notime',showClose: true,onShow:(res)=>{
+  $Msg.message({ type: 'success', msg: 'success', duration: 'notime',showClose: true,onShow:(res)=>{
     console.log('show',res);
   },onClose:(res)=>{
     console.log('close',res);}
 })
 }
 const test2 = () => {
-  showMsg({type:'warn',  msg: 'info', duration: 2000 })
+  $Msg.message({type:'warn',  msg: 'info', duration: 2000,showClose: true, })
 }
 
 const changeMsg = () => {

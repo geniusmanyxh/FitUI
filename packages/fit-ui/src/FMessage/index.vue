@@ -2,20 +2,20 @@
   <transition name="fade-message">
     <div class="f-message-item" :style="{zIndex}" :class="curTypeClass" v-if="isShow">
       <div class="f-message-item-content ">
-        <slot name="icon"><f-icon :icon="defaultIcon" size="medium" class="-m-1.5 mr-1"></f-icon></slot>
-        <span>
+        <slot name="icon"><f-icon :icon="defaultIcon" size="medium" class=" mr-1"></f-icon></slot>
+        <div>
           <slot>{{ msgContent }}</slot>
-        </span>
+        </div>
       </div>
       <div class="f-message-item-close " @click.stop="closeMessage" v-if="showClose">
-        <f-icon icon="close" size="medium" class="-m-1.5 mr-1"></f-icon>
+        <f-icon icon="close" size="medium" class=" mr-1"></f-icon>
       </div>
     </div>
   </transition>
 </template>
 
 <script setup lang="ts">
-import { ref, watch, onMounted, computed } from 'vue'
+import { ref, watch, onMounted, computed,watchEffect } from 'vue'
 import { msgBgClass } from './message'
 import FIcon from '@/FIcon'
 type MsgType = 'success' | 'error' | 'warn' | 'info' | 'default'
@@ -33,7 +33,7 @@ zIndex?: number
 type: 'default',
 msg: 'Hello',
 duration: 3000,
-icon: 'circle-information',
+icon: '',
 showClose: false,
 zIndex: 1000
 })
@@ -97,6 +97,23 @@ showOrHide()
 emit('show')
 })
 
+watchEffect(() => {
+  if (props.type === 'default') {
+    defaultIcon.value = 'circle-information'
+  } else if (props.type === 'success') {
+    defaultIcon.value = 'circle-check'
+  } else if (props.type === 'error') {
+    defaultIcon.value = 'circle-error'
+  } else if (props.type === 'warn') {
+    defaultIcon.value = 'circle-warning'
+  } else if (props.type === 'info') {
+    defaultIcon.value = 'circle-information'
+ }
+  if (props.icon) {
+    defaultIcon.value = props.icon
+  }
+}
+)
 /**
 * 监听 isShow 变量的变化。
 * 当 isShow 变量的值发生变化时，清除名为 durationTimer 的定时器。

@@ -38,6 +38,7 @@ export const useMessage = () => {
   const createContainer = () => {
     // 尝试获取已存在的消息容器元素
     let curEl = document.querySelector(`.${ComponentContainerClass.FMessage}`);
+    // console.warn(curEl)
     // 如果不存在，创建并添加到文档体中
     if (!curEl) {
       curEl = document.createElement('div');
@@ -55,8 +56,10 @@ export const useMessage = () => {
    * 根据选项显示消息
    * @param options 消息选项，部分msgProps类型
    */
-  const showMessage = (options: Partial<msgProps>) => {
+  const message = (options: Partial<msgProps>) => {
       const { curEl, container } = createContainer();
+      // console.log('message',curEl)
+      // console.log('message container',container)
       // 创建Vue应用，渲染消息组件
       const app = createApp({
         render() {
@@ -66,13 +69,15 @@ export const useMessage = () => {
               options.onShow && options.onShow({ type: options.type, msg: options.msg,close: false,show: true })
             },
             onClose: () => {
-              app.unmount(); // 当消息关闭时，卸载Vue应用
+              setTimeout(() => {
+                app.unmount(); // 当消息关闭时，卸载Vue应用
               // 根据当前容器子元素数量，决定是否移除容器
               if (curEl.children.length <= 1) {
                 curEl.remove();
               } else {
                 curEl.removeChild(container);
               }
+              },500)
               options.onClose && options.onClose({ type: options.type, msg: options.msg,close: true,show: false })
             },
           });
@@ -88,13 +93,46 @@ export const useMessage = () => {
    * @param options 消息选项，simpleMsgProps类型
    * @returns 返回Promise，resolve时表示消息显示完成
    */
-  const successMsg = (msg = '', options: simpleMsgProps = {}) => {
-    return showMessage({ ...options, type: 'success', msg });
+  const success = (msg = '', options: simpleMsgProps = {}) => {
+    return message({ ...options, type: 'success', msg });
+  };
+
+  /**
+   * 显示错误类型的消息
+   * @param msg 消息内容，默认为空字符串
+   * @param options 消息选项，simpleMsgProps类型
+   * @returns 返回Promise，resolve时表示消息显示完成
+   */
+  const error = (msg = '', options: simpleMsgProps = {}) => {
+    return message({ ...options, type: 'error', msg });
+  };
+
+   /**
+   * 显示警告类型的消息
+   * @param msg 消息内容，默认为空字符串
+   * @param options 消息选项，simpleMsgProps类型
+   * @returns 返回Promise，resolve时表示消息显示完成
+   */
+   const warning = (msg = '', options: simpleMsgProps = {}) => {
+    return message({ ...options, type: 'warn', msg });
+  };
+
+  /**
+   * 显示警告类型的消息
+   * @param msg 消息内容，默认为空字符串
+   * @param options 消息选项，simpleMsgProps类型
+   * @returns 返回Promise，resolve时表示消息显示完成
+   */
+  const info = (msg = '', options: simpleMsgProps = {}) => {
+    return message({ ...options, type: 'info', msg });
   };
 
   // 返回消息显示和成功消息的方法
   return {
-    showMessage,
-    successMsg
+    message,
+    success,
+    error,
+    warning,
+    info
   };
 }

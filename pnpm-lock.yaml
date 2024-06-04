@@ -56,7 +56,7 @@ importers:
         version: 4.0.1
     devDependencies:
       '@geniusmanyxh/fit-ui':
-        specifier: workspace:^
+        specifier: ^0.0.7
         version: link:../fit-ui
       '@types/markdown-it':
         specifier: ^13.0.5

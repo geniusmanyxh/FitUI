@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "copy:pages": "pnpm  exec -- cp -R ./docs/.vitepress/dist/** ./gitpages",
-    "dev":"pnpm run d:dev",
+    "dev": "pnpm run d:dev",
     "d:dev": "vitepress dev docs --port 8443 --env_type dev ",
     "d:build:dev": "vitepress build docs --env_type dev",
     "d:build:prod": "vitepress build docs --env_type prod",
@@ -17,7 +17,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@geniusmanyxh/fit-ui": "workspace:^",
+    "@geniusmanyxh/fit-ui": "^0.0.7",
     "@types/markdown-it": "^13.0.5",
     "@types/markdown-it-container": "^2.0.8",
     "@types/node": "^20.8.8",

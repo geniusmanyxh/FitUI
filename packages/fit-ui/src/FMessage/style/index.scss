@@ -18,6 +18,7 @@
   z-index: 999;
 
   &-content {
+    
     display: flex;
     justify-content: flex-start;
     align-items: center;
@@ -61,20 +62,16 @@
 }
 
 .f-message-item {
+  height: fit-content;
+  line-height: 1;
   display: flex;
   justify-content: center;
   align-items: center;
-  // position: fixed;
   padding-left: 5px;
   padding-right: 5px;
-  // top: 30%;
-  // left: 50%;
-  // transform: translate(-30%, -50%);
   border-radius: 5px;
   box-sizing: border-box;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-  // background-color: rgba(0, 0, 0, 0.6);
-  // backdrop-filter: blur(10px);
   user-select: none;
   z-index: 999;
 
@@ -143,11 +140,13 @@
 
 .fade-message-enter-from,
 .fade-message-leave-to {
-  transform: translate(-30%, 100px); /* 初始时从底部之外进入 */
+  // transform: translate(-50%, 100px); /* 初始时从底部之外进入 */
+  transform: translateY(100px);
   opacity: 0;
 }
 
 .fade-message-leave-active {
-  transform: translate(-30%, -100px); /* 消失时向上移出 */
+  // transform: translate(-50%, -100px); /* 消失时向上移出 */
+  transform: translateY(-100px);
   opacity: 0;
 }
