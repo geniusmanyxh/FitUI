@@ -9,18 +9,22 @@
 </template>
 
 <script setup lang="ts">
-import { FIcon } from '@geniusmanyxh/fit-ui'
+import { FIcon} from '@geniusmanyxh/fit-ui'
 import { iconAllList } from './iconAllList'
 import * as clipboard from "clipboard-polyfill";
+import {useMessage} from '@geniusmanyxh/fit-ui'
 
+const MSG = useMessage()
 const handleClick = async (icon: string) => {
   try {
     const copyText = `<f-icon icon="${icon}"></f-icon>`
     await clipboard.writeText(copyText);
-    console.log(copyText)
-    alert('复制成功!'+ copyText)
+    // console.log(copyText)
+    MSG.success('复制成功!',{duration:1500})
+    // alert('复制成功!'+ copyText)
   } catch (error) {
-    alert('复制失败!')
+    // alert('复制失败!')
+    MSG.error('复制失败!',{duration:1500})
   }
  
   

@@ -1,5 +1,5 @@
 import icon from './index.vue'
-import {withInstall} from '../../utils/install'
+import {withInstall} from '@utils/install'
 
 const FIcon = withInstall(icon)
 

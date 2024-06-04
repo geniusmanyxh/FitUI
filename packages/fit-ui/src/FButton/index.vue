@@ -12,10 +12,10 @@
 
 <script lang="ts" setup>
 import { ref, watch, reactive, onMounted, onUnmounted } from 'vue';
-import { type SizeType, btnSizeClass } from '../../utils/fsize'
+import { type SizeType, btnSizeClass } from '@utils/fsize'
 import { type ButtonType, btnClass } from './Button'
 import FIcon from '@/FIcon';
-import { type allIconType } from '../../utils/ficon'
+import { type allIconType } from '@utils/ficon'
 
 defineOptions({ name: 'FButton', inheritAttrs: false })
 const props = defineProps<{

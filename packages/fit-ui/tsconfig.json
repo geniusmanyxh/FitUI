@@ -15,7 +15,9 @@
     "baseUrl": ".",
     "rootDir": "./",
     "paths": {
-      "@/*": ["src/*"]
+      "@/*": ["src/*"],
+      "@utils/*": ["utils/*"],
+      "@enums/*": ["enums/*"]
     },
     "types": ["unplugin-vue-define-options/macros-global"]
   },

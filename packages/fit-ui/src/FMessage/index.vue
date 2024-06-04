@@ -1,106 +1,129 @@
 <template>
-  <teleport to="#f-message-box">
-    <transition name="fade-message">
-      <div class=" f-message" :class="curTypeClass" v-if="isShow">
-        <div class="f-message-content ">
-          <slot name="icon"><f-icon :icon="defaultIcon" size="medium" class="-m-1.5 mr-1"></f-icon></slot>
-          <span>
-            <slot>{{ msgContent }}</slot>
-          </span>
-        </div>
-        <div class="f-message-close " @click.stop="closeMessage" v-if="showClose">
-          <f-icon icon="close" size="medium" class="-m-1.5 mr-1"></f-icon>
+  <transition name="fade-message">
+    <div class="f-message-item" :style="{zIndex}" :class="curTypeClass" v-if="isShow">
+      <div class="f-message-item-content ">
+        <slot name="icon"><f-icon :icon="defaultIcon" size="medium" class=" mr-1"></f-icon></slot>
+        <div>
+          <slot>{{ msgContent }}</slot>
         </div>
       </div>
-    </transition>
-  </teleport>
+      <div class="f-message-item-close " @click.stop="closeMessage" v-if="showClose">
+        <f-icon icon="close" size="medium" class=" mr-1"></f-icon>
+      </div>
+    </div>
+  </transition>
 </template>
 
 <script setup lang="ts">
-import { ref, watch, onMounted, computed } from 'vue'
-import { createEl, removeElById, hasChildElLength } from '../../utils/tsHooks'
+import { ref, watch, onMounted, computed,watchEffect } from 'vue'
 import { msgBgClass } from './message'
 import FIcon from '@/FIcon'
 type MsgType = 'success' | 'error' | 'warn' | 'info' | 'default'
 
 defineOptions({ name: 'FMessage', inheritAttrs: false, })
-createEl('f-message-box')
 
 const props = withDefaults(defineProps<{
-  type?: MsgType,
-  msg?: string,
-  duration?: number | 'notime',
-  icon?: string,
-  showClose?: boolean,
+type?: MsgType,
+msg?: string,
+duration?: number | 'notime',
+icon?: string,
+showClose?: boolean,
+zIndex?: number
 }>(), {
-  type: 'default',
-  msg: 'Hello',
-  duration: 3000,
-  icon: 'circle-information',
-  showClose: false
+type: 'default',
+msg: 'Hello',
+duration: 3000,
+icon: '',
+showClose: false,
+zIndex: 1000
 })
+
+const emit = defineEmits(['close','show']);
 
 const isShow = ref(true);
 const defaultIcon = ref<any>('circle-information')
 const curTypeClass = computed(() => {
-  return msgBgClass[props.type]
+return msgBgClass[props.type]
 })
 const msgContent = computed(() => {
-  return props.msg
+return props.msg
 })
 
 let durationTimer: any = null
 
+/**
+* 根据设定的持续时间显示或隐藏消息。该函数首先会清除任何现有的计时器，然后根据props中的duration属性来决定是否设置一个新的计时器以在指定时间后调用closeMessage函数。
+* 该函数不接受参数。
+* 该函数没有返回值。
+*/
 const showOrHide = () => {
-  if (durationTimer) {
-    clearTimeout(durationTimer)
-  }
-  if (props.duration === 0 || props.duration === 'notime') {
-    return;
-  }
-  durationTimer = setTimeout(() => {
-    closeMessage()
-  }, props.duration)
+// 清除现有的计时器，避免重复计时
+if (durationTimer) {
+  clearTimeout(durationTimer)
+}
+// 如果duration为0或'notime'，则不设置计时器，直接返回
+if (props.duration === 0 || props.duration === 'notime') {
+  return;
+}
+// 根据props.duration设置新的计时器，并在计时结束后调用closeMessage函数
+durationTimer = setTimeout(() => {
+  closeMessage()
+}, props.duration)
 }
 
-
+/**
+* 该函数用于关闭消息框。
+* 它首先将`isShow`的值设置为`false`，从而在视图上隐藏消息框。
+* 接着，它会检查是否有子元素存在，并在子元素数量小于等于1的情况下，
+* 经过500毫秒的延迟后移除消息框元素。
+*/
 const closeMessage = () => {
-  isShow.value = false
+// 隐藏消息框
+isShow.value = false
 
-  const hasChildLen = hasChildElLength('f-message-box')
-  if (hasChildLen <= 1) {
-    setTimeout(() => {
-      removeElById('f-message-box')
-    }, 500);
-  }
-
+emit('close')
 }
+
+/**
+* 定义并暴露 `closeMessage` 函数给外部使用。
+* 该函数通常用于关闭或处理消息提示等UI元素。
+* 
+* @expose {Function} closeMessage - 用于关闭消息提示的函数。
+*/
+defineExpose({ closeMessage })
 
 onMounted(() => {
-  showOrHide()
+showOrHide()
+emit('show')
 })
 
+watchEffect(() => {
+  if (props.type === 'default') {
+    defaultIcon.value = 'circle-information'
+  } else if (props.type === 'success') {
+    defaultIcon.value = 'circle-check'
+  } else if (props.type === 'error') {
+    defaultIcon.value = 'circle-error'
+  } else if (props.type === 'warn') {
+    defaultIcon.value = 'circle-warning'
+  } else if (props.type === 'info') {
+    defaultIcon.value = 'circle-information'
+ }
+  if (props.icon) {
+    defaultIcon.value = props.icon
+  }
+}
+)
+/**
+* 监听 isShow 变量的变化。
+* 当 isShow 变量的值发生变化时，清除名为 durationTimer 的定时器。
+* 该定时器通常用于控制某些持续时间的逻辑，当 isShow 变量状态改变时，可能需要重置或结束该逻辑。
+*/
 watch(
-  isShow,
-  () => clearTimeout(durationTimer),
+isShow,
+() => clearTimeout(durationTimer),
 )
 </script>
-<style>
-#f-message-box {
-  width: 100%;
-  height: 100%;
-  position: relative;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  z-index: 999;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  /* background-color: rgba(0, 0, 0, 0.6); */
-}
-</style>
 <style scoped lang="scss">
 @import './style/index.scss';
 </style>

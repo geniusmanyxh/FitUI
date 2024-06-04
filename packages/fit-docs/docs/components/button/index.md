@@ -1,6 +1,6 @@
 # FButton 组件
 
-## 常用按钮
+## 默认使用
 
 常用的按钮可以使用`type` 和 `plain` 来定义按钮。
 - `type`属性可以选择:`primary、success、info、warning、danger`
