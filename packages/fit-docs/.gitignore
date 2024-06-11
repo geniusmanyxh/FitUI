@@ -10,7 +10,7 @@ node_modules
 dist
 dist-ssr
 *.local
-.vitepress/cache/deps
+docs/.vitepress/cache/**
 
 # Editor directories and files
 .vscode/*
