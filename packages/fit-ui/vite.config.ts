@@ -70,6 +70,7 @@ export const config = {
       '@': resolve(__dirname, 'src'),
       '@utils': resolve(__dirname, 'utils'),
       '@enums': resolve(__dirname, 'enums'),
+      '@ftypes': resolve(__dirname, 'ftypes'),
     },
   },
   plugins: [
