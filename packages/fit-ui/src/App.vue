@@ -10,12 +10,21 @@
     <div><FMessage duration="notime" :show-close="true" v-if="flag"></FMessage>
     </div>
     <div><FMessage type="success" :show-close="true" :duration="2000"></FMessage></div>
+    <div>
+      <FCodeBlock
+        title="代码示例"
+        code="import { ref } from 'vue';"
+        lang="js"
+        theme="github-dark"
+        showCode
+      ></FCodeBlock>
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import {useMessage} from '../utils/tsHooks/useMessage';
-import { FMessage } from './entry'
+import { FMessage,FCodeBlock } from './entry'
 import { ref } from 'vue';
 const flag = ref(true);
 const $Msg= useMessage();
