@@ -36,6 +36,10 @@
     "fitui"
   ],
   "author": "geniusmanyxh",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/geniusmanyxh/FitUI"
+  },
   "license": "ISC",
   "devDependencies": {
     "@iconify-json/ic": "^1.1.13",

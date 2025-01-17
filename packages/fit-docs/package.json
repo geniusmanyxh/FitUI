@@ -15,7 +15,7 @@
     "build:dev": "pnpm run d:build:dev"
   },
   "keywords": [],
-  "author": "",
+  "author": "geniusmanyxh",
   "license": "ISC",
   "devDependencies": {
     "@geniusmanyxh/fit-ui": "^0.0.7",
