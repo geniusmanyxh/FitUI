@@ -17,7 +17,8 @@
     "paths": {
       "@/*": ["src/*"],
       "@utils/*": ["utils/*"],
-      "@enums/*": ["enums/*"]
+      "@enums/*": ["enums/*"],
+      "@ftypes/*": ["ftypes/*"]
     },
     "types": ["unplugin-vue-define-options/macros-global"]
   },

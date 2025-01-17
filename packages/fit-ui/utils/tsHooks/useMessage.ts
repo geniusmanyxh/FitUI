@@ -3,18 +3,11 @@
 import { createApp, h } from 'vue';
 import Message from '@/FMessage/index.vue';
 import { ComponentContainerClass } from '@enums/styleConstEnum'
+import { MessageType,MsgResult } from '@ftypes/FMessage/index.type';
 
-// 定义消息类型枚举
-type MsgType = 'success' | 'error' | 'warn' | 'info' | 'default'
-type MsgResult = {
-  type: MsgType | undefined,
-  msg: string | undefined,
-  show: boolean,
-  close: boolean
-}
 // 定义消息组件的属性类型
 type msgProps = {
-  type?: MsgType, // 消息类型
+  type?: MessageType, // 消息类型
   msg?: string, // 消息内容
   duration?: number | 'notime', // 消息显示时长
   icon?: string, // 自定义图标
