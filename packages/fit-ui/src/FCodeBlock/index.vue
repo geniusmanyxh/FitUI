@@ -22,7 +22,7 @@
         @leave="leave"
         @after-leave="afterLeave"
       >
-        <div v-show="isShowCode" class="content vp-doc">
+        <div v-show="isShowCode" class="content">
           <span class="lang">{{ lang }}</span>
           <div v-html="highlightedCode" :class="`language-${lang}`"></div>
         </div>
@@ -102,7 +102,7 @@
     // 使用渲染函数生成 HTML
     highlightedCode.value = highlighter.value.codeToHtml(props.code, {
       lang: props.lang,
-      theme: 'github-light',
+      theme: 'github-dark',
       // theme: vpData.isDark.value ? 'github-dark' : 'github-light',
     });
   };
@@ -240,10 +240,13 @@
       overflow: hidden;
       transition: height 0.6s ease, opacity 0.6s ease; /* 确保动画的平滑性 */
       position: relative;
+      // background-color: #f6f6f7;
+      // background-color: #24292e;
+      background-color: $secondary-color;
   
-      // ::v-deep(.shiki) {
-      //   background-color: transparent !important;
-      // }
+      ::v-deep(.shiki) {
+        background-color: transparent !important;
+      }
   
       div[class*='language-'] {
         margin-top: 0;

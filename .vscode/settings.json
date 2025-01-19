@@ -1,3 +1,7 @@
 {
-  "prettier.requireConfig": true
+  "prettier.requireConfig": true,
+  "scss.validate": false,
+  "scss.lint": {
+    "unknownAtRules": "ignore"
+  }
 }

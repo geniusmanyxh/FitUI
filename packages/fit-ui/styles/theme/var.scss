@@ -1,0 +1,50 @@
+// packages/fit-ui/styles/theme/var.scss
+
+// 颜色变量
+$primary-color: #1890ff; // 主要颜色
+$primary-color-hover: #40a9ff; // 主要颜色悬停
+$primary-color-active: #096dd9; // 主要颜色点击
+$secondary-color: #52c41a; // 次要颜色
+$danger-color: #ff4d4f; // 危险颜色
+$warning-color: #faad14; // 警告颜色
+$info-color: #1890ff; // 信息颜色
+$success-color: #52c41a; // 成功颜色
+$background-color: #ffffff; // 背景颜色
+$border-color: #d9d9d9; // 边框颜色
+$text-color: #000000; // 主要文本颜色
+$text-color-secondary: #595959; // 次要文本颜色
+$disabled-color: #bfbfbf; // 禁用状态颜色
+
+// 字体变量
+$font-family: 'Helvetica Neue', Arial, sans-serif; // 字体
+$font-size-base: 14px; // 基础字体大小
+$font-size-lg: 16px; // 大字体大小
+$font-size-sm: 12px; // 小字体大小
+$line-height-base: 1.5; // 基础行高
+
+// 边距和填充
+$padding-base: 16px; // 基础填充
+$margin-base: 16px; // 基础边距
+$padding-sm: 8px; // 小填充
+$margin-sm: 8px; // 小边距
+
+// 边框和圆角
+$border-radius-base: 4px; // 基础圆角
+$border-radius-lg: 8px; // 大圆角
+$border-radius-sm: 2px; // 小圆角
+$border-width: 1px; // 边框宽度
+
+// 阴影
+$box-shadow-base: 0 2px 8px rgba(0, 0, 0, 0.15); // 基础阴影
+$box-shadow-hover: 0 4px 16px rgba(0, 0, 0, 0.2); // 悬停阴影
+
+// 状态变量
+$transition-duration: 0.3s; // 过渡持续时间
+$transition-timing-function: ease-in-out; // 过渡时间函数
+
+// 其他变量
+$z-index-base: 1000; // 基础z-index
+$z-index-modal: 1050; // 模态框z-index
+$z-index-tooltip: 1100; // 工具提示z-index
+
+// ... 其他变量 ...

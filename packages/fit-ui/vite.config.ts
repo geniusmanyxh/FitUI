@@ -71,6 +71,7 @@ export const config = {
       '@utils': resolve(__dirname, 'utils'),
       '@enums': resolve(__dirname, 'enums'),
       '@ftypes': resolve(__dirname, 'ftypes'),
+      '@fstyles': resolve(__dirname, 'styles'),
     },
   },
   plugins: [
@@ -83,9 +84,16 @@ export const config = {
   ],
   server: {
     host: '0.0.0.0',
-    port: 3000,
+    port: 8444,
     open: false,
     https: false,
+  },
+  css: {
+    preprocessorOptions: {
+      scss:{
+        additionalData: `@import "./styles/global.scss";`
+      }
+    },
   },
   // 添加库模式配置
 

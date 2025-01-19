@@ -18,7 +18,8 @@
       "@/*": ["src/*"],
       "@utils/*": ["utils/*"],
       "@enums/*": ["enums/*"],
-      "@ftypes/*": ["ftypes/*"]
+      "@ftypes/*": ["ftypes/*"],
+      "@fstyles/*": ["styles/*"],
     },
     "types": ["unplugin-vue-define-options/macros-global"]
   },

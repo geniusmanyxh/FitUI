@@ -13,7 +13,30 @@
     <div>
       <FCodeBlock
         title="代码示例"
-        code="import { ref } from 'vue';"
+        code="const a = 10;
+    const b = 20;
+     const c = a + b;
+    const a = 10;
+    const b = 20; const c = a + b;
+    const a = 10;
+    const b = 20; const c = a + b;
+    const a = 10;
+    const b = 20; const c = a + b;
+     const b = 20; const c = a + b;
+    const a = 10;
+    const b = 20; const c = a + b;
+    const a = 10;
+    const b = 20; const c = a + b;
+    const a = 10;
+    const b = 20; const c = a + b;
+    const a = 10;
+    const b = 20; const c = a + b;
+    const a = 10;
+    const b = 20; const c = a + b;
+    const a = 10;
+    const b = 20; const c = a + b;
+    const a = 10;
+    const b = 20; const c = a + b;"
         lang="js"
         theme="github-dark"
         showCode
