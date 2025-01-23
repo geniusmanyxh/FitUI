@@ -191,4 +191,13 @@ const monoIcon = [
   "zoom-out"
 ] as const;
 
-export const iconAllList = [...logoArr,...monoIcon]
+const googleArr = [
+  'baseline-code',
+  'baseline-code-off',
+  'baseline-qr-code',
+  'baseline-qr-code-scanner',
+  'baseline-fullscreen',
+  'baseline-fullscreen-exit',
+] as const
+
+export const iconAllList = [...logoArr,...monoIcon,...googleArr]

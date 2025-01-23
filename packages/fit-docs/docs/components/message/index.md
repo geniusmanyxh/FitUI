@@ -5,24 +5,24 @@
 引入Hooks方法`useMessage`来创建一个实例，在调用上面的 `message` 方法
 - `type`属性可以选择:`success、info、warning、error、default`,默认值为：`default`
 
-<sdemo filePath="message/index.vue"/>
+<nsdemo filePath="message/index.vue"/>
 
 ## 不同类型的消息提示
 
 可以使用`message` 通过传递`type`属性来控制不同的消息类型。
 也可以通过消息实例上面的方法：`success`、`warning`、`info`、`error`来控制消息类型
 - `实例消息方法`：`message`、`success`、`warning`、`info`、`error`
-<sdemo filePath="message/msgType.vue"></sdemo>
+<nsdemo filePath="message/msgType.vue"></nsdemo>
 
 ## 控制消息显示时长
 可以使用`duration`属性控制消息显示时长,通常是设置毫秒数值(2000、3000等),如果设置为`0|notime`，则消息不会自动关闭,且会自动开启关闭图标。
-<sdemo filePath="message/msgDuration.vue"></sdemo>
+<nsdemo filePath="message/msgDuration.vue"></nsdemo>
 
 ## 显示关闭按钮
 可以使用`showClose`属性开启关闭图标，点击关闭图标，消息会自动关闭。
 但是如果你设置`duration`属性为`0|notime`，则自动显示关闭图标。
 - `showClose`属性可以选择：`true、false` , 默认值是：`false`
-<sdemo filePath="message/msgShowClose.vue"></sdemo>
+<nsdemo filePath="message/msgShowClose.vue"></nsdemo>
 
 ## Props
 

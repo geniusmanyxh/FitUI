@@ -6,22 +6,22 @@
 - `type`属性可以选择:`primary、success、info、warning、danger`
 - `plain`属性可以选择:`true、false`
 
-<sdemo filePath="button/index.vue"/>
+<nsdemo filePath="button/index.vue"/>
 
 ## round按钮
 
 可以使用`round` 属性开启按钮的圆角。
 - `round`属性可以选择：`true、false`
-<sdemo filePath="button/round.vue"></sdemo>
+<nsdemo filePath="button/round.vue"></nsdemo>
 
 ## icon按钮
 可以使用`icon`属性定义按钮图标
-<sdemo filePath="button/button_icon.vue"></sdemo>
+<nsdemo filePath="button/button_icon.vue"></nsdemo>
 
 ## 按钮尺寸
 可以使用`size`属性定义按钮大小
 - `size`属性可以选择：`small、medium、large` , 默认值是：`medium`
-<sdemo filePath="button/button_size.vue"></sdemo>
+<nsdemo filePath="button/button_size.vue"></nsdemo>
 
 ## Props
 

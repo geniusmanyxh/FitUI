@@ -5,7 +5,7 @@
 import type { IconType } from './icon_type'
 const googleArr = [
   'baseline-code',
-  'baseline-code_off',
+  'baseline-code-off',
   'baseline-qr-code',
   'baseline-qr-code-scanner',
   'baseline-fullscreen',
