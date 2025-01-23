@@ -1,6 +1,10 @@
 {
   "prettier.requireConfig": true,
   "scss.validate": false,
+  // "css.validate": false,
+  "css.lint": {
+    "unknownAtRules": "ignore"
+  },
   "scss.lint": {
     "unknownAtRules": "ignore"
   }

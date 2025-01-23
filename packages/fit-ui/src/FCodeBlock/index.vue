@@ -1,5 +1,5 @@
 <template>
-    <div class="codeBox">
+    <div class="codeBox" :data-theme='theme'>
       <div class="codeBox-header">
         <div class="codeBox-header-title">{{ title }}</div>
         <div class="codeBox-header-tools">
@@ -36,21 +36,14 @@
   </template>
   
   <script setup lang="ts">
-  // import { ElMessage } from 'element-plus';
   import FIcon from '@/FIcon';
   import { ref, onMounted, watch, onBeforeUnmount,nextTick } from 'vue';
-  // import { createHighlighter, codeToHtml } from "shiki/bundle/web";
   import { createHighlighterCore } from 'shiki/core';
-  // import githubDark from "shiki/themes/github-dark.mjs";
   import githubLight from 'shiki/themes/github-light.mjs';
-  // `shiki/wasm` 包含以 BASE64 字符串内联的 WASM 二进制文件
-  // import getWasm from "shiki/wasm";
-  // import { useData } from 'vitepress';
   import ClipboardJS from 'clipboard'; // 引入 clipboard.js
   import { useMessage } from '@utils/tsHooks/useMessage'
   
   defineOptions({ name: 'FCodeBlock', inheritAttrs: false, })
-  // const vpData = useData();
   
   // Props
   const props = defineProps({
@@ -61,7 +54,7 @@
     code: String,
     lang: {
       type: String,
-      default: 'js',
+      default: 'js', // 默认语言 js,可选：js,html,ts,css
     },
     showCode: {
       type: Boolean,
@@ -69,7 +62,7 @@
     },
     theme: {
       type: String,
-      default: 'github-light',
+      default: '', // 默认主题  light 可选：light,dark
     },
   });
   
@@ -102,8 +95,8 @@
     // 使用渲染函数生成 HTML
     highlightedCode.value = highlighter.value.codeToHtml(props.code, {
       lang: props.lang,
-      theme: 'github-dark',
-      // theme: vpData.isDark.value ? 'github-dark' : 'github-light',
+      // theme: 'github-dark',
+      theme: props.theme === 'dark' ? 'github-dark' : 'github-light',
     });
   };
   
@@ -150,37 +143,25 @@
   };
   
   // Watch for code changes
-  watch(
-    () => props.code,
-    () => {
-      highlight();
-    }
-  );
-  
-  // watch(
-  //   () => props.showCode,
-  //   (val) => {
-  //     isShowCode.value = val;
-  //   }
-  // );
-  
-  // watch(
-  //   () => vpData.isDark.value,
-  //   () => {
-  //     changeHighlightedCode();
-  //   }
-  // );
+  watch(() => props.code, highlight);
+
+  watch(() => props.showCode, (val) => {
+    isShowCode.value = val;
+  });
+
+  watch(() => props.theme, changeHighlightedCode);
+  watch(() => props.lang, changeHighlightedCode);
   
   // Highlight code on mounted
   onMounted(() => {
     highlight();
-    nextTick(()=>{
+    nextTick(() => {
       if (props.showCode) {
-        setTimeout(()=>{
+        setTimeout(() => {
           isShowCode.value = props.showCode;
-        },1000)
+        }, 1000);
       }
-    })
+    });
   
     // 将 ClipboardJS 实例绑定到真实按钮上
     clipboardInstance = new ClipboardJS(copyButton.value as unknown as Element, {
@@ -190,14 +171,12 @@
     // 监听复制成功事件
     clipboardInstance.on('success', (e:any) => {
       $MSG.success('复制成功!')
-      // ElMessage.success({ message: '复制成功!' });
       e.clearSelection(); // 清除选中文本
     });
   
     // 监听复制失败事件
     clipboardInstance.on('error', (e:any) => {
       $MSG.error('复制失败，请手动复制!')
-      // ElMessage.error({ message: '复制失败，请手动复制!' });
     });
   });
   
@@ -225,11 +204,10 @@
     height: 100%;
     // padding: 15px 0;
     box-sizing: border-box;
-    border: 1px solid #e2e2e3;
+    border: 1px solid var(--f-code-outside-border-color);
+    border-radius: 5px;
     position: relative;
 
-    --vp-c-bg: #ffffff;
-  
     ::v-deep(.el-tooltip__trigger) {
       display: flex;
     }
@@ -241,8 +219,8 @@
       transition: height 0.6s ease, opacity 0.6s ease; /* 确保动画的平滑性 */
       position: relative;
       // background-color: #f6f6f7;
-      // background-color: #24292e;
-      background-color: $secondary-color;
+      background-color: #24292e;
+      background-color: var(--f-code-bg-color);
   
       ::v-deep(.shiki) {
         background-color: transparent !important;
@@ -258,7 +236,7 @@
         position: absolute;
         right: 8px;
         top: 2px;
-        color: var(--vp-code-lang-color);
+        color: var(--f-code-lang-color);
         z-index: 2;
       }
     }
@@ -271,12 +249,12 @@
       cursor: pointer;
       height: 44px;
       box-sizing: border-box;
-      border-top: 1px solid #e2e2e3;
-      background-color: var(--vp-c-bg);
+      border-top: 1px solid var(--f-code-outside-border-color);
+      background-color: var(--f-code-outside-bg-color);
       border-bottom-left-radius: 4px;
       border-bottom-right-radius: 4px;
       margin-top: -1px;
-      color: var(--vp-c-text-1);
+      color: var(--f-code-outside-text-color);
       cursor: pointer;
       position: sticky;
       left: 0;
@@ -291,11 +269,12 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      border-bottom: 1px solid #e2e2e3;
-      background-color: var(--vp-c-bg);
+      border-bottom: 1px solid var(--f-code-outside-border-color);
+      background-color: var(--f-code-outside-bg-color);
       border-top-left-radius: 4px;
       border-top-right-radius: 4px;
       box-sizing: border-box;
+      color: var(--f-code-outside-text-color);
   
       &-title {
         font-weight: 600;
@@ -307,6 +286,7 @@
         justify-content: end;
         align-items: center;
         gap: 10px;
+        cursor: pointer;
   
         .tools-item {
           cursor: pointer;
