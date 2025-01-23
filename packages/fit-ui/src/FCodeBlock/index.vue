@@ -1,5 +1,5 @@
 <template>
-    <div class="codeBox" :data-theme='theme'>
+    <div class="codeBox" :class="{isFullScreen:isFullScreen}" :data-theme='theme'>
       <div class="codeBox-header">
         <div class="codeBox-header-title">{{ title }}</div>
         <div class="codeBox-header-tools">
@@ -8,6 +8,7 @@
               <f-icon icon="copy"></f-icon>
             </span>
             <f-icon class="tools-item" icon="baseline-code" style="font-size: 20px" @click.stop="hanldeViewSourceCode"></f-icon>
+            <f-icon class="tools-item" :icon="!isFullScreen?'baseline-fullscreen':'baseline-fullscreen-exit'" @click.stop="toggleFullScreen"></f-icon>
           
         </div>
       </div>
@@ -27,10 +28,12 @@
           <div v-html="highlightedCode" :class="`language-${lang}`"></div>
         </div>
       </Transition>
-  
-      <div v-show="isShowCode" class="code-hide" @click.stop="hanldeViewSourceCode">
+  <template v-if="!isFullScreen">
+    <div v-show="isShowCode" class="code-hide" @click.stop="hanldeViewSourceCode">
         <f-icon icon="caret-up"></f-icon>隐藏代码
       </div>
+  </template>
+     
     </div>
   
   </template>
@@ -70,6 +73,7 @@
   // Data
   const highlightedCode = ref('');
   const isShowCode = ref(false);
+  const isFullScreen = ref(false);
   const highlighter = ref();
   const copyButton = ref(null); // 绑定按钮
   let clipboardInstance:any = null;
@@ -186,6 +190,22 @@
       clipboardInstance.destroy();
     }
   });
+
+  const toggleFullScreen = () => {
+    const codeBox = document.querySelector('.codeBox');
+    if (codeBox) {
+        if (!document.fullscreenElement) {
+            codeBox.requestFullscreen().catch(err => {
+                console.error(`Error attempting to enable full-screen mode: ${err.message} (${err.name})`);
+            });
+            isFullScreen.value = true;
+            
+        } else {
+            document.exitFullscreen();
+            isFullScreen.value = false;
+        }
+    }
+  };
   </script>
   
   <style lang="scss" scoped>
@@ -199,6 +219,22 @@
     opacity: 0;
     height: 0;
   }
+  .isFullScreen {
+    .content {
+      width: 100% !important;
+      height: calc(100% - 44px) !important;
+      overflow: auto !important;
+
+      &::-webkit-scrollbar {
+        width: 0;
+      }
+
+      .lang{
+        position: fixed !important;
+        top: 50px !important;
+      }
+    }
+  }
   .codeBox {
     width: 100%;
     height: 100%;
@@ -207,6 +243,7 @@
     border: 1px solid var(--f-code-outside-border-color);
     border-radius: 5px;
     position: relative;
+    background-color: var(--f-code-bg-color);
 
     ::v-deep(.el-tooltip__trigger) {
       display: flex;
@@ -219,7 +256,7 @@
       transition: height 0.6s ease, opacity 0.6s ease; /* 确保动画的平滑性 */
       position: relative;
       // background-color: #f6f6f7;
-      background-color: #24292e;
+      // background-color: #24292e;
       background-color: var(--f-code-bg-color);
   
       ::v-deep(.shiki) {
@@ -234,6 +271,7 @@
   
       .lang {
         position: absolute;
+        // position: sticky;
         right: 8px;
         top: 2px;
         color: var(--f-code-lang-color);
@@ -289,7 +327,7 @@
         cursor: pointer;
   
         .tools-item {
-          cursor: pointer;
+          font-size: 20px;
         }
       }
     }

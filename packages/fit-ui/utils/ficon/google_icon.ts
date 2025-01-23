@@ -7,7 +7,9 @@ const googleArr = [
   'baseline-code',
   'baseline-code_off',
   'baseline-qr-code',
-  'baseline-qr-code-scanner'
+  'baseline-qr-code-scanner',
+  'baseline-fullscreen',
+  'baseline-fullscreen-exit',
 ] as const
 const googleObj:IconType = {}
 
