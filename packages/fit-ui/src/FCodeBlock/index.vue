@@ -1,5 +1,5 @@
 <template>
-    <div class="codeBox" :class="{isFullScreen:isFullScreen}" :data-theme='theme'>
+    <div ref="codeElRef" class="codeBox" :class="{isFullScreen:isFullScreen}" :data-theme='theme'>
       <div class="codeBox-header">
         <div class="codeBox-header-title">{{ title }}</div>
         <div class="codeBox-header-tools">
@@ -45,6 +45,7 @@
   import githubLight from 'shiki/themes/github-light.mjs';
   import ClipboardJS from 'clipboard'; // 引入 clipboard.js
   import { useMessage } from '@utils/tsHooks/useMessage'
+  import { toggleFull,getFullEl } from 'tj-jstools'
   
   defineOptions({ name: 'FCodeBlock', inheritAttrs: false, })
   
@@ -75,6 +76,7 @@
   const isShowCode = ref(false);
   const isFullScreen = ref(false);
   const highlighter = ref();
+  const codeElRef = ref(null);
   const copyButton = ref(null); // 绑定按钮
   let clipboardInstance:any = null;
   
@@ -192,19 +194,14 @@
   });
 
   const toggleFullScreen = () => {
-    const codeBox = document.querySelector('.codeBox');
+    if (!codeElRef.value) return;
+    const codeBox = getFullEl();
     if (codeBox) {
-        if (!document.fullscreenElement) {
-            codeBox.requestFullscreen().catch(err => {
-                console.error(`Error attempting to enable full-screen mode: ${err.message} (${err.name})`);
-            });
-            isFullScreen.value = true;
-            
-        } else {
-            document.exitFullscreen();
-            isFullScreen.value = false;
-        }
+      isFullScreen.value = false;
+    } else {
+      isFullScreen.value = true;
     }
+    toggleFull(codeElRef.value as unknown as Element)
   };
   </script>
   
@@ -224,7 +221,8 @@
       width: 100% !important;
       height: calc(100% - 44px) !important;
       overflow: auto !important;
-
+      scrollbar-width: none; /* Firefox 64+ */
+      -ms-overflow-style: none;  /* IE 和 Edge */
       &::-webkit-scrollbar {
         width: 0;
       }
