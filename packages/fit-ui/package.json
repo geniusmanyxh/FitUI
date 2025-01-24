@@ -1,6 +1,6 @@
 {
   "name": "@geniusmanyxh/fit-ui",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "基于vue3+vite+unocss的UI组件库",
   "files": [
     "dist/**"
