@@ -5,7 +5,7 @@ import { default as FMessage } from './FMessage'
 import { default as FCodeBlock } from './FCodeBlock'
 
 import 'uno.css'
-import './index.scss'
+// import './index.scss'
 import {useMessage} from '@utils/tsHooks/useMessage'
 
 export { useMessage }

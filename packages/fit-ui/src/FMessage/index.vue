@@ -127,5 +127,5 @@ watch(
 )
 </script>
 <style scoped lang="scss">
-@import './style/index.scss';
+@use './style/index' as *;
 </style>

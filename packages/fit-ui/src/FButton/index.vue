@@ -190,5 +190,5 @@ onUnmounted(() => {
 </script>
 
 <style scoped lang="scss">
-@import './style/button.scss';
+@use './style/button' as *;
 </style>

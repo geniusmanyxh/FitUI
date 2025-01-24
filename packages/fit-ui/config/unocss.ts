@@ -1,7 +1,7 @@
 import { presetUno, presetAttributify, presetIcons } from 'unocss'
 import Unocss from 'unocss/vite'
 // import type { IconsOptions } from '@unocss/preset-icons'
-import transformerDirectives from '@unocss/transformer-directives'
+import  transformerDirectives from '@unocss/transformer-directives'
 import { allIconSafelist } from '../utils/ficon'
 const colors = [
   'white',

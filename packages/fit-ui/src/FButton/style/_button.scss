@@ -1,4 +1,4 @@
-@import "./mixin-button";
+@use "./mixin-button" as *;
 
 button {
   font-size: 16px;

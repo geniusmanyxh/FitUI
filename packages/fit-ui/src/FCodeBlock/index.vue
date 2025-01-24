@@ -201,6 +201,9 @@ const toggleFullScreen = () => {
     isFullScreen.value = false;
   } else {
     isFullScreen.value = true;
+    if (!isShowCode.value) {
+      isShowCode.value = true;
+    }
   }
   toggleFull(codeElRef.value as unknown as Element)
 };
