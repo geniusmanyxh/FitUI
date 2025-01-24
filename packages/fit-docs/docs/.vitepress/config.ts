@@ -1,5 +1,6 @@
 import type { UserConfig } from 'vitepress'
 import { envVal } from './envConfig'
+import viteConfig from '../../vite.config';
 const sidebar = {
   '/': [
     {
@@ -51,5 +52,8 @@ const config: UserConfig = {
       // md.use(demoblock)
     }
   },
+  vite:{
+    ...viteConfig as any
+  }
 }
 export default config

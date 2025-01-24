@@ -1,6 +1,6 @@
 {
   "name": "@geniusmanyxh/fit-ui",
-  "version": "1.0.4",
+  "version": "1.0.13",
   "description": "基于vue3+vite+unocss的UI组件库",
   "files": [
     "dist/**"
@@ -79,6 +79,7 @@
     "vite-plugin-dts": "^4.5.0",
     "vite-plugin-vue-setup-extend": "^0.4.0",
     "vitest": "^0.34.1",
-    "vue": "^3.4.26"
+    "vue": "^3.4.26",
+    "vue-clipboard3": "^2.0.0"
   }
 }

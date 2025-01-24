@@ -6,7 +6,7 @@
     "declarationDir": "./dist/types" /* '.d.ts' 文件输出目录 */,
     "jsx": "preserve",
     "strict": true,
-    "target": "ES2015",
+    "target": "ESNext",
     "module": "ESNext",
     "skipLibCheck": true,
     "esModuleInterop": true,

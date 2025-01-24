@@ -3,22 +3,3 @@
 
 
 
-.f-message-box__fit__ui {
-    width: fit-content;
-    height: fit-content;
-    position: fixed;
-    top: 20%;
-    left: 50%;
-    right: 0;
-    bottom: 0;
-    z-index: 999;
-    transform: translate(-50%, -20%);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-
-    .f-message-box-item {
-        margin-bottom: 20px;
-    }
-  }

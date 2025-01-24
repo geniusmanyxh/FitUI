@@ -42,7 +42,8 @@ const props = withDefaults(defineProps<{
 const vpData = useData();
 const codeTheme = ref('')
 // @ts-expect-error
-const modules = import.meta.glob('../../../examples/*/*.vue', { as: 'raw', eager: true })
+// const modules = import.meta.glob('../../../examples/*/*.vue', { as: 'raw', eager: true })
+const modules = import.meta.glob('../../../examples/*/*.vue', { query: '?raw', import: 'default', eager: true })
 // 查看是否有插槽
 const slots = useSlots()
 const hasSlots = ref(slots.default !== undefined ? true : false)

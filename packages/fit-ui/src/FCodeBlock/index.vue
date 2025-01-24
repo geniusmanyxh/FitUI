@@ -5,7 +5,7 @@
       <div class="codeBox-header-tools">
 
         <span ref="copyButton">
-          <f-icon icon="copy"></f-icon>
+          <f-icon icon="copy" @click.stop="handleCopy"></f-icon>
         </span>
         <f-icon class="tools-item" icon="baseline-code" style="font-size: 20px"
           @click.stop="hanldeViewSourceCode"></f-icon>
@@ -35,16 +35,18 @@
 <script setup lang="ts">
 import FIcon from '@/FIcon';
 import { ref, onMounted, watch, onBeforeUnmount, nextTick } from 'vue';
-import * as ShikiCore from 'shiki/core';
-import githubLight from 'shiki/themes/github-light.mjs';
-import githubDark from 'shiki/themes/github-dark.mjs';
+import * as ShikiCore from 'shiki';
+// import githubLight from 'shiki/themes/github-light.mjs';
+// import githubDark from 'shiki/themes/github-dark.mjs';
 // `shiki/wasm` 包含以 BASE64 字符串内联的 WASM 二进制文件
-import getWasm from "shiki/wasm";
-import langJs from 'shiki/langs/js.mjs';
-import langHtml from 'shiki/langs/html.mjs';
-import langTs from 'shiki/langs/ts.mjs';
-import langCss from 'shiki/langs/css.mjs';
-import ClipboardJS from 'clipboard'; // 引入 clipboard.js
+// import getWasm from "shiki/wasm";
+// import langJs from 'shiki/langs/js.mjs';
+// import langHtml from 'shiki/langs/html.mjs';
+// import langTs from 'shiki/langs/ts.mjs';
+// import langCss from 'shiki/langs/css.mjs';
+// import  ClipboardJS from 'clipboard'; // 引入 clipboard.js
+// import useClipboard from 'vue-clipboard3'
+import {copyToClipboard} from '@utils/tsHooks'
 import { useMessage } from '@utils/tsHooks/useMessage'
 import * as JSTOOLS from 'tj-jstools'
 
@@ -78,21 +80,31 @@ const isShowCode = ref(false);
 const isFullScreen = ref(false);
 const highlighter = ref();
 const codeElRef = ref(null);
-const copyButton = ref(null); // 绑定按钮
-let clipboardInstance: any = null;
+// const copyButton = ref(null); // 绑定按钮
+// let clipboardInstance: any = null;
+
+const handleCopy = async () => {
+  const success = await copyToClipboard(props.code||'');
+  if (success) {
+    $MSG.success('复制成功!');
+  } else {
+    $MSG.error('复制失败，请手动复制!');
+  }
+};
+
 
 // Function to highlight code
 const highlight = async () => {
   // 初始化高亮器时，先加载主题和语言
   highlighter.value = await ShikiCore.createHighlighterCore({
-    themes: [githubLight, githubDark],
+    themes: [import('shiki/themes/github-light.mjs'), async () => await import('shiki/themes/github-dark.mjs')],
     langs: [
-      langJs,
-      langHtml,
-      langTs,
-      langCss,
+    async () => await import('shiki/langs/js.mjs'),
+    async () => await import('shiki/langs/html.mjs'),
+    async () => await import('shiki/langs/ts.mjs'),
+    async () => await import('shiki/langs/css.mjs'),
     ],
-    loadWasm: getWasm,
+    loadWasm: async () => await import('shiki/wasm'),
   });
 
   changeHighlightedCode();
@@ -171,28 +183,28 @@ onMounted(() => {
   });
 
   // 将 ClipboardJS 实例绑定到真实按钮上
-  clipboardInstance = new ClipboardJS(copyButton.value as unknown as Element, {
-    text: () => props.code as string, // 返回需要复制的文本
-  });
+  // clipboardInstance = new ClipboardJS(copyButton.value as unknown as Element, {
+  //   text: () => props.code as string, // 返回需要复制的文本
+  // });
 
   // 监听复制成功事件
-  clipboardInstance.on('success', (e: any) => {
-    $MSG.success('复制成功!')
-    e.clearSelection(); // 清除选中文本
-  });
+  // clipboardInstance.on('success', (e: any) => {
+  //   $MSG.success('复制成功!')
+  //   e.clearSelection(); // 清除选中文本
+  // });
 
   // 监听复制失败事件
-  clipboardInstance.on('error', (e: any) => {
-    $MSG.error('复制失败，请手动复制!')
-  });
+  // clipboardInstance.on('error', (e: any) => {
+  //   $MSG.error('复制失败，请手动复制!')
+  // });
 });
 
-onBeforeUnmount(() => {
-  // 在组件卸载时销毁 ClipboardJS 实例
-  if (clipboardInstance) {
-    clipboardInstance.destroy();
-  }
-});
+// onBeforeUnmount(() => {
+//   // 在组件卸载时销毁 ClipboardJS 实例
+//   if (clipboardInstance) {
+//     clipboardInstance.destroy();
+//   }
+// });
 
 const toggleFullScreen = () => {
   if (!codeElRef.value) return;
