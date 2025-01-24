@@ -53,8 +53,8 @@ importers:
         version: 4.1.1
     devDependencies:
       '@geniusmanyxh/fit-ui':
-        specifier: ^1.0.3
-        version: 1.0.3
+        specifier: ^1.0.4
+        version: 1.0.4
       '@types/markdown-it':
         specifier: ^13.0.5
         version: 13.0.9
@@ -1194,8 +1194,8 @@ packages:
   '@floating-ui/vue@1.1.6':
     resolution: {integrity: sha512-XFlUzGHGv12zbgHNk5FN2mUB7ROul3oG2ENdTpWdE+qMFxyNxWSRmsoyhiEnpmabNm6WnUvR1OvJfUfN4ojC1A==}
 
-  '@geniusmanyxh/fit-ui@1.0.3':
-    resolution: {integrity: sha512-Yo3JnPMDAM1NOMXtCJLWCpVVEvnDZN13/tGWxn6HA4FX+fYc/WIsiRVJeJ9mkeEQb1pbYP1rr1tIz8hSrBxloA==}
+  '@geniusmanyxh/fit-ui@1.0.4':
+    resolution: {integrity: sha512-IEbBG4sc+JC/5PF2c8KIiRLKkguIuD+zH8WPZKB2oGHoiH9XuqvIFwk9Uy5sF7dneTyHVIlJpfNDqwZdCWsRlQ==}
 
   '@humanwhocodes/config-array@0.13.0':
     resolution: {integrity: sha512-DZLEEqFWQFiyK6h5YIeynKx7JlvCYWL0cImfSRXZ9l4Sg2efkFGTuFf6vzXjK1cq6IYkU+Eg/JizXw+TD2vRNw==}
@@ -6364,7 +6364,7 @@ snapshots:
       - '@vue/composition-api'
       - vue
 
-  '@geniusmanyxh/fit-ui@1.0.3': {}
+  '@geniusmanyxh/fit-ui@1.0.4': {}
 
   '@humanwhocodes/config-array@0.13.0':
     dependencies:

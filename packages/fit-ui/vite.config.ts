@@ -11,7 +11,7 @@ import DefineOptions from 'unplugin-vue-define-options/vite'
 type ExportsType = 'default' | 'named' | 'none' | 'auto'
 
 const rollupOptions = {
-  external: ['vue', 'vue-router','tj-jstools'],
+  external: ['vue', 'vue-router','tj-jstools','shiki/core'],
   input: resolve(__dirname, "./src/entry.ts"),
   output: [
     {
@@ -20,7 +20,7 @@ const rollupOptions = {
       entryFileNames: '[name].js',
       // chunkFileNames: 'chunks/[name]-[hash].js',
       assetFileNames: "assets/[name].[ext]",
-      globals: { vue: 'Vue','tj-jstools':'TJJSTOOLS' },
+      globals: { vue: 'Vue','tj-jstools':'TJJSTOOLS','shiki/core':'ShikiCore' },
 
       exports: 'named',
       preserveModules: true,
@@ -33,7 +33,7 @@ const rollupOptions = {
       entryFileNames: '[name].js',
       // chunkFileNames: 'chunks/[name]-[hash].js',
       assetFileNames: "assets/[name].[ext]",
-      globals: { vue: 'Vue','tj-jstools':'TJJSTOOLS' },
+      globals: { vue: 'Vue','tj-jstools':'TJJSTOOLS','shiki/core':'ShikiCore' },
       exports: 'named',
       preserveModules: true,
       preserveModulesRoot: './',

@@ -35,7 +35,7 @@
 <script setup lang="ts">
 import FIcon from '@/FIcon';
 import { ref, onMounted, watch, onBeforeUnmount, nextTick } from 'vue';
-import { createHighlighterCore } from 'shiki/core';
+import * as ShikiCore from 'shiki/core';
 import githubLight from 'shiki/themes/github-light.mjs';
 import githubDark from 'shiki/themes/github-dark.mjs';
 // `shiki/wasm` 包含以 BASE64 字符串内联的 WASM 二进制文件
@@ -84,7 +84,7 @@ let clipboardInstance: any = null;
 // Function to highlight code
 const highlight = async () => {
   // 初始化高亮器时，先加载主题和语言
-  highlighter.value = await createHighlighterCore({
+  highlighter.value = await ShikiCore.createHighlighterCore({
     themes: [githubLight, githubDark],
     langs: [
       langJs,
