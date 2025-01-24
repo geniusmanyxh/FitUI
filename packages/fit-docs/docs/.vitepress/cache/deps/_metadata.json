@@ -1,65 +1,65 @@
 {
-  "hash": "bd3edfd2",
-  "browserHash": "3b9658c0",
+  "hash": "356dfb0f",
+  "browserHash": "1e85529b",
   "optimized": {
     "vue": {
       "src": "../../../../../../node_modules/.pnpm/vue@3.5.13_typescript@5.7.3/node_modules/vue/dist/vue.runtime.esm-bundler.js",
       "file": "vue.js",
-      "fileHash": "b20a02f2",
+      "fileHash": "c3c3b695",
       "needsInterop": false
     },
     "vitepress > @vue/devtools-api": {
       "src": "../../../../../../node_modules/.pnpm/@vue+devtools-api@6.6.4/node_modules/@vue/devtools-api/lib/esm/index.js",
       "file": "vitepress___@vue_devtools-api.js",
-      "fileHash": "de32ee67",
+      "fileHash": "97e7657f",
       "needsInterop": false
     },
     "vitepress > @vueuse/integrations/useFocusTrap": {
       "src": "../../../../../../node_modules/.pnpm/@vueuse+integrations@10.11.1_focus-trap@7.6.4_vue@3.5.13_typescript@5.7.3_/node_modules/@vueuse/integrations/useFocusTrap.mjs",
       "file": "vitepress___@vueuse_integrations_useFocusTrap.js",
-      "fileHash": "55e3d891",
+      "fileHash": "b034cb6c",
       "needsInterop": false
     },
     "vitepress > mark.js/src/vanilla.js": {
       "src": "../../../../../../node_modules/.pnpm/mark.js@8.11.1/node_modules/mark.js/src/vanilla.js",
       "file": "vitepress___mark__js_src_vanilla__js.js",
-      "fileHash": "7f3d297e",
+      "fileHash": "3a8c9888",
       "needsInterop": false
     },
     "vitepress > minisearch": {
       "src": "../../../../../../node_modules/.pnpm/minisearch@6.3.0/node_modules/minisearch/dist/es/index.js",
       "file": "vitepress___minisearch.js",
-      "fileHash": "4f63e66c",
+      "fileHash": "22307c32",
       "needsInterop": false
     },
     "@geniusmanyxh/fit-ui": {
-      "src": "../../../../../../node_modules/.pnpm/@geniusmanyxh+fit-ui@0.0.11/node_modules/@geniusmanyxh/fit-ui/dist/es/src/entry.js",
+      "src": "../../../../../../node_modules/.pnpm/@geniusmanyxh+fit-ui@1.0.1/node_modules/@geniusmanyxh/fit-ui/dist/es/src/entry.js",
       "file": "@geniusmanyxh_fit-ui.js",
-      "fileHash": "2fdf6c1b",
+      "fileHash": "abb0568a",
       "needsInterop": false
     },
     "clipboard-polyfill": {
       "src": "../../../../../../node_modules/.pnpm/clipboard-polyfill@4.1.1/node_modules/clipboard-polyfill/dist/es6/clipboard-polyfill.es6.js",
       "file": "clipboard-polyfill.js",
-      "fileHash": "3eb092bc",
+      "fileHash": "944e302d",
       "needsInterop": false
     },
     "prismjs": {
       "src": "../../../../../../node_modules/.pnpm/prismjs@1.29.0/node_modules/prismjs/prism.js",
       "file": "prismjs.js",
-      "fileHash": "48a10077",
+      "fileHash": "e07c5544",
       "needsInterop": true
     },
     "@geniusmanyxh/fit-ui/dist/es/utils/ficon/index.js": {
-      "src": "../../../../../../node_modules/.pnpm/@geniusmanyxh+fit-ui@0.0.11/node_modules/@geniusmanyxh/fit-ui/dist/es/utils/ficon/index.js",
+      "src": "../../../../../../node_modules/.pnpm/@geniusmanyxh+fit-ui@1.0.1/node_modules/@geniusmanyxh/fit-ui/dist/es/utils/ficon/index.js",
       "file": "@geniusmanyxh_fit-ui_dist_es_utils_ficon_index__js.js",
-      "fileHash": "b5d73148",
+      "fileHash": "4415f67d",
       "needsInterop": false
     }
   },
   "chunks": {
-    "chunk-QYVC6OMH": {
-      "file": "chunk-QYVC6OMH.js"
+    "chunk-V64NJQAT": {
+      "file": "chunk-V64NJQAT.js"
     },
     "chunk-QEZU5JGN": {
       "file": "chunk-QEZU5JGN.js"

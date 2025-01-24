@@ -72,7 +72,9 @@ export const config: UserConfigExport = {
     preprocessorOptions: {
       scss: {
         api: 'modern-compiler',
-        additionalData: `@use "@fstyles/global";`,
+        additionalData: `
+        
+        @use "@fstyles/global" as *;`,
       }
     },
   },

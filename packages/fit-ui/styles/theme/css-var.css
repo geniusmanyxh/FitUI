@@ -1,0 +1,7 @@
+:root {
+    --f-code-bg-color: #f6f6f7; /* 代码块背景色 */
+    --f-code-outside-bg-color: #ffffff; /* 代码块外部背景颜色 */
+    --f-code-outside-border-color: #e2e2e3; /* 代码块外部边框颜色 */
+    --f-code-lang-color: #0c0c0b; /* 代码块语言颜色 */
+    --f-code-outside-text-color: #000000; /* 代码块外部文字颜色 */
+}

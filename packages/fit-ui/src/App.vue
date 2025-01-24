@@ -83,7 +83,7 @@
     const a = 10;
     const b = 20; const c = a + b;"
         lang="ts"
-        theme="dark"
+        theme=""
         showCode
       ></FCodeBlock>
     </div>
