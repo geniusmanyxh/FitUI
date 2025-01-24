@@ -46,7 +46,7 @@ import langTs from 'shiki/langs/ts.mjs';
 import langCss from 'shiki/langs/css.mjs';
 import ClipboardJS from 'clipboard'; // 引入 clipboard.js
 import { useMessage } from '@utils/tsHooks/useMessage'
-import { toggleFull, getFullEl } from 'tj-jstools'
+import * as JSTOOLS from 'tj-jstools'
 
 defineOptions({ name: 'FCodeBlock', inheritAttrs: false, })
 
@@ -196,7 +196,7 @@ onBeforeUnmount(() => {
 
 const toggleFullScreen = () => {
   if (!codeElRef.value) return;
-  const codeBox = getFullEl();
+  const codeBox = JSTOOLS.getFullEl();
   if (codeBox) {
     isFullScreen.value = false;
   } else {
@@ -205,7 +205,7 @@ const toggleFullScreen = () => {
       isShowCode.value = true;
     }
   }
-  toggleFull(codeElRef.value as unknown as Element)
+  JSTOOLS.toggleFull(codeElRef.value as unknown as Element)
 };
 </script>
 

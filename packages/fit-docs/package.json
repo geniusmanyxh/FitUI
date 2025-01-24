@@ -17,8 +17,9 @@
   "keywords": [],
   "author": "geniusmanyxh",
   "license": "ISC",
+  "type": "commonjs",
   "devDependencies": {
-    "@geniusmanyxh/fit-ui": "^1.0.1",
+    "@geniusmanyxh/fit-ui": "^1.0.2",
     "@types/markdown-it": "^13.0.5",
     "@types/markdown-it-container": "^2.0.8",
     "@types/node": "^20.8.8",

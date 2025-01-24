@@ -14,6 +14,7 @@ const sidebar = {
         { text: 'FButton', link: '/components/button/' },
         { text: 'FIcon', link: '/components/icon/' },
         { text: 'FMessage', link: '/components/message/' },
+        { text: 'FCodeBlock', link: '/components/codeBlock/' },
       ]
     }
   ]
