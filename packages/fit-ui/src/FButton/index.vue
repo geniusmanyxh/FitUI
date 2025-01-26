@@ -1,5 +1,5 @@
 <template>
-  <button ref="fbutton" :class="btnClassArr" v-bind="$attrs" @click.stop="handleEvent">
+  <button ref="fbutton" :class="btnClassArr" v-bind="$attrs" @click="handleEvent">
 
     <div v-if="icon" class="flex justify-center items-center">
       <slot name="icon"><f-icon :icon="curBtnIcon" :class="btnIconClassArr"></f-icon></slot>

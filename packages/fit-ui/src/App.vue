@@ -10,7 +10,7 @@
     <div><FMessage duration="notime" :show-close="true" v-if="flag"></FMessage>
     </div>
     <div><FMessage type="success" :show-close="true" :duration="2000"></FMessage></div>
-    <div>
+    <!-- <div>
       <FCodeBlock
         title="代码示例"
         code="const a = 10;
@@ -86,13 +86,19 @@
         theme=""
         showCode
       ></FCodeBlock>
+    </div> -->
+    <div style="margin-top: 100px;margin-left: 100px;">
+      <FToolTip  position="right-end" content="left15151515left15151515left15151515left15151515left15151515left15151515left15151515left15151515left15151515left15151515left15151515left15151515left15151515" 
+      :offset="2" :max-width="300" trigger="click" mode="dark" >
+      <FButton>top</FButton>
+    </FToolTip>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import {useMessage} from '../utils/tsHooks/useMessage';
-import { FMessage,FCodeBlock } from './entry'
+import { FMessage,FCodeBlock,FToolTip,FButton } from './entry'
 import { ref } from 'vue';
 const flag = ref(true);
 const $Msg= useMessage();
