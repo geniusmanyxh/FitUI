@@ -89,7 +89,7 @@
     </div> -->
     <div style="margin-top: 100px;margin-left: 100px;">
       <FToolTip  position="right-end" content="left15151515left15151515left15151515left15151515left15151515left15151515left15151515left15151515left15151515left15151515left15151515left15151515left15151515" 
-      :offset="2" :max-width="300" trigger="click" mode="dark" >
+      :offset="2" :maxWidth="200"  trigger="click" mode="dark" >
       <FButton>top</FButton>
     </FToolTip>
     </div>

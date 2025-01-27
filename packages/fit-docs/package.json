@@ -19,7 +19,7 @@
   "author": "geniusmanyxh",
   "license": "ISC",
   "devDependencies": {
-    "@geniusmanyxh/fit-ui": "^1.0.13",
+    "@geniusmanyxh/fit-ui": "^1.0.23",
     "@types/markdown-it": "^13.0.5",
     "@types/markdown-it-container": "^2.0.8",
     "@types/node": "^20.8.8",

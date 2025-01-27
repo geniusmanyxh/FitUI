@@ -107,6 +107,7 @@ watch(() => vpData.isDark.value, (newVal) => {
     }
 
     &>.show-desc {
+        width: 100%;
         padding: 10px 5px;
         margin-bottom: 20px;
         // background-color: rgba(0, 0, 0, 0.2);
@@ -114,6 +115,7 @@ watch(() => vpData.isDark.value, (newVal) => {
     }
 
     .show-components {
+        width: 100%;
         display: flex;
         justify-content: flex-start;
         align-items: center;

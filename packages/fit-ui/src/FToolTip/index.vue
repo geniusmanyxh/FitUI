@@ -1,5 +1,5 @@
 <template>
-    <div class="f-tooltip-wrapper" :class="themeClassCPT" @mouseenter="handleMouseEnter" @mouseleave="handleMouseLeave" @click.stop="handleClick">
+    <div class="f-tooltip-wrapper" :class="modeClassRef" @mouseenter="handleMouseEnter" @mouseleave="handleMouseLeave" @click.stop="handleClick">
         <!-- <div class="f-tooltip-trigger" @click.stop="handleClick">
             
         </div> -->
@@ -9,7 +9,7 @@
         <div v-show="visible" class="f-tooltip-arrow" :class="arrowPosition" :style="arrowStyle"></div>
         <div v-show="visible" class="f-tooltip-content" :style="tooltipStyle">
             <!-- <div class="f-tooltip-arrow" :class="arrowPosition" :style="arrowStyle"></div> -->
-            <div class="f-tooltip-inner" :style="{ maxWidth: `${maxWidth}px` }">
+            <div class="f-tooltip-inner" :style="{minWidth:(maxWidth && maxWidth > 0)?'auto':'max-content', width: (maxWidth && maxWidth>0)? `${maxWidth}px`:'fit-content' }">
                 {{ content }}
             </div>
         </div>
@@ -32,7 +32,7 @@ const props = withDefaults(defineProps<{
     zIndex?: number,
     maxWidth?: number,
 }>(), {
-    maxWidth:200,
+    
     content: '',
     mode: 'light',
     position: 'left',
@@ -45,17 +45,34 @@ const visible = ref(false);
 const arrowPosition = ref('arrow-top');
 const tooltipStyle = ref({});
 const arrowStyle = ref({});
+const modeClassRef = ref(`mode-${props.mode}`)
 
 // 根据主题动态设置样式
-const themeClassCPT = computed(() => {
+const themeClassCPT = () => {
     if (props.mode === 'custom') {
-        document.documentElement.style.setProperty('--f-tooltip-background', props.modeBgColor || '#fff');
-        document.documentElement.style.setProperty('--f-tooltip-text-color', props.modeTextColor || '#000');
-        document.documentElement.style.setProperty('--f-tooltip-border-color', props.modeBgColor || '#fff');
+        const position = arrowPosition.value.split('-')[1];
+        switch (position) {
+            case 'top':
+                arrowStyle.value = {...arrowStyle.value,borderTopColor: props.modeBgColor || '#fff'}
+                break;
+            case 'bottom':
+                arrowStyle.value = {...arrowStyle.value,borderBottomColor: props.modeBgColor || '#fff'}
+                break;
+            case 'left':
+                arrowStyle.value = {...arrowStyle.value,borderLeftColor: props.modeBgColor || '#fff'}
+                break;
+            case 'right':
+                arrowStyle.value = {...arrowStyle.value,borderRightColor: props.modeBgColor || '#fff'}
+                break;
+        }
+        tooltipStyle.value = {...tooltipStyle.value,backgroundColor: props.modeBgColor || '#fff',color: props.modeTextColor || '#000'}
+        // document.documentElement.style.setProperty('--f-tooltip-background', props.modeBgColor || '#fff');
+        // document.documentElement.style.setProperty('--f-tooltip-text-color', props.modeTextColor || '#000');
+        // document.documentElement.style.setProperty('--f-tooltip-border-color', props.modeBgColor || '#fff');
     }
-
-    return `mode-${props.mode}`
-});
+    modeClassRef.value = `mode-${props.mode}`
+    // return `mode-${props.mode}`
+};
 
 const handleMouseEnter = () => {
     console.log(111);
@@ -275,6 +292,8 @@ const updateTooltipPosition = () => {
         ...arrowStyle.value,
         zIndex: props.zIndex + 1
     };
+
+    themeClassCPT();
 };
 
 onMounted(() => {
@@ -288,6 +307,7 @@ onBeforeUnmount(() => {
 
 watch(() => props, (val) => {
     // alert(JSON.stringify(val))
+    
     updateTooltipPosition();
 }, {
     deep: true,
@@ -296,30 +316,24 @@ watch(() => props, (val) => {
 </script>
 
 <style lang="scss" scoped>
+
 .f-tooltip-wrapper {
     display: inline-block;
     position: relative;
+    cursor: pointer;
 }
 
 .mode {
     &-dark {
         --f-tooltip-background: #404040;
-        /* 文本提示框背景颜色 */
         --f-tooltip-text-color: #ffffff;
-        /* 文本提示框文字颜色 */
         --f-tooltip-border-color: #404040;
-        /* 文本提示框边框颜色 */
-
     }
 
     &-light {
         --f-tooltip-background: #ffffff;
-        /* 文本提示框背景颜色 */
         --f-tooltip-text-color: #000000;
-        /* 文本提示框文字颜色 */
         --f-tooltip-border-color: #ffffff;
-        /* 文本提示框边框颜色 */
-
     }
 }
 
@@ -331,7 +345,7 @@ watch(() => props, (val) => {
     white-space: nowrap;
     background: var(--f-tooltip-background);
     color: var(--f-tooltip-text-color);
-
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
 }
 
 .f-tooltip-trigger {
@@ -345,47 +359,32 @@ watch(() => props, (val) => {
     height: 0;
     border-style: solid;
     z-index: 1000;
-}
 
-.f-tooltip-arrow.arrow-top {
-    border-width: 6px 6px 0;
-    border-color: var(--f-tooltip-border-color) transparent transparent transparent;
-    // bottom: -6px;
-}
+    &.arrow-top {
+        border-width: 6px 6px 0;
+        border-color: var(--f-tooltip-border-color) transparent transparent transparent;
+    }
 
-.f-tooltip-arrow.arrow-bottom {
-    border-width: 0 6px 6px;
-    border-color: transparent transparent var(--f-tooltip-border-color) transparent;
-    // top: -6px;
-}
+    &.arrow-bottom {
+        border-width: 0 6px 6px;
+        border-color: transparent transparent var(--f-tooltip-border-color) transparent;
+    }
 
-.f-tooltip-arrow.arrow-left {
-    border-width: 6px 0 6px 6px; // 修改为箭头朝右
-    border-color: transparent transparent transparent var(--f-tooltip-border-color); // 修改为箭头朝右
-    // right: -6px;
-}
+    &.arrow-left {
+        border-width: 6px 0 6px 6px; // 修改为箭头朝右
+        border-color: transparent transparent transparent var(--f-tooltip-border-color); // 修改为箭头朝右
+    }
 
-.f-tooltip-arrow.arrow-right {
-    border-width: 6px 6px 6px 0; // 修改为箭头朝左
-    border-color: transparent var(--f-tooltip-border-color) transparent transparent; // 修改为箭头朝左
-    // left: -6px;
+    &.arrow-right {
+        border-width: 6px 6px 6px 0; // 修改为箭头朝左
+        border-color: transparent var(--f-tooltip-border-color) transparent transparent; // 修改为箭头朝左
+    }
 }
 
 .f-tooltip-inner {
-    // padding: 5px 10px;
-    max-width: 200px; /* 限定最大宽度 */
+    // min-width: auto;
+    // max-width: 200px; /* 限定最大宽度 */
     word-wrap: break-word; /* 允许单词换行 */
     white-space: normal; /* 允许文本换行 */
-}
-
-/* UnoCSS styles */
-@layer unocss {
-    .f-tooltip-wrapper {
-        cursor: pointer;
-    }
-
-    .f-tooltip-content {
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-    }
 }
 </style>
