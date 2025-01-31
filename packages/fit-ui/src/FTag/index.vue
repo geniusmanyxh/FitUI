@@ -36,7 +36,7 @@ const props = withDefaults(defineProps<{
   closeColor: '', // Default close button color on hover
   closeHoverColor: '',
   mode: 'dark', // Default mode
-  type: 'primary', // Default type
+  type: 'default', // Default type
   size: 'medium', // Default size
   label: '', // Default label
   round: false, // Default round value
