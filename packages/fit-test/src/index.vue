@@ -49,6 +49,7 @@ const examplesArr: IExampleArr = [
   { name: 'popover', path: '/popover', open: false },
   { name: 'collapse', path: '/collapse', open: false },
   { name: 'toast', path: '/toast', open: false },
+  { name: 'tag', path: '/tag', open: true },
 ]
 
 </script>

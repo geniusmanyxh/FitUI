@@ -2,7 +2,7 @@
   <div>
     <custom-nav title="FButton"></custom-nav>
     FButton
-
+    <FButton>FButton</FButton>
   </div>
 </template>
 

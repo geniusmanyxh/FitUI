@@ -20,6 +20,11 @@ const routes:Readonly<RouteRecordRaw[]> = [
     name: 'message',
     component: () => import('@/examples/FMessage/index.vue')
   },
+  {
+    path: '/tag',
+    name: 'tag',
+    component: () => import('@/examples/FTag/index.vue')
+  },
 
 ]
 
