@@ -12,11 +12,12 @@ const sidebar = {
     {
       text: 'Components',
       items: [
-        { text: 'FButton', link: '/components/button/' },
-        { text: 'FIcon', link: '/components/icon/' },
-        { text: 'FToolTip', link: '/components/tooltip/' },
-        { text: 'FMessage', link: '/components/message/' },
-        { text: 'FCodeBlock', link: '/components/codeBlock/' },
+        { text: 'FButton(按钮)', link: '/components/button/' },
+        { text: 'FIcon(图标)', link: '/components/icon/' },
+        { text: 'FToolTip(文字提示)', link: '/components/tooltip/' },
+        { text: 'FTag(标签)', link: '/components/tag/' },
+        { text: 'FMessage(消息)', link: '/components/message/' },
+        { text: 'FCodeBlock(代码块)', link: '/components/codeBlock/' },
       ]
     }
   ]
