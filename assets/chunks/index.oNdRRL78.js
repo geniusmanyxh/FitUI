@@ -1,0 +1,1 @@
+import{a as e}from"./theme.Cw99Kb4J.js";import{d as o,o as s,c as t,G as c,k as a,_ as d}from"./framework.Cb3mK5Xd.js";const n={class:"vitepress-codeblock"},r=o({__name:"index",setup(l){return(_,i)=>(s(),t("div",n,[c(a(e),{title:"示例代码",code:"console.log('Hello, World!');",lang:"js",showCode:!0,theme:"light"})]))}}),f=d(r,[["__scopeId","data-v-1bded035"]]);export{f as default};

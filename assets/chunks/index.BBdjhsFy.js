@@ -1,0 +1,1 @@
+import{F as e}from"./theme.LKmwSGvW.js";import{d as o,o as t,c as r,G as a,k as n}from"./framework.Cb3mK5Xd.js";const p=o({__name:"index",setup(l){return(s,c)=>(t(),r("div",null,[a(n(e),{title:"示例代码",code:"console.log('Hello, World!');",lang:"js",showCode:!0,theme:"dark"})]))}});export{p as default};
