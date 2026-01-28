@@ -12,7 +12,9 @@
     "d:build:prod": "vitepress build docs --env_type prod",
     "d:serve": "vitepress serve docs",
     "d:build": "pnpm run d:build:prod && npx pnpm run copy:powershell",
-    "build:dev": "pnpm run d:build:dev"
+    "build:dev": "pnpm run d:build:dev",
+    "lint": "oxlint docs",
+    "format": "oxfmt docs"
   },
   "keywords": [],
   "type": "module",
@@ -43,6 +45,8 @@
     "vitepress-demoblock": "^1.0.4",
     "vitepress-theme-demoblock": "^3.1.3",
     "vitest": "4.0.18",
+    "oxfmt": "^0.27.0",
+    "oxlint": "^1.42.0",
     "vue": "^3.5.27",
     "vue-tsc": "^3.2.4"
   },

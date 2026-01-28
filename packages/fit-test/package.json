@@ -7,7 +7,9 @@
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "lint": "oxlint src",
+    "format": "oxfmt src"
   },
   "dependencies": {
     "@geniusmanyxh/fit-ui": "workspace:^",
@@ -17,6 +19,8 @@
     "@iconify-json/ic": "^1.2.4",
     "@vitejs/plugin-vue": "^6.0.3",
     "typescript": "^5.9.3",
+    "oxfmt": "^0.27.0",
+    "oxlint": "^1.42.0",
     "unocss": "^66.6.0",
     "unplugin-auto-import": "^21.0.0",
     "unplugin-vue-components": "^31.0.0",
