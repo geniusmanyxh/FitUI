@@ -1,5 +1,5 @@
-import { defineConfig, UserConfigExport } from 'vite'
-import type { ServerOptions } from 'vite'
+import { defineConfig, UserConfigExport } from 'vitest/config'
+import type { ServerOptions, UserConfig } from 'vite'
 import { resolve } from 'path'
 import vue from '@vitejs/plugin-vue'
 import vueJsx from '@vitejs/plugin-vue-jsx'
@@ -93,13 +93,13 @@ export const config: UserConfigExport = {
     },
     outDir: './dist',
   },
-  // test: {
-  //   globals: true,
-  //   environment: 'happy-dom',
-  //   transformMode: {
-  //     web: [/.[tj]sx$/],
-  //   },
-  // },
+  test: {
+    globals: true,
+    environment: 'happy-dom',
+    testTransformMode: {
+      web: ['.[tj]sx$'],
+    },
+  },
 }
 
 export default defineConfig(config)
