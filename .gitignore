@@ -131,3 +131,8 @@ dist
 
 # vscode
 .vscode/
+.agents
+.cursor
+.qoder
+.trae
+skills/
