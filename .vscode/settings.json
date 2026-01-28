@@ -1,5 +1,6 @@
 {
   "prettier.requireConfig": true,
+  "workbench.activityBar.orientation": "vertical",
   "scss.validate": false,
   // "css.validate": false,
   "css.lint": {
