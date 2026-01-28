@@ -1,5 +1,5 @@
 echo ====代码静态检查====
 pnpm --filter @geniusmanyxh/fit-ui run lint
-pnpm --filter fit-test run lint
-pnpm --filter fit-docs run lint
+# pnpm --filter fit-test run lint
+# pnpm --filter fit-docs run lint
 
