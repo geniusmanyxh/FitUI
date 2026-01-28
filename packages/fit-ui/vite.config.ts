@@ -1,5 +1,5 @@
-import { defineConfig, UserConfigExport } from 'vitest/config'
-import type { ServerOptions, UserConfig } from 'vite'
+import { defineConfig } from 'vitest/config'
+import type { ServerOptions } from 'vite'
 import { resolve } from 'path'
 import vue from '@vitejs/plugin-vue'
 import vueJsx from '@vitejs/plugin-vue-jsx'
@@ -42,7 +42,7 @@ const rollupOptions = {
   ],
 } as any;
 
-export const config: UserConfigExport = {
+export const config = defineConfig({
   define: {
     __VUE_PROD_HYDRATION_MISMATCH_DETAILS__: 'true'
   },
@@ -96,10 +96,7 @@ export const config: UserConfigExport = {
   test: {
     globals: true,
     environment: 'happy-dom',
-    testTransformMode: {
-      web: ['.[tj]sx$'],
-    },
   },
-}
+})
 
-export default defineConfig(config)
+export default config
