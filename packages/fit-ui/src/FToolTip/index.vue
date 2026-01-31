@@ -1,9 +1,9 @@
 <template>
-    <div class="f-tooltip-wrapper" :class="modeClassRef" @mouseenter="handleMouseEnter" @mouseleave="handleMouseLeave" @click.stop="handleClick">
+    <div ref="wrapperRef" class="f-tooltip-wrapper" :class="modeClassRef" @mouseenter="handleMouseEnter" @mouseleave="handleMouseLeave" @click.stop="handleClick">
         <slot></slot> <!-- 允许用户自定义触发元素 -->
 
         <div v-show="visible" class="f-tooltip-arrow" :class="arrowPosition" :style="arrowStyle"></div>
-        <div v-show="visible" class="f-tooltip-content" :style="tooltipStyle">
+        <div ref="contentRef" v-show="visible" class="f-tooltip-content" :style="tooltipStyle">
             <div class="f-tooltip-inner" :style="{minWidth:(maxWidth && maxWidth > 0)?'auto':'max-content', width: (maxWidth && maxWidth>0)? `${maxWidth}px`:'fit-content' }">
                 {{ content }}
             </div>
@@ -112,10 +112,12 @@ const props = withDefaults(defineProps<ToolTipProps>(), {
     zIndex: 1001,
 });
 
+const wrapperRef = ref<HTMLElement | null>(null)
+const contentRef = ref<HTMLElement | null>(null)
 const visible = ref(false);
 const arrowPosition = ref('arrow-top');
-const tooltipStyle = ref({});
-const arrowStyle = ref({});
+const tooltipStyle = ref<Record<string, string | number>>({});
+const arrowStyle = ref<Record<string, string | number>>({});
 const modeClassRef = ref(`mode-${props.mode}`)
 
 // 根据主题动态设置样式
@@ -146,7 +148,6 @@ const themeClassCPT = () => {
 };
 
 const handleMouseEnter = () => {
-    console.log(111);
     updateTooltipPosition()
     if (props.trigger === 'hover') {
         visible.value = true;
@@ -160,22 +161,18 @@ const handleMouseLeave = () => {
 };
 
 const handleClick = () => {
-    console.log(222);
     updateTooltipPosition()
     if (props.trigger === 'click') {
         visible.value = !visible.value;
     }
 };
 
-// 根据 position 计算箭头和提示框的位置
+// 根据 position 计算箭头和提示框的位置（使用 template ref 避免多实例选错节点）
 const updateTooltipPosition = () => {
-    const el = document.querySelector('.f-tooltip-wrapper') as HTMLElement;
-    const tooltip = document.querySelector('.f-tooltip-content') as HTMLElement;
+    const el = wrapperRef.value
+    const tooltip = contentRef.value
 
-    // 检查 el、tooltip 是否存在
     if (!el || !tooltip) return;
-
-    const rect = el.getBoundingClientRect();
     // const tooltipRect = tooltip.getBoundingClientRect();
     // console.log('rect',rect);
     // console.log('tooltip',tooltipRect);
@@ -376,14 +373,18 @@ onBeforeUnmount(() => {
     window.removeEventListener('resize', updateTooltipPosition);
 });
 
-watch(() => props, (val) => {
-    // alert(JSON.stringify(val))
-    
-    updateTooltipPosition();
-}, {
-    deep: true,
-    immediate: true
-});
+watch(
+    [
+        () => props.position,
+        () => props.mode,
+        () => props.offset,
+        () => props.zIndex,
+        () => props.modeBgColor,
+        () => props.modeTextColor,
+    ],
+    () => updateTooltipPosition(),
+    { immediate: true }
+);
 </script>
 
 <style lang="scss" scoped>

@@ -93,7 +93,15 @@ const msgBgClass: Record<MessageType, string> = Object.fromEntries(
   messageTypes.map(type => [type, `msg_${type}`])
 ) as Record<MessageType, string>
 
-const emit = defineEmits(['close', 'show']);
+/**
+ * 消息组件事件
+ */
+interface MessageEmits {
+  (e: 'close'): void
+  (e: 'show'): void
+}
+
+const emit = defineEmits<MessageEmits>();
 
 // 使用对象映射优化类型判断逻辑
 const iconMap = {
