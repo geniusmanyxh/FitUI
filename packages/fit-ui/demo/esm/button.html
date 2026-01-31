@@ -5,41 +5,66 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="../../dist/entry.css">
+  <link rel="stylesheet" href="../../dist/es/assets/fitui.css">
   <title>FitUI-DEMO-ESM-Button</title>
-  <!-- <script src="https://cdn.jsdelivr.net/npm/vue@3.2.21/dist/vue.esm-bundler.js"></script> -->
 </head>
 
 <body>
-  <h1>按需加载组件</h1>
+  <h1>FitUI 按钮组件示例</h1>
   <div id="app"></div>
   <script type="module">
     import { createApp } from "../../node_modules/vue/dist/vue.esm-bundler.js";
-    // import { createApp } from "https://cdn.jsdelivr.net/npm/vue@3.2.21/dist/vue.esm-bundler.js";
-    import {
-      SFCButton,
-      JSXButton,
-      MyButton,
-    } from "../../dist/fit-ui.mjs";
+    import { FButton, FIcon } from "../../dist/es/src/entry.js";
 
     createApp({
       template: `
-<MyButton/>
-<JSXButton/>
-<SFCButton>SFC</SFCButton>
+        <div style="padding: 20px;">
+          <h2>基础按钮</h2>
+          <div style="display: flex; gap: 10px; margin-bottom: 20px;">
+            <FButton>默认按钮</FButton>
+            <FButton type="primary">主要按钮</FButton>
+            <FButton type="success">成功按钮</FButton>
+            <FButton type="info">信息按钮</FButton>
+            <FButton type="warning">警告按钮</FButton>
+            <FButton type="danger">危险按钮</FButton>
+          </div>
 
-<div>
-  <JSXButton color="blue" icon="search">蓝色按钮</JSXButton>
-  <JSXButton color="green" icon="edit">绿色按钮</JSXButton>
-  <JSXButton color="gray" icon="message">灰色按钮</JSXButton>
-  <JSXButton color="yellow" icon="add">黄色按钮</JSXButton>
-  <JSXButton color="red" icon="delete">红色按钮</JSXButton>
-</div>
-`,
+          <h2>朴素按钮</h2>
+          <div style="display: flex; gap: 10px; margin-bottom: 20px;">
+            <FButton plain>默认按钮</FButton>
+            <FButton type="primary" plain>主要按钮</FButton>
+            <FButton type="success" plain>成功按钮</FButton>
+            <FButton type="info" plain>信息按钮</FButton>
+            <FButton type="warning" plain>警告按钮</FButton>
+            <FButton type="danger" plain>危险按钮</FButton>
+          </div>
+
+          <h2>圆角按钮</h2>
+          <div style="display: flex; gap: 10px; margin-bottom: 20px;">
+            <FButton round>默认按钮</FButton>
+            <FButton type="primary" round>主要按钮</FButton>
+            <FButton type="success" round>成功按钮</FButton>
+          </div>
+
+          <h2>不同尺寸</h2>
+          <div style="display: flex; gap: 10px; align-items: center; margin-bottom: 20px;">
+            <FButton size="large" type="primary">大型按钮</FButton>
+            <FButton type="primary">默认按钮</FButton>
+            <FButton size="small" type="primary">小型按钮</FButton>
+          </div>
+
+          <h2>带图标按钮</h2>
+          <div style="display: flex; gap: 10px; margin-bottom: 20px;">
+            <FButton type="primary" icon="search">搜索</FButton>
+            <FButton type="success" icon="check">确认</FButton>
+            <FButton type="danger" icon="delete">删除</FButton>
+            <FButton type="warning" icon="warning">警告</FButton>
+          </div>
+        </div>
+      `,
     })
-      .component(SFCButton.name, SFCButton)
-      .component(JSXButton.name, JSXButton)
-      .component(MyButton.name, MyButton)
+      .use(FButton)
+      .use(FIcon)
       .mount("#app");
   </script>
 

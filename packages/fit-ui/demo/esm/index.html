@@ -5,26 +5,84 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="../../dist/entry.css">
+  <link rel="stylesheet" href="../../dist/es/assets/fitui.css">
   <title>FitUI-DEMO-ESM</title>
 </head>
 
 <body>
-
-  <h1>全量加载组件</h1>
+  <h1>FitUI 组件库示例</h1>
   <div id="app"></div>
   <script type="module">
     import { createApp } from "../../node_modules/vue/dist/vue.esm-bundler.js";
-    import FitUI from "../../dist/fit-ui.mjs";
+    import FitUI, { FButton, FIcon, FTag, useMessage } from "../../dist/es/src/entry.js";
 
-    createApp({
+    const app = createApp({
+      setup() {
+        const { message, success, error, warning, info } = useMessage();
+
+        const showMessage = () => {
+          success('操作成功！');
+        };
+
+        const showError = () => {
+          error('操作失败！');
+        };
+
+        const showWarning = () => {
+          warning('警告信息！');
+        };
+
+        const showInfo = () => {
+          info('提示信息！');
+        };
+
+        return {
+          showMessage,
+          showError,
+          showWarning,
+          showInfo
+        };
+      },
       template: `
-      <SFCButton/>
-      
-    `}).use(FitUI).mount('#app')
+        <div style="padding: 20px;">
+          <h2>按钮组件</h2>
+          <div style="display: flex; gap: 10px; margin-bottom: 30px;">
+            <FButton>默认按钮</FButton>
+            <FButton type="primary">主要按钮</FButton>
+            <FButton type="success">成功按钮</FButton>
+            <FButton type="danger" round>危险按钮</FButton>
+          </div>
 
+          <h2>标签组件</h2>
+          <div style="display: flex; gap: 10px; margin-bottom: 30px;">
+            <FTag label="默认标签" />
+            <FTag label="主要标签" type="primary" />
+            <FTag label="成功标签" type="success" />
+            <FTag label="警告标签" type="warning" />
+            <FTag label="危险标签" type="danger" closable />
+          </div>
+
+          <h2>消息提示</h2>
+          <div style="display: flex; gap: 10px; margin-bottom: 30px;">
+            <FButton type="success" @click="showMessage">成功消息</FButton>
+            <FButton type="danger" @click="showError">错误消息</FButton>
+            <FButton type="warning" @click="showWarning">警告消息</FButton>
+            <FButton type="info" @click="showInfo">信息消息</FButton>
+          </div>
+        </div>
+      `,
+    });
+
+    // 方式1: 全局注册所有组件
+    app.use(FitUI);
+    
+    // 方式2: 按需注册单个组件（如果不使用 app.use(FitUI)）
+    // app.use(FButton);
+    // app.use(FIcon);
+    // app.use(FTag);
+
+    app.mount("#app");
   </script>
-
 
 </body>
 
