@@ -24,6 +24,8 @@ const safelist = [
 
 export default () =>
   Unocss({
+    mode: 'dist-chunk',  // 编译到构建产物
+    inspector: false,
     safelist,
     presets: [
       presetUno(),

@@ -48,30 +48,96 @@ pnpm add @geniusmanyxh/fit-ui
 
 ## 🔨 快速开始
 
-### 全局引入
+### 前置要求
+
+FitUI 使用了 UnoCSS 的原子类和 `@apply` 指令，因此你的项目需要配置 UnoCSS：
+
+```bash
+pnpm add -D unocss
+```
+
+```typescript
+// vite.config.ts
+import UnoCSS from 'unocss/vite'
+
+export default defineConfig({
+  plugins: [
+    vue(),
+    UnoCSS(),
+  ],
+})
+```
+
+```typescript
+// main.ts
+import 'uno.css'
+```
+
+### 方式一：全量引入（适合小型项目）
 
 ```typescript
 import { createApp } from 'vue'
-import FitUI from '@geniusmanyxh/fit-ui'
-import '@geniusmanyxh/fit-ui/style.css'
+import FitUI from '@geniusmanyxh/fit-ui/full'
 
 const app = createApp(App)
 app.use(FitUI)
 app.mount('#app')
 ```
 
-### 按需引入（推荐）
+**说明**：`full` 入口包含了所有组件的样式，会自动引入所需的 CSS。
+
+### 方式二：按需手动引入（推荐，包体积最小）
 
 ```typescript
 import { createApp } from 'vue'
 import { FButton, FIcon, FMessage } from '@geniusmanyxh/fit-ui'
-import '@geniusmanyxh/fit-ui/style.css'
 
 const app = createApp(App)
 app.use(FButton)
 app.use(FIcon)
 app.use(FMessage)
 app.mount('#app')
+```
+
+**注意**：按需引入时，组件样式已经内嵌，无需额外引入 CSS 文件。
+
+### 方式三：自动按需引入（推荐，开发体验最佳）
+
+安装 unplugin-vue-components：
+
+```bash
+pnpm add -D unplugin-vue-components
+```
+
+配置 Vite：
+
+```typescript
+// vite.config.ts
+import { defineConfig } from 'vite'
+import Components from 'unplugin-vue-components/vite'
+import { FitUIResolver } from '@geniusmanyxh/fit-ui/resolver'
+
+export default defineConfig({
+  plugins: [
+    Components({
+      resolvers: [FitUIResolver()],
+    }),
+  ],
+})
+```
+
+使用时无需手动引入：
+
+```vue
+<template>
+  <!-- 直接使用，自动引入组件和样式 -->
+  <FButton type="primary">按钮</FButton>
+  <FTag label="标签" />
+</template>
+
+<script setup lang="ts">
+// 无需 import，自动引入
+</script>
 ```
 
 ### 组合式 API 使用
@@ -118,6 +184,67 @@ FitUI 目前提供以下组件：
 | Hook | 说明 |
 |------|------|
 | **useMessage** | 消息提示钩子，快速调用各类消息 |
+
+## 🔄 从 1.x 迁移到 2.x
+
+### 主要变化
+
+1. **样式引入方式改变**
+   - ❌ 旧方式：全局引入 `style.css`
+   - ✅ 新方式：按需引入或使用 `full` 入口
+
+2. **需要配置 UnoCSS**
+   - 组件依赖 UnoCSS，需要在项目中配置
+
+3. **新增 Resolver 支持**
+   - 支持自动按需引入
+
+### 迁移步骤
+
+#### 1. 安装 UnoCSS
+
+```bash
+pnpm add -D unocss
+```
+
+#### 2. 配置 UnoCSS
+
+```typescript
+// vite.config.ts
+import UnoCSS from 'unocss/vite'
+
+export default defineConfig({
+  plugins: [
+    vue(),
+    UnoCSS(),
+  ],
+})
+```
+
+#### 3. 更新引入方式
+
+**选项 A：全量引入（最简单）**
+
+```typescript
+// 旧代码
+import FitUI from '@geniusmanyxh/fit-ui'
+import '@geniusmanyxh/fit-ui/style.css'
+
+// 新代码
+import FitUI from '@geniusmanyxh/fit-ui/full'
+```
+
+**选项 B：按需引入（推荐）**
+
+```typescript
+// 旧代码
+import { FButton } from '@geniusmanyxh/fit-ui'
+import '@geniusmanyxh/fit-ui/style.css'
+
+// 新代码
+import { FButton } from '@geniusmanyxh/fit-ui'
+// 样式已自动包含，无需额外引入
+```
 
 ## 🎨 组件示例
 

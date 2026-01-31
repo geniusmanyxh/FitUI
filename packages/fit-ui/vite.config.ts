@@ -12,14 +12,26 @@ type ExportsType = 'default' | 'named' | 'none' | 'auto'
 
 const rollupOptions = {
   external: ['vue', 'vue-router','tj-jstools','shiki'],
-  input: resolve(__dirname, "./src/entry.ts"),
+  input: {
+    entry: resolve(__dirname, "./src/entry.ts"),
+    full: resolve(__dirname, "./src/full.ts"),
+    components: resolve(__dirname, "./src/components.ts"),
+  },
   output: [
     {
       format: 'es',
       dir: 'dist/es',
       entryFileNames: '[name].js',
       // chunkFileNames: 'chunks/[name]-[hash].js',
-      assetFileNames: "assets/[name].[ext]",
+      assetFileNames: (assetInfo: any) => {
+        if (assetInfo.name === 'uno.css') {
+          return 'uno.css'
+        }
+        if (assetInfo.name?.endsWith('.css')) {
+          return '[name].css'
+        }
+        return 'assets/[name].[ext]'
+      },
       globals: { vue: 'Vue','tj-jstools':'TJJSTOOLS','shiki':'ShikiCore' },
 
       exports: 'named',
@@ -32,7 +44,15 @@ const rollupOptions = {
       dir: 'dist/lib',
       entryFileNames: '[name].js',
       // chunkFileNames: 'chunks/[name]-[hash].js',
-      assetFileNames: "assets/[name].[ext]",
+      assetFileNames: (assetInfo: any) => {
+        if (assetInfo.name === 'uno.css') {
+          return 'uno.css'
+        }
+        if (assetInfo.name?.endsWith('.css')) {
+          return '[name].css'
+        }
+        return 'assets/[name].[ext]'
+      },
       globals: { vue: 'Vue','tj-jstools':'TJJSTOOLS','shiki':'ShikiCore' },
       exports: 'named',
       preserveModules: true,
@@ -74,9 +94,7 @@ export const config = defineConfig({
       scss: {
         // @ts-ignore
         api: 'modern-compiler' as any,
-        additionalData: `
-        
-        @use "@fstyles/global" as *;`,
+        // 移除 additionalData，改为显式引入
       }
     },
   },
