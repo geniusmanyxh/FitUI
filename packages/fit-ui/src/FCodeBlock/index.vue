@@ -35,7 +35,7 @@
 <script setup lang="ts">
 import FIcon from '@/FIcon';
 import { ref, onMounted, watch, onBeforeUnmount, nextTick } from 'vue';
-import * as ShikiCore from 'shiki';
+import { createHighlighterCore, createOnigurumaEngine } from 'shiki';
 // import githubLight from 'shiki/themes/github-light.mjs';
 // import githubDark from 'shiki/themes/github-dark.mjs';
 // `shiki/wasm` 包含以 BASE64 字符串内联的 WASM 二进制文件
@@ -96,7 +96,7 @@ const handleCopy = async () => {
 // Function to highlight code
 const highlight = async () => {
   // 初始化高亮器时，先加载主题和语言
-  highlighter.value = await ShikiCore.createHighlighterCore({
+  highlighter.value = await createHighlighterCore({
     themes: [import('shiki/themes/github-light.mjs'), async () => await import('shiki/themes/github-dark.mjs')],
     langs: [
     async () => await import('shiki/langs/js.mjs'),
@@ -104,7 +104,7 @@ const highlight = async () => {
     async () => await import('shiki/langs/ts.mjs'),
     async () => await import('shiki/langs/css.mjs'),
     ],
-    loadWasm: async () => await import('shiki/wasm'),
+    engine: createOnigurumaEngine(import('shiki/wasm')),
   });
 
   changeHighlightedCode();

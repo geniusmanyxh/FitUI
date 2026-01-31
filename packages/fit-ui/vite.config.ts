@@ -72,7 +72,8 @@ export const config = defineConfig({
   css: {
     preprocessorOptions: {
       scss: {
-        api: 'modern-compiler',
+        // @ts-ignore
+        api: 'modern-compiler' as any,
         additionalData: `
         
         @use "@fstyles/global" as *;`,
