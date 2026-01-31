@@ -136,3 +136,6 @@ dist
 .qoder
 .trae
 skills/
+**/node_modules/**
+# VitePress 构建缓存（任意层级的 .vitepress/cache 目录）
+**/.vitepress/cache/
