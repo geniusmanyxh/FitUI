@@ -15,6 +15,19 @@
 </template>
 
 <script setup lang="ts">
+/**
+ * FMessage 消息提示组件
+ * 
+ * @description 全局消息提示组件，用于主动反馈用户操作结果
+ * @example
+ * ```ts
+ * import { useMessage } from '@geniusmanyxh/fit-ui'
+ * const { success, error, warning, info } = useMessage()
+ * 
+ * success('操作成功！')
+ * error('操作失败！', { duration: 5000, showClose: true })
+ * ```
+ */
 import { ref, watch, onMounted, computed, watchEffect } from 'vue'
 import { messageTypes } from '@ftypes/index.type'
 import type { MessageType } from '@ftypes/index.type'
@@ -22,14 +35,52 @@ import FIcon from '@/FIcon'
 
 defineOptions({ name: 'FMessage', inheritAttrs: false, })
 
-const props = withDefaults(defineProps<{
-  type?: MessageType | undefined;
-  msg?: string | undefined;
-  duration?: number | "notime" | undefined;
-  icon?: string | undefined;
-  showClose?: boolean | undefined;
-  zIndex?: number | undefined;
-}>(), {
+/**
+ * 消息组件属性
+ */
+export interface MessageProps {
+  /**
+   * 消息类型
+   * @default 'default'
+   * @example 'success' | 'error' | 'warn' | 'info' | 'default'
+   */
+  type?: MessageType | undefined
+  
+  /**
+   * 消息文本内容
+   * @default 'Hello'
+   */
+  msg?: string | undefined
+  
+  /**
+   * 显示时长（毫秒）
+   * @default 3000
+   * @description 设置为 'notime' 则不自动关闭
+   * @example 3000 | 5000 | 'notime'
+   */
+  duration?: number | "notime" | undefined
+  
+  /**
+   * 自定义图标
+   * @default ''
+   * @description 为空时使用默认图标
+   */
+  icon?: string | undefined
+  
+  /**
+   * 是否显示关闭按钮
+   * @default false
+   */
+  showClose?: boolean | undefined
+  
+  /**
+   * 消息层级
+   * @default 1000
+   */
+  zIndex?: number | undefined
+}
+
+const props = withDefaults(defineProps<MessageProps>(), {
   type: 'default',
   msg: 'Hello',
   duration: 3000,
@@ -110,12 +161,9 @@ onMounted(() => {
 })
 
 watchEffect(() => {
-
-
   // 优先使用传入的icon,否则根据type获取默认icon
   defaultIcon.value = props.icon || iconMap[props.type]
-}
-)
+})
 /**
 * 监听 isShow 变量的变化。
 * 当 isShow 变量的值发生变化时，清除名为 durationTimer 的定时器。

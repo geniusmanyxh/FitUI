@@ -1,3 +1,33 @@
+/**
+ * FitUI 消息提示工具
+ * 
+ * @description 提供全局消息提示功能的 Composition API Hook
+ * @module useMessage
+ * @example
+ * ```vue
+ * <script setup>
+ * import { useMessage } from '@geniusmanyxh/fit-ui'
+ * 
+ * const { success, error, warning, info, message } = useMessage()
+ * 
+ * // 快捷方法
+ * success('操作成功！')
+ * error('操作失败！')
+ * warning('警告信息！', { duration: 5000 })
+ * info('提示信息！', { showClose: true })
+ * 
+ * // 自定义消息
+ * message({
+ *   type: 'success',
+ *   msg: '自定义消息',
+ *   duration: 3000,
+ *   showClose: true,
+ *   onClose: (res) => console.log('关闭', res)
+ * })
+ * </script>
+ * ```
+ */
+
 // utils/Message.ts
 // 引入Vue及相关组件和枚举类型
 import { createApp, h } from 'vue';
@@ -5,28 +35,49 @@ import Message from '@/FMessage/index.vue';
 import { ComponentContainerClass } from '@enums/styleConstEnum'
 import { MessageType,MsgResult } from '@ftypes/FMessage/index.type';
 
-// 定义消息组件的属性类型
+/**
+ * 消息组件的属性类型
+ */
 type msgProps = {
-  type?: MessageType, // 消息类型
-  msg?: string, // 消息内容
-  duration?: number | 'notime', // 消息显示时长
-  icon?: string, // 自定义图标
-  showClose?: boolean, // 是否显示关闭按钮
-  zIndex?: number, // z-index值
-  onClose?: (res:MsgResult) => void, // 关闭按钮点击事件
-  onShow?: (res:MsgResult) => void, // 消息点击事件
+  /** 消息类型 */
+  type?: MessageType
+  /** 消息内容 */
+  msg?: string
+  /** 消息显示时长（毫秒），设置为 'notime' 则不自动关闭 */
+  duration?: number | 'notime'
+  /** 自定义图标 */
+  icon?: string
+  /** 是否显示关闭按钮 */
+  showClose?: boolean
+  /** z-index 层级 */
+  zIndex?: number
+  /** 关闭回调函数 */
+  onClose?: (res:MsgResult) => void
+  /** 显示回调函数 */
+  onShow?: (res:MsgResult) => void
 }
 
-// 定义简化消息属性类型，排除type和msg属性
-type simpleMsgProps = Omit<msgProps, 'type' | 'msg'>
 /**
- * 提供消息提示功能的工具函数
- * @returns 返回一个对象，包含用于显示消息和成功消息的方法
+ * 简化的消息属性类型（排除 type 和 msg）
+ */
+type simpleMsgProps = Omit<msgProps, 'type' | 'msg'>
+
+/**
+ * 消息提示 Hook
+ * 
+ * @returns 返回消息提示相关方法的对象
+ * @returns {Function} message - 通用消息方法
+ * @returns {Function} success - 成功消息快捷方法
+ * @returns {Function} error - 错误消息快捷方法
+ * @returns {Function} warning - 警告消息快捷方法
+ * @returns {Function} info - 信息消息快捷方法
  */
 export const useMessage = () => {
   /**
    * 创建消息容器
-   * @returns 返回一个对象，包含当前元素和容器元素的引用
+   * @returns 返回包含容器元素引用的对象
+   * @returns {HTMLElement} curEl - 消息容器根元素
+   * @returns {HTMLElement} container - 单个消息项容器
    */
   const createContainer = () => {
     // 尝试获取已存在的消息容器元素
@@ -46,8 +97,16 @@ export const useMessage = () => {
   };
 
   /**
-   * 根据选项显示消息
-   * @param options 消息选项，部分msgProps类型
+   * 显示消息提示
+   * @param options - 消息配置选项
+   * @param options.type - 消息类型
+   * @param options.msg - 消息内容
+   * @param options.duration - 显示时长（毫秒）
+   * @param options.icon - 自定义图标
+   * @param options.showClose - 是否显示关闭按钮
+   * @param options.zIndex - z-index 层级
+   * @param options.onClose - 关闭回调
+   * @param options.onShow - 显示回调
    */
   const message = (options: msgProps) => {
       const { curEl, container } = createContainer();
@@ -85,40 +144,48 @@ export const useMessage = () => {
   };
 
   /**
-   * 显示成功类型的消息
-   * @param msg 消息内容，默认为空字符串
-   * @param options 消息选项，simpleMsgProps类型
-   * @returns 返回Promise，resolve时表示消息显示完成
+   * 显示成功消息
+   * @param msg - 消息内容
+   * @param options - 附加配置选项
+   * @example
+   * success('操作成功！')
+   * success('保存成功！', { duration: 5000 })
    */
   const success = (msg = '', options: simpleMsgProps = {}) => {
     return message({ ...options, type: 'success', msg });
   };
 
   /**
-   * 显示错误类型的消息
-   * @param msg 消息内容，默认为空字符串
-   * @param options 消息选项，simpleMsgProps类型
-   * @returns 返回Promise，resolve时表示消息显示完成
+   * 显示错误消息
+   * @param msg - 消息内容
+   * @param options - 附加配置选项
+   * @example
+   * error('操作失败！')
+   * error('网络错误！', { showClose: true })
    */
   const error = (msg = '', options: simpleMsgProps = {}) => {
     return message({ ...options, type: 'error', msg });
   };
 
-   /**
-   * 显示警告类型的消息
-   * @param msg 消息内容，默认为空字符串
-   * @param options 消息选项，simpleMsgProps类型
-   * @returns 返回Promise，resolve时表示消息显示完成
+  /**
+   * 显示警告消息
+   * @param msg - 消息内容
+   * @param options - 附加配置选项
+   * @example
+   * warning('请注意！')
+   * warning('数据将被覆盖！', { duration: 'notime' })
    */
-   const warning = (msg = '', options: simpleMsgProps = {}) => {
+  const warning = (msg = '', options: simpleMsgProps = {}) => {
     return message({ ...options, type: 'warn', msg });
   };
 
   /**
-   * 显示警告类型的消息
-   * @param msg 消息内容，默认为空字符串
-   * @param options 消息选项，simpleMsgProps类型
-   * @returns 返回Promise，resolve时表示消息显示完成
+   * 显示信息消息
+   * @param msg - 消息内容
+   * @param options - 附加配置选项
+   * @example
+   * info('提示信息')
+   * info('请查看详情', { zIndex: 2000 })
    */
   const info = (msg = '', options: simpleMsgProps = {}) => {
     return message({ ...options, type: 'info', msg });

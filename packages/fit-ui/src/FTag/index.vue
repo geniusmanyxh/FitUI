@@ -10,6 +10,18 @@
 </template>
 
 <script setup lang="ts">
+/**
+ * FTag 标签组件
+ * 
+ * @description 用于标记和分类的标签组件，支持多种模式、类型和尺寸
+ * @example
+ * ```vue
+ * <FTag label="默认标签" />
+ * <FTag label="成功标签" type="success" mode="light" />
+ * <FTag label="可关闭" closable @close="handleClose" />
+ * <FTag label="圆角" round size="large" />
+ * ```
+ */
 import { ref, watch } from 'vue';
 import FIcon from '@/FIcon';
 defineOptions({
@@ -17,38 +29,121 @@ defineOptions({
   inheritAttrs: false,
 });
 
-const props = withDefaults(defineProps<{
-  label?: string;
-  mode?: 'dark' | 'light' | 'plain';
-  type?: 'success' | 'warning' | 'danger' | 'info' | 'primary' | 'default';
-  size?: 'mini' | 'small' | 'medium' | 'large';
-  closable?: boolean;
-  disabled?: boolean;
-  closeHoverColor?: string;
-  closeColor?: string; // Custom close button color on hover
-  round?: boolean; // Rounded corners
-  bgColor?: string; // Custom background color
-  textColor?: string; // Custom text color
-  borderColor?: string; // Custom border color
-}>(), {
+/**
+ * 标签组件属性
+ */
+export interface TagProps {
+  /**
+   * 标签文本
+   * @default ''
+   */
+  label?: string
+  
+  /**
+   * 标签模式
+   * @default 'dark'
+   * @description 
+   * - dark: 深色模式
+   * - light: 浅色模式
+   * - plain: 朴素模式
+   */
+  mode?: 'dark' | 'light' | 'plain'
+  
+  /**
+   * 标签类型
+   * @default 'default'
+   */
+  type?: 'success' | 'warning' | 'danger' | 'info' | 'primary' | 'default'
+  
+  /**
+   * 标签尺寸
+   * @default 'medium'
+   */
+  size?: 'mini' | 'small' | 'medium' | 'large'
+  
+  /**
+   * 是否可关闭
+   * @default false
+   */
+  closable?: boolean
+  
+  /**
+   * 是否禁用
+   * @default false
+   */
+  disabled?: boolean
+  
+  /**
+   * 关闭按钮悬停颜色
+   * @default ''
+   */
+  closeHoverColor?: string
+  
+  /**
+   * 关闭按钮颜色
+   * @default ''
+   */
+  closeColor?: string
+  
+  /**
+   * 是否圆角
+   * @default false
+   */
+  round?: boolean
+  
+  /**
+   * 自定义背景色
+   * @default ''
+   * @example '#409eff'
+   */
+  bgColor?: string
+  
+  /**
+   * 自定义文本颜色
+   * @default ''
+   * @example '#ffffff'
+   */
+  textColor?: string
+  
+  /**
+   * 自定义边框颜色
+   * @default ''
+   * @example '#409eff'
+   */
+  borderColor?: string
+}
+
+const props = withDefaults(defineProps<TagProps>(), {
   closable: false,
   disabled: false,
-  closeColor: '', // Default close button color on hover
+  closeColor: '',
   closeHoverColor: '',
-  mode: 'dark', // Default mode
-  type: 'default', // Default type
-  size: 'medium', // Default size
-  label: '', // Default label
-  round: false, // Default round value
-  bgColor: '', // No default background color
-  textColor: '', // No default text color
-  borderColor: '', // No default border color
+  mode: 'dark',
+  type: 'default',
+  size: 'medium',
+  label: '',
+  round: false,
+  bgColor: '',
+  textColor: '',
+  borderColor: '',
 });
 
-const emit = defineEmits<{
-  (e: 'close'): void;
-}>();
+/**
+ * 标签组件事件
+ */
+interface TagEmits {
+  /**
+   * 关闭事件
+   * @description 点击关闭按钮时触发
+   */
+  (e: 'close'): void
+}
 
+const emit = defineEmits<TagEmits>();
+
+/**
+ * 处理关闭事件
+ */
 const handleClose = () => {
   if (!props.disabled) {
     emit('close');

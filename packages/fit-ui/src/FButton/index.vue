@@ -11,6 +11,17 @@
 </template>
 
 <script lang="ts" setup>
+/**
+ * FButton 按钮组件
+ * 
+ * @description 支持多种类型、尺寸和状态的按钮组件
+ * @example
+ * ```vue
+ * <FButton type="primary" size="large">主要按钮</FButton>
+ * <FButton type="success" plain>朴素按钮</FButton>
+ * <FButton type="danger" round icon="delete">删除</FButton>
+ * ```
+ */
 import { ref, watch, reactive, onMounted, onUnmounted } from 'vue';
 import { type SizeType, btnSizeClass } from '@utils/fsize'
 import { type ButtonType, btnClass } from './Button'
@@ -18,13 +29,45 @@ import FIcon from '@/FIcon';
 import { type allIconType } from '@utils/ficon'
 
 defineOptions({ name: 'FButton', inheritAttrs: false })
-const props = defineProps<{
+
+/**
+ * 按钮组件属性
+ */
+export interface ButtonProps {
+  /**
+   * 按钮类型
+   * @default 'default'
+   * @example 'primary' | 'success' | 'info' | 'warning' | 'danger'
+   */
   type?: ButtonType
+  
+  /**
+   * 是否为朴素按钮
+   * @default false
+   */
   plain?: boolean
+  
+  /**
+   * 是否为圆角按钮
+   * @default false
+   */
   round?: boolean
+  
+  /**
+   * 按钮尺寸
+   * @default 'medium'
+   * @example 'small' | 'medium' | 'large'
+   */
   size?: SizeType
+  
+  /**
+   * 图标名称
+   * @example 'search' | 'delete' | 'edit'
+   */
   icon?: allIconType
-}>()
+}
+
+const props = defineProps<ButtonProps>()
 
 const fbutton = ref()
 const plainSty = '_plain'

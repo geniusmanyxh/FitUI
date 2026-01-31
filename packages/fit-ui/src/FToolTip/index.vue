@@ -1,14 +1,9 @@
 <template>
     <div class="f-tooltip-wrapper" :class="modeClassRef" @mouseenter="handleMouseEnter" @mouseleave="handleMouseLeave" @click.stop="handleClick">
-        <!-- <div class="f-tooltip-trigger" @click.stop="handleClick">
-            
-        </div> -->
-
         <slot></slot> <!-- 允许用户自定义触发元素 -->
 
         <div v-show="visible" class="f-tooltip-arrow" :class="arrowPosition" :style="arrowStyle"></div>
         <div v-show="visible" class="f-tooltip-content" :style="tooltipStyle">
-            <!-- <div class="f-tooltip-arrow" :class="arrowPosition" :style="arrowStyle"></div> -->
             <div class="f-tooltip-inner" :style="{minWidth:(maxWidth && maxWidth > 0)?'auto':'max-content', width: (maxWidth && maxWidth>0)? `${maxWidth}px`:'fit-content' }">
                 {{ content }}
             </div>
@@ -17,22 +12,98 @@
 </template>
 
 <script lang="ts" setup>
+/**
+ * FToolTip 工具提示组件
+ * 
+ * @description 鼠标悬停或点击时显示的提示信息
+ * @example
+ * ```vue
+ * <FToolTip content="这是提示信息" position="top">
+ *   <FButton>悬停我</FButton>
+ * </FToolTip>
+ * 
+ * <FToolTip content="点击提示" trigger="click" mode="dark">
+ *   <span>点击我</span>
+ * </FToolTip>
+ * ```
+ */
 import { ref, watch, onMounted, onBeforeUnmount, computed } from 'vue';
 
 
 defineOptions({ name: 'FToolTip', inheritAttrs: false, })
-const props = withDefaults(defineProps<{
-    content: string;
-    mode?: 'dark' | 'light' | 'custom';
-    modeTextColor?: string;
-    modeBgColor?: string;
-    position?: 'top' | 'top-start' | 'top-end' | 'bottom' | 'bottom-start' | 'bottom-end' | 'left' | 'left-start' | 'left-end' | 'right' | 'right-start' | 'right-end';
-    trigger?: 'hover' | 'click';
-    offset?: number,
-    zIndex?: number,
-    maxWidth?: number,
-}>(), {
-    
+
+/**
+ * ToolTip 组件属性
+ */
+export interface ToolTipProps {
+  /**
+   * 提示内容（必填）
+   */
+  content: string
+  
+  /**
+   * 主题模式
+   * @default 'light'
+   * @description
+   * - dark: 深色主题
+   * - light: 浅色主题
+   * - custom: 自定义主题（需配合 modeTextColor 和 modeBgColor）
+   */
+  mode?: 'dark' | 'light' | 'custom'
+  
+  /**
+   * 自定义文本颜色
+   * @default ''
+   * @description 仅在 mode='custom' 时生效
+   * @example '#ffffff'
+   */
+  modeTextColor?: string
+  
+  /**
+   * 自定义背景颜色
+   * @default ''
+   * @description 仅在 mode='custom' 时生效
+   * @example '#409eff'
+   */
+  modeBgColor?: string
+  
+  /**
+   * 提示位置
+   * @default 'left'
+   * @example 'top' | 'bottom' | 'left' | 'right' | 'top-start' | 'top-end' 等
+   */
+  position?: 'top' | 'top-start' | 'top-end' | 'bottom' | 'bottom-start' | 'bottom-end' | 'left' | 'left-start' | 'left-end' | 'right' | 'right-start' | 'right-end'
+  
+  /**
+   * 触发方式
+   * @default 'hover'
+   * @description
+   * - hover: 鼠标悬停触发
+   * - click: 点击触发
+   */
+  trigger?: 'hover' | 'click'
+  
+  /**
+   * 提示偏移量（像素）
+   * @default 2
+   */
+  offset?: number
+  
+  /**
+   * z-index 层级
+   * @default 1001
+   */
+  zIndex?: number
+  
+  /**
+   * 最大宽度（像素）
+   * @default undefined
+   * @description 不设置则根据内容自适应
+   */
+  maxWidth?: number
+}
+
+const props = withDefaults(defineProps<ToolTipProps>(), {
     content: '',
     mode: 'light',
     position: 'left',
