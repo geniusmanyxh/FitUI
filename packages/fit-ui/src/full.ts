@@ -4,6 +4,7 @@ import { FButton, FIcon, FMessage, FCodeBlock, FToolTip, FTag } from './componen
 // 全量引入所有样式（不包含 UnoCSS，用户需要自己配置）
 import './index.scss'
 import '@fstyles/theme/css-var.css'
+// import 'uno.css'
 
 // 引入所有组件样式
 import './FButton/style'
