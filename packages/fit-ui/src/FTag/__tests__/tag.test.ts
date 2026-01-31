@@ -22,7 +22,8 @@ describe("FTag", () => {
           type: type as any,
         },
       });
-      expect(wrapper.classes()).toContain(type);
+      // 组件使用 tag-{type}-{mode}，默认 mode 为 dark
+      expect(wrapper.classes()).toContain(`tag-${type}-dark`);
     });
   });
 
@@ -35,7 +36,12 @@ describe("FTag", () => {
           size: size as any,
         },
       });
-      expect(wrapper.classes()).toContain(size);
+      // 组件使用 tag-{size}，medium 不添加额外类名
+      if (size === "medium") {
+        expect(wrapper.classes()).toContain("tag");
+      } else {
+        expect(wrapper.classes()).toContain(`tag-${size}`);
+      }
     });
   });
 
@@ -63,7 +69,7 @@ describe("FTag", () => {
       },
     });
 
-    expect(wrapper.classes()).toContain("disabled");
+    expect(wrapper.classes()).toContain("tag-disabled");
     
     const closeBtn = wrapper.find(".close-btn");
     await closeBtn.trigger("click");
@@ -79,7 +85,7 @@ describe("FTag", () => {
         round: true,
       },
     });
-    expect(wrapper.classes()).toContain("round");
+    expect(wrapper.classes()).toContain("tag-round");
   });
 
   test("renders with slot content", () => {

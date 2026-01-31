@@ -1,12 +1,41 @@
 // packages/fit-ui/styles/theme/var.scss
-
+// 暗色主题覆盖设计 token
 
 [data-theme='dark'] {
-    --f-code-bg-color:#24292e; // 代码块背景色
-    --f-code-outside-bg-color:#1b1b1f; // 代码块外部背景颜色
-    --f-code-outside-border-color:#2e2e32; // 代码块外部边框颜色
-    --f-code-lang-color:#babab5; // 代码块语言颜色
-    --f-code-outside-text-color: #ffffff; // 代码块外部文字颜色
+    --f-primary: #60a5fa;
+    --f-primary-hover: #3b82f6;
+    --f-primary-active: #2563eb;
+    --f-success: #4ade80;
+    --f-success-hover: #22c55e;
+    --f-warning: #facc15;
+    --f-warning-hover: #eab308;
+    --f-danger: #f87171;
+    --f-danger-hover: #ef4444;
+    --f-info: #9ca3af;
+    --f-info-hover: #6b7280;
+
+    --f-text-primary: #f1f5f9;
+    --f-text-secondary: #94a3b8;
+    --f-border: #334155;
+    --f-bg: #0f172a;
+    --f-bg-secondary: #1e293b;
+
+    --f-code-bg-color: #24292e;
+    --f-code-outside-bg-color: #1b1b1f;
+    --f-code-outside-border-color: #2e2e32;
+    --f-code-lang-color: #babab5;
+    --f-code-outside-text-color: #ffffff;
+
+    --f-tooltip-background: #1e293b;
+    --f-tooltip-text-color: #f1f5f9;
+    --f-tooltip-border-color: #334155;
+}
+
+// 尊重用户「减少动效」偏好
+@media (prefers-reduced-motion: reduce) {
+    :root {
+        --f-transition-duration: 0.01ms;
+    }
 }
 
 // [data-theme=''] {

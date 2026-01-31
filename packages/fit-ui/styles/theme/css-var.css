@@ -1,11 +1,40 @@
 :root {
-    --f-code-bg-color: #f6f6f7; /* 代码块背景色 */
-    --f-code-outside-bg-color: #ffffff; /* 代码块外部背景颜色 */
-    --f-code-outside-border-color: #e2e2e3; /* 代码块外部边框颜色 */
-    --f-code-lang-color: #0c0c0b; /* 代码块语言颜色 */
-    --f-code-outside-text-color: #000000; /* 代码块外部文字颜色 */
+    /* 设计 token：品牌色与语义色 */
+    --f-primary: #3b82f6;
+    --f-primary-hover: #2563eb;
+    --f-primary-active: #1d4ed8;
+    --f-success: #22c55e;
+    --f-success-hover: #16a34a;
+    --f-warning: #eab308;
+    --f-warning-hover: #ca8a04;
+    --f-danger: #ef4444;
+    --f-danger-hover: #dc2626;
+    --f-info: #6b7280;
+    --f-info-hover: #4b5563;
 
-    --f-tooltip-background: #ffffff; /* 文本提示框背景颜色 */
-    --f-tooltip-text-color: #000000; /* 文本提示框文字颜色 */
-    --f-tooltip-border-color: #e2e2e3; /* 文本提示框边框颜色 */
+    /* 中性色 */
+    --f-text-primary: #0f172a;
+    --f-text-secondary: #64748b;
+    --f-border: #e2e8f0;
+    --f-bg: #ffffff;
+    --f-bg-secondary: #f8fafc;
+
+    /* 字体 */
+    --f-font-sans: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    --f-font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+
+    /* 代码块 */
+    --f-code-bg-color: #f6f6f7;
+    --f-code-outside-bg-color: #ffffff;
+    --f-code-outside-border-color: #e2e2e3;
+    --f-code-lang-color: #0c0c0b;
+    --f-code-outside-text-color: #000000;
+
+    /* 提示框 */
+    --f-tooltip-background: #ffffff;
+    --f-tooltip-text-color: #000000;
+    --f-tooltip-border-color: #e2e2e3;
+
+    /* 动效时长（便于 prefers-reduced-motion 覆盖） */
+    --f-transition-duration: 0.2s;
 }

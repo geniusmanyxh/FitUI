@@ -111,7 +111,37 @@
 
 ---
 
-## 八、总结一句
+## 八、与 Skills 的对应关系
+
+本路线图与 **frontend-design**、**vue-best-practices** 两个 skill 对齐，实施时同时遵循：
+
+### frontend-design 对应
+
+| Skill 要点 | 在 FitUI 中的落实 |
+|------------|-------------------|
+| **Color & Theme** | 设计 token 体系（`--f-primary`、`--f-success` 等），CSS 变量统一换肤；主色 + 强调色，避免平均分配。 |
+| **Typography** | `--f-font-sans` / `--f-font-mono` 在主题中定义；组件使用变量，避免写死 Arial/Inter。 |
+| **Motion** | Button/Tag 等 hover/focus/active 使用 `transition`，时长用 `var(--f-transition-duration)`；暗色主题与 `prefers-reduced-motion` 在 `var.scss` 中覆盖降级。 |
+| **一致性** | 组件尽量用设计 token 而非 UnoCSS 原子色类，便于品牌定制且风格统一。 |
+| **避免通用 AI 感** | 不堆砌紫色渐变、不用千篇一律字体；通过 token 让使用者注入品牌气质。 |
+
+### vue-best-practices 对应
+
+| Skill 要点 | 在 FitUI 中的落实 |
+|------------|-------------------|
+| **Composition API + script setup + TS** | 所有组件统一 `<script setup lang="ts">`，逻辑用 composables。 |
+| **Props / Emits 类型安全** | `defineProps<Props>()`、`defineEmits<Emits>()`，必要时 `withDefaults`；事件名在模板中用 kebab-case。 |
+| **v-model** | 表单类组件用 `defineModel()`（Vue 3.4+），便于修饰符与双向绑定一致。 |
+| **Computed 用于 class/派生** | 复杂 class 逻辑用 `computed`，不写副作用，不在 computed 里改数据。 |
+| **Ref/Reactive 正确使用** | 不破坏响应式（如不直接解构 reactive）；需要时用 `shallowRef`。 |
+| **无障碍与表单** | 表单组件暴露 `aria-invalid`、`aria-required`，与 `<label>` 关联，为后续 a11y 打基础。 |
+
+实施顺序仍以第七章路线图为准；每做一项时同时对照上述两表，保证「设计质量 + Vue 最佳实践」不脱节。
+
+---
+
+## 九、总结一句
 
 - **最缺**：**表单类组件（Input + 选择类）+ Modal**，以及**设计 token 与无障碍**的体系化。
 - **已有**：Vue3 + TS + 按需/全量 + 文档 + 单测基础都不错，重构后代码也更符合 Vue 最佳实践，适合在此基础上按上面顺序逐步补齐。
+- **对齐**：落实时结合 **frontend-design**（设计 token、动效、字体、一致性）与 **vue-best-practices**（script setup、类型、defineModel、computed、a11y），保证组件库既好看又规范。

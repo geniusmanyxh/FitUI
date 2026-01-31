@@ -1,0 +1,59 @@
+// 使用设计 token，便于换肤与品牌定制
+.f-input {
+  font-family: var(--f-font-sans);
+  color: var(--f-text-primary);
+  background-color: var(--f-bg);
+  border: 1px solid var(--f-border);
+  border-radius: 6px;
+  outline: none;
+  box-sizing: border-box;
+  transition:
+    border-color var(--f-transition-duration) ease,
+    box-shadow var(--f-transition-duration) ease;
+
+  &::placeholder {
+    color: var(--f-text-secondary);
+  }
+
+  &:hover:not(:disabled):not(.f-input--disabled) {
+    border-color: var(--f-primary);
+  }
+
+  &:focus {
+    border-color: var(--f-primary);
+    box-shadow: 0 0 0 2px color-mix(in srgb, var(--f-primary) 20%, transparent);
+  }
+
+  &:disabled,
+  &.f-input--disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+    background-color: var(--f-bg-secondary);
+  }
+
+  &.f-input--invalid {
+    border-color: var(--f-danger);
+
+    &:focus {
+      box-shadow: 0 0 0 2px color-mix(in srgb, var(--f-danger) 20%, transparent);
+    }
+  }
+
+  &.f-input--small {
+    padding: 4px 8px;
+    font-size: 12px;
+    line-height: 1.4;
+  }
+
+  &.f-input--medium {
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.5;
+  }
+
+  &.f-input--large {
+    padding: 8px 14px;
+    font-size: 16px;
+    line-height: 1.5;
+  }
+}

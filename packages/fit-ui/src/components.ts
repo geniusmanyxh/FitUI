@@ -1,5 +1,6 @@
 export { default as FButton } from './FButton'
 export { default as FIcon } from './FIcon'
+export { default as FInput } from './FInput'
 export { default as FMessage } from './FMessage'
 export { default as FCodeBlock } from './FCodeBlock'
 export { default as FToolTip } from './FToolTip'

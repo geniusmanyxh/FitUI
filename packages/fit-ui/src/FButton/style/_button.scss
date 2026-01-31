@@ -5,6 +5,11 @@ button {
   border: none;
   cursor: pointer;
   box-sizing: border-box;
+  transition:
+    background-color var(--f-transition-duration, 0.2s) ease,
+    color var(--f-transition-duration, 0.2s) ease,
+    border-color var(--f-transition-duration, 0.2s) ease,
+    box-shadow var(--f-transition-duration, 0.2s) ease;
   @apply m-0 flex justify-center items-center focus:outline-none focus:ring-1;
 
   & div:last-child {
@@ -54,9 +59,24 @@ button {
   }
 }
 
-// primary按钮样式
+// primary 按钮样式：试点设计 token，便于换肤
 .primary_button {
-  @include button-style($bgColor: "bg-blue-500", $textColor: "text-white", $hoverColor: "blue", $activeColor: "blue");
+  background-color: var(--f-primary);
+  color: white;
+
+  &:hover {
+    background-color: var(--f-primary-hover);
+  }
+
+  &:active {
+    background-color: var(--f-primary-active);
+    border: 1px solid var(--f-primary-active);
+    box-shadow: 0 0 0 1px var(--f-primary-active);
+  }
+
+  &.f-active {
+    background-color: var(--f-primary-hover);
+  }
 }
 
 .success_button {
@@ -100,7 +120,23 @@ button {
 }
 
 .primary_button_plain {
-  @include button-plain($bgColor: "blue");
+  background-color: var(--f-bg);
+  color: var(--f-primary);
+  border: 1px solid var(--f-primary);
+
+  &:hover {
+    color: white;
+    background-color: var(--f-primary);
+  }
+
+  &:active {
+    background-color: var(--f-primary-active);
+  }
+
+  &.f-active {
+    color: white;
+    background-color: var(--f-primary);
+  }
 }
 
 .success_button_plain {
