@@ -3,7 +3,8 @@
     "composite": true,
     "resolveJsonModule": true,
     "declaration": true /* 生成相关的 '.d.ts' 文件。 */,
-    "declarationDir": "./dist/types" /* '.d.ts' 文件输出目录 */,
+    // declarationDir 已被 vite-plugin-dts 接管，生成到 dist/entry.d.ts
+    // "declarationDir": "./dist/types" /* '.d.ts' 文件输出目录 */,
     "jsx": "preserve",
     "strict": true,
     "target": "ESNext",

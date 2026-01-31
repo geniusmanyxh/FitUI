@@ -85,6 +85,7 @@ export const config = defineConfig({
     target: 'esnext',
     rollupOptions,
     minify: 'terser',
+    // 默认不生成 sourcemap（生产模式），可通过 --sourcemap 开启
     sourcemap: false,
     reportCompressedSize: true,
     lib: {
