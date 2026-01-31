@@ -81,7 +81,7 @@ export const config = defineConfig({
   },
   
   build: {
-    target: 'modules',
+    target: 'esnext',
     rollupOptions,
     minify: 'terser',
     sourcemap: false,
