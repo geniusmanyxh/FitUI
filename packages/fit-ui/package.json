@@ -16,10 +16,11 @@
       "import": "./dist/es/src/entry.js",
       "require": "./dist/lib/src/entry.js"
     },
-    "./*": [
-      "./*",
-      "./*.d.ts"
-    ]
+    "./style.css": "./dist/es/assets/fitui.css",
+    "./dist/*": "./dist/*"
+  },
+  "peerDependencies": {
+    "vue": "^3.0.0"
   },
   "scripts": {
     "dev": "vite",
