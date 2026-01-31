@@ -29,7 +29,11 @@
     "test": "vitest",
     "test:run": "vitest run",
     "lint": "oxlint src",
-    "format": "oxfmt src"
+    "format": "oxfmt src",
+    "prepublishOnly": "pnpm test:run && pnpm lint && pnpm build",
+    "release:check": "pnpm test:run && pnpm lint && pnpm build",
+    "release:dry": "pnpm release:check && pnpm publish --dry-run",
+    "release": "pnpm release:check && pnpm publish --no-git-checks"
   },
   "keywords": [
     "vue3",

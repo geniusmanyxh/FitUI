@@ -1,10 +1,25 @@
 #!/usr/bin/env bash
-npm config get registry # 检查仓库镜像库
-npm config set registry=http://registry.npmjs.org
-echo '请进行登录相关操作：'
-npm login # 登陆
-echo "-------publishing-------"
-npm publish # 发布
-npm config set registry=https://registry.npmmirror.com # 设置为淘宝镜像
-echo "发布完成"
-exit
+
+echo "======================================"
+echo "⚠️  此脚本已弃用"
+echo "======================================"
+echo ""
+echo "请使用新的发布脚本："
+echo ""
+echo "  在项目根目录运行："
+echo "  $ pnpm release"
+echo ""
+echo "  或直接运行："
+echo "  $ bash release.sh"
+echo ""
+echo "新脚本提供了更完善的发布流程："
+echo "  ✓ 完整的发布前检查"
+echo "  ✓ 测试和代码质量检查"
+echo "  ✓ 构建产物验证"
+echo "  ✓ Git 标签管理"
+echo "  ✓ 错误处理和回滚"
+echo ""
+echo "======================================"
+echo ""
+
+exit 1

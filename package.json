@@ -11,6 +11,9 @@
     "docs:dev": "pnpm recursive run d:dev --filter fit-docs --env_type dev",
     "ui:build": "pnpm recursive run build --filter fit-ui",
     "ui:dev": "pnpm recursive run dev --filter fit-ui",
+    "ui:test": "pnpm recursive run test:run --filter fit-ui",
+    "ui:lint": "pnpm recursive run lint --filter fit-ui",
+    "release": "bash release.sh",
     "preinstall": "node ./scripts/preinstall.js",
     "prepare": "husky"
   },
