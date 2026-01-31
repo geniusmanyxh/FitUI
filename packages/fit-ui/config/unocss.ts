@@ -17,8 +17,22 @@ const colors = [
 ]
 
 const safelist = [
+  ...colors.map((v) => `bg-${v}-50`),
+  ...colors.map((v) => `bg-${v}-100`),
+  ...colors.map((v) => `bg-${v}-200`),
+  ...colors.map((v) => `bg-${v}-300`),
+  ...colors.map((v) => `bg-${v}-400`),
   ...colors.map((v) => `bg-${v}-500`),
+  ...colors.map((v) => `bg-${v}-700`),
   ...colors.map((v) => `hover:bg-${v}-700`),
+  ...colors.map((v) => `text-${v}-300`),
+  ...colors.map((v) => `text-${v}-400`),
+  ...colors.map((v) => `text-${v}-500`),
+  ...colors.map((v) => `border-${v}-50`),
+  ...colors.map((v) => `border-${v}-100`),
+  ...colors.map((v) => `border-${v}-200`),
+  ...colors.map((v) => `border-${v}-300`),
+  ...colors.map((v) => `border-${v}-500`),
   ...allIconSafelist,
 ]
 

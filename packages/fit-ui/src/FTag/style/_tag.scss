@@ -1,0 +1,218 @@
+@use "./mixin-tag" as *;
+
+.tag {
+  height: fit-content;
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 12px;
+  font-size: 16px;
+  line-height: 22px;
+  border-radius: 3px;
+  white-space: nowrap;
+  cursor: pointer;
+  box-sizing: border-box;
+
+  .close-btn {
+    margin-left: 8px;
+    font-size: 16px;
+    display: inline-flex;
+    align-items: center;
+    line-height: 1;
+    position: relative;
+
+    &.disabled {
+      cursor: not-allowed;
+      pointer-events: none;
+    }
+
+    &:hover::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 16px;
+      height: 16px;
+      border-radius: 8px;
+    }
+  }
+
+  &.tag-round {
+    @include tag-round(16px);
+  }
+
+  &.tag-disabled {
+    cursor: not-allowed;
+  }
+
+  // ========== Size Variants ==========
+  &.tag-mini {
+    padding: 2px 8px;
+    font-size: 12px;
+    line-height: 16px;
+
+    .close-btn {
+      margin-left: 3px;
+      font-size: 12px;
+
+      &:hover::before {
+        width: 12px;
+        height: 12px;
+        border-radius: 6px;
+      }
+    }
+
+    &.tag-round {
+      @include tag-round(10px);
+    }
+  }
+
+  &.tag-small {
+    padding: 2px 8px;
+    font-size: 14px;
+    line-height: 18px;
+
+    .close-btn {
+      margin-left: 5px;
+      font-size: 14px;
+
+      &:hover::before {
+        width: 14px;
+        height: 14px;
+        border-radius: 7px;
+      }
+    }
+
+    &.tag-round {
+      @include tag-round(14px);
+    }
+  }
+
+  &.tag-large {
+    padding: 6px 16px;
+    font-size: 18px;
+    line-height: 26px;
+
+    .close-btn {
+      margin-left: 8px;
+      font-size: 24px;
+
+      &:hover::before {
+        width: 24px;
+        height: 24px;
+        border-radius: 12px;
+      }
+    }
+
+    &.tag-round {
+      @include tag-round(20px);
+    }
+  }
+
+  // ========== Dark Mode Variants ==========
+  &.tag-default-dark {
+    @apply bg-black text-white border-black;
+
+    .close-btn:hover {
+      color: black;
+      &::before {
+        @apply bg-white;
+      }
+    }
+
+    &.tag-disabled {
+      @apply bg-gray-300 text-white border-gray-300;
+    }
+  }
+
+  &.tag-success-dark {
+    @include tag-dark("green");
+  }
+
+  &.tag-primary-dark {
+    @include tag-dark("blue");
+  }
+
+  &.tag-warning-dark {
+    @include tag-dark("yellow");
+  }
+
+  &.tag-info-dark {
+    @include tag-dark("gray");
+  }
+
+  &.tag-danger-dark {
+    @include tag-dark("red");
+  }
+
+  // ========== Light Mode Variants ==========
+  &.tag-default-light {
+    @apply bg-gray-200 text-black border-gray-200;
+
+    .close-btn:hover {
+      color: white;
+      &::before {
+        @apply bg-black;
+      }
+    }
+
+    &.tag-disabled {
+      @apply bg-white text-gray-400 border-gray-200;
+    }
+  }
+
+  &.tag-success-light {
+    @include tag-light("green", "green");
+  }
+
+  &.tag-primary-light {
+    @include tag-light("blue", "blue");
+  }
+
+  &.tag-warning-light {
+    @include tag-light("yellow", "yellow");
+  }
+
+  &.tag-info-light {
+    @include tag-light("gray", "gray");
+  }
+
+  &.tag-danger-light {
+    @include tag-light("red", "red");
+  }
+
+  // ========== Plain Mode Variants ==========
+  &.tag-default-plain {
+    @apply bg-white text-black border-black;
+
+    .close-btn:hover {
+      color: white;
+      &::before {
+        @apply bg-black;
+      }
+    }
+
+    &.tag-disabled {
+      @apply bg-white text-gray-400 border-gray-200;
+    }
+  }
+
+  &.tag-success-plain {
+    @include tag-plain("green", "green");
+  }
+
+  &.tag-primary-plain {
+    @include tag-plain("blue", "blue");
+  }
+
+  &.tag-warning-plain {
+    @include tag-plain("yellow", "yellow");
+  }
+
+  &.tag-info-plain {
+    @include tag-plain("gray", "gray");
+  }
+
+  &.tag-danger-plain {
+    @include tag-plain("red", "red");
+  }
+}

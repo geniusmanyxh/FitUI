@@ -1,0 +1,57 @@
+// Tag 样式 mixin
+
+// 深色模式 tag 样式
+@mixin tag-dark($bgColor, $textColor: "white") {
+  @apply bg-#{$bgColor}-500 text-#{$textColor} border border-#{$bgColor}-500;
+  
+  .close-btn:hover {
+    color: var(--close-color);
+    
+    &::before {
+      @apply bg-#{$bgColor}-100;
+    }
+  }
+
+  &.tag-disabled {
+    @apply bg-#{$bgColor}-200 opacity-80 cursor-not-allowed;
+  }
+}
+
+// 浅色模式 tag 样式
+@mixin tag-light($bgColor, $textColor) {
+  @apply bg-#{$bgColor}-100 text-#{$textColor}-500 border border-#{$bgColor}-100;
+  
+  .close-btn:hover {
+    color: var(--close-hover-color);
+    
+    &::before {
+      @apply bg-#{$textColor}-500;
+    }
+  }
+
+  &.tag-disabled {
+    @apply bg-#{$bgColor}-50 text-#{$textColor}-300 border-#{$bgColor}-100 opacity-80 cursor-not-allowed;
+  }
+}
+
+// 朴素模式 tag 样式
+@mixin tag-plain($bgColor, $textColor) {
+  @apply bg-white text-#{$textColor}-500 border border-#{$bgColor}-100;
+  
+  .close-btn:hover {
+    color: var(--close-hover-color);
+    
+    &::before {
+      @apply bg-#{$textColor}-500;
+    }
+  }
+
+  &.tag-disabled {
+    @apply bg-white text-#{$textColor}-300 border-#{$bgColor}-100 opacity-80 cursor-not-allowed;
+  }
+}
+
+// 圆角样式
+@mixin tag-round($radius: 16px) {
+  border-radius: $radius;
+}
