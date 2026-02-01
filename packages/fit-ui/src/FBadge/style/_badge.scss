@@ -1,0 +1,78 @@
+@use '../../../styles/global' as *;
+
+.f-badge {
+  position: relative;
+  display: inline-block;
+  vertical-align: middle;
+
+  &__content {
+    position: absolute;
+    top: 0;
+    right: 0;
+    transform: translateY(-50%) translateX(50%);
+    transform-origin: 100% 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    white-space: nowrap;
+    font-family: var(--f-font-sans);
+    font-size: 12px;
+    line-height: 1;
+    padding: 0 6px;
+    height: 20px;
+    min-width: 20px;
+    border-radius: 10px;
+    color: white;
+    z-index: 1;
+
+    &--dot {
+      width: 8px;
+      height: 8px;
+      min-width: 8px;
+      padding: 0;
+      border-radius: 50%;
+      top: -4px;
+      right: -4px;
+    }
+
+    &--fixed {
+      top: -10px;
+      right: -10px;
+    }
+
+    &--primary {
+      background-color: var(--f-primary);
+    }
+
+    &--success {
+      background-color: var(--f-success);
+    }
+
+    &--warning {
+      background-color: var(--f-warning);
+    }
+
+    &--danger {
+      background-color: var(--f-danger);
+    }
+
+    &--info {
+      background-color: var(--f-info);
+    }
+  }
+
+  &__value {
+    font-weight: 500;
+  }
+}
+
+.f-badge-enter-active,
+.f-badge-leave-active {
+  transition: all 0.2s ease;
+}
+
+.f-badge-enter-from,
+.f-badge-leave-to {
+  opacity: 0;
+  transform: translateY(-50%) translateX(50%) scale(0);
+}

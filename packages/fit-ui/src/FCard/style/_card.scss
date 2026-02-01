@@ -1,0 +1,39 @@
+@use '../../../styles/global' as *;
+
+.f-card {
+  font-family: var(--f-font-sans);
+  font-size: 14px;
+  color: var(--f-text-primary);
+  line-height: 1.5;
+  background-color: var(--f-bg);
+  border: 1px solid var(--f-border);
+  border-radius: 8px;
+  overflow: hidden;
+  transition: box-shadow var(--f-transition-duration) ease;
+
+  &--always {
+    box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+  }
+
+  &--hover {
+    &:hover {
+      box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+    }
+  }
+
+  &--never {
+    box-shadow: none;
+  }
+
+  &__header {
+    padding: 16px 20px;
+    border-bottom: 1px solid var(--f-border);
+    font-weight: 500;
+    color: var(--f-text-primary);
+    background-color: var(--f-bg-secondary);
+  }
+
+  &__body {
+    padding: 20px;
+  }
+}

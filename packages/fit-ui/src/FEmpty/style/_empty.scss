@@ -1,0 +1,39 @@
+@use '../../../styles/global' as *;
+
+.f-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 0;
+  font-family: var(--f-font-sans);
+  font-size: 14px;
+  color: var(--f-text-secondary);
+  line-height: 1.5;
+  box-sizing: border-box;
+
+  &__image {
+    margin-bottom: 16px;
+
+    img {
+      width: 160px;
+      height: 160px;
+      object-fit: contain;
+    }
+  }
+
+  &__description {
+    margin: 0 0 16px 0;
+    font-size: 14px;
+    color: var(--f-text-secondary);
+    line-height: 1.5;
+
+    p {
+      margin: 0;
+    }
+  }
+
+  &__default {
+    margin-top: 16px;
+  }
+}

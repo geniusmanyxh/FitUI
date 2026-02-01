@@ -1,0 +1,154 @@
+@use '../../../styles/global' as *;
+
+.f-table {
+  font-family: var(--f-font-sans);
+  font-size: 14px;
+  color: var(--f-text-primary);
+  line-height: 1.5;
+  width: 100%;
+  overflow: hidden;
+  box-sizing: border-box;
+
+  &--small {
+    font-size: 12px;
+  }
+
+  &--medium {
+    font-size: 14px;
+  }
+
+  &--large {
+    font-size: 16px;
+  }
+
+  &--border {
+    .f-table__cell {
+      border-right: 1px solid var(--f-border);
+    }
+
+    .f-table__header-cell {
+      border-bottom: 1px solid var(--f-border);
+    }
+
+    .f-table__row .f-table__cell {
+      border-bottom: 1px solid var(--f-border);
+    }
+  }
+
+  &--stripe {
+    .f-table__row--striped {
+      background-color: var(--f-bg-secondary);
+    }
+  }
+
+  &--fit {
+    width: 100%;
+
+    table {
+      width: 100%;
+    }
+  }
+
+  &__header-wrapper,
+  &__body-wrapper {
+    overflow-x: auto;
+    overflow-y: auto;
+  }
+
+  &__header {
+    width: 100%;
+    table-layout: fixed;
+    border-collapse: separate;
+    border-spacing: 0;
+  }
+
+  &__body {
+    width: 100%;
+    table-layout: fixed;
+    border-collapse: separate;
+    border-spacing: 0;
+  }
+
+  &__header-cell {
+    padding: 12px;
+    font-weight: 500;
+    color: var(--f-text-primary);
+    background-color: var(--f-bg-secondary);
+    text-align: left;
+    border-bottom: 1px solid var(--f-border);
+    user-select: none;
+    transition: background-color var(--f-transition-duration) ease;
+
+    &--sortable {
+      cursor: pointer;
+
+      &:hover {
+        background-color: color-mix(in srgb, var(--f-text-primary) 5%, var(--f-bg-secondary));
+      }
+    }
+  }
+
+  &__cell {
+    padding: 12px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+
+    &--left {
+      text-align: left;
+    }
+
+    &--center {
+      text-align: center;
+    }
+
+    &--right {
+      text-align: right;
+    }
+  }
+
+  &__row {
+    transition: background-color var(--f-transition-duration) ease;
+
+    &:hover {
+      background-color: color-mix(in srgb, var(--f-primary) 10%, transparent);
+    }
+
+    &--current {
+      background-color: color-mix(in srgb, var(--f-primary) 20%, transparent);
+    }
+  }
+
+  &__empty-row {
+    .f-table__empty {
+      padding: 32px;
+      text-align: center;
+      color: var(--f-text-secondary);
+    }
+  }
+
+  &__sort-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 12px;
+    height: 12px;
+    margin-left: 4px;
+    color: var(--f-text-secondary);
+    transition: transform var(--f-transition-duration) ease;
+
+    svg {
+      width: 100%;
+      height: 100%;
+      fill: currentColor;
+    }
+
+    &--asc {
+      transform: rotate(180deg);
+    }
+
+    &--desc {
+      transform: rotate(0deg);
+    }
+  }
+}

@@ -1,0 +1,92 @@
+@use '../../../styles/global' as *;
+
+.f-divider {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  margin: 16px 0;
+  font-family: var(--f-font-sans);
+  font-size: 14px;
+  color: var(--f-text-secondary);
+  box-sizing: border-box;
+
+  &--horizontal {
+    display: flex;
+    flex-direction: row;
+    height: 1px;
+
+    &::before,
+    &::after {
+      content: '';
+      flex: 1;
+    }
+  }
+
+  &--vertical {
+    display: inline-flex;
+    flex-direction: column;
+    width: 1px;
+    height: 1em;
+    margin: 0 16px;
+    vertical-align: middle;
+
+    &::before,
+    &::after {
+      content: '';
+      flex: 1;
+    }
+  }
+
+  &--solid::before,
+  &--solid::after {
+    border-top: 1px solid var(--f-border);
+  }
+
+  &--solid::before,
+  &--solid::after {
+    border-top: 1px solid var(--f-border);
+  }
+
+  &--dashed::before,
+  &--dashed::after {
+    border-top: 1px dashed var(--f-border);
+  }
+
+  &--dotted::before,
+  &--dotted::after {
+    border-top: 1px dotted var(--f-border);
+  }
+
+  &--vertical::before,
+  &--vertical::after {
+    border-left: 1px solid var(--f-border);
+  }
+
+  &--vertical--dashed::before,
+  &--vertical--dashed::after {
+    border-left: 1px dashed var(--f-border);
+  }
+
+  &--vertical--dotted::before,
+  &--vertical--dotted::after {
+    border-left: 1px dotted var(--f-border);
+  }
+
+  &__text {
+    padding: 0 16px;
+    white-space: nowrap;
+
+    &--left {
+      text-align: left;
+    }
+
+    &--center {
+      text-align: center;
+    }
+
+    &--right {
+      text-align: right;
+    }
+  }
+}
