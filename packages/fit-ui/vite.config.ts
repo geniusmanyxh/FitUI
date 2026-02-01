@@ -67,6 +67,7 @@ export const config = defineConfig({
     __VUE_PROD_HYDRATION_MISMATCH_DETAILS__: 'true'
   },
   resolve: {
+    extensions: ['.ts', '.tsx', '.mts', '.js', '.jsx', '.mjs', '.json'],
     alias: {
       '@': resolve(__dirname, 'src'),
       '@utils': resolve(__dirname, 'utils'),
