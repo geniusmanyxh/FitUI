@@ -1,7 +1,6 @@
-import FTabs from './index.vue'
+import comp from './index.vue'
+import { withInstall } from '@utils/install'
+
+const FTabs = withInstall(comp)
 
 export default FTabs
-
-export {
-  FTabs
-}

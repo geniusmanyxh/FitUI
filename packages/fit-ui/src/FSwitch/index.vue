@@ -29,6 +29,8 @@
  * <FSwitch v-model="value" disabled>禁用状态</FSwitch>
  * ```
  */
+defineOptions({ name: 'FSwitch', inheritAttrs: false })
+
 import { computed } from 'vue'
 
 const props = defineProps<{
@@ -69,64 +71,5 @@ const handleClick = () => {
 </script>
 
 <style scoped lang="scss">
-.switch_wrapper {
-  display: inline-flex;
-  align-items: center;
-  cursor: pointer;
-  user-select: none;
-  outline: none;
-  transition: all 0.3s ease;
-
-  &:hover {
-    .switch_core {
-      box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.1);
-    }
-  }
-
-  &:focus-visible {
-    .switch_core {
-      box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.5);
-    }
-  }
-
-  &.switch_disabled {
-    cursor: not-allowed;
-    opacity: 0.5;
-  }
-}
-
-.switch_core {
-  position: relative;
-  width: 44px;
-  height: 24px;
-  border-radius: 12px;
-  background-color: #e5e7eb;
-  transition: all 0.3s ease;
-
-  &.switch_core_active {
-    background-color: #3b82f6;
-  }
-}
-
-.switch_button {
-  position: absolute;
-  top: 2px;
-  left: 2px;
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  background-color: #ffffff;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-  transition: all 0.3s ease;
-
-  &.switch_button_active {
-    transform: translateX(20px);
-  }
-}
-
-.switch_label {
-  margin-left: 8px;
-  font-size: 14px;
-  color: #374151;
-}
+@use './style/index' as *;
 </style>

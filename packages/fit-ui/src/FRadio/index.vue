@@ -33,6 +33,8 @@
  * <FRadio v-model="value" value="option2" disabled>禁用选项</FRadio>
  * ```
  */
+defineOptions({ name: 'FRadio', inheritAttrs: false })
+
 const props = defineProps<{
   /**
    * 绑定值
@@ -71,63 +73,5 @@ const handleClick = () => {
 </script>
 
 <style scoped lang="scss">
-.radio_wrapper {
-  display: inline-flex;
-  align-items: center;
-  cursor: pointer;
-  user-select: none;
-  outline: none;
-  transition: all 0.3s ease;
-
-  &:hover {
-    .radio_core {
-      border-color: #3b82f6;
-    }
-  }
-
-  &:focus-visible {
-    .radio_core {
-      box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.5);
-    }
-  }
-
-  &.radio_disabled {
-    cursor: not-allowed;
-    opacity: 0.5;
-  }
-}
-
-.radio_core {
-  position: relative;
-  width: 16px;
-  height: 16px;
-  border: 2px solid #d1d5db;
-  border-radius: 50%;
-  background-color: #ffffff;
-  transition: all 0.3s ease;
-
-  &.radio_core_active {
-    background-color: #3b82f6;
-    border-color: #3b82f6;
-  }
-
-  &.radio_core_disabled {
-    border-color: #d1d5db;
-    background-color: #f3f4f6;
-  }
-}
-
-.radio_icon {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  height: 100%;
-}
-
-.radio_label {
-  margin-left: 8px;
-  font-size: 14px;
-  color: #374151;
-}
+@use './style/index' as *;
 </style>

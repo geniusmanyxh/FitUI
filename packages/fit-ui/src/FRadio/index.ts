@@ -1,7 +1,6 @@
-import FRadio from './index.vue'
+import comp from './index.vue'
+import { withInstall } from '@utils/install'
+
+const FRadio = withInstall(comp)
 
 export default FRadio
-
-export {
-  FRadio
-}

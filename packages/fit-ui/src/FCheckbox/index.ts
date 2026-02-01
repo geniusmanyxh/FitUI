@@ -1,7 +1,6 @@
-import FCheckbox from './index.vue'
+import comp from './index.vue'
+import { withInstall } from '@utils/install'
+
+const FCheckbox = withInstall(comp)
 
 export default FCheckbox
-
-export {
-  FCheckbox
-}

@@ -54,6 +54,8 @@
  * </FDropdown>
  * ```
  */
+defineOptions({ name: 'FDropdown', inheritAttrs: false })
+
 import { ref, onMounted, onUnmounted, watch } from 'vue'
 
 const props = defineProps<{
@@ -103,7 +105,7 @@ const menuRef = ref<HTMLElement>()
 
 // 状态管理
 const isOpen = ref(props.defaultOpen || false)
-const id = ref(Math.random().toString(36).substr(2, 9))
+const id = Math.random().toString(36).slice(2, 11)
 
 // 切换下拉菜单状态
 const toggleDropdown = () => {
@@ -187,106 +189,5 @@ watch(isOpen, (newValue) => {
 </script>
 
 <style scoped lang="scss">
-.dropdown_wrapper {
-  position: relative;
-  display: inline-block;
-}
-
-.dropdown_trigger {
-  cursor: pointer;
-
-  &:focus-visible {
-    outline: 2px solid rgba(59, 130, 246, 0.5);
-    outline-offset: 2px;
-    border-radius: 4px;
-  }
-}
-
-.dropdown_menu {
-  position: absolute;
-  top: 100%;
-  left: 0;
-  min-width: 160px;
-  max-width: 320px;
-  background: white;
-  border: 1px solid #e5e7eb;
-  border-radius: 8px;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-  padding: 8px 0;
-  margin-top: 8px;
-  z-index: 1000;
-  overflow: auto;
-  max-height: 300px;
-  transition: all 0.3s ease;
-
-  &.dropdown_menu_top {
-    top: auto;
-    bottom: 100%;
-    margin-top: 0;
-    margin-bottom: 8px;
-  }
-
-  &.dropdown_menu_left {
-    right: 0;
-    left: auto;
-  }
-
-  &.dropdown_menu_right {
-    left: 100%;
-    top: 0;
-    margin-top: 0;
-    margin-left: 8px;
-  }
-
-  &.dropdown_menu_top.dropdown_menu_left {
-    right: 0;
-    left: auto;
-  }
-
-  &.dropdown_menu_top.dropdown_menu_right {
-    left: 100%;
-    right: auto;
-    top: auto;
-    bottom: 100%;
-    margin-top: 0;
-    margin-bottom: 8px;
-    margin-left: 8px;
-  }
-}
-
-// 下拉菜单项样式
-:deep(.dropdown-item) {
-  display: block;
-  width: 100%;
-  padding: 8px 16px;
-  text-align: left;
-  background: none;
-  border: none;
-  cursor: pointer;
-  font-size: 14px;
-  color: #374151;
-  transition: background-color 0.2s ease;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-
-  &:hover {
-    background-color: #f3f4f6;
-  }
-
-  &:focus-visible {
-    outline: 2px solid rgba(59, 130, 246, 0.5);
-    outline-offset: -2px;
-    background-color: #eef2ff;
-  }
-
-  &[role="option"] {
-    cursor: pointer;
-  }
-
-  &[role="option"][aria-selected="true"] {
-    background-color: #eef2ff;
-    color: #3b82f6;
-  }
-}
+@use './style/index' as *;
 </style>
