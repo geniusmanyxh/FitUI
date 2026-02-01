@@ -70,7 +70,8 @@ describe('FSelect', () => {
     expect(wrapper.emitted('update:modelValue')).toEqual([[['1']]])
 
     await vm.selectOption(options[1])
-    expect(wrapper.emitted('update:modelValue')[1]).toEqual([['1', '2']])
+    const updateEmits = wrapper.emitted('update:modelValue') ?? []
+    expect(updateEmits[1]).toEqual([['1', '2']])
   })
 
   test('size classes', () => {
@@ -134,7 +135,8 @@ describe('FSelect', () => {
         multipleLimit: 2
       }
     })
-    expect(wrapper.vm.selectedOptions).toHaveLength(3)
+    const vm = wrapper.vm as unknown as SelectVm
+    expect(vm.selectedOptions).toHaveLength(3)
   })
 
   test('disabled option', async () => {

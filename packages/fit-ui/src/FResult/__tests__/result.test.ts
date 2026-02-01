@@ -33,7 +33,7 @@ describe('FResult', () => {
 
   test('custom icon', () => {
     const wrapper = mount(FResult, {
-      props: { title: '标题', icon: 'custom-icon' }
+      props: { title: '标题', icon: 'search' }
     })
     expect(wrapper.find('.f-result__icon').exists()).toBe(true)
   })

@@ -38,7 +38,8 @@ describe('FInputNumber', () => {
     expect(wrapper.emitted('change')).toBeTruthy()
 
     await vm.decrease()
-    expect(wrapper.emitted('update:modelValue')[1]).toEqual([1])
+    const updateEmits = wrapper.emitted('update:modelValue') ?? []
+    expect(updateEmits[1]).toEqual([1])
   })
 
   test('min and max constraints', async () => {
@@ -77,7 +78,8 @@ describe('FInputNumber', () => {
     expect(wrapper.emitted('update:modelValue')).toEqual([[5]])
 
     await vm.decrease()
-    expect(wrapper.emitted('update:modelValue')[1]).toEqual([0])
+    const updateEmits = wrapper.emitted('update:modelValue') ?? []
+    expect(updateEmits[1]).toEqual([0])
   })
 
   test('precision control', async () => {
@@ -143,7 +145,8 @@ describe('FInputNumber', () => {
     expect(wrapper.emitted('update:modelValue')).toEqual([[6]])
     
     await input.trigger('keydown', { key: 'ArrowDown' })
-    expect(wrapper.emitted('update:modelValue')[1]).toEqual([5])
+    const updateEmits = wrapper.emitted('update:modelValue') ?? []
+    expect(updateEmits[1]).toEqual([5])
   })
 
   test('focus and blur events', async () => {

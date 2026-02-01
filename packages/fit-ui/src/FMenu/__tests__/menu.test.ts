@@ -1,9 +1,10 @@
 import { describe, expect, test } from 'vitest'
 import { mount } from '@vue/test-utils'
+import type { MenuItem } from '../Menu'
 import FMenu from '..'
 
 describe('FMenu', () => {
-  const items = [
+  const items: MenuItem[] = [
     { key: '1', label: '首页', icon: 'home' },
     { key: '2', label: '用户管理', icon: 'user' },
     { key: '3', label: '系统设置', icon: 'settings', children: [
