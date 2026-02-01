@@ -1,6 +1,20 @@
 import { describe, expect, test } from 'vitest'
 import { mount } from '@vue/test-utils'
+import type { VueWrapper } from '@vue/test-utils'
+import type { SelectOption } from '../Select'
 import FSelect from '..'
+
+type SelectVm = {
+  selectedOptions: SelectOption[]
+  filteredOptions: SelectOption[]
+  handleClear: () => void
+  removeTag: (value: string | number) => void
+  selectOption: (option: SelectOption) => void
+  openDropdown: () => void | Promise<void>
+  navigateOptions: (direction: number) => void | Promise<void>
+  isOpen: boolean
+  hoverIndex: number
+}
 
 describe('FSelect', () => {
   const options = [
@@ -21,35 +35,41 @@ describe('FSelect', () => {
   })
 
   test('v-model updates (single)', async () => {
-    const wrapper = mount(FSelect, {
+    let wrapper: VueWrapper
+    wrapper = mount(FSelect, {
       props: {
         modelValue: '',
         options,
-        'onUpdate:modelValue': (e: string) => wrapper.setProps({ modelValue: e })
+        'onUpdate:modelValue': (value: string | number | (string | number)[]) =>
+          wrapper.setProps({ modelValue: value })
       }
     })
-    
-    expect(wrapper.vm.selectedOptions).toHaveLength(0)
-    
-    await wrapper.vm.selectOption(options[0])
+
+    const vm = wrapper.vm as unknown as SelectVm
+    expect(vm.selectedOptions).toHaveLength(0)
+
+    await vm.selectOption(options[0])
     expect(wrapper.emitted('update:modelValue')).toEqual([['1']])
     expect(wrapper.emitted('change')).toEqual([['1']])
   })
 
   test('v-model updates (multiple)', async () => {
-    const wrapper = mount(FSelect, {
+    let wrapper: VueWrapper
+    wrapper = mount(FSelect, {
       props: {
         modelValue: [],
         options,
         multiple: true,
-        'onUpdate:modelValue': (e: string[]) => wrapper.setProps({ modelValue: e })
+        'onUpdate:modelValue': (value: string | number | (string | number)[]) =>
+          wrapper.setProps({ modelValue: value })
       }
     })
-    
-    await wrapper.vm.selectOption(options[0])
+
+    const vm = wrapper.vm as unknown as SelectVm
+    await vm.selectOption(options[0])
     expect(wrapper.emitted('update:modelValue')).toEqual([[['1']]])
-    
-    await wrapper.vm.selectOption(options[1])
+
+    await vm.selectOption(options[1])
     expect(wrapper.emitted('update:modelValue')[1]).toEqual([['1', '2']])
   })
 
@@ -74,7 +94,8 @@ describe('FSelect', () => {
     })
     expect(wrapper.find('.f-select__clear').exists()).toBe(true)
     
-    wrapper.vm.handleClear()
+    const vm = wrapper.vm as unknown as SelectVm
+    vm.handleClear()
     expect(wrapper.emitted('clear')).toBeTruthy()
     expect(wrapper.emitted('update:modelValue')).toEqual([['']])
   })
@@ -87,16 +108,19 @@ describe('FSelect', () => {
   })
 
   test('remove tag (multiple)', async () => {
-    const wrapper = mount(FSelect, {
+    let wrapper: VueWrapper
+    wrapper = mount(FSelect, {
       props: {
         modelValue: ['1', '2'],
         options,
         multiple: true,
-        'onUpdate:modelValue': (e: string[]) => wrapper.setProps({ modelValue: e })
+        'onUpdate:modelValue': (value: string | number | (string | number)[]) =>
+          wrapper.setProps({ modelValue: value })
       }
     })
-    
-    await wrapper.vm.removeTag('1')
+
+    const vm = wrapper.vm as unknown as SelectVm
+    await vm.removeTag('1')
     expect(wrapper.emitted('update:modelValue')).toEqual([[['2']]])
     expect(wrapper.emitted('remove-tag')).toEqual([['1']])
   })
@@ -118,21 +142,25 @@ describe('FSelect', () => {
       { value: '1', label: '选项1' },
       { value: '2', label: '选项2', disabled: true }
     ]
-    const wrapper = mount(FSelect, {
+    let wrapper: VueWrapper
+    wrapper = mount(FSelect, {
       props: {
         modelValue: '',
         options: disabledOptions,
-        'onUpdate:modelValue': (e: string) => wrapper.setProps({ modelValue: e })
+        'onUpdate:modelValue': (value: string | number | (string | number)[]) =>
+          wrapper.setProps({ modelValue: value })
       }
     })
-    
-    await wrapper.vm.selectOption(disabledOptions[1])
+
+    const vm = wrapper.vm as unknown as SelectVm
+    await vm.selectOption(disabledOptions[1])
     expect(wrapper.emitted('update:modelValue')).toBeUndefined()
   })
 
   test('grouped options', () => {
     const groupedOptions = [
       {
+        value: 'group-1',
         label: '分组1',
         children: [
           { value: '1', label: '选项1' },
@@ -140,6 +168,7 @@ describe('FSelect', () => {
         ]
       },
       {
+        value: 'group-2',
         label: '分组2',
         children: [
           { value: '3', label: '选项3' }
@@ -149,21 +178,23 @@ describe('FSelect', () => {
     const wrapper = mount(FSelect, {
       props: { modelValue: '', options: groupedOptions }
     })
-    
-    expect(wrapper.vm.filteredOptions).toHaveLength(2)
-    expect(wrapper.vm.filteredOptions[0].children).toHaveLength(2)
+
+    const vm = wrapper.vm as unknown as SelectVm
+    expect(vm.filteredOptions).toHaveLength(2)
+    expect(vm.filteredOptions[0].children).toHaveLength(2)
   })
 
   test('keyboard navigation', async () => {
     const wrapper = mount(FSelect, {
       props: { modelValue: '', options }
     })
-    
-    await wrapper.vm.openDropdown()
-    expect(wrapper.vm.isOpen).toBe(true)
-    
-    await wrapper.vm.navigateOptions(1)
-    expect(wrapper.vm.hoverIndex).toBe(0)
+
+    const vm = wrapper.vm as unknown as SelectVm
+    await vm.openDropdown()
+    expect(vm.isOpen).toBe(true)
+
+    await vm.navigateOptions(1)
+    expect(vm.hoverIndex).toBe(0)
   })
 
   test('focus and blur events', async () => {

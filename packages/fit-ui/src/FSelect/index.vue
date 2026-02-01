@@ -49,7 +49,7 @@
         >
           <div v-if="loading" class="f-select__loading">
             <slot name="loading">
-              <f-icon icon="loading" class="is-rotate"></f-icon>
+              <f-icon icon="refresh" class="is-rotate"></f-icon>
             </slot>
           </div>
           <div v-else-if="filteredOptions.length === 0" class="f-select__empty">
@@ -144,12 +144,12 @@ const selectId = `f-select-${instance?.uid ?? Math.random().toString(36).slice(2
 const isSingle = computed(() => !props.multiple)
 
 const selectedOptions = computed(() => {
-  if (props.multiple && Array.isArray(props.modelValue)) {
-    return getAllOptions().filter(opt => props.modelValue?.includes(opt.value))
+  const modelValue = props.modelValue
+  if (props.multiple && Array.isArray(modelValue)) {
+    return getAllOptions().filter(opt => modelValue.includes(opt.value))
   }
-  const value = props.modelValue
-  if (value !== undefined && value !== null && value !== '') {
-    return getAllOptions().filter(opt => opt.value === value)
+  if (modelValue !== undefined && modelValue !== null && modelValue !== '') {
+    return getAllOptions().filter(opt => opt.value === modelValue)
   }
   return []
 })

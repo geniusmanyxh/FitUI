@@ -1,5 +1,6 @@
 import { describe, expect, test } from 'vitest'
 import { mount } from '@vue/test-utils'
+import type { TableColumn } from '../Table'
 import FTable from '..'
 
 describe('FTable', () => {
@@ -128,7 +129,7 @@ describe('FTable', () => {
   })
 
   test('cell align', () => {
-    const alignColumns = [
+    const alignColumns: TableColumn[] = [
       { key: 'name', label: '姓名', align: 'left' },
       { key: 'age', label: '年龄', align: 'center' },
       { key: 'address', label: '地址', align: 'right' }

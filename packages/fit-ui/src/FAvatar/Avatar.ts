@@ -1,3 +1,5 @@
+import type { allIconType } from '@utils/ficon'
+
 export type AvatarSizeType = 'small' | 'medium' | 'large' | 'default'
 export type AvatarShapeType = 'circle' | 'square'
 
@@ -6,7 +8,7 @@ export interface AvatarProps {
   alt?: string
   size?: AvatarSizeType | number
   shape?: AvatarShapeType
-  icon?: string
+  icon?: allIconType
   text?: string
   fit?: 'fill' | 'contain' | 'cover' | 'none'
 }

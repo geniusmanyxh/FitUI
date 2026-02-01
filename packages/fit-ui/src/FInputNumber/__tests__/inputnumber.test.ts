@@ -1,6 +1,16 @@
 import { describe, expect, test } from 'vitest'
 import { mount } from '@vue/test-utils'
+import type { VueWrapper } from '@vue/test-utils'
 import FInputNumber from '..'
+
+type InputNumberVm = {
+  increase: () => void | Promise<void>
+  decrease: () => void | Promise<void>
+  setCurrentValue: (value: number) => void
+  currentValue: number | null
+  minDisabled: boolean
+  maxDisabled: boolean
+}
 
 describe('FInputNumber', () => {
   test('mount with default', () => {
@@ -14,66 +24,77 @@ describe('FInputNumber', () => {
   })
 
   test('v-model updates', async () => {
-    const wrapper = mount(FInputNumber, {
+    let wrapper: VueWrapper
+    wrapper = mount(FInputNumber, {
       props: {
         modelValue: 1,
-        'onUpdate:modelValue': (e: number) => wrapper.setProps({ modelValue: e })
+        'onUpdate:modelValue': (value: number | null) => wrapper.setProps({ modelValue: value })
       }
     })
-    
-    await wrapper.vm.increase()
+    const vm = wrapper.vm as unknown as InputNumberVm
+
+    await vm.increase()
     expect(wrapper.emitted('update:modelValue')).toEqual([[2]])
     expect(wrapper.emitted('change')).toBeTruthy()
-    
-    await wrapper.vm.decrease()
+
+    await vm.decrease()
     expect(wrapper.emitted('update:modelValue')[1]).toEqual([1])
   })
 
   test('min and max constraints', async () => {
-    const wrapper = mount(FInputNumber, {
+    let wrapper: VueWrapper
+    wrapper = mount(FInputNumber, {
       props: {
         modelValue: 5,
         min: 0,
         max: 10,
-        'onUpdate:modelValue': (e: number) => wrapper.setProps({ modelValue: e })
+        'onUpdate:modelValue': (value: number | null) => wrapper.setProps({ modelValue: value })
       }
     })
-    
-    wrapper.vm.setCurrentValue(15)
-    expect(wrapper.vm.currentValue).toBe(10)
-    
-    wrapper.vm.setCurrentValue(-5)
-    expect(wrapper.vm.currentValue).toBe(0)
+
+    const vm = wrapper.vm as unknown as InputNumberVm
+
+    vm.setCurrentValue(15)
+    expect(vm.currentValue).toBe(10)
+
+    vm.setCurrentValue(-5)
+    expect(vm.currentValue).toBe(0)
   })
 
   test('step control', async () => {
-    const wrapper = mount(FInputNumber, {
+    let wrapper: VueWrapper
+    wrapper = mount(FInputNumber, {
       props: {
         modelValue: 0,
         step: 5,
-        'onUpdate:modelValue': (e: number) => wrapper.setProps({ modelValue: e })
+        'onUpdate:modelValue': (value: number | null) => wrapper.setProps({ modelValue: value })
       }
     })
-    
-    await wrapper.vm.increase()
+
+    const vm = wrapper.vm as unknown as InputNumberVm
+
+    await vm.increase()
     expect(wrapper.emitted('update:modelValue')).toEqual([[5]])
-    
-    await wrapper.vm.decrease()
+
+    await vm.decrease()
     expect(wrapper.emitted('update:modelValue')[1]).toEqual([0])
   })
 
   test('precision control', async () => {
-    const wrapper = mount(FInputNumber, {
+    let wrapper: VueWrapper
+    wrapper = mount(FInputNumber, {
       props: {
         modelValue: 0,
         step: 0.1,
         precision: 2,
-        'onUpdate:modelValue': (e: number) => wrapper.setProps({ modelValue: e })
+        'onUpdate:modelValue': (value: number | null) => wrapper.setProps({ modelValue: value })
       }
     })
-    
-    wrapper.vm.setCurrentValue(1.234)
-    expect(wrapper.vm.currentValue).toBe(1.23)
+
+    const vm = wrapper.vm as unknown as InputNumberVm
+
+    vm.setCurrentValue(1.234)
+    expect(vm.currentValue).toBe(1.23)
   })
 
   test('size classes', () => {
@@ -109,13 +130,14 @@ describe('FInputNumber', () => {
   })
 
   test('keyboard navigation', async () => {
-    const wrapper = mount(FInputNumber, {
+    let wrapper: VueWrapper
+    wrapper = mount(FInputNumber, {
       props: {
         modelValue: 5,
-        'onUpdate:modelValue': (e: number) => wrapper.setProps({ modelValue: e })
+        'onUpdate:modelValue': (value: number | null) => wrapper.setProps({ modelValue: value })
       }
     })
-    
+
     const input = wrapper.find('.f-input-number__inner')
     await input.trigger('keydown', { key: 'ArrowUp' })
     expect(wrapper.emitted('update:modelValue')).toEqual([[6]])
@@ -138,17 +160,20 @@ describe('FInputNumber', () => {
   })
 
   test('step strictly', async () => {
-    const wrapper = mount(FInputNumber, {
+    let wrapper: VueWrapper
+    wrapper = mount(FInputNumber, {
       props: {
         modelValue: 0,
         step: 3,
         stepStrictly: true,
-        'onUpdate:modelValue': (e: number) => wrapper.setProps({ modelValue: e })
+        'onUpdate:modelValue': (value: number | null) => wrapper.setProps({ modelValue: value })
       }
     })
-    
-    wrapper.vm.setCurrentValue(5)
-    expect(wrapper.vm.currentValue).toBe(6)
+
+    const vm = wrapper.vm as unknown as InputNumberVm
+
+    vm.setCurrentValue(5)
+    expect(vm.currentValue).toBe(6)
   })
 
   test('min disabled when at minimum', () => {
@@ -158,7 +183,9 @@ describe('FInputNumber', () => {
         min: 0
       }
     })
-    expect(wrapper.vm.minDisabled).toBe(true)
+
+    const vm = wrapper.vm as unknown as InputNumberVm
+    expect(vm.minDisabled).toBe(true)
     expect(wrapper.find('.f-input-number__decrease').classes()).toContain('is-disabled')
   })
 
@@ -169,7 +196,9 @@ describe('FInputNumber', () => {
         max: 10
       }
     })
-    expect(wrapper.vm.maxDisabled).toBe(true)
+
+    const vm = wrapper.vm as unknown as InputNumberVm
+    expect(vm.maxDisabled).toBe(true)
     expect(wrapper.find('.f-input-number__increase').classes()).toContain('is-disabled')
   })
 })

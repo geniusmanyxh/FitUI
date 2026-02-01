@@ -29,6 +29,7 @@
 import { computed } from 'vue'
 import type { ResultProps, ResultEmits } from './Result'
 import type { ResultStatusType } from './Result'
+import type { allIconType } from '@utils/ficon'
 import FIcon from '@/FIcon'
 
 defineOptions({ name: 'FResult', inheritAttrs: false })
@@ -48,11 +49,11 @@ const resultClass = computed(() => {
 })
 
 const statusIcon = computed(() => {
-  const iconMap: Record<ResultStatusType, string> = {
-    success: 'check-circle',
-    error: 'x-circle',
-    warning: 'warning',
-    info: 'info-circle',
+  const iconMap: Record<ResultStatusType, allIconType> = {
+    success: 'circle-check',
+    error: 'circle-error',
+    warning: 'circle-warning',
+    info: 'circle-information',
     '404': 'search',
     '500': 'warning'
   }

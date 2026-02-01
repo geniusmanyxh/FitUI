@@ -21,6 +21,7 @@
 import { ref, computed, onMounted } from 'vue'
 import type { NotificationProps, NotificationEmits } from './Notification'
 import type { NotificationType } from './Notification'
+import type { allIconType } from '@utils/ficon'
 import FIcon from '@/FIcon'
 
 defineOptions({ name: 'FNotification', inheritAttrs: false })
@@ -63,11 +64,11 @@ const notificationStyle = computed(() => {
 })
 
 const typeIcon = computed(() => {
-  const iconMap: Record<NotificationType, string> = {
-    success: 'check-circle',
-    warning: 'warning',
-    error: 'x-circle',
-    info: 'info-circle'
+  const iconMap: Record<NotificationType, allIconType> = {
+    success: 'circle-check',
+    warning: 'circle-warning',
+    error: 'circle-error',
+    info: 'circle-information'
   }
   return iconMap[props.type]
 })

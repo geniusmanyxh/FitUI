@@ -54,12 +54,12 @@
             :class="getRowClass(row, index)"
             @click="handleRowClick(row, index, $event)"
             @dblclick="handleRowDblClick(row, index, $event)"
-            @contextmenu="handleRowContextMenu(row, column, $event)"
           >
             <td
               v-for="column in columns"
               :key="column.key"
               :class="getCellClass(row, column)"
+              @contextmenu="handleRowContextMenu(row, column, $event)"
               @click="handleCellClick(row, column, row[column.key], $event)"
             >
               <div class="f-table__cell" :class="getCellAlignClass(column)">

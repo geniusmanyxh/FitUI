@@ -54,9 +54,9 @@ export default () =>
           // ❗ 只保留你真正用到的
           // mdi: () => import('@iconify/json/json/mdi.json').then(i => i.default),
           // ep: () => import('@iconify/json/json/ep.json').then(i => i.default),
-          bxl: () => import('@iconify/json/json/bxl.json').then(i => i.default as IconifyJSON),
-          ic: () => import('@iconify/json/json/ic.json').then(i => i.default as IconifyJSON),
-          mi: () => import('@iconify/json/json/mi.json').then(i => i.default as IconifyJSON),
+          bxl: () => import('@iconify/json/json/bxl.json', { with: { type: 'json' } }).then(i => i.default as IconifyJSON),
+          ic: () => import('@iconify/json/json/ic.json', { with: { type: 'json' } }).then(i => i.default as IconifyJSON),
+          mi: () => import('@iconify/json/json/mi.json', { with: { type: 'json' } }).then(i => i.default as IconifyJSON),
         },
         extraProperties: {
           display: 'inline-block',

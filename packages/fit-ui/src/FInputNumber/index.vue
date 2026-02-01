@@ -25,7 +25,7 @@
         :aria-label="label"
         :aria-valuemin="min"
         :aria-valuemax="max"
-        :aria-valuenow="currentValue"
+        :aria-valuenow="currentValue ?? undefined"
         :aria-disabled="disabled"
         class="f-input-number__inner"
         :class="{ 'is-disabled': disabled }"

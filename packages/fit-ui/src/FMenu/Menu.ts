@@ -1,10 +1,12 @@
+import type { allIconType } from '@utils/ficon'
+
 export type MenuModeType = 'vertical' | 'horizontal'
 export type MenuThemeType = 'light' | 'dark'
 
 export interface MenuItem {
   key: string
   label?: string
-  icon?: string
+  icon?: allIconType
   disabled?: boolean
   children?: MenuItem[]
 }

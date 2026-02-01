@@ -33,7 +33,7 @@
             :stroke="strokeColor"
             :stroke-width="strokeWidth"
             fill="none"
-            :stroke-linecap="round"
+            stroke-linecap="round"
           />
         </svg>
         <div v-if="showText" class="f-progress__circle-text">
