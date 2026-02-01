@@ -1,4 +1,5 @@
 import { presetUno, presetAttributify, presetIcons } from 'unocss'
+import type { IconifyJSON } from '@iconify/types'
 import Unocss from 'unocss/vite'
 // import type { IconsOptions } from '@unocss/preset-icons'
 import  transformerDirectives from '@unocss/transformer-directives'
@@ -41,11 +42,22 @@ export default () =>
     mode: 'dist-chunk',  // 编译到构建产物
     inspector: false,
     safelist,
+    content: {
+      filesystem: ["./src/*.{html,js,ts,jsx,tsx,vue,svelte,astro}"],
+    },
     presets: [
       presetUno(),
       presetAttributify(),
       presetIcons({
         prefix: 'i-',
+        collections: {
+          // ❗ 只保留你真正用到的
+          // mdi: () => import('@iconify/json/json/mdi.json').then(i => i.default),
+          // ep: () => import('@iconify/json/json/ep.json').then(i => i.default),
+          bxl: () => import('@iconify/json/json/bxl.json').then(i => i.default as IconifyJSON),
+          ic: () => import('@iconify/json/json/ic.json').then(i => i.default as IconifyJSON),
+          mi: () => import('@iconify/json/json/mi.json').then(i => i.default as IconifyJSON),
+        },
         extraProperties: {
           display: 'inline-block',
         },
