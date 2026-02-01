@@ -8,7 +8,7 @@
     >
       <slot name="label">{{ label }}</slot>
       <span v-if="isRequired && !hideRequiredAsterisk" class="f-form-item__asterisk">*</span>
-      <span v-if="labelSuffix" class="f-form-item__suffix">{{ labelSuffix }}</span>
+      <span v-if="labelSuffix !== undefined && labelSuffix !== ''" class="f-form-item__suffix">{{ labelSuffix }}</span>
     </label>
     <div class="f-form-item__content">
       <slot></slot>
@@ -38,13 +38,14 @@ const props = withDefaults(defineProps<FormItemProps>(), {
   showMessage: undefined,
   inlineMessage: false,
   size: undefined,
-  for: ''
+  for: '',
+  labelSuffix: undefined
 })
 
-const formContext = inject<FormContext>(FORM_CONTEXT_KEY)
+const formContext = inject<FormContext>(FORM_CONTEXT_KEY) || inject<FormContext>('formContext')
 const fieldValue = ref<any>(undefined)
-const errorMessage = ref('')
-const showError = ref(false)
+const errorMessage = ref(props.error)
+const showError = ref(!!props.error)
 const isRequired = ref(false)
 
 const fieldId = `f-form-item-${Math.random().toString(36).slice(2)}`
@@ -84,24 +85,56 @@ const hideRequiredAsterisk = computed(() => {
 })
 
 const labelSuffix = computed(() => {
-  return props.labelSuffix || formContext?.labelSuffix
+  return props.labelSuffix !== undefined ? props.labelSuffix : formContext?.labelSuffix
 })
 
 const disabled = computed(() => {
   return formContext?.disabled
 })
 
-function validate(callback?: (error?: string) => void): Promise<boolean> {
-  if (!props.prop || !formContext) {
+async function validate(callback?: (error?: string) => void): Promise<boolean> {
+  if (!props.prop) {
     if (callback) callback()
-    return Promise.resolve(true)
+    return true
   }
   
-  return formContext.validateField(props.prop, (error?: string) => {
+  // 检查规则是否存在
+  const allRules = [...props.rules]
+  if (formContext?.rules?.[props.prop]) {
+    allRules.push(...formContext.rules[props.prop])
+  }
+  
+  // 如果没有规则，直接返回true
+  if (allRules.length === 0) {
+    if (callback) callback()
+    return true
+  }
+  
+  // 如果有formContext且有validateField方法，使用formContext的validateField方法
+  if (formContext && formContext.validateField) {
+    const isValid = await formContext.validateField(props.prop, (error?: string) => {
+      errorMessage.value = error || ''
+      showError.value = !!error
+      if (callback) callback(error)
+    })
+    return isValid
+  } else {
+    // 否则，使用内部验证逻辑
+    const value = formContext?.model?.[props.prop]
+    let error: string | undefined
+    
+    for (const rule of allRules) {
+      if (rule.required && (value === undefined || value === null || value === '')) {
+        error = rule.message || `${props.prop} is required`
+        break
+      }
+    }
+    
     errorMessage.value = error || ''
     showError.value = !!error
     if (callback) callback(error)
-  })
+    return !error
+  }
 }
 
 function clearValidate() {
@@ -112,6 +145,7 @@ function clearValidate() {
 function resetField() {
   if (props.prop && formContext?.model) {
     formContext.model[props.prop] = undefined
+    fieldValue.value = undefined
   }
   clearValidate()
 }
@@ -136,11 +170,15 @@ onMounted(() => {
       allRules.push(...formContext.rules[props.prop])
     }
     
-    isRequired.value = allRules.some(rule => rule.required)
+    // 检查props.required和rules中的required属性
+    isRequired.value = props.required || allRules.some(rule => rule.required)
     
     if (formContext.model && props.prop in formContext.model) {
       fieldValue.value = formContext.model[props.prop]
     }
+  } else {
+    // 如果没有formContext，直接使用props.required
+    isRequired.value = props.required
   }
 })
 

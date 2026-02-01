@@ -128,7 +128,7 @@ const inputNumberClass = computed(() => {
 function toPrecision(num: number, precision?: number): number {
   if (precision === undefined) precision = props.precision
   if (precision === undefined) return num
-  return parseFloat(Math.round(num * Math.pow(10, precision)) / Math.pow(10, precision) + '')
+  return parseFloat(num.toFixed(precision))
 }
 
 function getPrecision(value: number | string): number {
@@ -175,6 +175,9 @@ function setCurrentValue(value: number) {
     const normalizedValue = Math.round(value / props.step) * props.step * stepMultiple / stepMultiple
     value = toPrecision(normalizedValue, maxPrecision)
   }
+  
+  // 应用precision限制
+  value = ensurePrecision(value)
   
   currentValue.value = value
   emit('update:modelValue', value)

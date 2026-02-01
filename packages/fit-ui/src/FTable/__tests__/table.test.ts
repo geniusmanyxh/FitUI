@@ -140,7 +140,8 @@ describe('FTable', () => {
       }
     })
     
-    const cells = wrapper.findAll('.f-table__cell')
+    const rows = wrapper.findAll('.f-table__row')
+    const cells = rows[0].findAll('.f-table__cell')
     expect(cells[0].classes()).toContain('f-table__cell--left')
     expect(cells[1].classes()).toContain('f-table__cell--center')
     expect(cells[2].classes()).toContain('f-table__cell--right')
@@ -225,8 +226,8 @@ describe('FTable', () => {
       }
     })
     
-    const cells = wrapper.findAll('.f-table__cell')
-    await cells[0].trigger('click')
+    const rows = wrapper.findAll('.f-table__row')
+    await rows[0].findAll('td')[0].trigger('click')
     expect(wrapper.emitted('cell-click')).toBeTruthy()
   })
 
@@ -238,7 +239,7 @@ describe('FTable', () => {
       }
     })
     
-    const headers = wrapper.findAll('.f-table__header-cell')
+    const headers = wrapper.findAll('th')
     await headers[0].trigger('click')
     expect(wrapper.emitted('header-click')).toBeTruthy()
   })

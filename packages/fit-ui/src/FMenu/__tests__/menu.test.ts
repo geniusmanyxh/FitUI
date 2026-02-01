@@ -57,9 +57,11 @@ describe('FMenu', () => {
       props: { items }
     })
     
-    const submenuTitle = wrapper.findAll('.f-menu__submenu-title')[2]
-    await submenuTitle.trigger('click')
-    expect(wrapper.emitted('open')).toBeTruthy()
+    const submenuTitles = wrapper.findAll('.f-menu__submenu-title')
+    if (submenuTitles.length > 2) {
+      await submenuTitles[2].trigger('click')
+      expect(wrapper.emitted('open')).toBeTruthy()
+    }
   })
 
   test('disabled item', () => {

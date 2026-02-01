@@ -1,5 +1,5 @@
 <template>
-  <div class="f-pagination" :class="paginationClass">
+  <div v-if="!shouldHide" class="f-pagination" :class="paginationClass">
     <span v-if="showTotal" class="f-pagination__total">
       共 {{ total }} 条
     </span>
@@ -19,6 +19,7 @@
       <li
         v-for="page in pages"
         :key="page"
+        class="f-pagination__item"
         :class="getPageClass(page)"
         @click="handlePageClick(page)"
       >
@@ -121,6 +122,10 @@ const showJumper = computed(() => {
 
 const showSizes = computed(() => {
   return props.layout.includes('sizes')
+})
+
+const shouldHide = computed(() => {
+  return props.hideOnSinglePage && pageCount.value <= 1
 })
 
 const paginationClass = computed(() => {

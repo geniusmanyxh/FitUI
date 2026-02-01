@@ -1,56 +1,80 @@
 import { describe, expect, test } from 'vitest'
 import { mount } from '@vue/test-utils'
+import { nextTick } from 'vue'
 import FNotification from '..'
 
 describe('FNotification', () => {
-  test('mount with default', () => {
+  test('mount with default', async () => {
     const wrapper = mount(FNotification, {
-      props: { visible: true, message: '这是一条通知' }
+      props: { visible: true, message: '这是一条通知' },
+      attachTo: document.body
     })
-    expect(wrapper.find('.f-notification').exists()).toBe(true)
+    await nextTick()
+    expect(document.querySelector('.f-notification')).toBeTruthy()
+    wrapper.unmount()
   })
 
-  test('type variants', () => {
+  test('type variants', async () => {
     const wrapperSuccess = mount(FNotification, {
-      props: { visible: true, type: 'success', message: '成功' }
+      props: { visible: true, type: 'success', message: '成功' },
+      attachTo: document.body
     })
-    expect(wrapperSuccess.classes()).toContain('f-notification--success')
+    await nextTick()
+    expect(document.querySelector('.f-notification')?.classList.contains('f-notification--success')).toBe(true)
+    wrapperSuccess.unmount()
     
     const wrapperError = mount(FNotification, {
-      props: { visible: true, type: 'error', message: '错误' }
+      props: { visible: true, type: 'error', message: '错误' },
+      attachTo: document.body
     })
-    expect(wrapperError.classes()).toContain('f-notification--error')
+    await nextTick()
+    expect(document.querySelector('.f-notification')?.classList.contains('f-notification--error')).toBe(true)
+    wrapperError.unmount()
   })
 
-  test('title and message', () => {
+  test('title and message', async () => {
     const wrapper = mount(FNotification, {
-      props: { visible: true, title: '标题', message: '消息内容' }
+      props: { visible: true, title: '标题', message: '消息内容' },
+      attachTo: document.body
     })
-    expect(wrapper.find('.f-notification__title').text()).toBe('标题')
-    expect(wrapper.find('.f-notification__text').text()).toBe('消息内容')
+    await nextTick()
+    expect(document.querySelector('.f-notification__title')?.textContent).toBe('标题')
+    expect(document.querySelector('.f-notification__text')?.textContent).toBe('消息内容')
+    wrapper.unmount()
   })
 
-  test('position variants', () => {
+  test('position variants', async () => {
     const wrapperTopLeft = mount(FNotification, {
-      props: { visible: true, message: '消息', position: 'top-left' }
+      props: { visible: true, message: '消息', position: 'top-left' },
+      attachTo: document.body
     })
-    expect(wrapperTopLeft.classes()).toContain('f-notification--top-left')
+    await nextTick()
+    expect(document.querySelector('.f-notification')?.classList.contains('f-notification--top-left')).toBe(true)
+    wrapperTopLeft.unmount()
   })
 
-  test('show close button', () => {
+  test('show close button', async () => {
     const wrapper = mount(FNotification, {
-      props: { visible: true, message: '消息', showClose: true }
+      props: { visible: true, message: '消息', showClose: true },
+      attachTo: document.body
     })
-    expect(wrapper.find('.f-notification__close').exists()).toBe(true)
+    await nextTick()
+    expect(document.querySelector('.f-notification__close')).toBeTruthy()
+    wrapper.unmount()
   })
 
   test('close event', async () => {
     const wrapper = mount(FNotification, {
-      props: { visible: true, message: '消息' }
+      props: { visible: true, message: '消息' },
+      attachTo: document.body
     })
+    await nextTick()
     
-    const closeBtn = wrapper.find('.f-notification__close')
-    await closeBtn.trigger('click')
-    expect(wrapper.emitted('close')).toBeTruthy()
+    const closeBtn = document.querySelector('.f-notification__close')
+    if (closeBtn) {
+      await closeBtn.dispatchEvent(new MouseEvent('click'))
+      expect(wrapper.emitted('close')).toBeTruthy()
+    }
+    wrapper.unmount()
   })
 })

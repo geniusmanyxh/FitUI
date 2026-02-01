@@ -44,7 +44,7 @@ describe('FProgress', () => {
 
   test('stroke width', () => {
     const wrapper = mount(FProgress, {
-      props: { percentage: 50, strokeWidth: 10 }
+      props: { percentage: 50, strokeWidth: 10, type: 'circle' }
     })
     const track = wrapper.find('.f-progress__circle-track')
     expect(track.attributes('stroke-width')).toBe('10')

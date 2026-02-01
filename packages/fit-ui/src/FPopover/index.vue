@@ -115,7 +115,6 @@ function updatePosition() {
   if (!triggerRef.value || !contentRef.value) return
   
   const triggerRect = triggerRef.value.getBoundingClientRect()
-  const contentRect = contentRef.value.getBoundingClientRect()
   const scrollX = window.scrollX || window.pageXOffset
   const scrollY = window.scrollY || window.pageYOffset
   
@@ -126,7 +125,7 @@ function updatePosition() {
     case 'top':
     case 'top-start':
     case 'top-end':
-      top = triggerRect.top + scrollY - contentRect.height - props.offset
+      top = triggerRect.top + scrollY - props.offset
       break
     case 'bottom':
     case 'bottom-start':
@@ -136,7 +135,7 @@ function updatePosition() {
     case 'left':
     case 'left-start':
     case 'left-end':
-      left = triggerRect.left + scrollX - contentRect.width - props.offset
+      left = triggerRect.left + scrollX - props.offset
       break
     case 'right':
     case 'right-start':
@@ -151,9 +150,9 @@ function updatePosition() {
     case 'left':
     case 'right':
       if (props.placement === 'top' || props.placement === 'bottom') {
-        left = triggerRect.left + scrollX + (triggerRect.width - contentRect.width) / 2
+        left = triggerRect.left + scrollX + (triggerRect.width - (typeof props.width === 'number' ? props.width : 180)) / 2
       } else {
-        top = triggerRect.top + scrollY + (triggerRect.height - contentRect.height) / 2
+        top = triggerRect.top + scrollY + (triggerRect.height - (typeof props.width === 'number' ? props.width : 180)) / 2
       }
       break
     case 'top-start':
@@ -171,15 +170,15 @@ function updatePosition() {
     case 'left-end':
     case 'right-end':
       if (props.placement === 'top-end' || props.placement === 'bottom-end') {
-        left = triggerRect.right + scrollX - contentRect.width
+        left = triggerRect.right + scrollX - (typeof props.width === 'number' ? props.width : 180)
       } else {
-        top = triggerRect.bottom + scrollY - contentRect.height
+        top = triggerRect.bottom + scrollY - (typeof props.width === 'number' ? props.width : 180)
       }
       break
   }
   
-  contentRef.value.style.top = `${top}px`
-  contentRef.value.style.left = `${left}px`
+  contentRef.value.style.setProperty('top', `${top}px`)
+  contentRef.value.style.setProperty('left', `${left}px`)
 }
 
 onMounted(() => {

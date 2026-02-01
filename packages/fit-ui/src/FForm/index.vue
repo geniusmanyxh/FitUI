@@ -207,11 +207,22 @@ async function validate(callback?: (isValid: boolean, invalidFields?: Record<str
 function resetFields() {
   if (!props.model) return
   
+  // 首先清除所有在fields中注册的字段
   for (const [field, { prop }] of fields.value) {
-    props.model[prop] = undefined
     const element = document.querySelector(`[data-field="${prop}"]`) as HTMLElement
     if (element) {
       element.dataset.error = ''
+    }
+    delete props.model[prop]
+  }
+  
+  // 然后检查模型中是否还有其他字段，如果有也一并清除
+  // 这样即使没有添加FFormItem组件，resetFields也能正常工作
+  if (props.model) {
+    for (const key in props.model) {
+      if (props.model.hasOwnProperty(key)) {
+        delete props.model[key]
+      }
     }
   }
 }

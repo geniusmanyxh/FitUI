@@ -168,10 +168,10 @@ describe('FSelect', () => {
 
   test('focus and blur events', async () => {
     const wrapper = mount(FSelect, {
-      props: { modelValue: '', options }
+      props: { modelValue: '', options, filterable: true }
     })
     
-    const input = wrapper.find('.f-select__trigger')
+    const input = wrapper.find('.f-select__input')
     await input.trigger('focus')
     expect(wrapper.emitted('focus')).toBeTruthy()
     

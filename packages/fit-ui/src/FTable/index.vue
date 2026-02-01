@@ -62,7 +62,7 @@
               :class="getCellClass(row, column)"
               @click="handleCellClick(row, column, row[column.key], $event)"
             >
-              <div class="f-table__cell">
+              <div class="f-table__cell" :class="getCellAlignClass(column)">
                 <slot name="cell" :row="row" :column="column" :index="index">
                   {{ row[column.key] }}
                 </slot>
@@ -197,17 +197,20 @@ function getRowClass(row: Record<string, any>, index: number) {
 }
 
 function getCellClass(row: Record<string, any>, column: TableColumn) {
-  const classes: string[] = ['f-table__cell']
+  const classes: string[] = []
   
   if (column.cellClassName) {
     classes.push(column.cellClassName)
   }
   
-  if (column.align) {
-    classes.push(`f-table__cell--${column.align}`)
-  }
-  
   return classes
+}
+
+function getCellAlignClass(column: TableColumn) {
+  if (column.align) {
+    return `f-table__cell--${column.align}`
+  }
+  return ''
 }
 
 function getSortClass(prop: string) {
@@ -222,6 +225,8 @@ function getRowKey(row: Record<string, any>, index: number) {
 }
 
 function handleHeaderClick(column: TableColumn, event: MouseEvent) {
+  emit('header-click', column, event)
+  
   if (!column.sortable) return
   
   if (currentSort.value && currentSort.value.prop === column.key) {
@@ -237,8 +242,6 @@ function handleHeaderClick(column: TableColumn, event: MouseEvent) {
   if (currentSort.value) {
     emit('sort', currentSort.value.prop, currentSort.value.order)
   }
-  
-  emit('header-click', column, event)
 }
 
 function handleRowClick(row: Record<string, any>, index: number, event: MouseEvent) {

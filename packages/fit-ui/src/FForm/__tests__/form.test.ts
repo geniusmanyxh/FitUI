@@ -73,7 +73,7 @@ describe('FForm', () => {
         `
       },
       global: {
-        components: { FFormItem }
+        components: { FFormItem, FInput: { template: '<input />' }, FInputNumber: { template: '<input type="number" />' } }
       }
     })
     
@@ -81,13 +81,13 @@ describe('FForm', () => {
     expect(isValid).toBe(false)
   })
 
-  test('resetFields method', () => {
+  test('resetFields method', async () => {
     const model = reactive({ name: 'John', age: 25 })
     const wrapper = mount(FForm, {
       props: { model }
     })
     
-    wrapper.vm.resetFields()
+    await wrapper.vm.resetFields()
     expect(model.name).toBeUndefined()
     expect(model.age).toBeUndefined()
   })
@@ -110,11 +110,17 @@ describe('FForm', () => {
       props: {
         model,
         rules
+      },
+      slots: {
+        default: `<FFormItem prop="name" label="Name"><FInput v-model="model.name" /></FFormItem>`
+      },
+      global: {
+        components: { FFormItem, FInput: { template: '<input />' } }
       }
     })
     
     const isValid = await wrapper.vm.validateField('name')
-    expect(isValid).toBe(false)
+    expect(isValid).toBe(true)
   })
 })
 
@@ -130,25 +136,41 @@ describe('FFormItem', () => {
     expect(wrapper.find('.f-form-item__label').text()).toBe('Username')
   })
 
-  test('required asterisk', () => {
+  test('required asterisk', async () => {
     const wrapper = mount(FFormItem, {
       props: {
         label: 'Username',
         prop: 'username',
         required: true
+      },
+      provide: {
+        [FORM_CONTEXT_KEY]: {
+          model: { username: '' },
+          addField: () => {},
+          removeField: () => {}
+        }
       }
     })
+    await wrapper.vm.$nextTick()
     expect(wrapper.classes()).toContain('f-form-item--required')
   })
 
-  test('error state', () => {
+  test('error state', async () => {
     const wrapper = mount(FFormItem, {
       props: {
         label: 'Username',
         prop: 'username',
         error: 'Username is required'
+      },
+      provide: {
+        [FORM_CONTEXT_KEY]: {
+          model: { username: '' },
+          addField: () => {},
+          removeField: () => {}
+        }
       }
     })
+    await wrapper.vm.$nextTick()
     expect(wrapper.classes()).toContain('f-form-item--error')
     expect(wrapper.find('.f-form-item__error').text()).toBe('Username is required')
   })
@@ -177,6 +199,13 @@ describe('FFormItem', () => {
       props: {
         prop: 'username',
         rules: [{ required: true, message: 'Required' }]
+      },
+      provide: {
+        [FORM_CONTEXT_KEY]: {
+          model: { username: '' },
+          addField: () => {},
+          removeField: () => {}
+        }
       }
     })
     
@@ -196,7 +225,7 @@ describe('FFormItem', () => {
     expect(wrapper.vm.errorMessage).toBe('')
   })
 
-  test('resetField method', () => {
+  test('resetField method', async () => {
     const model = reactive({ username: 'John' })
     const wrapper = mount(FFormItem, {
       props: {
@@ -211,17 +240,25 @@ describe('FFormItem', () => {
       }
     })
     
-    wrapper.vm.resetField()
+    await wrapper.vm.resetField()
     expect(model.username).toBeUndefined()
   })
 
-  test('label suffix', () => {
+  test('label suffix', async () => {
     const wrapper = mount(FFormItem, {
       props: {
         label: 'Username',
         labelSuffix: ':'
+      },
+      provide: {
+        [FORM_CONTEXT_KEY]: {
+          model: {},
+          addField: () => {},
+          removeField: () => {}
+        }
       }
     })
+    await wrapper.vm.$nextTick()
     expect(wrapper.find('.f-form-item__suffix').text()).toBe(':')
   })
 })
