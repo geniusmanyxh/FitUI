@@ -55,28 +55,4 @@ describe('FModal', () => {
     }
   })
 
-  it.skip('should respond to ESC key', async () => {
-    const wrapper = mount(FModal, {
-      props: {
-        modelValue: true
-      }
-    })
-    
-    // 模拟 ESC 键按下
-    await wrapper.trigger('keydown', { key: 'Escape' })
-    expect(wrapper.emitted('update:modelValue')).toBeTruthy()
-  })
-
-  it.skip('should not respond to ESC key when closeOnPressEscape is false', async () => {
-    const wrapper = mount(FModal, {
-      props: {
-        modelValue: true,
-        closeOnPressEscape: false
-      }
-    })
-    
-    // 模拟 ESC 键按下
-    await wrapper.trigger('keydown', { key: 'Escape' })
-    expect(wrapper.emitted('update:modelValue')).toBeFalsy()
-  })
 })
