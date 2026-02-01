@@ -1,0 +1,77 @@
+@use '../../../styles/global' as *;
+
+.f-skeleton {
+  font-family: var(--f-font-sans);
+  font-size: 14px;
+  line-height: 1.5;
+  box-sizing: border-box;
+
+  &__content {
+    padding: 16px;
+  }
+
+  &__title {
+    height: 16px;
+    width: 38%;
+    margin-bottom: 12px;
+    background: linear-gradient(90deg, var(--f-bg-secondary) 25%, var(--f-bg) 37%, var(--f-bg-secondary) 63%);
+    background-size: 400% 100%;
+    border-radius: 4px;
+  }
+
+  &__paragraph {
+    &-item {
+      height: 16px;
+      width: 100%;
+      margin-bottom: 12px;
+      background: linear-gradient(90deg, var(--f-bg-secondary) 25%, var(--f-bg) 37%, var(--f-bg-secondary) 63%);
+      background-size: 400% 100%;
+      border-radius: 4px;
+
+      &:last-child {
+        width: 61%;
+      }
+    }
+  }
+
+  &__image {
+    display: flex;
+    padding: 16px;
+  }
+
+  &__avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    margin-right: 16px;
+    background: linear-gradient(90deg, var(--f-bg-secondary) 25%, var(--f-bg) 37%, var(--f-bg-secondary) 63%);
+    background-size: 400% 100%;
+    flex-shrink: 0;
+  }
+
+  &__image-content {
+    flex: 1;
+  }
+
+  &--animated .f-skeleton__title,
+  &--animated .f-skeleton__paragraph-item,
+  &--animated .f-skeleton__avatar {
+    animation: skeleton-loading 1.4s ease infinite;
+  }
+
+  &--active .f-skeleton__title,
+  &--active .f-skeleton__paragraph-item,
+  &--active .f-skeleton__avatar {
+    background: linear-gradient(90deg, var(--f-bg-secondary) 25%, var(--f-bg) 37%, var(--f-bg-secondary) 63%);
+    background-size: 400% 100%;
+  }
+}
+
+@keyframes skeleton-loading {
+  0% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0 50%;
+  }
+}

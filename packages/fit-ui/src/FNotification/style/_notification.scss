@@ -1,0 +1,110 @@
+@use '../../../styles/global' as *;
+
+.f-notification {
+  position: fixed;
+  z-index: 3000;
+  display: flex;
+  align-items: flex-start;
+  min-width: 300px;
+  max-width: 450px;
+  padding: 16px;
+  background-color: var(--f-bg);
+  border: 1px solid var(--f-border);
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  font-family: var(--f-font-sans);
+  font-size: 14px;
+  color: var(--f-text-primary);
+  line-height: 1.5;
+  box-sizing: border-box;
+
+  &--success {
+    border-left: 4px solid var(--f-success);
+  }
+
+  &--warning {
+    border-left: 4px solid var(--f-warning);
+  }
+
+  &--error {
+    border-left: 4px solid var(--f-danger);
+  }
+
+  &--info {
+    border-left: 4px solid var(--f-info);
+  }
+
+  &__content {
+    display: flex;
+    align-items: flex-start;
+    flex: 1;
+  }
+
+  &__icon {
+    font-size: 24px;
+    margin-right: 12px;
+    flex-shrink: 0;
+  }
+
+  &--success .f-notification__icon {
+    color: var(--f-success);
+  }
+
+  &--warning .f-notification__icon {
+    color: var(--f-warning);
+  }
+
+  &--error .f-notification__icon {
+    color: var(--f-danger);
+  }
+
+  &--info .f-notification__icon {
+    color: var(--f-info);
+  }
+
+  &__message {
+    flex: 1;
+  }
+
+  &__title {
+    font-weight: 500;
+    font-size: 16px;
+    margin-bottom: 4px;
+  }
+
+  &__text {
+    color: var(--f-text-secondary);
+    font-size: 14px;
+  }
+
+  &__close {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    color: var(--f-text-secondary);
+    transition: color var(--f-transition-duration) ease;
+    padding: 0;
+    margin-left: 12px;
+    flex-shrink: 0;
+
+    &:hover {
+      color: var(--f-text-primary);
+    }
+  }
+}
+
+.f-notification-enter-active,
+.f-notification-leave-active {
+  transition: all 0.3s ease;
+}
+
+.f-notification-enter-from,
+.f-notification-leave-to {
+  opacity: 0;
+  transform: translateX(100%);
+}

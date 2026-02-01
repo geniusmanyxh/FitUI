@@ -1,0 +1,140 @@
+@use '../../../styles/global' as *;
+
+.f-drawer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1000;
+  font-family: var(--f-font-sans);
+  font-size: 14px;
+  color: var(--f-text-primary);
+  line-height: 1.5;
+  box-sizing: border-box;
+
+  &__mask {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+  }
+
+  &__container {
+    position: absolute;
+    background-color: var(--f-bg);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+
+  &--left &__container {
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 500px;
+  }
+
+  &--right &__container {
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 500px;
+  }
+
+  &--top &__container {
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 500px;
+  }
+
+  &--bottom &__container {
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 500px;
+  }
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 20px;
+    border-bottom: 1px solid var(--f-border);
+    font-weight: 500;
+  }
+
+  &__title {
+    font-size: 16px;
+    font-weight: 500;
+  }
+
+  &__close {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    color: var(--f-text-secondary);
+    transition: color var(--f-transition-duration) ease;
+    padding: 0;
+
+    &:hover {
+      color: var(--f-text-primary);
+    }
+  }
+
+  &__body {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+  }
+
+  &__footer {
+    padding: 16px 20px;
+    border-top: 1px solid var(--f-border);
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+  }
+}
+
+.f-drawer-enter-active,
+.f-drawer-leave-active {
+  transition: all 0.3s ease;
+}
+
+.f-drawer-enter-from,
+.f-drawer-leave-to {
+  opacity: 0;
+}
+
+.f-drawer-enter-from.f-drawer--left .f-drawer__container,
+.f-drawer-leave-to.f-drawer--left .f-drawer__container {
+  transform: translateX(-100%);
+}
+
+.f-drawer-enter-from.f-drawer--right .f-drawer__container,
+.f-drawer-leave-to.f-drawer--right .f-drawer__container {
+  transform: translateX(100%);
+}
+
+.f-drawer-enter-from.f-drawer--top .f-drawer__container,
+.f-drawer-leave-to.f-drawer--top .f-drawer__container {
+  transform: translateY(-100%);
+}
+
+.f-drawer-enter-from.f-drawer--bottom .f-drawer__container,
+.f-drawer-leave-to.f-drawer--bottom .f-drawer__container {
+  transform: translateY(100%);
+}

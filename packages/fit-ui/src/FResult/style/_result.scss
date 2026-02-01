@@ -1,0 +1,61 @@
+@use '../../../styles/global' as *;
+
+.f-result {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 48px 32px;
+  font-family: var(--f-font-sans);
+  font-size: 14px;
+  color: var(--f-text-primary);
+  line-height: 1.5;
+  box-sizing: border-box;
+
+  &--success .f-result__icon {
+    color: var(--f-success);
+  }
+
+  &--error .f-result__icon {
+    color: var(--f-danger);
+  }
+
+  &--warning .f-result__icon {
+    color: var(--f-warning);
+  }
+
+  &--info .f-result__icon {
+    color: var(--f-info);
+  }
+
+  &--404 .f-result__icon,
+  &--500 .f-result__icon {
+    color: var(--f-text-secondary);
+  }
+
+  &__icon {
+    font-size: 72px;
+    margin-bottom: 24px;
+  }
+
+  &__title {
+    font-size: 24px;
+    font-weight: 500;
+    color: var(--f-text-primary);
+    margin-bottom: 16px;
+  }
+
+  &__subtitle {
+    font-size: 14px;
+    color: var(--f-text-secondary);
+    margin-bottom: 24px;
+  }
+
+  &__extra {
+    margin-bottom: 32px;
+  }
+
+  &__content {
+    width: 100%;
+  }
+}

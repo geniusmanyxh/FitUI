@@ -1,0 +1,32 @@
+@use '../../../styles/global' as *;
+
+.f-breadcrumb {
+  display: flex;
+  align-items: center;
+  font-family: var(--f-font-sans);
+  font-size: 14px;
+  color: var(--f-text-secondary);
+  line-height: 1.5;
+  box-sizing: border-box;
+
+  &__item {
+    display: inline-flex;
+    align-items: center;
+    cursor: pointer;
+    transition: color var(--f-transition-duration) ease;
+
+    &:hover:not(.f-breadcrumb__item--disabled) {
+      color: var(--f-primary);
+    }
+
+    &--disabled {
+      cursor: not-allowed;
+      opacity: 0.6;
+    }
+  }
+
+  &__separator {
+    margin: 0 8px;
+    color: var(--f-text-disabled);
+  }
+}
