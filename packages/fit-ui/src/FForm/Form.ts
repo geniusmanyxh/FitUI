@@ -51,6 +51,7 @@ export interface FormContext {
   labelPosition?: FormLabelPosition
   labelWidth?: FormLabelWidth
   labelSuffix?: string
+  inline?: boolean
   disabled?: boolean
   size?: 'small' | 'medium' | 'large'
   validateOnRuleChange?: boolean
