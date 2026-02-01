@@ -1,5 +1,5 @@
 import type { App } from 'vue'
-import { FButton, FIcon, FInput, FMessage, FCodeBlock, FToolTip, FTag, FSwitch, FCheckbox, FModal, FRadio, FLoading, FAlert, FTabs, FDropdown } from './components'
+import { FButton, FIcon, FInput, FInputNumber, FMessage, FCodeBlock, FToolTip, FTag, FSwitch, FCheckbox, FModal, FRadio, FLoading, FAlert, FTabs, FDropdown, FSelect, FForm, FFormItem, FTextarea } from './components'
 
 // 全量引入所有样式（不包含 UnoCSS，用户需要自己配置）
 import './index.scss'
@@ -10,6 +10,7 @@ import '@fstyles/theme/css-var.css'
 import './FButton/style'
 import './FIcon/style'
 import './FInput/style'
+import './FInputNumber/style'
 import './FMessage/style'
 import './FCodeBlock/style'
 import './FToolTip/style'
@@ -22,13 +23,16 @@ import './FLoading/style'
 import './FAlert/style'
 import './FTabs/style'
 import './FDropdown/style'
+import './FSelect/style'
+import './FForm/style'
+import './FTextarea/style'
 
 import {useMessage} from '@utils/tsHooks/useMessage'
 
 export { useMessage }
-export { FButton, FIcon, FInput, FMessage, FCodeBlock, FToolTip, FTag, FSwitch, FCheckbox, FModal, FRadio, FLoading, FAlert, FTabs, FDropdown }
+export { FButton, FIcon, FInput, FInputNumber, FMessage, FCodeBlock, FToolTip, FTag, FSwitch, FCheckbox, FModal, FRadio, FLoading, FAlert, FTabs, FDropdown, FSelect, FForm, FFormItem, FTextarea }
 
-const components = [FButton, FIcon, FInput, FMessage, FCodeBlock, FToolTip, FTag, FSwitch, FCheckbox, FModal, FRadio, FLoading, FAlert, FTabs, FDropdown]
+const components = [FButton, FIcon, FInput, FInputNumber, FMessage, FCodeBlock, FToolTip, FTag, FSwitch, FCheckbox, FModal, FRadio, FLoading, FAlert, FTabs, FDropdown, FSelect, FForm, FFormItem, FTextarea]
 
 const install = (app: App):any => {
   components.forEach((c) => app.use(c))

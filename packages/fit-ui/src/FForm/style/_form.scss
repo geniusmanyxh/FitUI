@@ -1,0 +1,147 @@
+@use '../../../styles/global' as *;
+
+.f-form {
+  font-family: var(--f-font-sans);
+  font-size: 14px;
+  color: var(--f-text-primary);
+  line-height: 1.5;
+
+  &--left {
+    .f-form-item__label {
+      text-align: left;
+    }
+  }
+
+  &--right {
+    .f-form-item__label {
+      text-align: right;
+    }
+  }
+
+  &--top {
+    .f-form-item__label {
+      text-align: left;
+      display: block;
+      margin-bottom: 8px;
+    }
+  }
+
+  &--inline {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+
+    .f-form-item {
+      display: inline-flex;
+      margin-right: 10px;
+      vertical-align: top;
+    }
+
+    .f-form-item__content {
+      display: inline-block;
+      vertical-align: top;
+    }
+  }
+
+  &--disabled {
+    .f-form-item {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+  }
+
+  &--small {
+    font-size: 12px;
+  }
+
+  &--medium {
+    font-size: 14px;
+  }
+
+  &--large {
+    font-size: 16px;
+  }
+}
+
+.f-form-item {
+  display: flex;
+  margin-bottom: 18px;
+  box-sizing: border-box;
+
+  &__label {
+    flex-shrink: 0;
+    padding-right: 12px;
+    line-height: 32px;
+    color: var(--f-text-primary);
+    font-weight: 500;
+  }
+
+  &__asterisk {
+    color: var(--f-danger);
+    margin-left: 4px;
+  }
+
+  &__suffix {
+    margin-left: 4px;
+    color: var(--f-text-secondary);
+  }
+
+  &__content {
+    flex: 1;
+    position: relative;
+    min-width: 0;
+  }
+
+  &__error {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    margin-top: 4px;
+    font-size: 12px;
+    color: var(--f-danger);
+    line-height: 1.5;
+  }
+
+  &--error {
+    .f-form-item__label {
+      color: var(--f-danger);
+    }
+  }
+
+  &--required {
+    .f-form-item__label::before {
+      content: '*';
+      color: var(--f-danger);
+      margin-right: 4px;
+    }
+  }
+
+  &--small {
+    .f-form-item__label {
+      line-height: 28px;
+    }
+  }
+
+  &--medium {
+    .f-form-item__label {
+      line-height: 36px;
+    }
+  }
+
+  &--large {
+    .f-form-item__label {
+      line-height: 44px;
+    }
+  }
+}
+
+.f-form-item-enter-active,
+.f-form-item-leave-active {
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.f-form-item-enter-from,
+.f-form-item-leave-to {
+  opacity: 0;
+  transform: translateY(-4px);
+}

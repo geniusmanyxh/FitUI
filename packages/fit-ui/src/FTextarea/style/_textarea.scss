@@ -1,0 +1,117 @@
+@use '../../../styles/global' as *;
+
+.f-textarea {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+  font-family: var(--f-font-sans);
+  font-size: 14px;
+  color: var(--f-text-primary);
+  line-height: 1.5;
+  box-sizing: border-box;
+
+  &--small {
+    font-size: 12px;
+  }
+
+  &--medium {
+    font-size: 14px;
+  }
+
+  &--large {
+    font-size: 16px;
+  }
+
+  &--disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+
+  &--readonly {
+    cursor: default;
+  }
+
+  &--autosize {
+    .f-textarea__inner {
+      overflow: hidden;
+    }
+  }
+
+  &--invalid {
+    .f-textarea__inner {
+      border-color: var(--f-danger);
+
+      &:focus {
+        box-shadow: 0 0 0 2px color-mix(in srgb, var(--f-danger) 20%, transparent);
+      }
+    }
+  }
+
+  &__inner {
+    display: block;
+    width: 100%;
+    min-height: 32px;
+    padding: 8px 12px;
+    color: var(--f-text-primary);
+    background-color: var(--f-bg);
+    border: 1px solid var(--f-border);
+    border-radius: 6px;
+    outline: none;
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
+    resize: none;
+    box-sizing: border-box;
+    transition: border-color var(--f-transition-duration) ease, box-shadow var(--f-transition-duration) ease;
+
+    &::placeholder {
+      color: var(--f-text-secondary);
+    }
+
+    &:hover:not(:disabled):not(.f-textarea--disabled) {
+      border-color: var(--f-primary);
+    }
+
+    &:focus {
+      border-color: var(--f-primary);
+      box-shadow: 0 0 0 2px color-mix(in srgb, var(--f-primary) 20%, transparent);
+    }
+
+    &:disabled,
+    &.f-textarea--disabled {
+      cursor: not-allowed;
+      background-color: var(--f-bg-secondary);
+    }
+
+    &:readonly {
+      cursor: default;
+    }
+  }
+
+  &__count {
+    position: absolute;
+    right: 12px;
+    bottom: 8px;
+    font-size: 12px;
+    color: var(--f-text-secondary);
+    background-color: var(--f-bg);
+    padding: 0 4px;
+    border-radius: 2px;
+    pointer-events: none;
+  }
+
+  &--small .f-textarea__inner {
+    min-height: 28px;
+    padding: 4px 8px;
+  }
+
+  &--medium .f-textarea__inner {
+    min-height: 36px;
+    padding: 6px 12px;
+  }
+
+  &--large .f-textarea__inner {
+    min-height: 44px;
+    padding: 8px 16px;
+  }
+}
