@@ -1,0 +1,84 @@
+// Alert 组件样式
+.alert_wrapper {
+  display: flex;
+  align-items: flex-start;
+  padding: 16px;
+  border-radius: 8px;
+  margin-bottom: 16px;
+  transition: all 0.3s ease;
+  position: relative;
+
+  &.alert_success {
+    background-color: #f0fdf4;
+    border-left: 4px solid #22c55e;
+    color: #166534;
+  }
+
+  &.alert_warning {
+    background-color: #fffbeb;
+    border-left: 4px solid #eab308;
+    color: #78350f;
+  }
+
+  &.alert_error {
+    background-color: #fef2f2;
+    border-left: 4px solid #ef4444;
+    color: #991b1b;
+  }
+
+  &.alert_info {
+    background-color: #eff6ff;
+    border-left: 4px solid #3b82f6;
+    color: #1e40af;
+  }
+
+  &.alert_dismissible {
+    padding-right: 40px;
+  }
+}
+
+.alert_icon {
+  flex-shrink: 0;
+  margin-right: 12px;
+  margin-top: 2px;
+  font-size: 16px;
+}
+
+.alert_content {
+  flex: 1;
+  min-width: 0;
+}
+
+.alert_title {
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.alert_message {
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.alert_close {
+  flex-shrink: 0;
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  color: inherit;
+  opacity: 0.6;
+  transition: opacity 0.3s ease;
+
+  &:hover {
+    opacity: 1;
+  }
+
+  &:focus-visible {
+    outline: 2px solid rgba(59, 130, 246, 0.5);
+    border-radius: 4px;
+  }
+}
