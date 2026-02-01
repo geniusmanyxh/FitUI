@@ -170,20 +170,31 @@ const showMessage = () => {
 
 FitUI 目前提供以下组件：
 
-| 组件 | 说明 | 文档 |
-|------|------|------|
-| **FButton** | 按钮组件 | 支持多种类型、尺寸、图标 |
-| **FIcon** | 图标组件 | 支持 Logo、Mono、Google 图标集 |
-| **FMessage** | 消息提示 | 全局消息提示，支持多种类型 |
-| **FTag** | 标签组件 | 支持多种模式、尺寸、可关闭 |
-| **FToolTip** | 工具提示 | 悬停提示，支持多方向定位 |
-| **FCodeBlock** | 代码块 | 代码高亮显示，支持多种主题 |
+| 组件 | 说明 |
+|------|------|
+| **FButton** | 按钮，支持多种类型、尺寸、图标 |
+| **FIcon** | 图标，支持 Logo、Mono、Google 图标集 |
+| **FInput** | 输入框 |
+| **FMessage** | 全局消息提示，支持多种类型 |
+| **FCodeBlock** | 代码块，代码高亮，多主题 |
+| **FToolTip** | 工具提示，悬停多方向定位 |
+| **FTag** | 标签，多模式、尺寸、可关闭 |
+| **FSwitch** | 开关 |
+| **FCheckbox** | 复选框 |
+| **FModal** | 弹窗/对话框 |
+| **FRadio** | 单选框 |
+| **FLoading** | 加载态 |
+| **FAlert** | 警告提示 |
+| **FTabs** | 标签页 |
+| **FDropdown** | 下拉菜单 |
 
 ### Hooks
 
 | Hook | 说明 |
 |------|------|
 | **useMessage** | 消息提示钩子，快速调用各类消息 |
+
+更多组件规划与开发规范见仓库 [docs/COMPONENT_GAP_AND_PLAN.md](../docs/COMPONENT_GAP_AND_PLAN.md)、[docs/COMPONENT_DEVELOPMENT_SPEC.md](../docs/COMPONENT_DEVELOPMENT_SPEC.md)。
 
 ## 🔄 从 1.x 迁移到 2.x
 

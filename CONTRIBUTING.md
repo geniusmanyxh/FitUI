@@ -107,6 +107,8 @@ git commit -m "chore(build): 优化构建配置"
 
 ### 组件开发规范
 
+**重要**：新增或修改组件时，必须完整遵循 **[FitUI 组件开发规范（docs/COMPONENT_DEVELOPMENT_SPEC.md)](docs/COMPONENT_DEVELOPMENT_SPEC.md)**，包括 index.ts 使用 withInstall、index.vue 使用 defineOptions、样式使用 @use 引用 style 目录、在 components.ts/entry.ts/full.ts 中注册等。以下为简要结构说明。
+
 #### 1. 组件结构
 
 ```
@@ -114,10 +116,12 @@ src/
 └── FYourComponent/
     ├── __tests__/
     │   └── your-component.test.ts  # 单元测试
-    ├── style/                       # 样式文件（可选）
-    │   └── index.scss
-    ├── index.ts                     # 导出文件
-    └── index.vue                    # 组件主文件
+    ├── style/
+    │   ├── _yourcomponent.scss      # 组件样式（必须，使用 @use 引入）
+    │   ├── index.scss               # 样式入口，仅 @use './_yourcomponent' as *
+    │   └── index.ts
+    ├── index.ts                     # 使用 withInstall，仅 export default
+    └── index.vue                    # 含 defineOptions，样式用 @use './style/index' as *
 ```
 
 #### 2. 组件模板
@@ -153,35 +157,31 @@ const emit = defineEmits<{
 </script>
 
 <style scoped lang="scss">
-.f-your-component {
-  // 样式
-}
+@use './style/index' as *;
 </style>
 ```
 
+样式写在 `style/_yourcomponent.scss` 中，`style/index.scss` 使用 `@use './_yourcomponent' as *'`，禁止使用 `@import`。
+
 #### 3. 导出文件 (index.ts)
 
+必须使用 withInstall，仅 export default，不要写 `export { FYourComponent }`：
+
 ```typescript
-import component from './index.vue'
+import comp from './index.vue'
 import { withInstall } from '@utils/install'
 
-const FYourComponent = withInstall(component)
+const FYourComponent = withInstall(comp)
 
 export default FYourComponent
 ```
 
-#### 4. 在 entry.ts 中注册
+#### 4. 在 components.ts、entry.ts、full.ts 中注册
 
-```typescript
-import { default as FYourComponent } from './FYourComponent'
+- **components.ts**：`export { default as FYourComponent } from './FYourComponent'`
+- **entry.ts** 与 **full.ts**：在 import、样式 import、export、components 数组中均添加 FYourComponent
 
-export { FYourComponent }
-
-const components = [
-  // ...其他组件
-  FYourComponent,
-]
-```
+详见 [COMPONENT_DEVELOPMENT_SPEC.md](docs/COMPONENT_DEVELOPMENT_SPEC.md)。
 
 ### 测试规范
 
