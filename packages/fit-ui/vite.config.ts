@@ -3,7 +3,7 @@ import type { ServerOptions } from 'vite'
 import { resolve } from 'path'
 import vue from '@vitejs/plugin-vue'
 import vueJsx from '@vitejs/plugin-vue-jsx'
-import VueSetupExtend from 'vite-plugin-vue-setup-extend'
+// import VueSetupExtend from 'vite-plugin-vue-setup-extend'
 import UnoCSS from './config/unocss'
 import dts from 'vite-plugin-dts'
 import DefineOptions from 'unplugin-vue-define-options/vite'
@@ -79,7 +79,7 @@ export const config = defineConfig({
   plugins: [
     vue(),
     vueJsx(),
-    VueSetupExtend(),
+    // VueSetupExtend(),
     UnoCSS(),
     dts({ rollupTypes: true }),
     DefineOptions() as any,
