@@ -1,0 +1,83 @@
+@use '../../../styles/global' as *;
+
+.f-progress {
+  font-family: var(--f-font-sans);
+  font-size: 14px;
+  color: var(--f-text-primary);
+  line-height: 1.5;
+  box-sizing: border-box;
+
+  &--line {
+    display: flex;
+    align-items: center;
+  }
+
+  &--circle,
+  &--dashboard {
+    display: inline-block;
+    position: relative;
+  }
+
+  &--success .f-progress__inner {
+    background-color: var(--f-success);
+  }
+
+  &--exception .f-progress__inner {
+    background-color: var(--f-danger);
+  }
+
+  &--warning .f-progress__inner {
+    background-color: var(--f-warning);
+  }
+
+  &__bar {
+    flex: 1;
+    margin-right: 16px;
+  }
+
+  &__outer {
+    height: 6px;
+    border-radius: 3px;
+    overflow: hidden;
+  }
+
+  &__inner {
+    height: 100%;
+    border-radius: 3px;
+    transition: width 0.3s ease;
+  }
+
+  &__text-inner {
+    color: white;
+    font-size: 12px;
+    font-weight: 500;
+  }
+
+  &__text {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--f-text-primary);
+    min-width: 40px;
+    text-align: right;
+  }
+
+  &__circle {
+    position: relative;
+    display: inline-block;
+  }
+
+  &__circle-track,
+  &__circle-stroke {
+    transition: stroke-dasharray 0.3s ease;
+  }
+
+  &__circle-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 18px;
+    font-weight: 500;
+    color: var(--f-text-primary);
+  }
+}

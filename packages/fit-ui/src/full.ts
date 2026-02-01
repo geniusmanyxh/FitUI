@@ -1,5 +1,5 @@
 import type { App } from 'vue'
-import { FButton, FIcon, FInput, FInputNumber, FMessage, FCodeBlock, FToolTip, FTag, FSwitch, FCheckbox, FModal, FRadio, FLoading, FAlert, FTabs, FDropdown, FSelect, FForm, FFormItem, FTextarea, FTable } from './components'
+import { FButton, FIcon, FInput, FInputNumber, FMessage, FCodeBlock, FToolTip, FTag, FSwitch, FCheckbox, FModal, FRadio, FLoading, FAlert, FTabs, FDropdown, FSelect, FForm, FFormItem, FTextarea, FTable, FPagination, FCard, FDivider, FEmpty, FBadge, FAvatar, FProgress } from './components'
 
 // 全量引入所有样式（不包含 UnoCSS，用户需要自己配置）
 import './index.scss'
@@ -27,13 +27,20 @@ import './FSelect/style'
 import './FForm/style'
 import './FTextarea/style'
 import './FTable/style'
+import './FPagination/style'
+import './FCard/style'
+import './FDivider/style'
+import './FEmpty/style'
+import './FBadge/style'
+import './FAvatar/style'
+import './FProgress/style'
 
 import {useMessage} from '@utils/tsHooks/useMessage'
 
 export { useMessage }
-export { FButton, FIcon, FInput, FInputNumber, FMessage, FCodeBlock, FToolTip, FTag, FSwitch, FCheckbox, FModal, FRadio, FLoading, FAlert, FTabs, FDropdown, FSelect, FForm, FFormItem, FTextarea, FTable }
+export { FButton, FIcon, FInput, FInputNumber, FMessage, FCodeBlock, FToolTip, FTag, FSwitch, FCheckbox, FModal, FRadio, FLoading, FAlert, FTabs, FDropdown, FSelect, FForm, FFormItem, FTextarea, FTable, FPagination, FCard, FDivider, FEmpty, FBadge, FAvatar, FProgress }
 
-const components = [FButton, FIcon, FInput, FInputNumber, FMessage, FCodeBlock, FToolTip, FTag, FSwitch, FCheckbox, FModal, FRadio, FLoading, FAlert, FTabs, FDropdown, FSelect, FForm, FFormItem, FTextarea, FTable]
+const components = [FButton, FIcon, FInput, FInputNumber, FMessage, FCodeBlock, FToolTip, FTag, FSwitch, FCheckbox, FModal, FRadio, FLoading, FAlert, FTabs, FDropdown, FSelect, FForm, FFormItem, FTextarea, FTable, FPagination, FCard, FDivider, FEmpty, FBadge, FAvatar, FProgress]
 
 const install = (app: App):any => {
   components.forEach((c) => app.use(c))

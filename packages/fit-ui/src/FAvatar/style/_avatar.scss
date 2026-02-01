@@ -1,0 +1,61 @@
+@use '../../../styles/global' as *;
+
+.f-avatar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--f-font-sans);
+  font-size: 14px;
+  color: var(--f-text-primary);
+  background-color: var(--f-bg-secondary);
+  overflow: hidden;
+  box-sizing: border-box;
+
+  &--small {
+    width: 24px;
+    height: 24px;
+    font-size: 12px;
+  }
+
+  &--medium {
+    width: 32px;
+    height: 32px;
+    font-size: 14px;
+  }
+
+  &--large {
+    width: 40px;
+    height: 40px;
+    font-size: 18px;
+  }
+
+  &--default {
+    width: 32px;
+    height: 32px;
+    font-size: 14px;
+  }
+
+  &--circle {
+    border-radius: 50%;
+  }
+
+  &--square {
+    border-radius: 6px;
+  }
+
+  &__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  &__icon {
+    font-size: inherit;
+  }
+
+  &__text {
+    display: inline-block;
+    font-weight: 500;
+    color: var(--f-text-primary);
+  }
+}
