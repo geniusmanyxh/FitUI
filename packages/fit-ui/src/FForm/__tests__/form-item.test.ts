@@ -12,12 +12,14 @@ describe('FFormItem', () => {
         prop: 'username',
         required: true
       },
-      provide: {
-        'formContext': {
-          model: { username: '' },
-          addField: () => {},
-          removeField: () => {},
-          validateField: () => Promise.resolve(true)
+      global: {
+        provide: {
+          'formContext': {
+            model: { username: '' },
+            addField: () => {},
+            removeField: () => {},
+            validateField: () => Promise.resolve(true)
+          }
         }
       }
     })
@@ -32,12 +34,14 @@ describe('FFormItem', () => {
         prop: 'username',
         error: 'Username is required'
       },
-      provide: {
-        'formContext': {
-          model: { username: '' },
-          addField: () => {},
-          removeField: () => {},
-          validateField: () => Promise.resolve(true)
+      global: {
+        provide: {
+          'formContext': {
+            model: { username: '' },
+            addField: () => {},
+            removeField: () => {},
+            validateField: () => Promise.resolve(true)
+          }
         }
       }
     })
@@ -52,12 +56,14 @@ describe('FFormItem', () => {
         prop: 'username',
         rules: [{ required: true, message: 'Required' }]
       },
-      provide: {
-        'formContext': {
-          model: { username: '' },
-          addField: () => {},
-          removeField: () => {},
-          validateField: () => Promise.resolve(false)
+      global: {
+        provide: {
+          'formContext': {
+            model: { username: '' },
+            addField: () => {},
+            removeField: () => {},
+            validateField: () => Promise.resolve(false)
+          }
         }
       }
     })
@@ -72,12 +78,14 @@ describe('FFormItem', () => {
       props: {
         prop: 'username'
       },
-      provide: {
-        'formContext': {
-          model,
-          addField: () => {},
-          removeField: () => {},
-          validateField: () => Promise.resolve(true)
+      global: {
+        provide: {
+          'formContext': {
+            model,
+            addField: () => {},
+            removeField: () => {},
+            validateField: () => Promise.resolve(true)
+          }
         }
       }
     })
@@ -92,12 +100,14 @@ describe('FFormItem', () => {
         label: 'Username',
         labelSuffix: ':'
       },
-      provide: {
-        'formContext': {
-          model: {},
-          addField: () => {},
-          removeField: () => {},
-          validateField: () => Promise.resolve(true)
+      global: {
+        provide: {
+          'formContext': {
+            model: {},
+            addField: () => {},
+            removeField: () => {},
+            validateField: () => Promise.resolve(true)
+          }
         }
       }
     })

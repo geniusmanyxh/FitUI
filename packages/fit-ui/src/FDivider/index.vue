@@ -1,8 +1,10 @@
 <template>
   <div class="f-divider" :class="dividerClass" role="separator">
-    <span v-if="content || $slots.default" class="f-divider__text" :class="`f-divider__text--${contentPosition}`">
-      <slot>{{ content }}</slot>
-    </span>
+    <template v-if="content || $slots.default">
+      <span class="f-divider__text" :class="`f-divider__text--${contentPosition}`">
+        <slot>{{ content }}</slot>
+      </span>
+    </template>
   </div>
 </template>
 

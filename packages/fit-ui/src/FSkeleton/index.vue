@@ -1,26 +1,29 @@
 <template>
-  <div class="f-skeleton" :class="skeletonClass" @click="handleClick">
-    <template v-if="loading">
-      <slot name="template">
-        <div v-if="type === 'text' || type === 'custom'" class="f-skeleton__content">
+  <div v-if="loading" class="f-skeleton" :class="skeletonClass" @click="handleClick">
+    <slot name="template">
+      <div v-if="type === 'text' || type === 'custom'" class="f-skeleton__content">
+        <div v-if="title" class="f-skeleton__title"></div>
+        <div v-if="paragraph" class="f-skeleton__paragraph">
+          <div v-for="i in rows" :key="i" class="f-skeleton__paragraph-item"></div>
+        </div>
+      </div>
+      <div v-else-if="type === 'image'" class="f-skeleton__image">
+        <div v-if="avatar" class="f-skeleton__avatar"></div>
+        <div class="f-skeleton__image-content">
           <div v-if="title" class="f-skeleton__title"></div>
           <div v-if="paragraph" class="f-skeleton__paragraph">
             <div v-for="i in rows" :key="i" class="f-skeleton__paragraph-item"></div>
           </div>
         </div>
-        <div v-else-if="type === 'image'" class="f-skeleton__image">
-          <div v-if="avatar" class="f-skeleton__avatar"></div>
-          <div class="f-skeleton__image-content">
-            <div v-if="title" class="f-skeleton__title"></div>
-            <div v-if="paragraph" class="f-skeleton__paragraph">
-              <div v-for="i in rows" :key="i" class="f-skeleton__paragraph-item"></div>
-            </div>
-          </div>
-        </div>
-      </slot>
-    </template>
-    <slot v-else></slot>
+      </div>
+    </slot>
   </div>
+  <div v-else-if="$slots.default" class="f-skeleton">
+    <slot></slot>
+  </div>
+  <template v-else>
+    <slot></slot>
+  </template>
 </template>
 
 <script setup lang="ts">

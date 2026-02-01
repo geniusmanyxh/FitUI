@@ -5,7 +5,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, provide, watch } from 'vue'
+import { ref, computed, provide, watch, reactive, watchEffect } from 'vue'
 import type { FormProps, FormContext, FormRule } from './Form'
 import { FORM_CONTEXT_KEY } from './Form'
 
@@ -44,7 +44,7 @@ const formClass = computed(() => {
   ]
 })
 
-const formContext = computed<FormContext>(() => ({
+const formContext = reactive<FormContext>({
   model: props.model || {},
   rules: props.rules,
   labelPosition: props.labelPosition,
@@ -64,27 +64,35 @@ const formContext = computed<FormContext>(() => ({
     fields.value.delete(field)
   },
   validateField: async (prop: string, callback?: (error?: string) => void) => {
-    const field = fields.value.get(prop)
-    if (!field || !props.model) {
+    // 在 fields Map 中查找匹配的字段
+    let targetField: { prop: string; rules: FormRule[] } | undefined
+    for (const [, field] of fields.value) {
+      if (field.prop === prop) {
+        targetField = field
+        break
+      }
+    }
+    
+    if (!targetField || !props.model) {
       if (callback) callback()
       return true
     }
     
-    const value = props.model[field.prop]
-    const rules = field.rules || []
-    const formRules = props.rules?.[field.prop] || []
+    const value = props.model[targetField.prop]
+    const rules = targetField.rules || []
+    const formRules = formContext.rules?.[targetField.prop] || []
     const allRules = [...rules, ...formRules]
     
     for (const rule of allRules) {
-      const error = await validateRule(rule, value, field.prop)
+      const error = await validateRule(rule, value, targetField.prop)
       if (error) {
-        emit('validate-field', field.prop, false, error)
+        emit('validate-field', targetField.prop, false, error)
         if (callback) callback(error)
         return false
       }
     }
     
-    emit('validate-field', field.prop, true)
+    emit('validate-field', targetField.prop, true)
     if (callback) callback()
     return true
   },
@@ -106,7 +114,22 @@ const formContext = computed<FormContext>(() => ({
       })
     }
   }
-}))
+})
+
+watchEffect(() => {
+  formContext.model = props.model || {}
+  formContext.rules = props.rules
+  formContext.labelPosition = props.labelPosition
+  formContext.labelWidth = props.labelWidth
+  formContext.labelSuffix = props.labelSuffix
+  formContext.disabled = props.disabled
+  formContext.size = props.size
+  formContext.validateOnRuleChange = props.validateOnRuleChange
+  formContext.hideRequiredAsterisk = props.hideRequiredAsterisk
+  formContext.showMessage = props.showMessage
+  formContext.inlineMessage = props.inlineMessage
+  formContext.statusIcon = props.statusIcon
+})
 
 provide(FORM_CONTEXT_KEY, formContext)
 
@@ -204,6 +227,10 @@ async function validate(callback?: (isValid: boolean, invalidFields?: Record<str
   return isValid
 }
 
+async function handleSubmit() {
+  await validate()
+}
+
 function resetFields() {
   if (!props.model) return
   
@@ -228,7 +255,7 @@ function resetFields() {
 }
 
 function clearValidate(props?: string | string[]) {
-  formContext.value.clearValidate(props)
+  formContext.clearValidate(props)
 }
 
 watch(() => props.rules, () => {
@@ -239,7 +266,7 @@ watch(() => props.rules, () => {
 
 defineExpose({
   validate,
-  validateField: formContext.value.validateField,
+  validateField: formContext.validateField,
   resetFields,
   clearValidate
 })

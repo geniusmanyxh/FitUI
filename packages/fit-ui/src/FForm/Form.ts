@@ -42,6 +42,7 @@ export interface FormItemProps {
   inlineMessage?: boolean
   size?: 'small' | 'medium' | 'large'
   for?: string
+  labelSuffix?: string
 }
 
 export interface FormContext {

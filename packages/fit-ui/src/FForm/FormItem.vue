@@ -8,7 +8,7 @@
     >
       <slot name="label">{{ label }}</slot>
       <span v-if="isRequired && !hideRequiredAsterisk" class="f-form-item__asterisk">*</span>
-      <span v-if="labelSuffix !== undefined && labelSuffix !== ''" class="f-form-item__suffix">{{ labelSuffix }}</span>
+      <span v-if="computedLabelSuffix !== undefined && computedLabelSuffix !== ''" class="f-form-item__suffix">{{ computedLabelSuffix }}</span>
     </label>
     <div class="f-form-item__content">
       <slot></slot>
@@ -22,7 +22,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, inject, onMounted, onUnmounted, watch } from 'vue'
+import { ref, computed, inject, onMounted, onUnmounted, watch, nextTick } from 'vue'
 import type { FormItemProps, FormContext } from './Form'
 import { FORM_CONTEXT_KEY } from './Form'
 
@@ -42,7 +42,10 @@ const props = withDefaults(defineProps<FormItemProps>(), {
   labelSuffix: undefined
 })
 
-const formContext = inject<FormContext>(FORM_CONTEXT_KEY) || inject<FormContext>('formContext')
+let formContext = inject<FormContext | undefined>('formContext', undefined)
+if (!formContext) {
+  formContext = inject<FormContext | undefined>(FORM_CONTEXT_KEY, undefined)
+}
 const fieldValue = ref<any>(undefined)
 const errorMessage = ref(props.error)
 const showError = ref(!!props.error)
@@ -84,7 +87,7 @@ const hideRequiredAsterisk = computed(() => {
   return formContext?.hideRequiredAsterisk
 })
 
-const labelSuffix = computed(() => {
+const computedLabelSuffix = computed(() => {
   return props.labelSuffix !== undefined ? props.labelSuffix : formContext?.labelSuffix
 })
 
@@ -142,12 +145,18 @@ function clearValidate() {
   showError.value = false
 }
 
-function resetField() {
-  if (props.prop && formContext?.model) {
-    formContext.model[props.prop] = undefined
-    fieldValue.value = undefined
-  }
+async function resetField() {
   clearValidate()
+  
+  // 先更新 model
+  if (props.prop && formContext?.model && props.prop in formContext.model) {
+    // 使用 Reflect.deleteProperty 删除属性
+    Reflect.deleteProperty(formContext.model, props.prop)
+    // 等待响应式更新完成
+    await nextTick()
+  }
+  
+  fieldValue.value = undefined
 }
 
 watch(() => props.error, (newVal) => {

@@ -1,9 +1,10 @@
 import { describe, expect, test } from 'vitest'
 import { mount } from '@vue/test-utils'
-import { reactive } from 'vue'
+import { reactive, h, nextTick } from 'vue'
 import FForm from '..'
 import FFormItem from '../FormItem'
 import { FORM_CONTEXT_KEY } from '../Form'
+import type { FormRule } from '../Form'
 
 describe('FForm', () => {
   test('mount with default', () => {
@@ -52,7 +53,7 @@ describe('FForm', () => {
 
   test('validate method', async () => {
     const model = reactive({ name: '', age: 0 })
-    const rules = {
+    const rules: Record<string, FormRule[]> = {
       name: [{ required: true, message: 'Name is required' }],
       age: [{ type: 'number', min: 18, message: 'Age must be at least 18' }]
     }
@@ -63,17 +64,18 @@ describe('FForm', () => {
         rules
       },
       slots: {
-        default: `
-          <FFormItem prop="name" label="Name">
-            <FInput v-model="model.name" />
-          </FFormItem>
-          <FFormItem prop="age" label="Age">
-            <FInputNumber v-model="model.age" />
-          </FFormItem>
-        `
-      },
-      global: {
-        components: { FFormItem, FInput: { template: '<input />' }, FInputNumber: { template: '<input type="number" />' } }
+        default: () => [
+          h(
+            FFormItem,
+            { prop: 'name', label: 'Name' },
+            { default: () => h('input') }
+          ),
+          h(
+            FFormItem,
+            { prop: 'age', label: 'Age' },
+            { default: () => h('input') }
+          )
+        ]
       }
     })
     
@@ -102,7 +104,7 @@ describe('FForm', () => {
 
   test('validateField method', async () => {
     const model = reactive({ name: '' })
-    const rules = {
+    const rules: Record<string, FormRule[]> = {
       name: [{ required: true, message: 'Name is required' }]
     }
     
@@ -112,15 +114,18 @@ describe('FForm', () => {
         rules
       },
       slots: {
-        default: `<FFormItem prop="name" label="Name"><FInput v-model="model.name" /></FFormItem>`
-      },
-      global: {
-        components: { FFormItem, FInput: { template: '<input />' } }
+        default: () =>
+          h(
+            FFormItem,
+            { prop: 'name', label: 'Name' },
+            { default: () => h('input') }
+          )
       }
     })
     
+    await nextTick()
     const isValid = await wrapper.vm.validateField('name')
-    expect(isValid).toBe(true)
+    expect(isValid).toBe(false)
   })
 })
 
@@ -200,11 +205,13 @@ describe('FFormItem', () => {
         prop: 'username',
         rules: [{ required: true, message: 'Required' }]
       },
-      provide: {
-        [FORM_CONTEXT_KEY]: {
-          model: { username: '' },
-          addField: () => {},
-          removeField: () => {}
+      global: {
+        provide: {
+          [FORM_CONTEXT_KEY]: {
+            model: { username: '' },
+            addField: () => {},
+            removeField: () => {}
+          }
         }
       }
     })
@@ -213,7 +220,7 @@ describe('FFormItem', () => {
     expect(isValid).toBe(false)
   })
 
-  test('clearValidate method', () => {
+  test('clearValidate method', async () => {
     const wrapper = mount(FFormItem, {
       props: {
         prop: 'username',
@@ -222,7 +229,8 @@ describe('FFormItem', () => {
     })
     
     wrapper.vm.clearValidate()
-    expect(wrapper.vm.errorMessage).toBe('')
+    await nextTick()
+    expect(wrapper.find('.f-form-item__error').exists()).toBe(false)
   })
 
   test('resetField method', async () => {
@@ -231,11 +239,13 @@ describe('FFormItem', () => {
       props: {
         prop: 'username'
       },
-      provide: {
-        [FORM_CONTEXT_KEY]: {
-          model,
-          addField: () => {},
-          removeField: () => {}
+      global: {
+        provide: {
+          [FORM_CONTEXT_KEY]: {
+            model,
+            addField: () => {},
+            removeField: () => {}
+          }
         }
       }
     })
@@ -250,11 +260,13 @@ describe('FFormItem', () => {
         label: 'Username',
         labelSuffix: ':'
       },
-      provide: {
-        [FORM_CONTEXT_KEY]: {
-          model: {},
-          addField: () => {},
-          removeField: () => {}
+      global: {
+        provide: {
+          [FORM_CONTEXT_KEY]: {
+            model: {},
+            addField: () => {},
+            removeField: () => {}
+          }
         }
       }
     })
