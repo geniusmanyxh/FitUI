@@ -37,15 +37,15 @@
         <div class="row">
           <FBreadcrumb>
             <FBreadcrumbItem>
-              <FIcon name="home" />
+              <FIcon icon="home" />
               <span>首页</span>
             </FBreadcrumbItem>
             <FBreadcrumbItem>
-              <FIcon name="category" />
+              <FIcon icon="category" />
               <span>分类</span>
             </FBreadcrumbItem>
             <FBreadcrumbItem>
-              <FIcon name="product" />
+              <FIcon icon="product" />
               <span>产品</span>
             </FBreadcrumbItem>
           </FBreadcrumb>

@@ -7,7 +7,7 @@
         <h3>基础对话框</h3>
         <div class="row">
           <FButton type="primary" @click="showBasicModal">打开基础对话框</FButton>
-          <FModal v-model:visible="basicVisible" title="基础对话框">
+          <FModal v-model="basicVisible" title="基础对话框">
             <div>这是一个基础的对话框内容</div>
           </FModal>
         </div>
@@ -21,13 +21,13 @@
           <FButton type="primary" @click="showMediumModal">中型对话框</FButton>
           <FButton type="primary" @click="showLargeModal">大型对话框</FButton>
           
-          <FModal v-model:visible="smallVisible" title="小型对话框" size="small">
+          <FModal v-model="smallVisible" title="小型对话框" size="small">
             <div>这是一个小型对话框</div>
           </FModal>
-          <FModal v-model:visible="mediumVisible" title="中型对话框" size="medium">
+          <FModal v-model="mediumVisible" title="中型对话框" size="medium">
             <div>这是一个中型对话框</div>
           </FModal>
-          <FModal v-model:visible="largeVisible" title="大型对话框" size="large">
+          <FModal v-model="largeVisible" title="大型对话框" size="large">
             <div>这是一个大型对话框</div>
           </FModal>
         </div>
@@ -38,7 +38,7 @@
         <h3>确认/取消操作</h3>
         <div class="row">
           <FButton type="primary" @click="showConfirmModal">打开确认对话框</FButton>
-          <FModal v-model:visible="confirmVisible" title="确认操作">
+          <FModal v-model="confirmVisible" title="确认操作">
             <div>确定要执行此操作吗？</div>
             <template #footer>
               <FButton type="default" @click="confirmVisible = false">取消</FButton>
@@ -53,7 +53,7 @@
         <h3>自定义内容</h3>
         <div class="row">
           <FButton type="primary" @click="showCustomModal">打开自定义对话框</FButton>
-          <FModal v-model:visible="customVisible" title="自定义对话框">
+          <FModal v-model="customVisible" title="自定义对话框">
             <div>
               <p>这是一个包含自定义内容的对话框</p>
               <FInput v-model="modalInput" placeholder="请输入内容" style="margin: 10px 0;" />
@@ -72,7 +72,7 @@
         <h3>全屏模式</h3>
         <div class="row">
           <FButton type="primary" @click="showFullscreenModal">打开全屏对话框</FButton>
-          <FModal v-model:visible="fullscreenVisible" title="全屏对话框" fullscreen>
+          <FModal v-model="fullscreenVisible" title="全屏对话框" fullscreen>
             <div>这是一个全屏对话框</div>
           </FModal>
         </div>

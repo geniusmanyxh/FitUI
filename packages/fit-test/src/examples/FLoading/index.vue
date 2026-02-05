@@ -7,7 +7,7 @@
         <h3>区域加载</h3>
         <div class="row">
           <div class="loading-container">
-            <FLoading v-model:visible="areaLoading" />
+            <FLoading v-if="areaLoading" />
             <div class="loading-content">
               <p>加载中的内容区域</p>
             </div>
@@ -21,7 +21,7 @@
         <h3>全屏加载</h3>
         <div class="row">
           <FButton type="primary" @click="toggleFullscreenLoading">切换全屏加载</FButton>
-          <FLoading v-model:visible="fullscreenLoading" fullscreen />
+          <FLoading v-if="fullscreenLoading" fullscreen />
         </div>
       </div>
 
@@ -29,9 +29,9 @@
       <div class="section">
         <h3>不同尺寸</h3>
         <div class="row">
-          <FLoading v-model:visible="sizeLoading" size="small" />
-          <FLoading v-model:visible="sizeLoading" size="medium" />
-          <FLoading v-model:visible="sizeLoading" size="large" />
+          <FLoading v-if="sizeLoading" size="small" />
+          <FLoading v-if="sizeLoading" size="medium" />
+          <FLoading v-if="sizeLoading" size="large" />
         </div>
       </div>
 
@@ -40,7 +40,7 @@
         <h3>自定义文字</h3>
         <div class="row">
           <div class="loading-container">
-            <FLoading v-model:visible="textLoading" text="加载中..." />
+            <FLoading v-if="textLoading" text="加载中..." />
             <div class="loading-content">
               <p>带自定义文字的加载</p>
             </div>

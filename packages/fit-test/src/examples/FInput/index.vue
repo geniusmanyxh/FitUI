@@ -50,12 +50,12 @@
         <div class="row">
           <FInput v-model="inputValue" placeholder="请输入内容">
             <template #prefix>
-              <FIcon name="search" />
+              <FIcon icon="search" />
             </template>
           </FInput>
           <FInput v-model="inputValue" placeholder="请输入内容">
             <template #suffix>
-              <FIcon name="close" />
+              <FIcon icon="close" />
             </template>
           </FInput>
         </div>

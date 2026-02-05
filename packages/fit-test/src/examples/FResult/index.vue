@@ -27,7 +27,7 @@
         <div class="row">
           <FResult title="自定义图标">
             <template #icon>
-              <FIcon name="star" size="48" color="#faad14" />
+              <FIcon icon="star" size="48" color="#faad14" />
             </template>
             <p>使用自定义图标</p>
           </FResult>

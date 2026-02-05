@@ -73,11 +73,11 @@
             </FButton>
           </div>
           <div class="badge-wrapper">
-            <FIcon name="bell" size="20" />
+            <FIcon icon="bell" size="20" />
             <FBadge value="10" type="danger" style="margin-left: 8px;"></FBadge>
           </div>
           <div class="badge-wrapper">
-            <FIcon name="mail" size="20" />
+            <FIcon icon="mail" size="20" />
             <FBadge dot type="warning" style="margin-left: 8px;"></FBadge>
           </div>
         </div>
