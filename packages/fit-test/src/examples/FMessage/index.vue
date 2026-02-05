@@ -60,7 +60,7 @@
 <script setup lang="ts">
 defineOptions({ name: 'FMessage-Demo', inheritAttrs: false })
 
-import { FMessage } from '@packages/fit-ui'
+import { FMessage } from '@geniusmanyxh/fit-ui'
 
 const showSuccess = () => {
   FMessage.success('操作成功')

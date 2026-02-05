@@ -59,7 +59,7 @@
 <script setup lang="ts">
 defineOptions({ name: "FNotification-Demo", inheritAttrs: false })
 
-import { FNotification } from '@packages/fit-ui'
+import { FNotification } from '@geniusmanyxh/fit-ui'
 
 const showSuccess = () => {
   FNotification.success('操作成功')

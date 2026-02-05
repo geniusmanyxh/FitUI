@@ -91,7 +91,7 @@
 defineOptions({ name: "FForm-Demo", inheritAttrs: false })
 
 import { ref, reactive } from 'vue'
-import type { FormInstance } from '@packages/fit-ui'
+import type { FormInstance } from '@geniusmanyxh/fit-ui'
 
 const formRef = ref<FormInstance>()
 
