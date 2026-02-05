@@ -15,21 +15,21 @@
     "**/*.css",
     "**/*.scss"
   ],
-  "main": "dist/lib/src/entry.js",
-  "module": "dist/es/src/entry.js",
+  "main": "dist/lib/entry.js",
+  "module": "dist/es/entry.js",
   "types": "dist/entry.d.ts",
   "exports": {
     ".": {
       "types": "./dist/entry.d.ts",
-      "import": "./dist/es/src/entry.js",
-      "require": "./dist/lib/src/entry.js"
+      "import": "./dist/es/entry.js",
+      "require": "./dist/lib/entry.js"
     },
     "./full": {
       "types": "./dist/full.d.ts",
-      "import": "./dist/es/src/full.js",
-      "require": "./dist/lib/src/full.js"
+      "import": "./dist/es/full.js",
+      "require": "./dist/lib/full.js"
     },
-    "./dist/index.css": "./dist/es/assets/fitui.css",
+    "./dist/index.css": "./dist/es/fitui.css",
     "./dist/uno.css": "./dist/es/uno.css",
     "./es/*/style": "./dist/es/src/*/style/index.js",
     "./es/*/style/css": "./dist/es/src/*/style/css.js",
@@ -37,7 +37,7 @@
       "types": "./resolver.d.ts",
       "import": "./resolver.js"
     },
-    "./style.css": "./dist/es/assets/fitui.css",
+    "./style.css": "./dist/es/fitui.css",
     "./dist/*": "./dist/*"
   },
   "peerDependencies": {
