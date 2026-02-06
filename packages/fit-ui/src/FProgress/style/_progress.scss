@@ -84,4 +84,39 @@
     font-weight: 500;
     color: var(--f-text-primary);
   }
+
+  // ===== Dashboard 仪表盘模式 =====
+  &__dashboard {
+    position: relative;
+    display: inline-block;
+  }
+
+  &__dashboard-track {
+    opacity: 0.25;
+  }
+
+  &__dashboard-label {
+    font-size: 5px;
+    font-weight: 600;
+    font-family: var(--f-font-sans);
+    user-select: none;
+    pointer-events: none;
+  }
+
+  &__dashboard-needle {
+    transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    transform-box: view-box;
+  }
+
+  &__dashboard-text {
+    position: absolute;
+    top: 65%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--f-text-primary);
+    text-align: center;
+    pointer-events: none;
+  }
 }
