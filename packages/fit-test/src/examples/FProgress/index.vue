@@ -24,7 +24,18 @@
         </div>
       </div>
 
-      <!-- 场景三：不同状态 -->
+      <!-- 场景三：仪表盘进度条 -->
+      <div class="section">
+        <h3>仪表盘进度条</h3>
+        <div class="row">
+          <FProgress :percentage="progressValue" type="dashboard" />
+          <FProgress :percentage="progressValue" type="dashboard" status="success" />
+          <FProgress :percentage="progressValue" type="dashboard" status="warning" />
+          <FProgress :percentage="progressValue" type="dashboard" status="exception" />
+        </div>
+      </div>
+
+      <!-- 场景四：不同状态 -->
       <div class="section">
         <h3>不同状态</h3>
         <div class="row">
@@ -35,7 +46,7 @@
         </div>
       </div>
 
-      <!-- 场景四：百分比显示 -->
+      <!-- 场景五：百分比显示 -->
       <div class="section">
         <h3>百分比显示</h3>
         <div class="row">
@@ -44,7 +55,7 @@
         </div>
       </div>
 
-      <!-- 场景五：动态调整 -->
+      <!-- 场景六：动态调整 -->
       <div class="section">
         <h3>动态调整</h3>
         <div class="row">
