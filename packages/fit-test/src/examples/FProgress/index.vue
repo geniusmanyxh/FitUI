@@ -6,10 +6,10 @@
       <div class="section">
         <h3>直线进度条</h3>
         <div class="row">
-          <FProgress v-model:percentage="progressValue" />
-          <FProgress v-model:percentage="progressValue" type="success" />
-          <FProgress v-model:percentage="progressValue" type="warning" />
-          <FProgress v-model:percentage="progressValue" type="danger" />
+          <FProgress :percentage="progressValue" />
+          <FProgress :percentage="progressValue" status="success" />
+          <FProgress :percentage="progressValue" status="warning" />
+          <FProgress :percentage="progressValue" status="exception" />
         </div>
       </div>
 
@@ -17,10 +17,10 @@
       <div class="section">
         <h3>环形进度条</h3>
         <div class="row">
-          <FProgress v-model:percentage="progressValue" type="circle" />
-          <FProgress v-model:percentage="progressValue" type="circle" status="success" />
-          <FProgress v-model:percentage="progressValue" type="circle" status="warning" />
-          <FProgress v-model:percentage="progressValue" type="circle" status="danger" />
+          <FProgress :percentage="progressValue" type="circle" />
+          <FProgress :percentage="progressValue" type="circle" status="success" />
+          <FProgress :percentage="progressValue" type="circle" status="warning" />
+          <FProgress :percentage="progressValue" type="circle" status="exception" />
         </div>
       </div>
 
@@ -31,7 +31,7 @@
           <FProgress :percentage="0" status="success" />
           <FProgress :percentage="50" status="warning" />
           <FProgress :percentage="100" status="success" />
-          <FProgress :percentage="100" status="danger" />
+          <FProgress :percentage="100" status="exception" />
         </div>
       </div>
 
@@ -39,8 +39,8 @@
       <div class="section">
         <h3>百分比显示</h3>
         <div class="row">
-          <FProgress v-model:percentage="progressValue" show-text />
-          <FProgress v-model:percentage="progressValue" type="circle" show-text />
+          <FProgress :percentage="progressValue" show-text />
+          <FProgress :percentage="progressValue" type="circle" show-text />
         </div>
       </div>
 
@@ -51,7 +51,7 @@
           <FButton type="primary" @click="decreaseProgress">减少</FButton>
           <FButton type="primary" @click="increaseProgress">增加</FButton>
           <FButton type="primary" @click="resetProgress">重置</FButton>
-          <FProgress v-model:percentage="progressValue" show-text style="margin-top: 20px; width: 100%;" />
+          <FProgress :percentage="progressValue" show-text style="margin-top: 20px; width: 100%;" />
         </div>
       </div>
     </div>
