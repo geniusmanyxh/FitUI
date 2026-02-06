@@ -66,9 +66,13 @@
     display: inline-block;
   }
 
-  &__circle-track,
+  &__circle-track {
+    opacity: 0.3;
+  }
+
   &__circle-stroke {
-    transition: stroke-dasharray 0.3s ease;
+    transition: stroke-dashoffset 0.6s ease;
+    transform-origin: center;
   }
 
   &__circle-text {

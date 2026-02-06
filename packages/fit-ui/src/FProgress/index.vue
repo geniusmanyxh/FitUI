@@ -32,6 +32,8 @@
             :d="strokePath"
             :stroke="strokeColor"
             :stroke-width="strokeWidth"
+            :stroke-dasharray="strokeDasharray"
+            :stroke-dashoffset="strokeDashoffset"
             fill="none"
             stroke-linecap="round"
           />
@@ -117,38 +119,45 @@ const radius = computed(() => {
 })
 
 const trackPath = computed(() => {
+  const r = radius.value
   if (props.type === 'dashboard') {
-    return `M 50 ${50 - radius.value} A ${radius.value} ${radius.value} 0 1 1 ${50 + radius.value} 50`
+    // 仪表盘：从135度到45度（3/4圆，底部留空）
+    const start = polarToCartesian(50, 50, r, 135)
+    const end = polarToCartesian(50, 50, r, 45)
+    return `M ${start.x} ${start.y} A ${r} ${r} 0 1 1 ${end.x} ${end.y}`
   }
-  return `M 50 50 m 0 -${radius.value} a ${radius.value} ${radius.value} 0 1 0 0 ${radius.value * 2} a ${radius.value} ${radius.value} 0 1 0 0 -${radius.value * 2}`
+  // 完整圆环
+  return `M 50 ${50 - r} A ${r} ${r} 0 1 1 50 ${50 + r} A ${r} ${r} 0 1 1 50 ${50 - r}`
 })
 
 const strokePath = computed(() => {
-  const percentage = Math.min(props.percentage, 100)
-  const angle = (percentage / 100) * 360
-  
-  if (props.type === 'dashboard') {
-    const startAngle = -90
-    const endAngle = startAngle + (angle / 2)
-    const startRadius = angleToRadius(startAngle)
-    const endRadius = angleToRadius(endAngle)
-    
-    return `M 50 ${50 - radius.value} A ${radius.value} ${radius.value} 0 ${percentage >= 50 ? 1 : 0} 1 ${50 + startRadius.x} ${50 + startRadius.y} L 50 50 L ${50 + endRadius.x} ${50 + endRadius.y}`
-  }
-  
-  const startAngle = -90
-  const endAngle = startAngle + angle
-  const startRadius = angleToRadius(startAngle)
-  const endRadius = angleToRadius(endAngle)
-  
-  return `M 50 ${50 - radius.value} A ${radius.value} ${radius.value} 0 ${angle >= 180 ? 1 : 0} 1 ${50 + startRadius.x} ${50 + startRadius.y} L 50 50 L ${50 + endRadius.x} ${50 + endRadius.y}`
+  return trackPath.value
 })
 
-function angleToRadius(angle: number) {
-  const rad = (angle * Math.PI) / 180
+const pathLength = computed(() => {
+  const r = radius.value
+  if (props.type === 'dashboard') {
+    // 3/4圆周长
+    return 2 * Math.PI * r * 0.75
+  }
+  // 完整圆周长
+  return 2 * Math.PI * r
+})
+
+const strokeDasharray = computed(() => {
+  return `${pathLength.value} ${pathLength.value}`
+})
+
+const strokeDashoffset = computed(() => {
+  const percentage = Math.min(props.percentage, 100)
+  return pathLength.value * (1 - percentage / 100)
+})
+
+function polarToCartesian(centerX: number, centerY: number, radius: number, angleInDegrees: number) {
+  const angleInRadians = ((angleInDegrees - 90) * Math.PI) / 180
   return {
-    x: radius.value * Math.cos(rad),
-    y: radius.value * Math.sin(rad)
+    x: centerX + radius * Math.cos(angleInRadians),
+    y: centerY + radius * Math.sin(angleInRadians)
   }
 }
 
