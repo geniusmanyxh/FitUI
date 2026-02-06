@@ -28,10 +28,10 @@
       <div class="section">
         <h3>不同状态</h3>
         <div class="row">
-          <FProgress v-model:percentage="0" status="success" />
-          <FProgress v-model:percentage="50" status="warning" />
-          <FProgress v-model:percentage="100" status="success" />
-          <FProgress v-model:percentage="100" status="danger" />
+          <FProgress :percentage="0" status="success" />
+          <FProgress :percentage="50" status="warning" />
+          <FProgress :percentage="100" status="success" />
+          <FProgress :percentage="100" status="danger" />
         </div>
       </div>
 
