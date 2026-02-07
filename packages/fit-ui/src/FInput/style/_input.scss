@@ -1,59 +1,424 @@
-// 使用设计 token，便于换肤与品牌定制
+// ============================================================
+// FInput 输入框组件样式
+// 使用设计 token，支持换肤与品牌定制
+// ============================================================
+
+// ==================== 公共变量 ====================
+$input-border-radius: 6px;
+$input-transition: border-color var(--f-transition-duration, 0.2s) ease,
+  box-shadow var(--f-transition-duration, 0.2s) ease;
+
+// ==================== Input 模式 ====================
 .f-input {
+  display: inline-flex;
+  width: 100%;
+  position: relative;
   font-family: var(--f-font-sans);
-  color: var(--f-text-primary);
-  background-color: var(--f-bg);
-  border: 1px solid var(--f-border);
-  border-radius: 6px;
-  outline: none;
-  box-sizing: border-box;
-  transition:
-    border-color var(--f-transition-duration) ease,
-    box-shadow var(--f-transition-duration) ease;
+  font-size: 14px;
+  line-height: 1.5;
+  vertical-align: middle;
 
-  &::placeholder {
-    color: var(--f-text-secondary);
-  }
+  // ==================== 内层 Wrapper ====================
+  .f-input__wrapper {
+    display: inline-flex;
+    align-items: center;
+    width: 100%;
+    padding: 0;
+    background-color: var(--f-bg);
+    border: 1px solid var(--f-border);
+    border-radius: $input-border-radius;
+    box-sizing: border-box;
+    transition: $input-transition;
+    cursor: text;
 
-  &:hover:not(:disabled):not(.f-input--disabled) {
-    border-color: var(--f-primary);
-  }
+    &:hover {
+      border-color: var(--f-primary);
+    }
 
-  &:focus {
-    border-color: var(--f-primary);
-    box-shadow: 0 0 0 2px color-mix(in srgb, var(--f-primary) 20%, transparent);
-  }
-
-  &:disabled,
-  &.f-input--disabled {
-    cursor: not-allowed;
-    opacity: 0.6;
-    background-color: var(--f-bg-secondary);
-  }
-
-  &.f-input--invalid {
-    border-color: var(--f-danger);
-
-    &:focus {
-      box-shadow: 0 0 0 2px color-mix(in srgb, var(--f-danger) 20%, transparent);
+    &.is-focus {
+      border-color: var(--f-primary);
+      box-shadow: 0 0 0 2px color-mix(in srgb, var(--f-primary) 20%, transparent);
     }
   }
 
-  &.f-input--small {
-    padding: 4px 8px;
-    font-size: 12px;
-    line-height: 1.4;
+  // ==================== Native Input ====================
+  .f-input__inner {
+    width: 100%;
+    height: 100%;
+    flex-grow: 1;
+    padding: 6px 12px;
+    border: none;
+    outline: none;
+    background: transparent;
+    color: var(--f-text-primary);
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
+    box-sizing: border-box;
+
+    &::placeholder {
+      color: var(--f-text-secondary);
+    }
+
+    // 去掉 number 类型的上下箭头
+    &[type='number'] {
+      -moz-appearance: textfield;
+      &::-webkit-inner-spin-button,
+      &::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+      }
+    }
   }
 
-  &.f-input--medium {
-    padding: 6px 12px;
+  // ==================== Prefix / Suffix ====================
+  .f-input__prefix,
+  .f-input__suffix {
+    display: inline-flex;
+    align-items: center;
+    flex-shrink: 0;
+    color: var(--f-text-secondary);
+  }
+
+  .f-input__prefix {
+    padding-left: 10px;
+
+    .f-input__prefix-inner {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+  }
+
+  .f-input__suffix {
+    padding-right: 10px;
+
+    .f-input__suffix-inner {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+  }
+
+  // ==================== Icon Buttons ====================
+  .f-input__icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
     font-size: 14px;
-    line-height: 1.5;
+    color: var(--f-text-secondary);
+    transition: color var(--f-transition-duration, 0.2s) ease;
+
+    &:hover {
+      color: var(--f-text-primary);
+    }
+
+    svg {
+      width: 1em;
+      height: 1em;
+    }
+  }
+
+  .f-input__clear {
+    &:hover {
+      color: var(--f-danger);
+    }
+  }
+
+  .f-input__password-toggle {
+    &:hover {
+      color: var(--f-primary);
+    }
+  }
+
+  // ==================== Word Count (input 模式) ====================
+  .f-input__count {
+    flex-shrink: 0;
+    font-size: 12px;
+    color: var(--f-text-secondary);
+    line-height: 1;
+    white-space: nowrap;
+  }
+
+  // ==================== Prepend / Append ====================
+  .f-input__prepend,
+  .f-input__append {
+    display: inline-flex;
+    align-items: center;
+    padding: 0 12px;
+    background-color: var(--f-bg-secondary);
+    color: var(--f-text-primary);
+    border: 1px solid var(--f-border);
+    white-space: nowrap;
+    font-size: inherit;
+    box-sizing: border-box;
+  }
+
+  .f-input__prepend {
+    border-right: 0;
+    border-radius: $input-border-radius 0 0 $input-border-radius;
+  }
+
+  .f-input__append {
+    border-left: 0;
+    border-radius: 0 $input-border-radius $input-border-radius 0;
+  }
+
+  // 有 prepend 时，wrapper 左侧无圆角
+  &.f-input--prepend .f-input__wrapper {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+
+  // 有 append 时，wrapper 右侧无圆角
+  &.f-input--append .f-input__wrapper {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+
+  // 有 prefix slot 时，input 内左侧间距缩小
+  &.f-input--prefix .f-input__inner {
+    padding-left: 4px;
+  }
+
+  // 有 suffix 时，input 内右侧间距缩小
+  &.f-input--suffix .f-input__inner {
+    padding-right: 4px;
+  }
+
+  // ==================== 尺寸 ====================
+  &.f-input--small {
+    font-size: 12px;
+
+    .f-input__inner {
+      padding: 4px 8px;
+    }
+
+    .f-input__prefix {
+      padding-left: 8px;
+    }
+
+    .f-input__suffix {
+      padding-right: 8px;
+    }
+
+    .f-input__prepend,
+    .f-input__append {
+      padding: 0 8px;
+    }
+
+    &.f-input--prefix .f-input__inner {
+      padding-left: 2px;
+    }
+
+    &.f-input--suffix .f-input__inner {
+      padding-right: 2px;
+    }
   }
 
   &.f-input--large {
-    padding: 8px 14px;
     font-size: 16px;
-    line-height: 1.5;
+
+    .f-input__inner {
+      padding: 8px 14px;
+    }
+
+    .f-input__prefix {
+      padding-left: 12px;
+    }
+
+    .f-input__suffix {
+      padding-right: 12px;
+    }
+
+    .f-input__prepend,
+    .f-input__append {
+      padding: 0 14px;
+    }
+
+    &.f-input--prefix .f-input__inner {
+      padding-left: 6px;
+    }
+
+    &.f-input--suffix .f-input__inner {
+      padding-right: 6px;
+    }
+  }
+
+  // ==================== 状态 ====================
+  &.is-disabled {
+    cursor: not-allowed;
+
+    .f-input__wrapper {
+      cursor: not-allowed;
+      background-color: var(--f-bg-secondary);
+      border-color: var(--f-border);
+      box-shadow: none;
+
+      &:hover {
+        border-color: var(--f-border);
+      }
+    }
+
+    .f-input__inner {
+      cursor: not-allowed;
+      color: var(--f-text-secondary);
+      opacity: 0.6;
+    }
+
+    .f-input__prepend,
+    .f-input__append {
+      opacity: 0.6;
+    }
+  }
+
+  &.is-readonly {
+    .f-input__wrapper {
+      cursor: default;
+
+      &:hover {
+        border-color: var(--f-border);
+      }
+    }
+
+    .f-input__inner {
+      cursor: default;
+    }
+  }
+
+  &.is-invalid {
+    .f-input__wrapper {
+      border-color: var(--f-danger);
+
+      &.is-focus {
+        box-shadow: 0 0 0 2px color-mix(in srgb, var(--f-danger) 20%, transparent);
+      }
+    }
+  }
+}
+
+// ==================== Textarea 模式 ====================
+.f-textarea {
+  display: inline-flex;
+  position: relative;
+  width: 100%;
+  font-family: var(--f-font-sans);
+  font-size: 14px;
+  line-height: 1.5;
+  vertical-align: top;
+
+  .f-textarea__textarea,
+  textarea.f-input__textarea {
+    width: 100%;
+    padding: 8px 12px;
+    color: var(--f-text-primary);
+    background-color: var(--f-bg);
+    border: 1px solid var(--f-border);
+    border-radius: $input-border-radius;
+    outline: none;
+    box-sizing: border-box;
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
+    resize: vertical;
+    transition: $input-transition;
+
+    &::placeholder {
+      color: var(--f-text-secondary);
+    }
+
+    &:hover {
+      border-color: var(--f-primary);
+    }
+
+    &:focus {
+      border-color: var(--f-primary);
+      box-shadow: 0 0 0 2px color-mix(in srgb, var(--f-primary) 20%, transparent);
+    }
+  }
+
+  // textarea 字数统计
+  .f-input__count {
+    position: absolute;
+    right: 12px;
+    bottom: 8px;
+    font-size: 12px;
+    color: var(--f-text-secondary);
+    line-height: 1;
+    background: var(--f-bg);
+    padding: 0 4px;
+    pointer-events: none;
+  }
+
+  // ==================== 尺寸 ====================
+  &.f-textarea--small {
+    font-size: 12px;
+
+    .f-input__textarea {
+      padding: 6px 8px;
+    }
+
+    .f-input__count {
+      right: 8px;
+      bottom: 6px;
+    }
+  }
+
+  &.f-textarea--large {
+    font-size: 16px;
+
+    .f-input__textarea {
+      padding: 10px 14px;
+    }
+
+    .f-input__count {
+      right: 14px;
+      bottom: 10px;
+    }
+  }
+
+  // ==================== 状态 ====================
+  &.is-disabled {
+    cursor: not-allowed;
+
+    .f-input__textarea {
+      cursor: not-allowed;
+      background-color: var(--f-bg-secondary);
+      opacity: 0.6;
+      resize: none;
+
+      &:hover {
+        border-color: var(--f-border);
+      }
+    }
+  }
+
+  &.is-readonly {
+    .f-input__textarea {
+      cursor: default;
+      resize: none;
+
+      &:hover {
+        border-color: var(--f-border);
+      }
+    }
+  }
+
+  &.is-invalid {
+    .f-input__textarea {
+      border-color: var(--f-danger);
+
+      &:focus {
+        box-shadow: 0 0 0 2px color-mix(in srgb, var(--f-danger) 20%, transparent);
+      }
+    }
+  }
+
+  &.is-focus {
+    .f-input__textarea {
+      border-color: var(--f-primary);
+      box-shadow: 0 0 0 2px color-mix(in srgb, var(--f-primary) 20%, transparent);
+    }
   }
 }
