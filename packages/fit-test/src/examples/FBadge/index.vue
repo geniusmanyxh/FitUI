@@ -6,11 +6,21 @@
       <div class="section">
         <h3>基础类型</h3>
         <div class="row">
-          <FBadge type="primary" value="5"></FBadge>
-          <FBadge type="success" value="10"></FBadge>
-          <FBadge type="warning" value="15"></FBadge>
-          <FBadge type="danger" value="20"></FBadge>
-          <FBadge type="info" value="25"></FBadge>
+          <FBadge type="primary" value="5">
+            <div class="badge-demo-item">消息</div>
+          </FBadge>
+          <FBadge type="success" value="10">
+            <div class="badge-demo-item">通知</div>
+          </FBadge>
+          <FBadge type="warning" value="15">
+            <div class="badge-demo-item">警告</div>
+          </FBadge>
+          <FBadge type="danger" value="20">
+            <div class="badge-demo-item">错误</div>
+          </FBadge>
+          <FBadge type="info" value="25">
+            <div class="badge-demo-item">信息</div>
+          </FBadge>
         </div>
       </div>
 
@@ -18,11 +28,21 @@
       <div class="section">
         <h3>数值显示</h3>
         <div class="row">
-          <FBadge value="0"></FBadge>
-          <FBadge value="1"></FBadge>
-          <FBadge value="99"></FBadge>
-          <FBadge value="100"></FBadge>
-          <FBadge value="999"></FBadge>
+          <FBadge value="0">
+            <div class="badge-demo-item">消息</div>
+          </FBadge>
+          <FBadge value="1">
+            <div class="badge-demo-item">消息</div>
+          </FBadge>
+          <FBadge value="99">
+            <div class="badge-demo-item">消息</div>
+          </FBadge>
+          <FBadge value="100">
+            <div class="badge-demo-item">消息</div>
+          </FBadge>
+          <FBadge value="999">
+            <div class="badge-demo-item">消息</div>
+          </FBadge>
         </div>
       </div>
 
@@ -30,11 +50,21 @@
       <div class="section">
         <h3>最大值设置</h3>
         <div class="row">
-          <FBadge value="5" max="10"></FBadge>
-          <FBadge value="15" max="10"></FBadge>
-          <FBadge value="99" max="99"></FBadge>
-          <FBadge value="100" max="99"></FBadge>
-          <FBadge value="999" max="99"></FBadge>
+          <FBadge value="5" max="10">
+            <div class="badge-demo-item">消息</div>
+          </FBadge>
+          <FBadge value="15" max="10">
+            <div class="badge-demo-item">消息</div>
+          </FBadge>
+          <FBadge value="99" max="99">
+            <div class="badge-demo-item">消息</div>
+          </FBadge>
+          <FBadge value="100" max="99">
+            <div class="badge-demo-item">消息</div>
+          </FBadge>
+          <FBadge value="999" max="99">
+            <div class="badge-demo-item">消息</div>
+          </FBadge>
         </div>
       </div>
 
@@ -42,12 +72,24 @@
       <div class="section">
         <h3>小红点模式</h3>
         <div class="row">
-          <FBadge dot></FBadge>
-          <FBadge type="primary" dot></FBadge>
-          <FBadge type="success" dot></FBadge>
-          <FBadge type="warning" dot></FBadge>
-          <FBadge type="danger" dot></FBadge>
-          <FBadge type="info" dot></FBadge>
+          <FBadge is-dot>
+            <div class="badge-demo-item">消息</div>
+          </FBadge>
+          <FBadge type="primary" is-dot>
+            <div class="badge-demo-item">消息</div>
+          </FBadge>
+          <FBadge type="success" is-dot>
+            <div class="badge-demo-item">消息</div>
+          </FBadge>
+          <FBadge type="warning" is-dot>
+            <div class="badge-demo-item">消息</div>
+          </FBadge>
+          <FBadge type="danger" is-dot>
+            <div class="badge-demo-item">消息</div>
+          </FBadge>
+          <FBadge type="info" is-dot>
+            <div class="badge-demo-item">消息</div>
+          </FBadge>
         </div>
       </div>
 
@@ -55,10 +97,18 @@
       <div class="section">
         <h3>隐藏状态</h3>
         <div class="row">
-          <FBadge value="5" hidden></FBadge>
-          <FBadge value="10"></FBadge>
-          <FBadge dot hidden></FBadge>
-          <FBadge dot></FBadge>
+          <FBadge value="5" hidden>
+            <div class="badge-demo-item">消息</div>
+          </FBadge>
+          <FBadge value="10">
+            <div class="badge-demo-item">消息</div>
+          </FBadge>
+          <FBadge is-dot hidden>
+            <div class="badge-demo-item">消息</div>
+          </FBadge>
+          <FBadge is-dot>
+            <div class="badge-demo-item">消息</div>
+          </FBadge>
         </div>
       </div>
 
@@ -66,20 +116,15 @@
       <div class="section">
         <h3>组合示例</h3>
         <div class="row">
-          <div class="badge-wrapper">
-            <FButton type="primary">
-              消息
-              <FBadge value="5" style="margin-left: 8px;"></FBadge>
-            </FButton>
-          </div>
-          <div class="badge-wrapper">
+          <FBadge value="5">
+            <FButton type="primary">消息</FButton>
+          </FBadge>
+          <FBadge value="10" type="danger">
             <FIcon icon="bell" size="20" />
-            <FBadge value="10" type="danger" style="margin-left: 8px;"></FBadge>
-          </div>
-          <div class="badge-wrapper">
+          </FBadge>
+          <FBadge is-dot type="warning">
             <FIcon icon="mail" size="20" />
-            <FBadge dot type="warning" style="margin-left: 8px;"></FBadge>
-          </div>
+          </FBadge>
         </div>
       </div>
     </div>
@@ -121,6 +166,13 @@ defineOptions({ name: "FBadge-Demo", inheritAttrs: false })
     display: flex;
     align-items: center;
     gap: 8px;
+  }
+  
+  .badge-demo-item {
+    // padding: 8px 16px;
+    background-color: #f5f5f5;
+    border-radius: 4px;
+    display: inline-block;
   }
 }
 </style>
