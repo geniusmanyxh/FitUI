@@ -9,6 +9,7 @@ export interface SkeletonProps {
   title?: boolean
   paragraph?: boolean
   active?: boolean
+  throttle?: number
 }
 
 export interface SkeletonEmits {

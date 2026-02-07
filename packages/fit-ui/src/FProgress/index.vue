@@ -5,14 +5,14 @@
         <div class="f-progress__outer" :style="outerStyle">
           <div class="f-progress__inner" :style="innerStyle">
             <div v-if="textInside" class="f-progress__text-inner">
-              {{ percentage }}%
+              {{ displayText }}
             </div>
           </div>
         </div>
       </div>
       <div v-if="showText && !textInside" class="f-progress__text">
         <slot name="default">
-          {{ percentage }}%
+          {{ displayText }}
         </slot>
       </div>
     </template>
@@ -40,7 +40,7 @@
         </svg>
         <div v-if="showText" class="f-progress__circle-text">
           <slot name="default">
-            {{ percentage }}%
+            {{ displayText }}
           </slot>
         </div>
       </div>
@@ -97,7 +97,7 @@
         <!-- 中心数值 -->
         <div v-if="showText" class="f-progress__dashboard-text">
           <slot name="default">
-            {{ percentage }}%
+            {{ displayText }}
           </slot>
         </div>
       </div>
@@ -120,16 +120,29 @@ const props = withDefaults(defineProps<ProgressProps>(), {
   textInside: false,
   width: 126,
   showText: true,
-  backgroundColor: '#e5e7eb'
+  backgroundColor: '#e5e7eb',
+  indeterminate: false,
+  duration: 3000,
+  striped: false,
+  stripedFlow: false,
 })
 
 const emit = defineEmits<ProgressEmits>()
 
+const displayText = computed(() => {
+  if (props.format) return props.format(props.percentage)
+  return `${props.percentage}%`
+})
+
 const progressClass = computed(() => {
-  return [
+  const classes = [
     `f-progress--${props.type}`,
-    `f-progress--${props.status}`
+    `f-progress--${props.status}`,
   ]
+  if (props.indeterminate) classes.push('f-progress--indeterminate')
+  if (props.striped) classes.push('f-progress--striped')
+  if (props.stripedFlow) classes.push('f-progress--striped-flow')
+  return classes
 })
 
 const barStyle = computed(() => {
@@ -146,11 +159,15 @@ const outerStyle = computed(() => {
 
 const innerStyle = computed(() => {
   const color = getStrokeColor()
-  return {
+  const style: Record<string, string> = {
     width: `${Math.min(props.percentage, 100)}%`,
     backgroundColor: color,
-    transition: 'width 0.3s ease'
+    transition: 'width 0.3s ease',
   }
+  if (props.indeterminate) {
+    style.animationDuration = `${props.duration}ms`
+  }
+  return style
 })
 
 const circleStyle = computed(() => {

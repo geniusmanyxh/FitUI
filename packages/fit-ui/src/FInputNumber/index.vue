@@ -22,6 +22,7 @@
         :name="name"
         :placeholder="placeholder"
         :disabled="disabled"
+        :readonly="readonly"
         :aria-label="label"
         :aria-valuemin="min"
         :aria-valuemax="max"
@@ -81,12 +82,15 @@ const props = withDefaults(defineProps<InputNumberProps>(), {
   stepStrictly: false,
   size: 'medium',
   disabled: false,
+  readonly: false,
   controls: true,
   controlsPosition: '',
   name: '',
   label: '',
   placeholder: '',
-  id: undefined
+  id: undefined,
+  validateEvent: true,
+  valueOnClear: null,
 })
 
 const emit = defineEmits<{
@@ -199,14 +203,33 @@ function handleFocus(event: FocusEvent) {
 
 function handleBlur(event: FocusEvent) {
   userInput.value = false
-  const value = Number(displayValue.value)
-  
-  if (isNaN(value)) {
-    setCurrentValue(props.min)
+  const raw = displayValue.value.trim()
+
+  if (raw === '') {
+    // valueOnClear support
+    let clearVal: number | null = null
+    if (props.valueOnClear === 'min') clearVal = props.min === -Infinity ? null : props.min
+    else if (props.valueOnClear === 'max') clearVal = props.max === Infinity ? null : props.max
+    else if (typeof props.valueOnClear === 'number') clearVal = props.valueOnClear
+    else clearVal = null
+
+    if (clearVal !== null) {
+      setCurrentValue(clearVal)
+    } else {
+      currentValue.value = null
+      emit('update:modelValue', null)
+      emit('change', null, currentValue.value)
+      displayValue.value = ''
+    }
   } else {
-    setCurrentValue(ensurePrecision(value))
+    const value = Number(raw)
+    if (isNaN(value)) {
+      setCurrentValue(props.min === -Infinity ? 0 : props.min)
+    } else {
+      setCurrentValue(ensurePrecision(value))
+    }
   }
-  
+
   emit('blur', event)
 }
 

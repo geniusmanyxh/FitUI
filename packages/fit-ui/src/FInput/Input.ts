@@ -120,6 +120,42 @@ export interface InputProps {
    * @default false
    */
   autofocus?: boolean
+
+  /**
+   * 输入值的格式化函数（显示时）
+   */
+  formatter?: (value: string) => string
+
+  /**
+   * 输入值的解析函数（存储时）
+   */
+  parser?: (value: string) => string
+
+  /**
+   * 前缀图标名称
+   */
+  prefixIcon?: string
+
+  /**
+   * 后缀图标名称
+   */
+  suffixIcon?: string
+
+  /**
+   * 原生 name 属性
+   */
+  name?: string
+
+  /**
+   * 输入时是否触发表单校验
+   * @default true
+   */
+  validateEvent?: boolean
+
+  /**
+   * 输入框自定义样式
+   */
+  inputStyle?: Record<string, string>
 }
 
 /**

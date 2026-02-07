@@ -1,5 +1,5 @@
 <template>
-  <div v-if="loading" class="f-skeleton" :class="skeletonClass" @click="handleClick">
+  <div v-if="showSkeleton" class="f-skeleton" :class="skeletonClass" @click="handleClick">
     <slot name="template">
       <div v-if="type === 'text' || type === 'custom'" class="f-skeleton__content">
         <div v-if="title" class="f-skeleton__title"></div>
@@ -27,7 +27,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, ref, watch, onMounted, onBeforeUnmount } from 'vue'
 import type { SkeletonProps, SkeletonEmits } from './Skeleton'
 import type { SkeletonType } from './Skeleton'
 
@@ -45,6 +45,50 @@ const props = withDefaults(defineProps<SkeletonProps>(), {
 })
 
 const emit = defineEmits<SkeletonEmits>()
+
+const showSkeleton = ref(false)
+let throttleTimer: ReturnType<typeof setTimeout> | null = null
+
+watch(
+  () => props.loading,
+  (newVal) => {
+    if (throttleTimer) {
+      clearTimeout(throttleTimer)
+      throttleTimer = null
+    }
+
+    if (newVal) {
+      if (props.throttle && props.throttle > 0) {
+        throttleTimer = setTimeout(() => {
+          showSkeleton.value = true
+        }, props.throttle)
+      } else {
+        showSkeleton.value = true
+      }
+    } else {
+      showSkeleton.value = false
+    }
+  },
+  { immediate: true }
+)
+
+onMounted(() => {
+  if (props.loading) {
+    if (props.throttle && props.throttle > 0) {
+      throttleTimer = setTimeout(() => {
+        showSkeleton.value = true
+      }, props.throttle)
+    } else {
+      showSkeleton.value = true
+    }
+  }
+})
+
+onBeforeUnmount(() => {
+  if (throttleTimer) {
+    clearTimeout(throttleTimer)
+  }
+})
 
 const skeletonClass = computed(() => {
   return [

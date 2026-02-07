@@ -35,6 +35,53 @@
   &.alert_dismissible {
     padding-right: 40px;
   }
+
+  // 居中样式
+  &.alert_center {
+    text-align: center;
+    justify-content: center;
+
+    .alert_content {
+      text-align: center;
+    }
+
+    .alert_icon {
+      margin-right: 0;
+      margin-left: 0;
+    }
+  }
+
+  // 深色主题
+  &.alert_dark {
+    &.alert_success {
+      background-color: #22c55e;
+      border-left-color: #16a34a;
+      color: #ffffff;
+    }
+
+    &.alert_warning {
+      background-color: #eab308;
+      border-left-color: #ca8a04;
+      color: #ffffff;
+    }
+
+    &.alert_error {
+      background-color: #ef4444;
+      border-left-color: #dc2626;
+      color: #ffffff;
+    }
+
+    &.alert_info {
+      background-color: #3b82f6;
+      border-left-color: #2563eb;
+      color: #ffffff;
+    }
+  }
+
+  // 浅色主题（默认）
+  &.alert_light {
+    // 保持原有样式
+  }
 }
 
 .alert_icon {
@@ -80,5 +127,14 @@
   &:focus-visible {
     outline: 2px solid rgba(59, 130, 246, 0.5);
     border-radius: 4px;
+  }
+
+  &.alert_close_text {
+    padding: 4px 8px;
+    font-size: 14px;
+  }
+
+  .alert_close_text_content {
+    display: inline-block;
   }
 }

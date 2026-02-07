@@ -14,7 +14,9 @@
       <slot></slot>
       <Transition name="f-form-item">
         <div v-if="showError && errorMessage" class="f-form-item__error" role="alert">
-          {{ errorMessage }}
+          <slot name="error" :error="errorMessage">
+            {{ errorMessage }}
+          </slot>
         </div>
       </Transition>
     </div>

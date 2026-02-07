@@ -49,7 +49,17 @@
         </div>
       </div>
 
-      <!-- 场景四：组合示例 -->
+      <!-- 场景四：旋转动画 (spin) -->
+      <div class="section">
+        <h3>旋转动画 (Spin)</h3>
+        <div class="row">
+          <FIcon icon="loading" spin size="24" />
+          <FIcon icon="loading" spin size="24" color="#1890ff" />
+          <FIcon icon="setting" spin size="24" color="#52c41a" />
+        </div>
+      </div>
+
+      <!-- 场景五：组合示例 -->
       <div class="section">
         <h3>组合示例</h3>
         <div class="row">
@@ -61,22 +71,19 @@
         </div>
       </div>
 
-      <!-- 场景五：常用图标集合 -->
+      <!-- 场景六：常用图标集合 -->
       <div class="section">
         <h3>常用图标集合</h3>
         <div class="row">
-          <!-- 导航图标 -->
           <FIcon icon="home" />
           <FIcon icon="menu" />
           <FIcon icon="back" />
           <FIcon icon="forward" />
-          <!-- 操作图标 -->
           <FIcon icon="copy" />
           <FIcon icon="paste" />
           <FIcon icon="cut" />
           <FIcon icon="download" />
           <FIcon icon="upload" />
-          <!-- 状态图标 -->
           <FIcon icon="success" />
           <FIcon icon="error" />
           <FIcon icon="loading" />
@@ -88,7 +95,6 @@
 
 <script setup lang="ts">
 defineOptions({ name: 'FIcon-Demo', inheritAttrs: false })
-
 </script>
 
 <style scoped lang="scss">

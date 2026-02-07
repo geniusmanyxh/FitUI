@@ -1,73 +1,119 @@
 <template>
-  <div 
-    :class="[`switch_wrapper`, { 'switch_disabled': disabled }]" 
+  <div
+    :class="switchClasses"
     @click="handleClick"
-    @keydown.enter="handleClick"
-    @keydown.space="handleClick"
+    @keydown.enter.prevent="handleClick"
+    @keydown.space.prevent="handleClick"
     role="switch"
-    :aria-checked="modelValue"
-    :aria-disabled="disabled"
-    tabindex="0"
+    :aria-checked="isChecked"
+    :aria-disabled="disabled || loading"
+    :tabindex="tabindex ?? 0"
   >
-    <div :class="[`switch_core`, { 'switch_core_active': modelValue }]">
-      <div :class="[`switch_button`, { 'switch_button_active': modelValue }]"></div>
-    </div>
-    <div v-if="label" class="switch_label">
-      <slot></slot>
-    </div>
+    <span v-if="inactiveText && !inlinePrompt" class="f-switch__label f-switch__label--left" :class="{ 'is-active': !isChecked }">
+      {{ inactiveText }}
+    </span>
+    <span :class="['f-switch__core', { 'is-checked': isChecked }]" :style="coreStyle">
+      <span v-if="inlinePrompt" class="f-switch__inner">
+        {{ isChecked ? activeText : inactiveText }}
+      </span>
+      <span class="f-switch__action">
+        <span v-if="loading" class="f-switch__loading-icon"></span>
+        <slot v-else-if="isChecked" name="activeAction"></slot>
+        <slot v-else name="inactiveAction"></slot>
+      </span>
+    </span>
+    <span v-if="activeText && !inlinePrompt" class="f-switch__label f-switch__label--right" :class="{ 'is-active': isChecked }">
+      {{ activeText }}
+    </span>
   </div>
 </template>
 
 <script lang="ts" setup>
-/**
- * FSwitch 开关组件
- *
- * @description 用于二选一的场景，如启用/禁用功能
- * @example
- * ```vue
- * <FSwitch v-model="value">启用功能</FSwitch>
- * <FSwitch v-model="value" disabled>禁用状态</FSwitch>
- * ```
- */
+import { computed, ref } from 'vue'
+
 defineOptions({ name: 'FSwitch', inheritAttrs: false })
 
-import { computed } from 'vue'
-
-const props = defineProps<{
-  /**
-   * 绑定值
-   * @default false
-   */
-  modelValue: boolean
-  /**
-   * 是否禁用
-   * @default false
-   */
+export interface SwitchProps {
+  modelValue?: boolean | string | number
   disabled?: boolean
-  /**
-   * 是否显示标签
-   * @default false
-   */
-  label?: boolean
-}>()
+  loading?: boolean
+  size?: 'small' | 'medium' | 'large'
+  width?: number | string
+  inlinePrompt?: boolean
+  activeIcon?: string
+  inactiveIcon?: string
+  activeText?: string
+  inactiveText?: string
+  activeValue?: boolean | string | number
+  inactiveValue?: boolean | string | number
+  name?: string
+  validateEvent?: boolean
+  beforeChange?: () => Promise<boolean> | boolean
+  tabindex?: number | string
+}
+
+const props = withDefaults(defineProps<SwitchProps>(), {
+  modelValue: false,
+  disabled: false,
+  loading: false,
+  size: 'medium',
+  inlinePrompt: false,
+  activeValue: true,
+  inactiveValue: false,
+  validateEvent: true,
+})
 
 const emit = defineEmits<{
-  /**
-   * 绑定值变化时触发
-   */
-  (e: 'update:modelValue', value: boolean): void
-  /**
-   * 状态变化时触发
-   */
-  (e: 'change', value: boolean): void
+  'update:modelValue': [value: boolean | string | number]
+  change: [value: boolean | string | number]
 }>()
 
-const handleClick = () => {
-  if (props.disabled) return
-  const newValue = !props.modelValue
+const isChecked = computed(() => {
+  return props.modelValue === props.activeValue
+})
+
+const switchClasses = computed(() => {
+  const classes = ['f-switch', `f-switch--${props.size}`]
+  if (isChecked.value) classes.push('is-checked')
+  if (props.disabled) classes.push('is-disabled')
+  if (props.loading) classes.push('is-loading')
+  return classes
+})
+
+const coreStyle = computed(() => {
+  if (props.width) {
+    const w = typeof props.width === 'number' ? `${props.width}px` : props.width
+    return { width: w }
+  }
+  return {}
+})
+
+const switchLoading = ref(false)
+
+async function handleClick() {
+  if (props.disabled || props.loading || switchLoading.value) return
+
+  const newValue = isChecked.value ? props.inactiveValue : props.activeValue
+
+  if (props.beforeChange) {
+    switchLoading.value = true
+    try {
+      const result = await props.beforeChange()
+      if (result === false) return
+    } catch {
+      return
+    } finally {
+      switchLoading.value = false
+    }
+  }
+
   emit('update:modelValue', newValue)
   emit('change', newValue)
 }
+
+defineExpose({
+  focus: () => {},
+})
 </script>
 
 <style scoped lang="scss">

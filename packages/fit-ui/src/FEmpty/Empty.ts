@@ -1,6 +1,7 @@
 export interface EmptyProps {
   image?: string
   description?: string
+  imageSize?: number
 }
 
 export interface EmptyEmits {

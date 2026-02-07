@@ -1,11 +1,19 @@
 <template>
   <div 
-    :class="[`alert_wrapper`, `alert_${type}`, { 'alert_dismissible': closable }]"
+    :class="[
+      `alert_wrapper`, 
+      `alert_${type}`, 
+      `alert_${effect}`,
+      { 
+        'alert_dismissible': closable,
+        'alert_center': center
+      }
+    ]"
     role="alert"
     :aria-live="type === 'error' ? 'assertive' : 'polite'"
   >
     <!-- 图标 -->
-    <div class="alert_icon">
+    <div v-if="showIcon" class="alert_icon">
       <svg v-if="type === 'success'" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M16.6667 5L7.5 14.1667L3.33333 10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
       </svg>
@@ -40,13 +48,15 @@
     <button 
       v-if="closable" 
       class="alert_close"
+      :class="{ 'alert_close_text': closeText }"
       @click="handleClose"
       @keydown.enter="handleClose"
       @keydown.space="handleClose"
       aria-label="关闭"
       tabindex="0"
     >
-      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <span v-if="closeText" class="alert_close_text_content">{{ closeText }}</span>
+      <svg v-else width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M12 4L4 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
         <path d="M4 4L12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
       </svg>
@@ -69,24 +79,29 @@
  */
 defineOptions({ name: 'FAlert', inheritAttrs: false })
 
-const props = defineProps<{
-  /**
-   * 警告类型
-   * @default 'info'
-   * @example 'success' | 'warning' | 'error' | 'info'
-   */
+const props = withDefaults(defineProps<{
+  /** 警告类型 */
   type?: 'success' | 'warning' | 'error' | 'info'
-  /**
-   * 警告标题
-   * @default ''
-   */
+  /** 警告标题 */
   title?: string
-  /**
-   * 是否可关闭
-   * @default false
-   */
+  /** 是否可关闭 */
   closable?: boolean
-}>()
+  /** 主题风格 */
+  effect?: 'light' | 'dark'
+  /** 文字是否居中 */
+  center?: boolean
+  /** 是否显示图标 */
+  showIcon?: boolean
+  /** 关闭按钮自定义文本 */
+  closeText?: string
+}>(), {
+  type: 'info',
+  closable: false,
+  effect: 'light',
+  center: false,
+  showIcon: false,
+  closeText: ''
+})
 
 const emit = defineEmits<{
   /**

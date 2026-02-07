@@ -1,35 +1,50 @@
 <template>
   <div class="f-breadcrumb">
-    <template v-for="(item, index) in items" :key="index">
-      <span
-        v-if="index > 0"
-        class="f-breadcrumb__separator"
-      >
-        {{ separator }}
-      </span>
-      <span
-        class="f-breadcrumb__item"
-        :class="{ 'f-breadcrumb__item--disabled': item.disabled }"
-        @click="handleClick(item, index)"
-      >
-        <slot name="item" :item="item" :index="index">
-          {{ item.label }}
-        </slot>
-      </span>
-    </template>
+    <slot>
+      <template v-if="items && items.length > 0">
+        <template v-for="(item, index) in items" :key="index">
+          <FBreadcrumbItem
+            :to="item.to"
+            :href="item.href"
+            :replace="item.replace"
+            :disabled="item.disabled"
+            @click="handleClick(item, index)"
+          >
+            <slot name="item" :item="item" :index="index">
+              {{ item.label }}
+            </slot>
+          </FBreadcrumbItem>
+          <span
+            v-if="index < items.length - 1"
+            class="f-breadcrumb__separator"
+          >
+            <FIcon v-if="separatorIcon" :icon="(separatorIcon as any)" />
+            <span v-else>{{ separator }}</span>
+          </span>
+        </template>
+      </template>
+    </slot>
   </div>
 </template>
 
 <script setup lang="ts">
+import { provide } from 'vue'
 import type { BreadcrumbProps, BreadcrumbEmits, BreadcrumbItem } from './Breadcrumb'
+import FBreadcrumbItem from './BreadcrumbItem.vue'
+import FIcon from '@/FIcon'
 
 defineOptions({ name: 'FBreadcrumb', inheritAttrs: false })
 
 const props = withDefaults(defineProps<BreadcrumbProps>(), {
-  separator: '/'
+  separator: '/',
+  items: () => []
 })
 
 const emit = defineEmits<BreadcrumbEmits>()
+
+// Provide separator and separatorIcon to child BreadcrumbItem components
+provide('breadcrumbSeparator', props.separator)
+provide('breadcrumbSeparatorIcon', props.separatorIcon)
 
 function handleClick(item: BreadcrumbItem, index: number) {
   if (item.disabled) return

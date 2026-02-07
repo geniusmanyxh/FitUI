@@ -74,12 +74,35 @@ withDefaults(
      * @default ''
      */
     text?: string
+    /**
+     * 加载目标元素
+     * @default undefined
+     * @description 可以是字符串选择器或 HTMLElement
+     */
+    target?: string | HTMLElement
+    /**
+     * 是否锁定 body 滚动
+     * @default false
+     */
+    lock?: boolean
+    /**
+     * 遮罩层背景色
+     * @default undefined
+     */
+    background?: string
+    /**
+     * 自定义类名
+     * @default undefined
+     */
+    customClass?: string
   }>(),
   {
     fullscreen: false,
     type: 'spin',
     size: 'medium',
-    text: ''
+    text: '',
+    lock: false,
+    customClass: undefined
   }
 )
 </script>

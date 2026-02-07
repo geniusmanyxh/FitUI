@@ -1,5 +1,5 @@
 // Switch 组件样式
-.switch_wrapper {
+.f-switch {
   display: inline-flex;
   align-items: center;
   cursor: pointer;
@@ -8,24 +8,28 @@
   transition: all 0.3s ease;
 
   &:hover {
-    .switch_core {
+    .f-switch__core {
       box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.1);
     }
   }
 
   &:focus-visible {
-    .switch_core {
+    .f-switch__core {
       box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.5);
     }
   }
 
-  &.switch_disabled {
+  &.is-disabled {
     cursor: not-allowed;
     opacity: 0.5;
   }
+
+  &.is-loading {
+    cursor: wait;
+  }
 }
 
-.switch_core {
+.f-switch__core {
   position: relative;
   width: 44px;
   height: 24px;
@@ -33,12 +37,12 @@
   background-color: #e5e7eb;
   transition: all 0.3s ease;
 
-  &.switch_core_active {
-    background-color: #3b82f6;
+  &.is-checked {
+    background-color: var(--f-primary, #3b82f6);
   }
 }
 
-.switch_button {
+.f-switch__action {
   position: absolute;
   top: 2px;
   left: 2px;
@@ -48,14 +52,82 @@
   background-color: #ffffff;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
   transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-  &.switch_button_active {
+  .is-checked > & {
     transform: translateX(20px);
   }
 }
 
-.switch_label {
-  margin-left: 8px;
+.f-switch__inner {
+  position: absolute;
+  font-size: 12px;
+  color: #fff;
+  top: 50%;
+  transform: translateY(-50%);
+  left: 24px;
+  white-space: nowrap;
+  transition: all 0.3s ease;
+
+  .is-checked > & {
+    left: 6px;
+  }
+}
+
+.f-switch__label {
   font-size: 14px;
   color: #374151;
+  margin: 0 8px;
+
+  &.is-active {
+    color: var(--f-primary, #3b82f6);
+  }
+}
+
+// Loading spinner
+.f-switch__loading-icon {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  border: 2px solid var(--f-primary, #3b82f6);
+  border-right-color: transparent;
+  border-radius: 50%;
+  animation: f-switch-spin 0.8s linear infinite;
+}
+
+@keyframes f-switch-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+// Size variants
+.f-switch--small .f-switch__core {
+  width: 36px;
+  height: 20px;
+}
+
+.f-switch--small .f-switch__action {
+  width: 16px;
+  height: 16px;
+
+  .is-checked > & {
+    transform: translateX(16px);
+  }
+}
+
+.f-switch--large .f-switch__core {
+  width: 52px;
+  height: 28px;
+}
+
+.f-switch--large .f-switch__action {
+  width: 24px;
+  height: 24px;
+
+  .is-checked > & {
+    transform: translateX(24px);
+  }
 }

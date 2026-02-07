@@ -1,5 +1,5 @@
 <template>
-  <span :class="tagClasses" :style="customStyle">
+  <span :class="tagClasses" :style="customStyle" @click="handleClick">
     <slot name="label">{{ label }}</slot>
     <span v-if="closable" class="close-btn" :class="{ disabled: disabled }" @click.stop="handleClose">
       <slot name="close">
@@ -100,6 +100,18 @@ export interface TagProps {
    * @example '#409eff'
    */
   borderColor?: string
+
+  /**
+   * 是否有边框描边（高亮边框）
+   * @default false
+   */
+  hit?: boolean
+
+  /**
+   * 自定义颜色（简化设置，同时设置背景和边框）
+   * @default ''
+   */
+  color?: string
 }
 
 const props = withDefaults(defineProps<TagProps>(), {
@@ -113,17 +125,16 @@ const props = withDefaults(defineProps<TagProps>(), {
   bgColor: '',
   textColor: '',
   borderColor: '',
+  hit: false,
+  color: '',
 });
 
 /**
  * 标签组件事件
  */
 interface TagEmits {
-  /**
-   * 关闭事件
-   * @description 点击关闭按钮时触发
-   */
   (e: 'close'): void
+  (e: 'click', event: MouseEvent): void
 }
 
 const emit = defineEmits<TagEmits>();
@@ -135,6 +146,13 @@ const handleClose = () => {
   if (!props.disabled) {
     emit('close');
   }
+};
+
+/**
+ * 处理点击事件
+ */
+const handleClick = (event: MouseEvent) => {
+  emit('click', event);
 };
 
 /**
@@ -160,6 +178,11 @@ const tagClasses = computed(() => {
   if (props.disabled) {
     classes.push('tag-disabled');
   }
+
+  // 添加边框高亮类名
+  if (props.hit) {
+    classes.push('tag-hit');
+  }
   
   return classes;
 });
@@ -180,6 +203,12 @@ const customStyle = computed(() => {
   
   if (props.borderColor) {
     style.borderColor = props.borderColor;
+  }
+
+  if (props.color) {
+    style.backgroundColor = props.color;
+    style.borderColor = props.color;
+    style.color = '#ffffff';
   }
   
   return style;

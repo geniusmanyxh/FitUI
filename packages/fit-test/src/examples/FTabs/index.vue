@@ -56,6 +56,54 @@
           </FTabs>
         </div>
       </div>
+
+      <!-- 场景五：卡片式标签页 -->
+      <div class="section">
+        <h3>卡片式标签页</h3>
+        <div class="row">
+          <FTabs v-model="cardTab" type="card">
+            <FTabPane label="标签1" name="1">标签1内容</FTabPane>
+            <FTabPane label="标签2" name="2">标签2内容</FTabPane>
+            <FTabPane label="标签3" name="3">标签3内容</FTabPane>
+          </FTabs>
+        </div>
+      </div>
+
+      <!-- 场景六：可关闭的卡片式标签页 -->
+      <div class="section">
+        <h3>可关闭的卡片式标签页</h3>
+        <div class="row">
+          <FTabs v-model="closableCardTab" type="card" closable>
+            <FTabPane label="标签1" name="1">标签1内容</FTabPane>
+            <FTabPane label="标签2" name="2">标签2内容</FTabPane>
+            <FTabPane label="标签3" name="3">标签3内容</FTabPane>
+            <FTabPane label="标签4" name="4">标签4内容</FTabPane>
+          </FTabs>
+        </div>
+      </div>
+
+      <!-- 场景七：不同标签位置 -->
+      <div class="section">
+        <h3>不同标签位置</h3>
+        <div class="row">
+          <FTabs v-model="positionTab" position="top">
+            <FTabPane label="顶部" name="1">顶部标签内容</FTabPane>
+            <FTabPane label="标签2" name="2">标签2内容</FTabPane>
+          </FTabs>
+          <FTabs v-model="positionTab" position="bottom" style="margin-top: 20px;">
+            <FTabPane label="底部" name="1">底部标签内容</FTabPane>
+            <FTabPane label="标签2" name="2">标签2内容</FTabPane>
+          </FTabs>
+          <FTabs v-model="positionTab" position="left" style="margin-top: 20px;">
+            <FTabPane label="左侧" name="1">左侧标签内容</FTabPane>
+            <FTabPane label="标签2" name="2">标签2内容</FTabPane>
+          </FTabs>
+          <FTabs v-model="positionTab" position="right" style="margin-top: 20px;">
+            <FTabPane label="右侧" name="1">右侧标签内容</FTabPane>
+            <FTabPane label="标签2" name="2">标签2内容</FTabPane>
+          </FTabs>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -66,6 +114,9 @@ defineOptions({ name: "FTabs-Demo", inheritAttrs: false })
 import { ref } from 'vue'
 
 const activeTab = ref('1')
+const cardTab = ref('1')
+const closableCardTab = ref('1')
+const positionTab = ref('1')
 </script>
 
 <style scoped lang="scss">

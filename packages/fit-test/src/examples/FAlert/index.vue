@@ -61,6 +61,47 @@
           </FAlert>
         </div>
       </div>
+
+      <!-- 场景六：效果类型 -->
+      <div class="section">
+        <h3>效果类型</h3>
+        <div class="row">
+          <FAlert type="success" title="成功提示" effect="light">浅色效果</FAlert>
+          <FAlert type="success" title="成功提示" effect="dark">深色效果</FAlert>
+          <FAlert type="warning" title="警告提示" effect="light">浅色效果</FAlert>
+          <FAlert type="warning" title="警告提示" effect="dark">深色效果</FAlert>
+        </div>
+      </div>
+
+      <!-- 场景七：居中对齐 -->
+      <div class="section">
+        <h3>居中对齐</h3>
+        <div class="row">
+          <FAlert type="info" title="信息提示" center>居中显示的内容</FAlert>
+          <FAlert type="success" title="成功提示" center show-icon>居中显示带图标</FAlert>
+        </div>
+      </div>
+
+      <!-- 场景八：显示/隐藏图标 -->
+      <div class="section">
+        <h3>显示/隐藏图标</h3>
+        <div class="row">
+          <FAlert type="success" title="成功提示" :show-icon="true">显示图标</FAlert>
+          <FAlert type="success" title="成功提示" :show-icon="false">隐藏图标</FAlert>
+          <FAlert type="error" title="错误提示" :show-icon="true">显示图标</FAlert>
+          <FAlert type="error" title="错误提示" :show-icon="false">隐藏图标</FAlert>
+        </div>
+      </div>
+
+      <!-- 场景九：自定义关闭文本 -->
+      <div class="section">
+        <h3>自定义关闭文本</h3>
+        <div class="row">
+          <FAlert type="info" title="信息提示" closable close-text="知道了">默认关闭图标</FAlert>
+          <FAlert type="warning" title="警告提示" closable close-text="关闭">自定义关闭文本</FAlert>
+          <FAlert type="error" title="错误提示" closable close-text="不再显示">自定义关闭文本</FAlert>
+        </div>
+      </div>
     </div>
   </div>
 </template>

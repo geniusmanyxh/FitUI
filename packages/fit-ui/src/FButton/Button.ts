@@ -1,14 +1,13 @@
+export const btnType = ['default', 'primary', 'success', 'info', 'warning', 'danger'] as const
 
+export type ButtonType = (typeof btnType)[number]
 
-const btnType = ['default','primary','success', 'info', 'warning', 'danger'] as const
-const btnClass:{[key:string]:string} = {}
+export type NativeType = 'button' | 'submit' | 'reset'
 
-type ButtonType =typeof btnType[number]
+const btnClass: { [key: string]: string } = {}
 
-btnType.forEach(val => {
-  btnClass[val] =`${val}_button`
+btnType.forEach((val) => {
+  btnClass[val] = `${val}_button`
 })
 
-export {type ButtonType, btnClass}
-
-
+export { btnClass }

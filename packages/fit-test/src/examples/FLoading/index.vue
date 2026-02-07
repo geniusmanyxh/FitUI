@@ -47,6 +47,63 @@
           </div>
         </div>
       </div>
+
+      <!-- 场景五：v-loading 指令 -->
+      <div class="section">
+        <h3>v-loading 指令</h3>
+        <div class="row">
+          <div v-loading="directiveLoading" class="loading-container">
+            <div class="loading-content">
+              <p>使用 v-loading 指令的加载区域</p>
+            </div>
+          </div>
+          <FButton type="primary" @click="toggleDirectiveLoading">切换指令加载</FButton>
+        </div>
+      </div>
+
+      <!-- 场景六：不同加载类型 -->
+      <div class="section">
+        <h3>不同加载类型</h3>
+        <div class="row">
+          <div class="loading-container">
+            <FLoading v-if="typeLoading" type="spin" text="旋转加载" />
+            <div class="loading-content">
+              <p>旋转类型</p>
+            </div>
+          </div>
+          <div class="loading-container">
+            <FLoading v-if="typeLoading" type="pulse" text="脉冲加载" />
+            <div class="loading-content">
+              <p>脉冲类型</p>
+            </div>
+          </div>
+          <div class="loading-container">
+            <FLoading v-if="typeLoading" type="dots" text="点状加载" />
+            <div class="loading-content">
+              <p>点状类型</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 场景七：加载带自定义文本 -->
+      <div class="section">
+        <h3>加载带自定义文本</h3>
+        <div class="row">
+          <div class="loading-container">
+            <FLoading v-if="customTextLoading" text="正在处理数据..." />
+            <div class="loading-content">
+              <p>自定义加载文本</p>
+            </div>
+          </div>
+          <div class="loading-container">
+            <FLoading v-if="customTextLoading" type="pulse" text="请稍候..." />
+            <div class="loading-content">
+              <p>脉冲加载 + 自定义文本</p>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -55,11 +112,15 @@
 defineOptions({ name: "FLoading-Demo", inheritAttrs: false })
 
 import { ref } from 'vue'
+import { vLoading } from 'fit-ui/src/FLoading'
 
 const areaLoading = ref(true)
 const fullscreenLoading = ref(false)
 const sizeLoading = ref(true)
 const textLoading = ref(true)
+const directiveLoading = ref(true)
+const typeLoading = ref(true)
+const customTextLoading = ref(true)
 
 const toggleAreaLoading = () => {
   areaLoading.value = !areaLoading.value
@@ -67,6 +128,10 @@ const toggleAreaLoading = () => {
 
 const toggleFullscreenLoading = () => {
   fullscreenLoading.value = !fullscreenLoading.value
+}
+
+const toggleDirectiveLoading = () => {
+  directiveLoading.value = !directiveLoading.value
 }
 </script>
 

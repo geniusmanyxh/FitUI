@@ -2,15 +2,21 @@
   <div ref="selectRef" class="f-select" :class="selectClass" @click="handleClick">
     <div class="f-select__trigger" ref="triggerRef" tabindex="0" @keydown="handleKeydown">
       <div v-if="multiple && Array.isArray(modelValue) && modelValue.length > 0" class="f-select__tags">
-        <span v-for="(item, index) in selectedOptions" :key="item.value" class="f-select__tag">
-          {{ item.label }}
-          <span v-if="!disabled && (!multipleLimit || index < multipleLimit)" class="f-select__tag-close" @click.stop="removeTag(item.value)">
-            ×
+        <template v-if="collapseTags">
+          <span v-for="(item, index) in selectedOptions.slice(0, maxCollapseTags)" :key="item.value" class="f-select__tag">
+            {{ item.label }}
+            <span v-if="!disabled" class="f-select__tag-close" @click.stop="removeTag(item.value)">×</span>
           </span>
-        </span>
-        <span v-if="multipleLimit && selectedOptions.length > multipleLimit" class="f-select__tag">
-          +{{ selectedOptions.length - multipleLimit }}
-        </span>
+          <span v-if="selectedOptions.length > maxCollapseTags" class="f-select__tag f-select__tag--collapse" :title="collapseTagsTooltip ? selectedOptions.slice(maxCollapseTags).map(o => o.label).join(', ') : undefined">
+            +{{ selectedOptions.length - maxCollapseTags }}
+          </span>
+        </template>
+        <template v-else>
+          <span v-for="(item, index) in selectedOptions" :key="item.value" class="f-select__tag">
+            {{ item.label }}
+            <span v-if="!disabled" class="f-select__tag-close" @click.stop="removeTag(item.value)">×</span>
+          </span>
+        </template>
       </div>
       <input
         v-if="filterable"
@@ -116,7 +122,16 @@ const props = withDefaults(defineProps<SelectProps>(), {
   loading: false,
   multiple: false,
   size: 'medium',
-  multipleLimit: 0
+  multipleLimit: 0,
+  collapseTags: false,
+  collapseTagsTooltip: false,
+  maxCollapseTags: 1,
+  allowCreate: false,
+  reserveKeyword: false,
+  defaultFirstOption: false,
+  validateEvent: true,
+  noDataText: '暂无数据',
+  noMatchText: '无匹配数据',
 })
 
 const emit = defineEmits<{
@@ -192,7 +207,7 @@ const filteredOptions = computed(() => {
 })
 
 const noDataText = computed(() => {
-  return query.value ? '无匹配数据' : '暂无数据'
+  return query.value ? props.noMatchText : props.noDataText
 })
 
 function getAllOptions(): SelectOption[] {
@@ -213,14 +228,16 @@ function getAllOptions(): SelectOption[] {
   return result
 }
 
-function filterOptions(options: SelectOption[], query: string): SelectOption[] {
+function filterOptions(options: SelectOption[], queryStr: string): SelectOption[] {
   return options.reduce((acc: SelectOption[], opt) => {
     if (opt.children) {
-      const filteredChildren = filterOptions(opt.children, query)
+      const filteredChildren = filterOptions(opt.children, queryStr)
       if (filteredChildren.length > 0) {
         acc.push({ ...opt, children: filteredChildren })
       }
-    } else if (opt.label.toLowerCase().includes(query)) {
+    } else if (props.filterMethod) {
+      if (props.filterMethod(queryStr, opt)) acc.push(opt)
+    } else if (opt.label.toLowerCase().includes(queryStr)) {
       acc.push(opt)
     }
     return acc
@@ -356,6 +373,10 @@ function handleKeydown(event: KeyboardEvent) {
         if (option && !option.disabled) {
           selectOption(option)
         }
+      } else if (props.allowCreate && props.filterable && query.value) {
+        // Create new option
+        const newOpt: SelectOption = { value: query.value, label: query.value }
+        selectOption(newOpt)
       } else {
         toggleDropdown()
       }

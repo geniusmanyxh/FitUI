@@ -1,11 +1,23 @@
 <template>
-    <div ref="wrapperRef" class="f-tooltip-wrapper" :class="modeClassRef" @mouseenter="handleMouseEnter" @mouseleave="handleMouseLeave" @click.stop="handleClick">
+    <div ref="wrapperRef" class="f-tooltip-wrapper" :class="modeClassRef" @mouseenter="handleMouseEnter" @mouseleave="handleMouseLeave" @click.stop="handleClick" @focus="handleFocus" @blur="handleBlur">
         <slot></slot> <!-- 允许用户自定义触发元素 -->
 
-        <div v-show="visible" class="f-tooltip-arrow" :class="arrowPosition" :style="arrowStyle"></div>
-        <div ref="contentRef" v-show="visible" class="f-tooltip-content" :style="tooltipStyle">
+        <Teleport v-if="teleported && visible" to="body">
+          <div class="f-tooltip-arrow" :class="arrowPosition" :style="arrowStyle"></div>
+        </Teleport>
+        <div v-else v-show="visible" class="f-tooltip-arrow" :class="arrowPosition" :style="arrowStyle"></div>
+        <Teleport v-if="teleported" to="body">
+          <div ref="contentRef" v-show="visible" class="f-tooltip-content" :class="popperClass" :style="tooltipStyle" @mouseenter="handleTooltipMouseEnter" @mouseleave="handleTooltipMouseLeave">
+              <div class="f-tooltip-inner" :style="{minWidth:(maxWidth && maxWidth > 0)?'auto':'max-content', width: (maxWidth && maxWidth>0)? `${maxWidth}px`:'fit-content' }">
+                  <span v-if="rawContent" v-html="content"></span>
+                  <span v-else>{{ content }}</span>
+              </div>
+          </div>
+        </Teleport>
+        <div v-else ref="contentRef" v-show="visible" class="f-tooltip-content" :class="popperClass" :style="tooltipStyle" @mouseenter="handleTooltipMouseEnter" @mouseleave="handleTooltipMouseLeave">
             <div class="f-tooltip-inner" :style="{minWidth:(maxWidth && maxWidth > 0)?'auto':'max-content', width: (maxWidth && maxWidth>0)? `${maxWidth}px`:'fit-content' }">
-                {{ content }}
+                <span v-if="rawContent" v-html="content"></span>
+                <span v-else>{{ content }}</span>
             </div>
         </div>
     </div>
@@ -80,8 +92,10 @@ export interface ToolTipProps {
    * @description
    * - hover: 鼠标悬停触发
    * - click: 点击触发
+   * - focus: 聚焦触发
+   * - manual: 手动控制
    */
-  trigger?: 'hover' | 'click'
+  trigger?: 'hover' | 'click' | 'focus' | 'manual'
   
   /**
    * 提示偏移量（像素）
@@ -101,6 +115,55 @@ export interface ToolTipProps {
    * @description 不设置则根据内容自适应
    */
   maxWidth?: number
+  
+  /**
+   * 是否禁用
+   * @default false
+   * @description 当设置为 true 时，tooltip 不会显示
+   */
+  disabled?: boolean
+  
+  /**
+   * 显示延迟时间（毫秒）
+   * @default 0
+   */
+  showAfter?: number
+  
+  /**
+   * 隐藏延迟时间（毫秒）
+   * @default 200
+   */
+  hideAfter?: number
+  
+  /**
+   * 弹出层的自定义类名
+   * @default undefined
+   */
+  popperClass?: string
+  
+  /**
+   * 是否将内容作为 HTML 渲染
+   * @default false
+   */
+  rawContent?: boolean
+  
+  /**
+   * 是否持久化显示（鼠标移出后不消失）
+   * @default false
+   */
+  persistent?: boolean
+  
+  /**
+   * 是否使用 Teleport 传送
+   * @default true
+   */
+  teleported?: boolean
+  
+  /**
+   * 提示位置（position 的别名）
+   * @default undefined
+   */
+  placement?: string
 }
 
 const props = withDefaults(defineProps<ToolTipProps>(), {
@@ -110,6 +173,14 @@ const props = withDefaults(defineProps<ToolTipProps>(), {
     trigger: 'hover',
     offset: 2,
     zIndex: 1001,
+    disabled: false,
+    showAfter: 0,
+    hideAfter: 200,
+    popperClass: undefined,
+    rawContent: false,
+    persistent: false,
+    teleported: true,
+    placement: undefined
 });
 
 const wrapperRef = ref<HTMLElement | null>(null)
@@ -119,6 +190,15 @@ const arrowPosition = ref('arrow-top');
 const tooltipStyle = ref<Record<string, string | number>>({});
 const arrowStyle = ref<Record<string, string | number>>({});
 const modeClassRef = ref(`mode-${props.mode}`)
+const showTimer = ref<number>()
+const hideTimer = ref<number>()
+
+// 计算实际位置（支持 placement 别名）
+const actualPosition = computed(() => {
+  return props.placement || props.position
+})
+
+const popperClass = computed(() => props.popperClass)
 
 // 根据主题动态设置样式
 const themeClassCPT = () => {
@@ -148,24 +228,78 @@ const themeClassCPT = () => {
 };
 
 const handleMouseEnter = () => {
+    if (props.disabled || props.trigger !== 'hover') return
+    if (hideTimer.value) {
+        clearTimeout(hideTimer.value)
+        hideTimer.value = undefined
+    }
     updateTooltipPosition()
-    if (props.trigger === 'hover') {
-        visible.value = true;
+    if (props.showAfter > 0) {
+        if (showTimer.value) {
+            clearTimeout(showTimer.value)
+        }
+        showTimer.value = window.setTimeout(() => {
+            visible.value = true
+        }, props.showAfter)
+    } else {
+        visible.value = true
     }
 };
 
 const handleMouseLeave = () => {
-    if (props.trigger === 'hover') {
-        visible.value = false;
+    if (props.disabled || props.trigger !== 'hover') return
+    if (showTimer.value) {
+        clearTimeout(showTimer.value)
+        showTimer.value = undefined
+    }
+    if (!props.persistent) {
+        if (props.hideAfter > 0) {
+            hideTimer.value = window.setTimeout(() => {
+                visible.value = false
+            }, props.hideAfter)
+        } else {
+            visible.value = false
+        }
     }
 };
 
 const handleClick = () => {
+    if (props.disabled || props.trigger !== 'click') return
     updateTooltipPosition()
-    if (props.trigger === 'click') {
-        visible.value = !visible.value;
-    }
+    visible.value = !visible.value
 };
+
+const handleFocus = () => {
+    if (props.disabled || props.trigger !== 'focus') return
+    updateTooltipPosition()
+    visible.value = true
+}
+
+const handleBlur = () => {
+    if (props.disabled || props.trigger !== 'focus') return
+    visible.value = false
+}
+
+const handleTooltipMouseEnter = () => {
+    if (props.persistent && props.trigger === 'hover') {
+        if (hideTimer.value) {
+            clearTimeout(hideTimer.value)
+            hideTimer.value = undefined
+        }
+    }
+}
+
+const handleTooltipMouseLeave = () => {
+    if (props.persistent && props.trigger === 'hover') {
+        if (props.hideAfter > 0) {
+            hideTimer.value = window.setTimeout(() => {
+                visible.value = false
+            }, props.hideAfter)
+        } else {
+            visible.value = false
+        }
+    }
+}
 
 // 根据 position 计算箭头和提示框的位置（使用 template ref 避免多实例选错节点）
 const updateTooltipPosition = () => {
@@ -178,7 +312,8 @@ const updateTooltipPosition = () => {
     // console.log('tooltip',tooltipRect);
 
 
-    switch (props.position) {
+    const position = actualPosition.value
+    switch (position) {
         case 'top':
             arrowPosition.value = 'arrow-top';
             tooltipStyle.value = {
@@ -371,11 +506,17 @@ onMounted(() => {
 
 onBeforeUnmount(() => {
     window.removeEventListener('resize', updateTooltipPosition);
+    if (showTimer.value) {
+        clearTimeout(showTimer.value)
+    }
+    if (hideTimer.value) {
+        clearTimeout(hideTimer.value)
+    }
 });
 
 watch(
     [
-        () => props.position,
+        () => actualPosition.value,
         () => props.mode,
         () => props.offset,
         () => props.zIndex,
@@ -385,6 +526,30 @@ watch(
     () => updateTooltipPosition(),
     { immediate: true }
 );
+
+// 监听 disabled 变化
+watch(() => props.disabled, (newVal) => {
+    if (newVal) {
+        visible.value = false
+        if (showTimer.value) {
+            clearTimeout(showTimer.value)
+            showTimer.value = undefined
+        }
+        if (hideTimer.value) {
+            clearTimeout(hideTimer.value)
+            hideTimer.value = undefined
+        }
+    }
+})
+
+// 监听 trigger 变化，重置状态
+watch(() => props.trigger, () => {
+    if (props.trigger === 'manual') {
+        // manual 模式需要外部控制
+    } else {
+        visible.value = false
+    }
+})
 </script>
 
 <style lang="scss" scoped>

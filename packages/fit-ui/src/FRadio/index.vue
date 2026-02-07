@@ -1,74 +1,103 @@
 <template>
-  <div 
-    :class="[`radio_wrapper`, { 'radio_disabled': disabled }]" 
-    @click="handleClick"
-    @keydown.enter="handleClick"
-    @keydown.space="handleClick"
+  <label
+    :class="radioClasses"
+    @click.prevent="handleClick"
+    @keydown.enter.prevent="handleClick"
+    @keydown.space.prevent="handleClick"
     role="radio"
-    :aria-checked="modelValue"
-    :aria-disabled="disabled"
-    tabindex="0"
+    :aria-checked="isChecked"
+    :aria-disabled="isDisabled"
+    :tabindex="isChecked ? 0 : -1"
   >
-    <div :class="[`radio_core`, { 'radio_core_active': modelValue, 'radio_core_disabled': disabled }]">
-      <div v-if="modelValue" class="radio_icon">
-        <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <circle cx="5" cy="5" r="4" fill="white"/>
-        </svg>
-      </div>
-    </div>
-    <div v-if="label" class="radio_label">
-      <slot></slot>
-    </div>
-  </div>
+    <span :class="['f-radio__input', { 'is-checked': isChecked, 'is-disabled': isDisabled }]">
+      <span class="f-radio__inner"></span>
+      <input
+        type="radio"
+        class="f-radio__original"
+        :name="name"
+        :disabled="isDisabled"
+        :checked="isChecked"
+        :value="value"
+        @change="handleChange"
+      />
+    </span>
+    <span v-if="$slots.default || label" class="f-radio__label">
+      <slot>{{ label }}</slot>
+    </span>
+  </label>
 </template>
 
 <script lang="ts" setup>
-/**
- * FRadio 单选框组件
- *
- * @description 用于多选一的场景，如选择单个选项
- * @example
- * ```vue
- * <FRadio v-model="value" value="option1">选项1</FRadio>
- * <FRadio v-model="value" value="option2" disabled>禁用选项</FRadio>
- * ```
- */
+import { computed, inject } from 'vue'
+import type { RadioGroupContext } from './RadioGroup.vue'
+
 defineOptions({ name: 'FRadio', inheritAttrs: false })
 
-const props = defineProps<{
-  /**
-   * 绑定值
-   * @default false
-   */
-  modelValue: boolean
-  /**
-   * 是否禁用
-   * @default false
-   */
+export interface RadioProps {
+  modelValue?: string | number | boolean
+  value?: string | number | boolean
+  label?: string
   disabled?: boolean
-  /**
-   * 是否显示标签
-   * @default false
-   */
-  label?: boolean
-}>()
+  border?: boolean
+  size?: 'small' | 'medium' | 'large'
+  name?: string
+  validateEvent?: boolean
+}
+
+const props = withDefaults(defineProps<RadioProps>(), {
+  disabled: false,
+  border: false,
+  size: 'medium',
+  validateEvent: true,
+})
 
 const emit = defineEmits<{
-  /**
-   * 绑定值变化时触发
-   */
-  (e: 'update:modelValue', value: boolean): void
-  /**
-   * 状态变化时触发
-   */
-  (e: 'change', value: boolean): void
+  'update:modelValue': [value: string | number | boolean]
+  change: [value: string | number | boolean]
 }>()
 
-const handleClick = () => {
-  if (props.disabled) return
-  const newValue = !props.modelValue
-  emit('update:modelValue', newValue)
-  emit('change', newValue)
+const radioGroup = inject<RadioGroupContext | null>('FRadioGroup', null)
+
+const isGroup = computed(() => !!radioGroup)
+
+const isChecked = computed(() => {
+  if (isGroup.value && radioGroup) {
+    return radioGroup.modelValue.value === props.value
+  }
+  return props.modelValue === props.value || props.modelValue === true
+})
+
+const isDisabled = computed(() => {
+  if (radioGroup?.disabled?.value) return true
+  return props.disabled
+})
+
+const actualSize = computed(() => {
+  return radioGroup?.size?.value ?? props.size
+})
+
+const radioClasses = computed(() => {
+  const classes = ['f-radio', `f-radio--${actualSize.value}`]
+  if (isChecked.value) classes.push('is-checked')
+  if (isDisabled.value) classes.push('is-disabled')
+  if (props.border) classes.push('is-bordered')
+  return classes
+})
+
+function handleClick() {
+  if (isDisabled.value) return
+  if (isChecked.value) return // radio can't uncheck
+
+  if (isGroup.value && radioGroup) {
+    radioGroup.changeEvent(props.value as any)
+  } else {
+    emit('update:modelValue', props.value as any)
+    emit('change', props.value as any)
+  }
+}
+
+function handleChange(e: Event) {
+  // handled by handleClick
 }
 </script>
 

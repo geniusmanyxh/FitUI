@@ -1,8 +1,10 @@
 <template>
-  <Teleport to="body">
+  <Teleport :to="appendToTarget">
     <div 
-      v-if="modelValue" 
+      v-if="!destroyOnClose || modelValue" 
       class="modal_wrapper"
+      :class="{ 'modal_wrapper_fullscreen': fullscreen }"
+      :style="wrapperStyle"
       @click="handleOverlayClick"
       role="dialog"
       :aria-modal="true"
@@ -17,13 +19,21 @@
         class="modal_content"
         :class="[
           `modal_content_${size}`,
-          { 'modal_content_fade': true, 'modal_content_no_header': !showHeader, 'modal_content_no_footer': !showFooter }
+          { 
+            'modal_content_fade': true, 
+            'modal_content_no_header': !showHeader, 
+            'modal_content_no_footer': !showFooter,
+            'modal_content_fullscreen': fullscreen,
+            'modal_content_center': center,
+            'modal_content_draggable': draggable
+          }
         ]"
+        :style="modalContentStyle"
         @click.stop
         tabindex="-1"
       >
         <!-- 头部 -->
-        <div v-if="showHeader" class="modal_header">
+        <div v-if="showHeader" ref="headerRef" class="modal_header" :class="{ 'modal_header_draggable': draggable }">
           <div class="modal_title" id="modal-title">
             <slot name="title">{{ title }}</slot>
           </div>
@@ -44,7 +54,7 @@
         </div>
         
         <!-- 内容 -->
-        <div class="modal_body">
+        <div v-if="!destroyOnClose || modelValue" class="modal_body">
           <slot></slot>
         </div>
         
@@ -90,9 +100,9 @@
  */
 defineOptions({ name: 'FModal', inheritAttrs: false })
 
-import { ref, computed, watch, onMounted, onUnmounted } from 'vue'
+import { ref, computed, watch, onMounted, onUnmounted, nextTick } from 'vue'
 
-const props = defineProps<{
+const props = withDefaults(defineProps<{
   /**
    * 绑定值，控制弹窗显示/隐藏
    * @default false
@@ -144,7 +154,66 @@ const props = defineProps<{
    * @default '确定'
    */
   confirmText?: string
-}>()
+  /**
+   * 是否可拖拽
+   * @default false
+   */
+  draggable?: boolean
+  /**
+   * 是否全屏
+   * @default false
+   */
+  fullscreen?: boolean
+  /**
+   * 弹窗宽度
+   * @default undefined
+   * @description 可以是字符串（如 '500px'）或数字（像素值）
+   */
+  width?: string | number
+  /**
+   * 距离顶部的距离
+   * @default '15vh'
+   */
+  top?: string
+  /**
+   * 关闭前的回调
+   * @default undefined
+   * @description 返回 false 或 Promise<false> 可以阻止关闭
+   */
+  beforeClose?: () => Promise<boolean> | boolean
+  /**
+   * 关闭时是否销毁内容
+   * @default false
+   */
+  destroyOnClose?: boolean
+  /**
+   * z-index 层级
+   * @default undefined
+   */
+  zIndex?: number
+  /**
+   * 是否居中
+   * @default false
+   */
+  center?: boolean
+  /**
+   * 是否锁定 body 滚动
+   * @default true
+   */
+  lockScroll?: boolean
+  /**
+   * 挂载节点
+   * @default undefined
+   */
+  appendTo?: string
+}>(), {
+  draggable: false,
+  fullscreen: false,
+  top: '15vh',
+  destroyOnClose: false,
+  center: false,
+  lockScroll: true
+})
 
 const emit = defineEmits<{
   /**
@@ -166,7 +235,12 @@ const emit = defineEmits<{
 }>()
 
 const modalRef = ref<HTMLElement | null>(null)
+const headerRef = ref<HTMLElement | null>(null)
 const previousFocus = ref<HTMLElement | null>(null)
+const isDragging = ref(false)
+const dragStart = ref({ x: 0, y: 0 })
+const modalPosition = ref({ x: 0, y: 0 })
+const originalBodyOverflow = ref('')
 
 // 默认值处理
 const showHeader = computed(() => props.showHeader ?? true)
@@ -177,6 +251,47 @@ const closeOnPressEscape = computed(() => props.closeOnPressEscape ?? true)
 const cancelText = computed(() => props.cancelText ?? '取消')
 const confirmText = computed(() => props.confirmText ?? '确定')
 const size = computed(() => props.size ?? 'medium')
+const fullscreen = computed(() => props.fullscreen ?? false)
+const draggable = computed(() => props.draggable ?? false)
+const center = computed(() => props.center ?? false)
+
+// 计算挂载目标
+const appendToTarget = computed(() => {
+  if (!props.appendTo) {
+    return 'body'
+  }
+  return props.appendTo
+})
+
+// 计算弹窗内容样式
+const modalContentStyle = computed(() => {
+  const style: Record<string, string> = {}
+  
+  if (props.width) {
+    style.width = typeof props.width === 'number' ? `${props.width}px` : props.width
+  }
+  
+  if (!fullscreen.value && props.top) {
+    style.top = props.top
+  }
+  
+  if (draggable.value && modalPosition.value.x !== 0) {
+    style.transform = `translate(${modalPosition.value.x}px, ${modalPosition.value.y}px)`
+  }
+  
+  return style
+})
+
+// 计算包装器样式
+const wrapperStyle = computed(() => {
+  const style: Record<string, string> = {}
+  
+  if (props.zIndex !== undefined) {
+    style.zIndex = `${props.zIndex}`
+  }
+  
+  return style
+})
 
 // 处理遮罩层点击
 const handleOverlayClick = () => {
@@ -186,7 +301,13 @@ const handleOverlayClick = () => {
 }
 
 // 处理关闭
-const handleClose = () => {
+const handleClose = async () => {
+  if (props.beforeClose) {
+    const result = await props.beforeClose()
+    if (result === false) {
+      return
+    }
+  }
   emit('update:modelValue', false)
   emit('close')
 }
@@ -256,14 +377,75 @@ const restorePreviousFocus = () => {
   }
 }
 
+// 拖拽相关函数
+const handleDragStart = (e: MouseEvent) => {
+  if (!draggable.value || !modalRef.value) return
+  
+  isDragging.value = true
+  dragStart.value = {
+    x: e.clientX - modalPosition.value.x,
+    y: e.clientY - modalPosition.value.y
+  }
+  
+  document.addEventListener('mousemove', handleDragMove)
+  document.addEventListener('mouseup', handleDragEnd)
+  e.preventDefault()
+}
+
+const handleDragMove = (e: MouseEvent) => {
+  if (!isDragging.value) return
+  
+  modalPosition.value = {
+    x: e.clientX - dragStart.value.x,
+    y: e.clientY - dragStart.value.y
+  }
+}
+
+const handleDragEnd = () => {
+  isDragging.value = false
+  document.removeEventListener('mousemove', handleDragMove)
+  document.removeEventListener('mouseup', handleDragEnd)
+}
+
+// 锁定/解锁 body 滚动
+const lockBodyScroll = () => {
+  if (props.lockScroll) {
+    originalBodyOverflow.value = document.body.style.overflow
+    document.body.style.overflow = 'hidden'
+  }
+}
+
+const unlockBodyScroll = () => {
+  if (props.lockScroll) {
+    document.body.style.overflow = originalBodyOverflow.value
+  }
+}
+
 // 监听显示/隐藏
-watch(() => props.modelValue, (newValue) => {
+watch(() => props.modelValue, async (newValue) => {
   if (newValue) {
     savePreviousFocus()
+    lockBodyScroll()
+    // 重置拖拽位置
+    modalPosition.value = { x: 0, y: 0 }
     // 下一帧聚焦，确保 DOM 已经渲染
+    await nextTick()
     setTimeout(focusModal, 100)
+    
+    // 添加拖拽事件监听
+    if (draggable.value && headerRef.value) {
+      headerRef.value.addEventListener('mousedown', handleDragStart)
+    }
   } else {
+    unlockBodyScroll()
     restorePreviousFocus()
+    
+    // 移除拖拽事件监听
+    if (headerRef.value) {
+      headerRef.value.removeEventListener('mousedown', handleDragStart)
+    }
+    document.removeEventListener('mousemove', handleDragMove)
+    document.removeEventListener('mouseup', handleDragEnd)
   }
 })
 
@@ -274,6 +456,9 @@ onMounted(() => {
 
 onUnmounted(() => {
   document.removeEventListener('keydown', handleKeydown)
+  document.removeEventListener('mousemove', handleDragMove)
+  document.removeEventListener('mouseup', handleDragEnd)
+  unlockBodyScroll()
   restorePreviousFocus()
 })
 </script>

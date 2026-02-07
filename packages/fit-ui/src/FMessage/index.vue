@@ -1,10 +1,13 @@
 <template>
   <transition name="fade-message">
     <div class="f-message-item" :style="{ zIndex }" :class="curTypeClass" v-if="isShow">
-      <div class="f-message-item-content ">
+      <div class="f-message-item-content " :style="{ top: offset ? `${offset}px` : undefined }">
         <slot name="icon"><f-icon :icon="defaultIcon" size="medium" class=" mr-1"></f-icon></slot>
         <div>
-          <slot>{{ msgContent }}</slot>
+          <slot>
+            <span v-if="dangerouslyUseHTMLString" v-html="msgContent"></span>
+            <span v-else>{{ msgContent }}</span>
+          </slot>
         </div>
       </div>
       <div class="f-message-item-close " @click.stop="closeMessage" v-if="showClose">
@@ -78,6 +81,33 @@ export interface MessageProps {
    * @default 1000
    */
   zIndex?: number | undefined
+  
+  /**
+   * 是否合并重复消息
+   * @default false
+   * @description 当设置为 true 时，相同类型的重复消息会被合并
+   */
+  grouping?: boolean | undefined
+  
+  /**
+   * 是否将消息内容作为 HTML 渲染
+   * @default false
+   * @description 设置为 true 时，msg 内容会被作为 HTML 渲染（注意 XSS 风险）
+   */
+  dangerouslyUseHTMLString?: boolean | undefined
+  
+  /**
+   * 距离顶部的偏移量（像素）
+   * @default undefined
+   */
+  offset?: number | undefined
+  
+  /**
+   * 挂载节点
+   * @default undefined
+   * @description 可以是字符串选择器或 HTMLElement，未设置时挂载到 body
+   */
+  appendTo?: string | HTMLElement | undefined
 }
 
 const props = withDefaults(defineProps<MessageProps>(), {
@@ -86,7 +116,11 @@ const props = withDefaults(defineProps<MessageProps>(), {
   duration: 3000,
   icon: '',
   showClose: false,
-  zIndex: 1000
+  zIndex: 1000,
+  grouping: false,
+  dangerouslyUseHTMLString: false,
+  offset: undefined,
+  appendTo: undefined
 })
 // 定义消息背景样式类映射
 const msgBgClass: Record<MessageType, string> = Object.fromEntries(

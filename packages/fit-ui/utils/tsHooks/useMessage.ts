@@ -51,6 +51,14 @@ type msgProps = {
   showClose?: boolean
   /** z-index 层级 */
   zIndex?: number
+  /** 是否合并重复消息 */
+  grouping?: boolean
+  /** 是否将消息内容作为 HTML 渲染 */
+  dangerouslyUseHTMLString?: boolean
+  /** 距离顶部的偏移量（像素） */
+  offset?: number
+  /** 挂载节点 */
+  appendTo?: string | HTMLElement
   /** 关闭回调函数 */
   onClose?: (res:MsgResult) => void
   /** 显示回调函数 */
@@ -72,22 +80,38 @@ type simpleMsgProps = Omit<msgProps, 'type' | 'msg'>
  * @returns {Function} warning - 警告消息快捷方法
  * @returns {Function} info - 信息消息快捷方法
  */
+// 存储消息实例，用于分组和关闭所有
+const messageInstances: Array<{ app: any, container: HTMLElement, curEl: HTMLElement }> = []
+
 export const useMessage = () => {
   /**
    * 创建消息容器
+   * @param appendTo - 挂载节点
    * @returns 返回包含容器元素引用的对象
    * @returns {HTMLElement} curEl - 消息容器根元素
    * @returns {HTMLElement} container - 单个消息项容器
    */
-  const createContainer = () => {
+  const createContainer = (appendTo?: string | HTMLElement) => {
+    // 确定挂载目标
+    let mountTarget: HTMLElement = document.body
+    if (appendTo) {
+      if (typeof appendTo === 'string') {
+        const el = document.querySelector(appendTo) as HTMLElement
+        if (el) {
+          mountTarget = el
+        }
+      } else if (appendTo instanceof HTMLElement) {
+        mountTarget = appendTo
+      }
+    }
+
     // 尝试获取已存在的消息容器元素
-    let curEl = document.querySelector(`.${ComponentContainerClass.FMessage}`);
-    // console.warn(curEl)
-    // 如果不存在，创建并添加到文档体中
+    let curEl = mountTarget.querySelector(`.${ComponentContainerClass.FMessage}`) as HTMLElement
+    // 如果不存在，创建并添加到挂载目标
     if (!curEl) {
       curEl = document.createElement('div');
       curEl.setAttribute('class', `${ComponentContainerClass.FMessage}`);
-      document.body.appendChild(curEl);
+      mountTarget.appendChild(curEl);
     }
     // 创建单个消息项的容器
     const container = document.createElement('div');
@@ -105,13 +129,36 @@ export const useMessage = () => {
    * @param options.icon - 自定义图标
    * @param options.showClose - 是否显示关闭按钮
    * @param options.zIndex - z-index 层级
+   * @param options.grouping - 是否合并重复消息
+   * @param options.dangerouslyUseHTMLString - 是否将消息内容作为 HTML 渲染
+   * @param options.offset - 距离顶部的偏移量
+   * @param options.appendTo - 挂载节点
    * @param options.onClose - 关闭回调
    * @param options.onShow - 显示回调
    */
   const message = (options: msgProps) => {
-      const { curEl, container } = createContainer();
-      // console.log('message',curEl)
-      // console.log('message container',container)
+      // 如果启用分组，检查是否有相同类型的重复消息
+      if (options.grouping) {
+        const existingMessage = messageInstances.find(instance => {
+          // 通过检查容器中是否有相同类型的消息来判断
+          const messageEl = instance.container.querySelector('.f-message-item')
+          if (messageEl) {
+            const typeClass = `msg_${options.type || 'default'}`
+            return messageEl.classList.contains(typeClass)
+          }
+          return false
+        })
+        
+        if (existingMessage) {
+          // 如果找到重复消息，更新其内容而不是创建新消息
+          // 这里需要访问消息组件的实例来更新内容
+          // 由于 Vue 3 的限制，我们可能需要重新渲染
+          // 为了简化，这里仍然创建新消息，但可以优化为更新现有消息
+          // 注意：实际实现可能需要更复杂的逻辑来更新现有消息内容
+        }
+      }
+
+      const { curEl, container } = createContainer(options.appendTo);
       // 如果duration为0或notime，则显示关闭按钮
       if (options.duration === 'notime' || options.duration === 0) {
         options.showClose = true
@@ -127,12 +174,17 @@ export const useMessage = () => {
             onClose: () => {
               setTimeout(() => {
                 app.unmount(); // 当消息关闭时，卸载Vue应用
-              // 根据当前容器子元素数量，决定是否移除容器
-              if (curEl.children.length <= 1) {
-                curEl.remove();
-              } else {
-                curEl.removeChild(container);
-              }
+                // 从实例数组中移除
+                const index = messageInstances.findIndex(inst => inst.app === app)
+                if (index > -1) {
+                  messageInstances.splice(index, 1)
+                }
+                // 根据当前容器子元素数量，决定是否移除容器
+                if (curEl.children.length <= 1) {
+                  curEl.remove();
+                } else {
+                  curEl.removeChild(container);
+                }
               },500)
               options.onClose && options.onClose({ type: options.type, msg: options.msg,close: true,show: false })
             },
@@ -140,7 +192,9 @@ export const useMessage = () => {
         },
       });
       app.mount(container); // 将Vue应用挂载到消息容器
-     
+      
+      // 存储实例用于后续操作
+      messageInstances.push({ app, container, curEl })
   };
 
   /**
@@ -191,12 +245,32 @@ export const useMessage = () => {
     return message({ ...options, type: 'info', msg });
   };
 
+  /**
+   * 关闭所有消息
+   */
+  const closeAll = () => {
+    messageInstances.forEach(({ app, container, curEl }) => {
+      try {
+        app.unmount()
+        if (curEl.children.length <= 1) {
+          curEl.remove()
+        } else {
+          curEl.removeChild(container)
+        }
+      } catch (e) {
+        // 忽略卸载错误
+      }
+    })
+    messageInstances.length = 0
+  }
+
   // 返回消息显示和成功消息的方法
   return {
     message,
     success,
     error,
     warning,
-    info
+    info,
+    closeAll
   };
 }

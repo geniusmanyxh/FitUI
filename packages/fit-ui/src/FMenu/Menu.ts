@@ -17,6 +17,15 @@ export interface MenuProps {
   defaultActive?: string
   collapse?: boolean
   items?: MenuItem[]
+  router?: boolean
+  defaultOpeneds?: string[]
+  uniqueOpened?: boolean
+  menuTrigger?: 'hover' | 'click'
+  backgroundColor?: string
+  textColor?: string
+  activeTextColor?: string
+  collapseTransition?: boolean
+  ellipsis?: boolean
 }
 
 export interface MenuEmits {

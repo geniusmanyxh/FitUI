@@ -1,12 +1,21 @@
 <template>
-  <Teleport to="body">
+  <Teleport :to="appendToTarget">
     <Transition name="f-notification">
-      <div v-if="visible" class="f-notification" :class="notificationClass" :style="notificationStyle">
+      <div 
+        v-if="visible" 
+        class="f-notification" 
+        :class="[notificationClass, customClass]" 
+        :style="notificationStyle"
+        @click="handleClick"
+      >
         <div class="f-notification__content">
           <FIcon v-if="type !== 'info'" :icon="typeIcon" class="f-notification__icon" />
           <div class="f-notification__message">
             <div v-if="title" class="f-notification__title">{{ title }}</div>
-            <div class="f-notification__text">{{ message }}</div>
+            <div class="f-notification__text">
+              <span v-if="dangerouslyUseHTMLString" v-html="message"></span>
+              <span v-else>{{ message }}</span>
+            </div>
           </div>
         </div>
         <button v-if="showClose" class="f-notification__close" @click="handleClose">
@@ -31,12 +40,31 @@ const props = withDefaults(defineProps<NotificationProps>(), {
   duration: 3000,
   showClose: true,
   position: 'top-right',
-  offset: 20
+  offset: 20,
+  dangerouslyUseHTMLString: false,
+  customClass: undefined,
+  zIndex: undefined,
+  appendTo: undefined,
+  onClick: undefined,
+  onClose: undefined
 })
 
 const emit = defineEmits<NotificationEmits>()
 
 const visible = ref(true)
+
+// 计算挂载目标
+const appendToTarget = computed(() => {
+  if (!props.appendTo) {
+    return 'body'
+  }
+  if (typeof props.appendTo === 'string') {
+    return props.appendTo
+  }
+  // 如果是 HTMLElement，需要返回一个选择器或 'body'
+  // 由于 Teleport 的限制，这里返回 'body'，实际挂载逻辑需要在外部处理
+  return 'body'
+})
 
 const notificationClass = computed(() => {
   return [
@@ -44,6 +72,8 @@ const notificationClass = computed(() => {
     `f-notification--${props.position}`
   ]
 })
+
+const customClass = computed(() => props.customClass)
 
 const notificationStyle = computed(() => {
   const style: Record<string, string> = {}
@@ -58,6 +88,10 @@ const notificationStyle = computed(() => {
     style.right = `${props.offset}px`
   } else {
     style.left = `${props.offset}px`
+  }
+  
+  if (props.zIndex !== undefined) {
+    style.zIndex = `${props.zIndex}`
   }
   
   return style
@@ -76,6 +110,15 @@ const typeIcon = computed(() => {
 function handleClose() {
   visible.value = false
   emit('close')
+  if (props.onClose) {
+    props.onClose()
+  }
+}
+
+function handleClick() {
+  if (props.onClick) {
+    props.onClick()
+  }
 }
 
 onMounted(() => {

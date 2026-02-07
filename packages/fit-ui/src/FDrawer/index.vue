@@ -1,8 +1,8 @@
 <template>
-  <Teleport to="body">
+  <Teleport :to="appendToTarget">
     <Transition name="f-drawer">
-      <div v-if="visible" class="f-drawer" :class="drawerClass">
-        <div v-if="mask" class="f-drawer__mask" @click="handleMaskClick"></div>
+      <div v-if="!destroyOnClose || visible" class="f-drawer" :class="drawerClass" :style="drawerStyle">
+        <div v-if="mask" class="f-drawer__mask" :class="modalClass" @click="handleMaskClick"></div>
         <div class="f-drawer__container" :style="containerStyle">
           <div class="f-drawer__content">
             <div v-if="title || closable || $slots.header" class="f-drawer__header">
@@ -13,7 +13,7 @@
                 <FIcon icon="close" />
               </button>
             </div>
-            <div class="f-drawer__body">
+            <div v-if="!destroyOnClose || visible" class="f-drawer__body">
               <slot></slot>
             </div>
             <div v-if="showFooter || footer || $slots.footer" class="f-drawer__footer">
@@ -29,13 +29,15 @@
 </template>
 
 <script setup lang="ts">
-import { computed, watch } from 'vue'
+import { computed, watch, ref, onMounted, onUnmounted } from 'vue'
 import type { DrawerProps, DrawerEmits } from './Drawer'
 import type { DrawerPositionType, DrawerSizeType } from './Drawer'
 import FIcon from '@/FIcon'
 import FButton from '@/FButton'
 
 defineOptions({ name: 'FDrawer', inheritAttrs: false })
+
+const originalBodyOverflow = ref('')
 
 const props = withDefaults(defineProps<DrawerProps>(), {
   visible: false,
@@ -45,7 +47,12 @@ const props = withDefaults(defineProps<DrawerProps>(), {
   maskClosable: true,
   mask: true,
   showFooter: false,
-  footer: false
+  footer: false,
+  lockScroll: true,
+  destroyOnClose: false,
+  zIndex: undefined,
+  appendTo: undefined,
+  modalClass: undefined
 })
 
 const emit = defineEmits<DrawerEmits>()
@@ -81,23 +88,79 @@ const containerStyle = computed(() => {
   return style
 })
 
-function handleClose() {
+const drawerStyle = computed(() => {
+  const style: Record<string, string> = {}
+  
+  if (props.zIndex !== undefined) {
+    style.zIndex = `${props.zIndex}`
+  }
+  
+  return style
+})
+
+// 计算挂载目标
+const appendToTarget = computed(() => {
+  if (!props.appendTo) {
+    return 'body'
+  }
+  if (typeof props.appendTo === 'string') {
+    return props.appendTo
+  }
+  // HTMLElement 需要特殊处理，这里返回 'body'，实际挂载逻辑在外部处理
+  return 'body'
+})
+
+const modalClass = computed(() => props.modalClass)
+
+async function handleClose() {
+  if (props.beforeClose) {
+    const result = await props.beforeClose()
+    if (result === false) {
+      return
+    }
+  }
   emit('update:visible', false)
   emit('close')
 }
 
-function handleMaskClick() {
+async function handleMaskClick() {
   if (props.maskClosable) {
-    handleClose()
+    await handleClose()
+  }
+}
+
+// 锁定/解锁 body 滚动
+const lockBodyScroll = () => {
+  if (props.lockScroll) {
+    originalBodyOverflow.value = document.body.style.overflow
+    document.body.style.overflow = 'hidden'
+  }
+}
+
+const unlockBodyScroll = () => {
+  if (props.lockScroll) {
+    document.body.style.overflow = originalBodyOverflow.value
   }
 }
 
 watch(() => props.visible, (newVal) => {
   if (newVal) {
+    lockBodyScroll()
     emit('open')
   } else {
+    unlockBodyScroll()
     emit('closed')
   }
+})
+
+onMounted(() => {
+  if (props.visible) {
+    lockBodyScroll()
+  }
+})
+
+onUnmounted(() => {
+  unlockBodyScroll()
 })
 </script>
 

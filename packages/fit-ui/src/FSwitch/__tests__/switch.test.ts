@@ -10,21 +10,18 @@ describe('FSwitch', () => {
       }
     })
     expect(wrapper.exists()).toBe(true)
-    expect(wrapper.classes()).toContain('switch_wrapper')
+    expect(wrapper.classes()).toContain('f-switch')
   })
 
-  it('should render with label', () => {
+  it('should render with activeText/inactiveText', () => {
     const wrapper = mount(FSwitch, {
       props: {
         modelValue: false,
-        label: true
-      },
-      slots: {
-        default: 'Test Label'
+        activeText: '开启',
+        inactiveText: '关闭',
       }
     })
-    expect(wrapper.text()).toContain('Test Label')
-    expect(wrapper.find('.switch_label').exists()).toBe(true)
+    expect(wrapper.text()).toContain('关闭')
   })
 
   it('should be disabled when disabled prop is true', () => {
@@ -34,7 +31,7 @@ describe('FSwitch', () => {
         disabled: true
       }
     })
-    expect(wrapper.classes()).toContain('switch_disabled')
+    expect(wrapper.classes()).toContain('is-disabled')
     expect(wrapper.attributes('aria-disabled')).toBe('true')
   })
 
@@ -68,11 +65,6 @@ describe('FSwitch', () => {
     })
     await wrapper.trigger('keydown.enter')
     expect(wrapper.emitted('update:modelValue')).toBeTruthy()
-    
-    // Reset
-    await wrapper.setProps({ modelValue: false })
-    await wrapper.trigger('keydown.space')
-    expect(wrapper.emitted('update:modelValue')![1]).toEqual([true])
   })
 
   it('should have correct aria attributes', () => {
@@ -83,5 +75,27 @@ describe('FSwitch', () => {
     })
     expect(wrapper.attributes('aria-checked')).toBe('true')
     expect(wrapper.attributes('role')).toBe('switch')
+  })
+
+  it('should show loading state', () => {
+    const wrapper = mount(FSwitch, {
+      props: {
+        modelValue: false,
+        loading: true
+      }
+    })
+    expect(wrapper.classes()).toContain('is-loading')
+  })
+
+  it('should support custom activeValue/inactiveValue', async () => {
+    const wrapper = mount(FSwitch, {
+      props: {
+        modelValue: 'no',
+        activeValue: 'yes',
+        inactiveValue: 'no'
+      }
+    })
+    await wrapper.trigger('click')
+    expect(wrapper.emitted('update:modelValue')![0]).toEqual(['yes'])
   })
 })

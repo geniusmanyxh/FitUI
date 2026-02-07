@@ -3,6 +3,7 @@
     <div
       ref="triggerRef"
       class="f-popover__trigger"
+      :tabindex="tabindex"
       @click="handleClick"
       @mouseenter="handleMouseEnter"
       @mouseleave="handleMouseLeave"
@@ -11,14 +12,16 @@
     >
       <slot></slot>
     </div>
-    <Teleport to="body">
+    <Teleport v-if="teleported" to="body">
       <Transition :name="transition">
         <div
           v-if="visible"
           ref="contentRef"
           class="f-popover__content"
-          :class="contentClass"
-          :style="contentStyle"
+          :class="[contentClass, popperClass]"
+          :style="computedContentStyle"
+          @mouseenter="handleContentMouseEnter"
+          @mouseleave="handleContentMouseLeave"
         >
           <div v-if="showArrow" class="f-popover__arrow"></div>
           <div class="f-popover__inner">
@@ -46,7 +49,13 @@ const props = withDefaults(defineProps<PopoverProps>(), {
   disabled: false,
   hideAfter: 0,
   showArrow: true,
-  transition: 'f-popover'
+  transition: 'f-popover',
+  popperClass: undefined,
+  popperStyle: undefined,
+  showAfter: 0,
+  teleported: true,
+  persistent: false,
+  tabindex: undefined
 })
 
 const emit = defineEmits<PopoverEmits>()
@@ -55,6 +64,9 @@ const popoverRef = ref<HTMLElement>()
 const triggerRef = ref<HTMLElement>()
 const contentRef = ref<HTMLElement>()
 const timer = ref<number>()
+const showTimer = ref<number>()
+const tabindex = computed(() => props.tabindex)
+const popperClass = computed(() => props.popperClass)
 
 const contentClass = computed(() => {
   return [
@@ -65,6 +77,14 @@ const contentClass = computed(() => {
 const contentStyle = computed(() => {
   const style: Record<string, string> = {}
   style.width = typeof props.width === 'number' ? `${props.width}px` : props.width
+  return style
+})
+
+const computedContentStyle = computed(() => {
+  const style: Record<string, any> = { ...contentStyle.value }
+  if (props.popperStyle) {
+    Object.assign(style, props.popperStyle)
+  }
   return style
 })
 
@@ -80,12 +100,39 @@ function handleClick() {
 
 function handleMouseEnter() {
   if (props.disabled || props.trigger !== 'hover') return
-  show()
+  if (props.showAfter > 0) {
+    if (showTimer.value) {
+      clearTimeout(showTimer.value)
+    }
+    showTimer.value = window.setTimeout(() => {
+      show()
+    }, props.showAfter)
+  } else {
+    show()
+  }
 }
 
 function handleMouseLeave() {
   if (props.disabled || props.trigger !== 'hover') return
-  hide()
+  if (showTimer.value) {
+    clearTimeout(showTimer.value)
+    showTimer.value = undefined
+  }
+  if (!props.persistent) {
+    hide()
+  }
+}
+
+function handleContentMouseEnter() {
+  if (props.persistent && props.trigger === 'hover') {
+    // 鼠标进入内容区域时不隐藏
+  }
+}
+
+function handleContentMouseLeave() {
+  if (props.persistent && props.trigger === 'hover') {
+    hide()
+  }
 }
 
 function handleFocus() {
@@ -197,6 +244,9 @@ onUnmounted(() => {
   window.removeEventListener('resize', updatePosition)
   if (timer.value) {
     clearTimeout(timer.value)
+  }
+  if (showTimer.value) {
+    clearTimeout(showTimer.value)
   }
 })
 </script>

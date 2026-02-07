@@ -55,9 +55,11 @@
       @click="handleWrapperClick"
     >
       <!-- prefix -->
-      <span v-if="$slots.prefix" class="f-input__prefix">
+      <span v-if="$slots.prefix || prefixIcon" class="f-input__prefix">
         <span class="f-input__prefix-inner">
-          <slot name="prefix" />
+          <slot name="prefix">
+            <f-icon v-if="prefixIcon" :icon="prefixIcon as any" />
+          </slot>
         </span>
       </span>
 
@@ -67,7 +69,7 @@
         ref="inputRef"
         v-bind="filteredAttrs"
         class="f-input__inner"
-        :value="model"
+        :value="displayInputValue"
         :type="nativeInputType"
         :disabled="disabled"
         :readonly="readonly"
@@ -76,6 +78,8 @@
         :minlength="minlength"
         :tabindex="tabindex"
         :autofocus="autofocus"
+        :name="name"
+        :style="inputStyle"
         :aria-invalid="invalid"
         :aria-required="required"
         :aria-describedby="describedby"
@@ -127,7 +131,9 @@
           </span>
 
           <!-- 自定义 suffix 插槽 -->
-          <slot name="suffix" />
+          <slot name="suffix">
+            <f-icon v-if="suffixIcon" :icon="suffixIcon as any" />
+          </slot>
 
           <!-- 字数统计 -->
           <span v-if="isWordLimitVisible" class="f-input__count">
@@ -176,6 +182,7 @@ import {
 } from 'vue'
 import type { SizeType } from '@utils/fsize'
 import type { InputAutoSize, InputType } from './Input'
+import FIcon from '@/FIcon'
 
 defineOptions({ name: 'FInput', inheritAttrs: false })
 
@@ -218,6 +225,20 @@ const props = withDefaults(
     tabindex?: string | number
     /** 是否自动聚焦 */
     autofocus?: boolean
+    /** 输入值格式化函数（显示时） */
+    formatter?: (value: string) => string
+    /** 输入值解析函数（存储时） */
+    parser?: (value: string) => string
+    /** 前缀图标名称 */
+    prefixIcon?: string
+    /** 后缀图标名称 */
+    suffixIcon?: string
+    /** 原生 name 属性 */
+    name?: string
+    /** 输入时是否触发表单校验 */
+    validateEvent?: boolean
+    /** 输入框自定义样式 */
+    inputStyle?: Record<string, string>
   }>(),
   {
     type: 'text',
@@ -238,6 +259,7 @@ const props = withDefaults(
     id: undefined,
     tabindex: undefined,
     autofocus: false,
+    validateEvent: true,
   },
 )
 
@@ -281,6 +303,12 @@ const filteredAttrs = computed(() => {
 const nativeRef = computed(() => inputRef.value || textareaRef.value)
 
 const isTextarea = computed(() => props.type === 'textarea')
+
+/** 格式化后的显示值 */
+const displayInputValue = computed(() => {
+  if (props.formatter) return props.formatter(model.value)
+  return model.value
+})
 
 /** 真正渲染到 <input> 上的 type */
 const nativeInputType = computed(() => {
@@ -335,6 +363,7 @@ const showPwdToggle = computed(() => {
 const showSuffixArea = computed(() => {
   return !!(
     slots.suffix
+    || props.suffixIcon
     || showClearBtn.value
     || showPwdToggle.value
     || isWordLimitVisible.value
@@ -362,7 +391,7 @@ const wrapperClass = computed(() => {
     props.invalid && 'is-invalid',
     slots.prepend && 'f-input--prepend',
     slots.append && 'f-input--append',
-    slots.prefix && 'f-input--prefix',
+    (slots.prefix || props.prefixIcon) && 'f-input--prefix',
     (showSuffixArea.value) && 'f-input--suffix',
   ]
 })
@@ -409,9 +438,22 @@ function calcTextareaHeight() {
 function handleInput(e: Event) {
   if (isComposing.value) return
   const target = e.target as HTMLInputElement | HTMLTextAreaElement
-  const value = target.value ?? ''
+  let value = target.value ?? ''
+
+  // parser: 将显示值解析为存储值
+  if (props.parser) {
+    value = props.parser(value)
+  }
+
   model.value = value
   emit('input', value)
+
+  // formatter: 将存储值格式化为显示值
+  if (props.formatter) {
+    nextTick(() => {
+      if (target) target.value = props.formatter!(model.value)
+    })
+  }
 
   // textarea autosize
   if (isTextarea.value && props.autosize) {

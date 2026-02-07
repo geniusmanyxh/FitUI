@@ -22,7 +22,9 @@ const props = withDefaults(defineProps<FormProps>(), {
   hideRequiredAsterisk: false,
   showMessage: true,
   inlineMessage: false,
-  statusIcon: false
+  statusIcon: false,
+  scrollToError: false,
+  requireAsteriskPosition: 'left',
 })
 
 const emit = defineEmits<{
@@ -222,9 +224,23 @@ async function validate(callback?: (isValid: boolean, invalidFields?: Record<str
     }
   }
   
+  if (!isValid && props.scrollToError) {
+    const firstErrorProp = Object.keys(invalidFields)[0]
+    if (firstErrorProp) {
+      scrollToField(firstErrorProp)
+    }
+  }
+
   if (callback) callback(isValid, invalidFields)
   emit('validate', isValid, invalidFields)
   return isValid
+}
+
+function scrollToField(prop: string) {
+  const el = document.querySelector(`[data-field="${prop}"]`) as HTMLElement
+  if (el) {
+    el.scrollIntoView({ behavior: 'smooth', block: 'center' })
+  }
 }
 
 async function handleSubmit() {
@@ -268,7 +284,8 @@ defineExpose({
   validate,
   validateField: formContext.validateField,
   resetFields,
-  clearValidate
+  clearValidate,
+  scrollToField,
 })
 </script>
 

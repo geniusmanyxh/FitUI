@@ -50,6 +50,36 @@
           <div style="margin-top: 10px;">选中项：{{ selectedRows.length }}</div>
         </div>
       </div>
+
+      <!-- 场景七：选择列（带复选框） -->
+      <div class="section">
+        <h3>选择列（带复选框）</h3>
+        <div class="row">
+          <FTable :columns="columnsWithSelection" :data="tableData" @selection-change="handleSelectionChange" />
+          <div style="margin-top: 10px;">已选择 {{ selectedRows.length }} 项</div>
+        </div>
+      </div>
+
+      <!-- 场景八：索引列 -->
+      <div class="section">
+        <h3>索引列</h3>
+        <div class="row">
+          <FTable :columns="columnsWithIndex" :data="tableData" />
+        </div>
+      </div>
+
+      <!-- 场景九：显示合计行 -->
+      <div class="section">
+        <h3>显示合计行</h3>
+        <div class="row">
+          <FTable 
+            :columns="columnsWithSummary" 
+            :data="tableData" 
+            :show-summary="true"
+            :summary-method="getSummaries"
+          />
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -68,28 +98,68 @@ const tableData = [
 ]
 
 const columns = [
-  { title: 'ID', dataIndex: 'id' },
-  { title: '姓名', dataIndex: 'name' },
-  { title: '年龄', dataIndex: 'age' },
-  { title: '地址', dataIndex: 'address' }
+  { title: 'ID', dataIndex: 'id', key: 'id' },
+  { title: '姓名', dataIndex: 'name', key: 'name' },
+  { title: '年龄', dataIndex: 'age', key: 'age' },
+  { title: '地址', dataIndex: 'address', key: 'address' }
 ]
 
 const sortableColumns = [
-  { title: 'ID', dataIndex: 'id', sorter: true },
-  { title: '姓名', dataIndex: 'name' },
-  { title: '年龄', dataIndex: 'age', sorter: true },
-  { title: '地址', dataIndex: 'address' }
+  { title: 'ID', dataIndex: 'id', key: 'id', sorter: true },
+  { title: '姓名', dataIndex: 'name', key: 'name' },
+  { title: '年龄', dataIndex: 'age', key: 'age', sorter: true },
+  { title: '地址', dataIndex: 'address', key: 'address' }
 ]
 
 const columnsWithSelection = [
-  { type: 'selection' },
+  { type: 'selection', key: 'selection' },
   ...columns
+]
+
+const columnsWithIndex = [
+  { type: 'index', title: '序号', key: 'index' },
+  ...columns
+]
+
+const columnsWithSummary = [
+  { title: 'ID', dataIndex: 'id', key: 'id' },
+  { title: '姓名', dataIndex: 'name', key: 'name' },
+  { title: '年龄', dataIndex: 'age', key: 'age' },
+  { title: '地址', dataIndex: 'address', key: 'address' }
 ]
 
 const selectedRows = ref([])
 
 const handleSelectionChange = (rows: any[]) => {
   selectedRows.value = rows
+}
+
+const getSummaries = ({ columns, data }: { columns: any[], data: any[] }) => {
+  const sums: string[] = []
+  columns.forEach((column, index) => {
+    if (index === 0) {
+      sums[index] = '合计'
+      return
+    }
+    if (column.key === 'age') {
+      const values = data.map(item => Number(item[column.key]))
+      if (!values.every(value => isNaN(value))) {
+        sums[index] = `${values.reduce((prev, curr) => {
+          const value = Number(curr)
+          if (!isNaN(value)) {
+            return prev + curr
+          } else {
+            return prev
+          }
+        }, 0)} 岁`
+      } else {
+        sums[index] = ''
+      }
+    } else {
+      sums[index] = ''
+    }
+  })
+  return sums
 }
 </script>
 

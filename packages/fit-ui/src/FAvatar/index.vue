@@ -3,6 +3,7 @@
     <img
       v-if="src && !hasError"
       :src="src"
+      :srcset="srcSet"
       :alt="alt"
       class="f-avatar__image"
       :style="{ objectFit: fit }"
@@ -11,7 +12,7 @@
     <span v-else-if="icon" class="f-avatar__icon">
       <FIcon :icon="icon" />
     </span>
-    <span v-else-if="text" class="f-avatar__text">
+    <span v-else-if="text" class="f-avatar__text" :style="textStyle">
       {{ text }}
     </span>
     <slot v-else></slot>
@@ -69,6 +70,13 @@ function handleError(event: Event) {
   hasError.value = true
   emit('error', event)
 }
+
+const textStyle = computed(() => {
+  if (props.gap !== undefined) {
+    return { padding: `0 ${props.gap}px` }
+  }
+  return {}
+})
 </script>
 
 <style scoped lang="scss">

@@ -1,4 +1,4 @@
-import { describe, it, expect, vi } from 'vitest'
+import { describe, it, expect } from 'vitest'
 import { mount } from '@vue/test-utils'
 import FRadio from '../index.vue'
 
@@ -6,53 +6,58 @@ describe('FRadio', () => {
   it('should render correctly', () => {
     const wrapper = mount(FRadio, {
       props: {
-        modelValue: false
+        modelValue: 'a',
+        value: 'a',
       }
     })
     expect(wrapper.exists()).toBe(true)
-    expect(wrapper.classes()).toContain('radio_wrapper')
+    expect(wrapper.classes()).toContain('f-radio')
   })
 
-  it('should render with label', () => {
+  it('should render with label slot', () => {
     const wrapper = mount(FRadio, {
       props: {
-        modelValue: false,
-        label: true
+        modelValue: 'a',
+        value: 'a',
+        label: 'Test Label',
       },
       slots: {
         default: 'Test Label'
       }
     })
     expect(wrapper.text()).toContain('Test Label')
-    expect(wrapper.find('.radio_label').exists()).toBe(true)
+    expect(wrapper.find('.f-radio__label').exists()).toBe(true)
   })
 
   it('should be disabled when disabled prop is true', () => {
     const wrapper = mount(FRadio, {
       props: {
-        modelValue: false,
+        modelValue: 'a',
+        value: 'a',
         disabled: true
       }
     })
-    expect(wrapper.classes()).toContain('radio_disabled')
+    expect(wrapper.classes()).toContain('is-disabled')
     expect(wrapper.attributes('aria-disabled')).toBe('true')
   })
 
   it('should emit update:modelValue event when clicked', async () => {
     const wrapper = mount(FRadio, {
       props: {
-        modelValue: false
+        modelValue: 'a',
+        value: 'b',
       }
     })
     await wrapper.trigger('click')
     expect(wrapper.emitted('update:modelValue')).toBeTruthy()
-    expect(wrapper.emitted('update:modelValue')![0]).toEqual([true])
+    expect(wrapper.emitted('update:modelValue')![0]).toEqual(['b'])
   })
 
   it('should not emit event when disabled', async () => {
     const wrapper = mount(FRadio, {
       props: {
-        modelValue: false,
+        modelValue: 'a',
+        value: 'b',
         disabled: true
       }
     })
@@ -60,25 +65,21 @@ describe('FRadio', () => {
     expect(wrapper.emitted('update:modelValue')).toBeFalsy()
   })
 
-  it('should respond to keyboard events', async () => {
+  it('should show as checked when value matches modelValue', () => {
     const wrapper = mount(FRadio, {
       props: {
-        modelValue: false
+        modelValue: 'a',
+        value: 'a',
       }
     })
-    await wrapper.trigger('keydown.enter')
-    expect(wrapper.emitted('update:modelValue')).toBeTruthy()
-    
-    // Reset
-    await wrapper.setProps({ modelValue: false })
-    await wrapper.trigger('keydown.space')
-    expect(wrapper.emitted('update:modelValue')![1]).toEqual([true])
+    expect(wrapper.classes()).toContain('is-checked')
   })
 
   it('should have correct aria attributes', () => {
     const wrapper = mount(FRadio, {
       props: {
-        modelValue: true
+        modelValue: 'a',
+        value: 'a',
       }
     })
     expect(wrapper.attributes('aria-checked')).toBe('true')

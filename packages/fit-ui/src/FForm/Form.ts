@@ -17,6 +17,10 @@ export interface FormProps {
   showMessage?: boolean
   inlineMessage?: boolean
   statusIcon?: boolean
+  /** 验证失败后是否滚动到第一个错误字段 */
+  scrollToError?: boolean
+  /** 必填星号位置 */
+  requireAsteriskPosition?: 'left' | 'right'
 }
 
 export interface FormRule {

@@ -25,7 +25,7 @@
         </div>
       </div>
 
-      <!-- 场景三：plain 模式 -->
+      <!-- 场景三：Plain 模式 -->
       <div class="section">
         <h3>Plain 模式</h3>
         <div class="row">
@@ -38,7 +38,7 @@
         </div>
       </div>
 
-      <!-- 场景四：round 模式 -->
+      <!-- 场景四：Round 模式 -->
       <div class="section">
         <h3>Round 模式</h3>
         <div class="row">
@@ -87,7 +87,60 @@
         </div>
       </div>
 
-      <!-- 场景八：组合示例 -->
+      <!-- 场景八：圆形按钮 -->
+      <div class="section">
+        <h3>圆形按钮 (Circle)</h3>
+        <div class="row">
+          <FButton type="primary" circle icon="search"></FButton>
+          <FButton type="success" circle icon="check"></FButton>
+          <FButton type="warning" circle icon="warning"></FButton>
+          <FButton type="danger" circle icon="delete"></FButton>
+        </div>
+      </div>
+
+      <!-- 场景九：链接按钮 -->
+      <div class="section">
+        <h3>链接按钮 (Link)</h3>
+        <div class="row">
+          <FButton type="default" link>默认链接</FButton>
+          <FButton type="primary" link>主要链接</FButton>
+          <FButton type="success" link>成功链接</FButton>
+          <FButton type="info" link>信息链接</FButton>
+          <FButton type="warning" link>警告链接</FButton>
+          <FButton type="danger" link>危险链接</FButton>
+        </div>
+      </div>
+
+      <!-- 场景十：文字按钮 -->
+      <div class="section">
+        <h3>文字按钮 (Text)</h3>
+        <div class="row">
+          <FButton type="default" text>默认文字</FButton>
+          <FButton type="primary" text>主要文字</FButton>
+          <FButton type="success" text>成功文字</FButton>
+          <FButton type="info" text>信息文字</FButton>
+          <FButton type="warning" text>警告文字</FButton>
+          <FButton type="danger" text>危险文字</FButton>
+        </div>
+      </div>
+
+      <!-- 场景十一：按钮组 -->
+      <div class="section">
+        <h3>按钮组 (ButtonGroup)</h3>
+        <div class="row">
+          <FButtonGroup>
+            <FButton type="primary" icon="left">上一页</FButton>
+            <FButton type="primary" icon="right">下一页</FButton>
+          </FButtonGroup>
+          <FButtonGroup>
+            <FButton type="primary">选项一</FButton>
+            <FButton type="primary">选项二</FButton>
+            <FButton type="primary">选项三</FButton>
+          </FButtonGroup>
+        </div>
+      </div>
+
+      <!-- 场景十二：组合示例 -->
       <div class="section">
         <h3>组合示例</h3>
         <div class="row">
@@ -102,8 +155,9 @@
 </template>
 
 <script setup lang="ts">
-defineOptions({ name: 'FButton-Demo', inheritAttrs: false })
+import { FButtonGroup } from 'fit-ui/src/FButton'
 
+defineOptions({ name: 'FButton-Demo', inheritAttrs: false })
 </script>
 
 <style scoped lang="scss">

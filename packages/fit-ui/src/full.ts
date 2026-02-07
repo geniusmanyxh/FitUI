@@ -1,10 +1,29 @@
 import type { App } from 'vue'
-import { FButton, FIcon, FInput, FInputNumber, FMessage, FCodeBlock, FToolTip, FTag, FSwitch, FCheckbox, FModal, FRadio, FLoading, FAlert, FTabs, FDropdown, FSelect, FForm, FFormItem, FTextarea, FTable, FPagination, FCard, FDivider, FEmpty, FBadge, FAvatar, FProgress, FMenu, FBreadcrumb, FDrawer, FPopover, FNotification, FSkeleton, FResult } from './components'
+import {
+  FButton, FButtonGroup,
+  FIcon,
+  FInput, FInputNumber, FTextarea,
+  FSelect,
+  FCheckbox, FCheckboxGroup,
+  FRadio, FRadioGroup,
+  FSwitch,
+  FForm, FFormItem,
+  FMessage, FCodeBlock, FToolTip, FTag,
+  FModal, FLoading, FAlert,
+  FTabs, FTabPane,
+  FDropdown, FDropdownMenu, FDropdownItem,
+  FTable, FPagination, FCard, FDivider, FEmpty,
+  FBadge, FAvatar, FProgress,
+  FMenu,
+  FBreadcrumb, FBreadcrumbItem,
+  FDrawer, FPopover, FNotification,
+  FSkeleton, FSkeletonItem,
+  FResult
+} from './components'
 
 // 全量引入所有样式（不包含 UnoCSS，用户需要自己配置）
 import './index.scss'
 import '@fstyles/theme/css-var.css'
-// import 'uno.css'
 
 // 引入所有组件样式
 import './FButton/style'
@@ -42,15 +61,61 @@ import './FNotification/style'
 import './FSkeleton/style'
 import './FResult/style'
 
-import {useMessage} from '@utils/tsHooks/useMessage'
+import { useMessage } from '@utils/tsHooks/useMessage'
+
+// v-loading directive
+import vLoading from './FLoading/directive'
 
 export { useMessage }
-export { FButton, FIcon, FInput, FInputNumber, FMessage, FCodeBlock, FToolTip, FTag, FSwitch, FCheckbox, FModal, FRadio, FLoading, FAlert, FTabs, FDropdown, FSelect, FForm, FFormItem, FTextarea, FTable, FPagination, FCard, FDivider, FEmpty, FBadge, FAvatar, FProgress, FMenu, FBreadcrumb, FDrawer, FPopover, FNotification, FSkeleton, FResult }
+export {
+  FButton, FButtonGroup,
+  FIcon,
+  FInput, FInputNumber, FTextarea,
+  FSelect,
+  FCheckbox, FCheckboxGroup,
+  FRadio, FRadioGroup,
+  FSwitch,
+  FForm, FFormItem,
+  FMessage, FCodeBlock, FToolTip, FTag,
+  FModal, FLoading, FAlert,
+  FTabs, FTabPane,
+  FDropdown, FDropdownMenu, FDropdownItem,
+  FTable, FPagination, FCard, FDivider, FEmpty,
+  FBadge, FAvatar, FProgress,
+  FMenu,
+  FBreadcrumb, FBreadcrumbItem,
+  FDrawer, FPopover, FNotification,
+  FSkeleton, FSkeletonItem,
+  FResult,
+  vLoading,
+}
 
-const components = [FButton, FIcon, FInput, FInputNumber, FMessage, FCodeBlock, FToolTip, FTag, FSwitch, FCheckbox, FModal, FRadio, FLoading, FAlert, FTabs, FDropdown, FSelect, FForm, FFormItem, FTextarea, FTable, FPagination, FCard, FDivider, FEmpty, FBadge, FAvatar, FProgress, FMenu, FBreadcrumb, FDrawer, FPopover, FNotification, FSkeleton, FResult]
+const components = [
+  FButton, FButtonGroup,
+  FIcon,
+  FInput, FInputNumber, FTextarea,
+  FSelect,
+  FCheckbox, FCheckboxGroup,
+  FRadio, FRadioGroup,
+  FSwitch,
+  FForm, FFormItem,
+  FMessage, FCodeBlock, FToolTip, FTag,
+  FModal, FLoading, FAlert,
+  FTabs, FTabPane,
+  FDropdown, FDropdownMenu, FDropdownItem,
+  FTable, FPagination, FCard, FDivider, FEmpty,
+  FBadge, FAvatar, FProgress,
+  FMenu,
+  FBreadcrumb, FBreadcrumbItem,
+  FDrawer, FPopover, FNotification,
+  FSkeleton, FSkeletonItem,
+  FResult,
+]
 
-const install = (app: App):any => {
+const install = (app: App): any => {
   components.forEach((c) => app.use(c))
+  // Register v-loading directive globally
+  app.directive('loading', vLoading)
 }
 
 export default {

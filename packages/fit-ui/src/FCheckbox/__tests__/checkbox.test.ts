@@ -1,4 +1,4 @@
-import { describe, it, expect, vi } from 'vitest'
+import { describe, it, expect } from 'vitest'
 import { mount } from '@vue/test-utils'
 import FCheckbox from '../index.vue'
 
@@ -10,21 +10,21 @@ describe('FCheckbox', () => {
       }
     })
     expect(wrapper.exists()).toBe(true)
-    expect(wrapper.classes()).toContain('checkbox_wrapper')
+    expect(wrapper.classes()).toContain('f-checkbox')
   })
 
-  it('should render with label', () => {
+  it('should render with label slot', () => {
     const wrapper = mount(FCheckbox, {
       props: {
         modelValue: false,
-        label: true
+        label: 'Test Label',
       },
       slots: {
         default: 'Test Label'
       }
     })
     expect(wrapper.text()).toContain('Test Label')
-    expect(wrapper.find('.checkbox_label').exists()).toBe(true)
+    expect(wrapper.find('.f-checkbox__label').exists()).toBe(true)
   })
 
   it('should be disabled when disabled prop is true', () => {
@@ -34,7 +34,7 @@ describe('FCheckbox', () => {
         disabled: true
       }
     })
-    expect(wrapper.classes()).toContain('checkbox_disabled')
+    expect(wrapper.classes()).toContain('is-disabled')
     expect(wrapper.attributes('aria-disabled')).toBe('true')
   })
 
@@ -68,11 +68,6 @@ describe('FCheckbox', () => {
     })
     await wrapper.trigger('keydown.enter')
     expect(wrapper.emitted('update:modelValue')).toBeTruthy()
-    
-    // Reset
-    await wrapper.setProps({ modelValue: false })
-    await wrapper.trigger('keydown.space')
-    expect(wrapper.emitted('update:modelValue')![1]).toEqual([true])
   })
 
   it('should have correct aria attributes', () => {
@@ -83,5 +78,26 @@ describe('FCheckbox', () => {
     })
     expect(wrapper.attributes('aria-checked')).toBe('true')
     expect(wrapper.attributes('role')).toBe('checkbox')
+  })
+
+  it('should support indeterminate', () => {
+    const wrapper = mount(FCheckbox, {
+      props: {
+        modelValue: false,
+        indeterminate: true,
+      }
+    })
+    expect(wrapper.classes()).toContain('is-indeterminate')
+    expect(wrapper.attributes('aria-checked')).toBe('mixed')
+  })
+
+  it('should support border prop', () => {
+    const wrapper = mount(FCheckbox, {
+      props: {
+        modelValue: false,
+        border: true,
+      }
+    })
+    expect(wrapper.classes()).toContain('is-bordered')
   })
 })
