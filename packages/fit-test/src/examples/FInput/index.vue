@@ -10,11 +10,13 @@
         </div>
       </div>
 
-      <!-- 场景二：密码输入 -->
+      <!-- 场景二：不同类型输入 -->
       <div class="section">
-        <h3>密码输入</h3>
+        <h3>不同类型输入</h3>
         <div class="row">
+          <FInput v-model="inputValue" type="text" placeholder="文本输入" />
           <FInput v-model="passwordValue" type="password" placeholder="请输入密码" />
+          <FInput v-model="numberValue" type="number" placeholder="数字输入" />
         </div>
       </div>
 
@@ -36,44 +38,34 @@
         </div>
       </div>
 
-      <!-- 场景五：只读状态 -->
+      <!-- 场景五：校验状态 -->
       <div class="section">
-        <h3>只读状态</h3>
+        <h3>校验状态</h3>
         <div class="row">
-          <FInput v-model="inputValue" readonly placeholder="只读的输入框" />
+          <FInput v-model="inputValue" invalid placeholder="校验失败的输入框" />
+          <FInput v-model="inputValue" required placeholder="必填的输入框" />
         </div>
       </div>
 
-      <!-- 场景六：前缀和后缀 -->
+      <!-- 场景六：无障碍支持 -->
       <div class="section">
-        <h3>前缀和后缀</h3>
+        <h3>无障碍支持</h3>
         <div class="row">
-          <FInput v-model="inputValue" placeholder="请输入内容">
-            <template #prefix>
-              <FIcon icon="search" />
-            </template>
-          </FInput>
-          <FInput v-model="inputValue" placeholder="请输入内容">
-            <template #suffix>
-              <FIcon icon="close" />
-            </template>
-          </FInput>
-        </div>
-      </div>
-
-      <!-- 场景七：清除按钮 -->
-      <div class="section">
-        <h3>清除按钮</h3>
-        <div class="row">
-          <FInput v-model="inputValue" clearable placeholder="可清除的输入框" />
-        </div>
-      </div>
-
-      <!-- 场景八：最大长度和字数统计 -->
-      <div class="section">
-        <h3>最大长度和字数统计</h3>
-        <div class="row">
-          <FInput v-model="inputValue" maxlength="20" show-word-limit placeholder="最多输入20个字符" />
+          <div>
+            <label :for="inputId">用户名</label>
+            <FInput :id="inputId" v-model="inputValue" placeholder="请输入用户名" />
+          </div>
+          <div>
+            <label :for="emailId">邮箱</label>
+            <FInput 
+              :id="emailId" 
+              v-model="emailValue" 
+              placeholder="请输入邮箱" 
+              required
+              :describedby="emailHelpId"
+            />
+            <span :id="emailHelpId" class="help-text">请输入有效的邮箱地址</span>
+          </div>
         </div>
       </div>
     </div>
@@ -87,6 +79,11 @@ import { ref } from 'vue'
 
 const inputValue = ref('')
 const passwordValue = ref('')
+const numberValue = ref('')
+const emailValue = ref('')
+const inputId = 'f-input-username'
+const emailId = 'f-input-email'
+const emailHelpId = 'f-input-email-help'
 </script>
 
 <style scoped lang="scss">
@@ -117,6 +114,20 @@ const passwordValue = ref('')
   
   :deep(.f-input) {
     width: 300px;
+  }
+
+  .help-text {
+    display: block;
+    margin-top: 4px;
+    font-size: 12px;
+    color: var(--f-text-secondary, #666);
+  }
+
+  label {
+    display: block;
+    margin-bottom: 4px;
+    font-size: 14px;
+    font-weight: 500;
   }
 }
 </style>
