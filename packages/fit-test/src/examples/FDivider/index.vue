@@ -19,8 +19,9 @@
           <span>左侧内容</span>
           <FDivider direction="vertical" />
           <span>中间内容</span>
-          <FDivider direction="vertical" />
+          <FDivider direction="vertical" border-style="dashed" />
           <span>右侧内容</span>
+          <FDivider direction="vertical" border-style="dotted" />
         </div>
       </div>
 
@@ -55,11 +56,13 @@
         <h3>带文字分割线</h3>
         <div class="divider-content">
           <p>上方内容</p>
-          <FDivider>默认分割线</FDivider>
+          <FDivider>默认分割线（插槽）</FDivider>
           <p>中间内容</p>
-          <FDivider border-style="dashed">虚线分割线</FDivider>
+          <FDivider content="使用 content prop" />
           <p>下方内容</p>
-          <FDivider border-style="dotted">点线分割线</FDivider>
+          <FDivider border-style="dashed">虚线分割线</FDivider>
+          <p>更多内容</p>
+          <FDivider border-style="dotted" content="点线分割线（content prop）" />
         </div>
       </div>
 
