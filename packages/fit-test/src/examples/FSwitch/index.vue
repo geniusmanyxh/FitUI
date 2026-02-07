@@ -2,72 +2,76 @@
   <div>
     <custom-nav title="FSwitch"></custom-nav>
     <div class="demoBox">
-      <!-- 场景一：基础开关 -->
+      <!-- 基础用法 -->
       <div class="section">
-        <h3>基础开关</h3>
+        <h3>基础用法</h3>
         <div class="row">
-          <FSwitch v-model="switchValue"></FSwitch>
-          <span style="margin-left: 12px; color: #999;">{{ switchValue }}</span>
+          <FSwitch v-model="switchVal" />
+          <span style="margin-left: 12px; color: #999;">当前值: {{ switchVal }}</span>
         </div>
       </div>
 
-      <!-- 场景二：不同尺寸 -->
+      <!-- 文字描述 -->
       <div class="section">
-        <h3>不同尺寸</h3>
+        <h3>文字描述</h3>
         <div class="row">
-          <FSwitch v-model="switchValue" size="small"></FSwitch>
-          <FSwitch v-model="switchValue" size="medium" style="margin-left: 12px;"></FSwitch>
-          <FSwitch v-model="switchValue" size="large" style="margin-left: 12px;"></FSwitch>
+          <FSwitch v-model="switchText" active-text="开启" inactive-text="关闭" />
+          <span style="margin-left: 12px; color: #999;">当前值: {{ switchText }}</span>
         </div>
       </div>
 
-      <!-- 场景三：禁用状态 -->
+      <!-- 内联文字 -->
       <div class="section">
-        <h3>禁用状态</h3>
+        <h3>内联文字</h3>
         <div class="row">
-          <FSwitch v-model="switchValue" disabled></FSwitch>
+          <FSwitch v-model="switchInline" active-text="是" inactive-text="否" inline-prompt />
+          <span style="margin-left: 12px; color: #999;">当前值: {{ switchInline }}</span>
         </div>
       </div>
 
-      <!-- 场景四：加载状态 -->
+      <!-- 自定义值 -->
+      <div class="section">
+        <h3>自定义值</h3>
+        <div class="row">
+          <FSwitch v-model="customVal" active-value="yes" inactive-value="no" />
+          <span style="margin-left: 12px; color: #999;">当前值: {{ customVal }}</span>
+        </div>
+      </div>
+
+      <!-- 加载状态 -->
       <div class="section">
         <h3>加载状态</h3>
         <div class="row">
-          <FSwitch v-model="switchValue" loading></FSwitch>
+          <FSwitch v-model="switchLoading" loading />
+          <span style="margin-left: 12px; color: #999;">当前值: {{ switchLoading }}</span>
         </div>
       </div>
 
-      <!-- 场景五：带文字描述 -->
+      <!-- 不同尺寸 -->
       <div class="section">
-        <h3>带文字描述</h3>
+        <h3>不同尺寸</h3>
         <div class="row">
-          <FSwitch v-model="switchValue" active-text="开启" inactive-text="关闭"></FSwitch>
+          <FSwitch v-model="switchSize" size="small" />
+          <FSwitch v-model="switchSize" size="medium" style="margin-left: 12px;" />
+          <FSwitch v-model="switchSize" size="large" style="margin-left: 12px;" />
         </div>
       </div>
 
-      <!-- 场景六：自定义 activeValue / inactiveValue -->
+      <!-- 禁用状态 -->
       <div class="section">
-        <h3>自定义值 (activeValue='yes' / inactiveValue='no')</h3>
+        <h3>禁用状态</h3>
         <div class="row">
-          <FSwitch v-model="customValue" active-value="yes" inactive-value="no"></FSwitch>
-          <span style="margin-left: 12px; color: #999;">当前值: {{ customValue }}</span>
+          <FSwitch v-model="switchDisabled" disabled />
+          <span style="margin-left: 12px; color: #999;">当前值: {{ switchDisabled }}</span>
         </div>
       </div>
 
-      <!-- 场景七：beforeChange 异步确认 -->
+      <!-- 切换前钩子 (beforeChange) -->
       <div class="section">
-        <h3>切换前确认 (beforeChange)</h3>
+        <h3>切换前钩子 (beforeChange)</h3>
         <div class="row">
-          <FSwitch v-model="confirmSwitch" :before-change="handleBeforeChange"></FSwitch>
+          <FSwitch v-model="switchBeforeChange" :before-change="handleBeforeChange" />
           <span style="margin-left: 12px; color: #999;">切换前会弹出确认</span>
-        </div>
-      </div>
-
-      <!-- 场景八：自定义宽度 -->
-      <div class="section">
-        <h3>自定义宽度</h3>
-        <div class="row">
-          <FSwitch v-model="switchValue" :width="80" active-text="开启" inactive-text="关闭" inline-prompt></FSwitch>
         </div>
       </div>
     </div>
@@ -79,9 +83,14 @@ import { ref } from 'vue'
 
 defineOptions({ name: 'FSwitch-Demo', inheritAttrs: false })
 
-const switchValue = ref(false)
-const customValue = ref('no')
-const confirmSwitch = ref(false)
+const switchVal = ref(false)
+const switchText = ref(false)
+const switchInline = ref(false)
+const customVal = ref('no')
+const switchLoading = ref(false)
+const switchSize = ref(false)
+const switchDisabled = ref(true)
+const switchBeforeChange = ref(false)
 
 const handleBeforeChange = (): Promise<boolean> => {
   return new Promise((resolve) => {

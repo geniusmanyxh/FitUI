@@ -127,6 +127,57 @@
           </FBadge>
         </div>
       </div>
+
+      <!-- 显示零值 -->
+      <div class="section">
+        <h3>显示零值 (showZero)</h3>
+        <div class="row">
+          <FBadge :value="0">
+            <div class="badge-demo-item">消息</div>
+          </FBadge>
+          <FBadge :value="0" show-zero>
+            <div class="badge-demo-item">消息</div>
+          </FBadge>
+        </div>
+      </div>
+
+      <!-- 偏移量 -->
+      <div class="section">
+        <h3>偏移量 (offset)</h3>
+        <div class="row">
+          <FBadge value="5">
+            <div class="badge-demo-item">消息</div>
+          </FBadge>
+          <FBadge value="5" :offset="[10, 10]">
+            <div class="badge-demo-item">消息</div>
+          </FBadge>
+          <FBadge value="5" :offset="[20, -10]">
+            <div class="badge-demo-item">消息</div>
+          </FBadge>
+        </div>
+      </div>
+
+      <!-- 自定义颜色 -->
+      <div class="section">
+        <h3>自定义颜色 (color)</h3>
+        <div class="row">
+          <FBadge value="5" color="#f56c6c">
+            <div class="badge-demo-item">消息</div>
+          </FBadge>
+          <FBadge value="8" color="#e6a23c">
+            <div class="badge-demo-item">消息</div>
+          </FBadge>
+          <FBadge value="12" color="#409eff">
+            <div class="badge-demo-item">消息</div>
+          </FBadge>
+          <FBadge is-dot color="#67c23a">
+            <div class="badge-demo-item">消息</div>
+          </FBadge>
+          <FBadge is-dot color="#909399">
+            <div class="badge-demo-item">消息</div>
+          </FBadge>
+        </div>
+      </div>
     </div>
   </div>
 </template>

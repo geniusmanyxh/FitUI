@@ -155,8 +155,6 @@
 </template>
 
 <script setup lang="ts">
-import { FButtonGroup } from 'fit-ui/src/FButton'
-
 defineOptions({ name: 'FButton-Demo', inheritAttrs: false })
 </script>
 

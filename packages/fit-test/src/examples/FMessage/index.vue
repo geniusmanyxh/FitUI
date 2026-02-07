@@ -19,6 +19,7 @@
         <div class="row">
           <FButton type="primary" @click="showClosable">可关闭消息</FButton>
           <FButton type="info" @click="showNotClosable">不可关闭消息</FButton>
+          <FButton type="success" @click="showWithClose">显示关闭按钮</FButton>
         </div>
       </div>
 
@@ -46,7 +47,32 @@
         </div>
       </div>
 
-      <!-- 场景五：组合示例 -->
+      <!-- 场景五：分组合并 (grouping) -->
+      <div class="section">
+        <h3>分组合并 (grouping)</h3>
+        <div class="row">
+          <FButton type="primary" @click="showGrouping">点击多次合并消息</FButton>
+          <p style="color: #666; font-size: 12px;">连续点击按钮多次，相同消息会被合并</p>
+        </div>
+      </div>
+
+      <!-- 场景六：HTML 内容 -->
+      <div class="section">
+        <h3>HTML 内容</h3>
+        <div class="row">
+          <FButton type="primary" @click="showHTMLContent">显示 HTML 内容</FButton>
+        </div>
+      </div>
+
+      <!-- 场景七：偏移量 (offset) -->
+      <div class="section">
+        <h3>偏移量 (offset)</h3>
+        <div class="row">
+          <FButton type="primary" @click="showWithOffset">偏移 100px 的消息</FButton>
+        </div>
+      </div>
+
+      <!-- 场景八：组合示例 -->
       <div class="section">
         <h3>组合示例</h3>
         <div class="row">
@@ -60,99 +86,127 @@
 <script setup lang="ts">
 defineOptions({ name: 'FMessage-Demo', inheritAttrs: false })
 
-import { FMessage } from '@geniusmanyxh/fit-ui'
+import { useMessage } from '@geniusmanyxh/fit-ui'
+
+const { success, error, warning, info, message } = useMessage()
 
 const showSuccess = () => {
-  FMessage.success('操作成功')
+  success('操作成功')
 }
 
 const showWarning = () => {
-  FMessage.warning('警告信息')
+  warning('警告信息')
 }
 
 const showError = () => {
-  FMessage.error('操作失败')
+  error('操作失败')
 }
 
 const showInfo = () => {
-  FMessage.info('提示信息')
+  info('提示信息')
 }
 
 const showClosable = () => {
-  FMessage.success('可关闭的成功消息', { 
-    closable: true 
+  success('可关闭的成功消息', { 
+    showClose: true 
   })
 }
 
 const showNotClosable = () => {
-  FMessage.info('不可关闭的信息消息', { 
-    closable: false 
+  info('不可关闭的信息消息', { 
+    showClose: false 
+  })
+}
+
+const showWithClose = () => {
+  success('显示关闭按钮的消息', {
+    showClose: true
   })
 }
 
 const showShortDuration = () => {
-  FMessage.success('1秒后自动关闭', { 
+  success('1秒后自动关闭', { 
     duration: 1000 
   })
 }
 
 const showMediumDuration = () => {
-  FMessage.warning('3秒后自动关闭', { 
+  warning('3秒后自动关闭', { 
     duration: 3000 
   })
 }
 
 const showLongDuration = () => {
-  FMessage.info('5秒后自动关闭', { 
+  info('5秒后自动关闭', { 
     duration: 5000 
   })
 }
 
 const showInfinite = () => {
-  FMessage.error('不会自动关闭', { 
-    duration: 0 
+  error('不会自动关闭', { 
+    duration: 'notime' 
   })
 }
 
 const showTopLeft = () => {
-  FMessage.success('左上角消息', { 
+  success('左上角消息', { 
     position: 'top-left' 
   })
 }
 
 const showTop = () => {
-  FMessage.success('顶部消息', { 
+  success('顶部消息', { 
     position: 'top' 
   })
 }
 
 const showTopRight = () => {
-  FMessage.success('右上角消息', { 
+  success('右上角消息', { 
     position: 'top-right' 
   })
 }
 
 const showBottomLeft = () => {
-  FMessage.success('左下角消息', { 
+  success('左下角消息', { 
     position: 'bottom-left' 
   })
 }
 
 const showBottom = () => {
-  FMessage.success('底部消息', { 
+  success('底部消息', { 
     position: 'bottom' 
   })
 }
 
 const showBottomRight = () => {
-  FMessage.success('右下角消息', { 
+  success('右下角消息', { 
     position: 'bottom-right' 
   })
 }
 
+const showGrouping = () => {
+  success('相同的消息会被合并', {
+    grouping: true
+  })
+}
+
+const showHTMLContent = () => {
+  message({
+    type: 'success',
+    msg: '<b>Bold</b> message with <span style="color: red;">red text</span>',
+    dangerouslyUseHTMLString: true
+  })
+}
+
+const showWithOffset = () => {
+  success('距离顶部 100px 的消息', {
+    offset: 100
+  })
+}
+
 const showCombination = () => {
-  FMessage.success('组合配置消息', {
-    closable: true,
+  success('组合配置消息', {
+    showClose: true,
     duration: 3000,
     position: 'top-right'
   })

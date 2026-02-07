@@ -54,6 +54,15 @@
           <FInputNumber v-model="numberValue" size="large" />
         </div>
       </div>
+
+      <!-- 场景七：只读状态 -->
+      <div class="section">
+        <h3>只读状态</h3>
+        <div class="row">
+          <FInputNumber v-model="numberValue" readonly />
+          <span style="margin-left: 12px; color: #999;">当前值: {{ numberValue }}</span>
+        </div>
+      </div>
     </div>
   </div>
 </template>

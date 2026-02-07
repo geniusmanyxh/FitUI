@@ -92,6 +92,19 @@
           </div>
         </div>
       </div>
+
+      <!-- 文字间距 -->
+      <div class="section">
+        <h3>文字间距 (gap)</h3>
+        <div class="row">
+          <FAvatar :gap="4">User</FAvatar>
+          <FAvatar :gap="10">User</FAvatar>
+          <FAvatar :gap="20">User</FAvatar>
+          <FAvatar :gap="4">用户</FAvatar>
+          <FAvatar :gap="10">用户</FAvatar>
+          <FAvatar :gap="20">用户</FAvatar>
+        </div>
+      </div>
     </div>
   </div>
 </template>

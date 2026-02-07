@@ -52,12 +52,10 @@
       <div class="section">
         <h3>v-loading 指令</h3>
         <div class="row">
-          <div v-loading="directiveLoading" class="loading-container">
-            <div class="loading-content">
-              <p>使用 v-loading 指令的加载区域</p>
-            </div>
+          <div v-loading="isLoading" style="height: 200px; border: 1px solid #eee;">
+            <p>内容区域</p>
           </div>
-          <FButton type="primary" @click="toggleDirectiveLoading">切换指令加载</FButton>
+          <FButton @click="isLoading = !isLoading">切换加载</FButton>
         </div>
       </div>
 
@@ -112,13 +110,12 @@
 defineOptions({ name: "FLoading-Demo", inheritAttrs: false })
 
 import { ref } from 'vue'
-import { vLoading } from 'fit-ui/src/FLoading'
 
 const areaLoading = ref(true)
 const fullscreenLoading = ref(false)
 const sizeLoading = ref(true)
 const textLoading = ref(true)
-const directiveLoading = ref(true)
+const isLoading = ref(false)
 const typeLoading = ref(true)
 const customTextLoading = ref(true)
 
@@ -128,10 +125,6 @@ const toggleAreaLoading = () => {
 
 const toggleFullscreenLoading = () => {
   fullscreenLoading.value = !fullscreenLoading.value
-}
-
-const toggleDirectiveLoading = () => {
-  directiveLoading.value = !directiveLoading.value
 }
 </script>
 

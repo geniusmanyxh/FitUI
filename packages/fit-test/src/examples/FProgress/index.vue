@@ -65,6 +65,37 @@
           <FProgress :percentage="progressValue" show-text style="margin-top: 20px; width: 100%;" />
         </div>
       </div>
+
+      <!-- 不确定进度 -->
+      <div class="section">
+        <h3>不确定进度 (indeterminate)</h3>
+        <div class="row">
+          <FProgress :percentage="50" indeterminate />
+          <FProgress :percentage="50" indeterminate :duration="3000" />
+          <FProgress :percentage="50" indeterminate status="success" />
+          <FProgress :percentage="50" indeterminate status="warning" />
+        </div>
+      </div>
+
+      <!-- 自定义格式 -->
+      <div class="section">
+        <h3>自定义格式 (format)</h3>
+        <div class="row">
+          <FProgress :percentage="progressValue" :format="formatPercent" />
+          <FProgress :percentage="progressValue" type="circle" :format="formatPercent" />
+        </div>
+      </div>
+
+      <!-- 条纹样式 -->
+      <div class="section">
+        <h3>条纹样式 (striped)</h3>
+        <div class="row">
+          <FProgress :percentage="progressValue" striped />
+          <FProgress :percentage="progressValue" striped striped-flow />
+          <FProgress :percentage="progressValue" striped status="success" />
+          <FProgress :percentage="progressValue" striped striped-flow status="warning" />
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -87,6 +118,11 @@ const increaseProgress = () => {
 const resetProgress = () => {
   progressValue.value = 0
 }
+
+const formatPercent = (percentage: number) => {
+  return `已完成 ${percentage}%`
+}
+
 </script>
 
 <style scoped lang="scss">

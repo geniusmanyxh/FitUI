@@ -33,6 +33,15 @@
           </FEmpty>
         </div>
       </div>
+
+      <!-- 场景四：自定义图片大小 -->
+      <div class="section">
+        <h3>自定义图片大小</h3>
+        <div class="row">
+          <FEmpty :image-size="100" />
+          <FEmpty :image-size="200" />
+        </div>
+      </div>
     </div>
   </div>
 </template>

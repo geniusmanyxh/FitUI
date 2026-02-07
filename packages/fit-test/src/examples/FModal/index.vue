@@ -110,6 +110,20 @@
           </FModal>
         </div>
       </div>
+
+      <!-- 场景九：关闭销毁 (destroyOnClose) -->
+      <div class="section">
+        <h3>关闭销毁 (destroyOnClose)</h3>
+        <div class="row">
+          <FButton type="primary" @click="showDestroyOnCloseModal">打开关闭销毁对话框</FButton>
+          <FModal v-model="destroyOnCloseVisible" title="关闭销毁" destroy-on-close>
+            <div>
+              <p>关闭此对话框后，内容会被销毁</p>
+              <FInput v-model="destroyInput" placeholder="输入内容后关闭，再次打开会清空" style="margin-top: 10px;" />
+            </div>
+          </FModal>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -118,7 +132,7 @@
 defineOptions({ name: "FModal-Demo", inheritAttrs: false })
 
 import { ref } from 'vue'
-import { FMessage } from 'fit-ui'
+import { FMessage } from '@geniusmanyxh/fit-ui'
 
 const basicVisible = ref(false)
 const smallVisible = ref(false)
@@ -130,9 +144,11 @@ const fullscreenVisible = ref(false)
 const draggableVisible = ref(false)
 const customWidthVisible = ref(false)
 const beforeCloseVisible = ref(false)
+const destroyOnCloseVisible = ref(false)
 
 const modalInput = ref('')
 const modalCheck = ref(false)
+const destroyInput = ref('')
 
 const showBasicModal = () => {
   basicVisible.value = true
@@ -172,6 +188,10 @@ const showCustomWidthModal = () => {
 
 const showBeforeCloseModal = () => {
   beforeCloseVisible.value = true
+}
+
+const showDestroyOnCloseModal = () => {
+  destroyOnCloseVisible.value = true
 }
 
 const handleConfirm = () => {

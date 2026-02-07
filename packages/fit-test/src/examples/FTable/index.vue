@@ -42,25 +42,23 @@
         </div>
       </div>
 
-      <!-- 场景六：多选 -->
+      <!-- 场景六：多选表格 -->
       <div class="section">
-        <h3>多选</h3>
+        <h3>多选表格</h3>
         <div class="row">
           <FTable :columns="columnsWithSelection" :data="tableData" @selection-change="handleSelectionChange" />
-          <div style="margin-top: 10px;">选中项：{{ selectedRows.length }}</div>
+          <div style="margin-top: 10px;">
+            <div>已选择 {{ selectedRows.length }} 项：</div>
+            <div v-if="selectedRows.length > 0" style="margin-top: 5px;">
+              <span v-for="(row, index) in selectedRows" :key="row.id" style="margin-right: 10px;">
+                {{ row.name }}{{ index < selectedRows.length - 1 ? ',' : '' }}
+              </span>
+            </div>
+          </div>
         </div>
       </div>
 
-      <!-- 场景七：选择列（带复选框） -->
-      <div class="section">
-        <h3>选择列（带复选框）</h3>
-        <div class="row">
-          <FTable :columns="columnsWithSelection" :data="tableData" @selection-change="handleSelectionChange" />
-          <div style="margin-top: 10px;">已选择 {{ selectedRows.length }} 项</div>
-        </div>
-      </div>
-
-      <!-- 场景八：索引列 -->
+      <!-- 场景七：索引列 -->
       <div class="section">
         <h3>索引列</h3>
         <div class="row">
@@ -68,16 +66,25 @@
         </div>
       </div>
 
-      <!-- 场景九：显示合计行 -->
+      <!-- 场景八：合计行 -->
       <div class="section">
-        <h3>显示合计行</h3>
+        <h3>合计行</h3>
         <div class="row">
           <FTable 
             :columns="columnsWithSummary" 
             :data="tableData" 
             :show-summary="true"
-            :summary-method="getSummaries"
+            sum-text="合计"
+            :summary-method="getSummary"
           />
+        </div>
+      </div>
+
+      <!-- 场景九：行样式 -->
+      <div class="section">
+        <h3>行样式</h3>
+        <div class="row">
+          <FTable :columns="columns" :data="tableData" :row-class-name="tableRowClassName" />
         </div>
       </div>
     </div>
@@ -134,7 +141,7 @@ const handleSelectionChange = (rows: any[]) => {
   selectedRows.value = rows
 }
 
-const getSummaries = ({ columns, data }: { columns: any[], data: any[] }) => {
+const getSummary = ({ columns, data }: { columns: any[], data: any[] }) => {
   const sums: string[] = []
   columns.forEach((column, index) => {
     if (index === 0) {
@@ -161,6 +168,10 @@ const getSummaries = ({ columns, data }: { columns: any[], data: any[] }) => {
   })
   return sums
 }
+
+const tableRowClassName = ({ rowIndex }: { row: any; rowIndex: number }) => {
+  return rowIndex % 2 === 0 ? 'even-row' : 'odd-row'
+}
 </script>
 
 <style scoped lang="scss">
@@ -174,6 +185,14 @@ const getSummaries = ({ columns, data }: { columns: any[], data: any[] }) => {
   :deep(.f-table) {
     width: 100%;
     max-width: 800px;
+  }
+  
+  :deep(.even-row) {
+    background-color: #f9f9f9;
+  }
+  
+  :deep(.odd-row) {
+    background-color: #ffffff;
   }
 }
 </style>

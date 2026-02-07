@@ -52,6 +52,30 @@
           <FButton type="primary" @click="showWithDescription">带描述的通知</FButton>
         </div>
       </div>
+
+      <!-- 场景六：自定义类名 -->
+      <div class="section">
+        <h3>自定义类名</h3>
+        <div class="row">
+          <FButton type="primary" @click="showCustomClass">自定义类名通知</FButton>
+        </div>
+      </div>
+
+      <!-- 场景七：HTML 内容 -->
+      <div class="section">
+        <h3>HTML 内容</h3>
+        <div class="row">
+          <FButton type="primary" @click="showHTMLContent">显示 HTML 内容</FButton>
+        </div>
+      </div>
+
+      <!-- 场景八：回调函数 -->
+      <div class="section">
+        <h3>回调函数</h3>
+        <div class="row">
+          <FButton type="primary" @click="showWithCallbacks">带回调的通知</FButton>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -59,7 +83,7 @@
 <script setup lang="ts">
 defineOptions({ name: "FNotification-Demo", inheritAttrs: false })
 
-import { FNotification } from '@geniusmanyxh/fit-ui'
+import { FNotification, FMessage } from '@geniusmanyxh/fit-ui'
 
 const showSuccess = () => {
   FNotification.success('操作成功')
@@ -147,6 +171,37 @@ const showWithDescription = () => {
   FNotification.success({
     title: '操作成功',
     message: '您的操作已成功完成，请继续下一步。'
+  })
+}
+
+const showCustomClass = () => {
+  FNotification.success({
+    title: '自定义类名',
+    message: '此通知使用了自定义类名 my-notification',
+    customClass: 'my-notification'
+  })
+}
+
+const showHTMLContent = () => {
+  FNotification.success({
+    title: 'HTML 内容',
+    message: '<b>Bold</b> notification with <span style="color: red;">red text</span>',
+    dangerouslyUseHTMLString: true
+  })
+}
+
+const showWithCallbacks = () => {
+  FNotification.success({
+    title: '带回调的通知',
+    message: '点击通知或关闭按钮会触发回调',
+    onClick: () => {
+      console.log('通知被点击')
+      FMessage.info('通知被点击')
+    },
+    onClose: () => {
+      console.log('通知已关闭')
+      FMessage.info('通知已关闭')
+    }
   })
 }
 </script>

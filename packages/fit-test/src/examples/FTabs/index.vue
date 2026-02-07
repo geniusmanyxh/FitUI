@@ -6,7 +6,7 @@
       <div class="section">
         <h3>基础标签页</h3>
         <div class="row">
-          <FTabs v-model="activeTab">
+          <FTabs v-model:active-key="activeTab">
             <FTabPane label="标签1" name="1">标签1内容</FTabPane>
             <FTabPane label="标签2" name="2">标签2内容</FTabPane>
             <FTabPane label="标签3" name="3">标签3内容</FTabPane>
@@ -18,7 +18,7 @@
       <div class="section">
         <h3>卡片式标签页</h3>
         <div class="row">
-          <FTabs v-model="activeTab" type="card">
+          <FTabs v-model:active-key="activeTab" type="card">
             <FTabPane label="标签1" name="1">标签1内容</FTabPane>
             <FTabPane label="标签2" name="2">标签2内容</FTabPane>
             <FTabPane label="标签3" name="3">标签3内容</FTabPane>
@@ -30,16 +30,16 @@
       <div class="section">
         <h3>位置</h3>
         <div class="row">
-          <FTabs v-model="activeTab" position="top">
+          <FTabs v-model:active-key="activeTab" tab-position="top">
             <FTabPane label="顶部" name="1">顶部标签</FTabPane>
           </FTabs>
-          <FTabs v-model="activeTab" position="bottom" style="margin-top: 20px;">
+          <FTabs v-model:active-key="activeTab" tab-position="bottom" style="margin-top: 20px;">
             <FTabPane label="底部" name="1">底部标签</FTabPane>
           </FTabs>
-          <FTabs v-model="activeTab" position="left" style="margin-top: 20px;">
+          <FTabs v-model:active-key="activeTab" tab-position="left" style="margin-top: 20px;">
             <FTabPane label="左侧" name="1">左侧标签</FTabPane>
           </FTabs>
-          <FTabs v-model="activeTab" position="right" style="margin-top: 20px;">
+          <FTabs v-model:active-key="activeTab" tab-position="right" style="margin-top: 20px;">
             <FTabPane label="右侧" name="1">右侧标签</FTabPane>
           </FTabs>
         </div>
@@ -49,7 +49,7 @@
       <div class="section">
         <h3>可关闭标签页</h3>
         <div class="row">
-          <FTabs v-model="activeTab" type="card" closable>
+          <FTabs v-model:active-key="activeTab" type="card" closable>
             <FTabPane label="标签1" name="1">标签1内容</FTabPane>
             <FTabPane label="标签2" name="2">标签2内容</FTabPane>
             <FTabPane label="标签3" name="3">标签3内容</FTabPane>
@@ -61,7 +61,7 @@
       <div class="section">
         <h3>卡片式标签页</h3>
         <div class="row">
-          <FTabs v-model="cardTab" type="card">
+          <FTabs v-model:active-key="cardTab" type="card">
             <FTabPane label="标签1" name="1">标签1内容</FTabPane>
             <FTabPane label="标签2" name="2">标签2内容</FTabPane>
             <FTabPane label="标签3" name="3">标签3内容</FTabPane>
@@ -73,7 +73,7 @@
       <div class="section">
         <h3>可关闭的卡片式标签页</h3>
         <div class="row">
-          <FTabs v-model="closableCardTab" type="card" closable>
+          <FTabs v-model:active-key="closableCardTab" type="card" closable>
             <FTabPane label="标签1" name="1">标签1内容</FTabPane>
             <FTabPane label="标签2" name="2">标签2内容</FTabPane>
             <FTabPane label="标签3" name="3">标签3内容</FTabPane>
@@ -86,19 +86,19 @@
       <div class="section">
         <h3>不同标签位置</h3>
         <div class="row">
-          <FTabs v-model="positionTab" position="top">
+          <FTabs v-model:active-key="positionTab" tab-position="top">
             <FTabPane label="顶部" name="1">顶部标签内容</FTabPane>
             <FTabPane label="标签2" name="2">标签2内容</FTabPane>
           </FTabs>
-          <FTabs v-model="positionTab" position="bottom" style="margin-top: 20px;">
+          <FTabs v-model:active-key="positionTab" tab-position="bottom" style="margin-top: 20px;">
             <FTabPane label="底部" name="1">底部标签内容</FTabPane>
             <FTabPane label="标签2" name="2">标签2内容</FTabPane>
           </FTabs>
-          <FTabs v-model="positionTab" position="left" style="margin-top: 20px;">
+          <FTabs v-model:active-key="positionTab" tab-position="left" style="margin-top: 20px;">
             <FTabPane label="左侧" name="1">左侧标签内容</FTabPane>
             <FTabPane label="标签2" name="2">标签2内容</FTabPane>
           </FTabs>
-          <FTabs v-model="positionTab" position="right" style="margin-top: 20px;">
+          <FTabs v-model:active-key="positionTab" tab-position="right" style="margin-top: 20px;">
             <FTabPane label="右侧" name="1">右侧标签内容</FTabPane>
             <FTabPane label="标签2" name="2">标签2内容</FTabPane>
           </FTabs>

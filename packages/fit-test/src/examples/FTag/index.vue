@@ -85,6 +85,50 @@
         <FTag label="555" type="danger" mode="plain" disabled closable></FTag>
       </div>
 
+      <!-- Hit 边框高亮 -->
+      <div class="section">
+        <h3>Hit 边框高亮</h3>
+        <div class="row">
+          <FTag label="Tag" type="default" hit></FTag>
+          <FTag label="Tag" type="success" hit></FTag>
+          <FTag label="Tag" type="warning" hit></FTag>
+          <FTag label="Tag" type="info" hit></FTag>
+          <FTag label="Tag" type="primary" hit></FTag>
+          <FTag label="Tag" type="danger" hit></FTag>
+        </div>
+      </div>
+
+      <!-- 自定义颜色 -->
+      <div class="section">
+        <h3>自定义颜色 (color prop)</h3>
+        <div class="row">
+          <FTag label="Custom" color="#f56c6c"></FTag>
+          <FTag label="Custom" color="#e6a23c"></FTag>
+          <FTag label="Custom" color="#409eff"></FTag>
+          <FTag label="Custom" color="#67c23a"></FTag>
+          <FTag label="Custom" color="#909399"></FTag>
+        </div>
+      </div>
+
+      <!-- 圆角 -->
+      <div class="section">
+        <h3>圆角 (round)</h3>
+        <div class="row">
+          <FTag label="Tag" type="primary" round></FTag>
+          <FTag label="Tag" type="success" round></FTag>
+          <FTag label="Tag" type="warning" round></FTag>
+          <FTag label="Tag" type="info" round></FTag>
+          <FTag label="Tag" type="danger" round></FTag>
+        </div>
+        <div class="row">
+          <FTag label="Tag" type="primary" mode="light" round></FTag>
+          <FTag label="Tag" type="success" mode="light" round></FTag>
+          <FTag label="Tag" type="warning" mode="light" round></FTag>
+          <FTag label="Tag" type="info" mode="light" round></FTag>
+          <FTag label="Tag" type="danger" mode="light" round></FTag>
+        </div>
+      </div>
+
     </div>
 
   </div>

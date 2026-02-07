@@ -77,6 +77,31 @@
           <FDrawer v-model:visible="noMaskDrawerVisible" title="不可遮罩关闭" :mask-closable="false"></FDrawer>
         </div>
       </div>
+
+      <!-- 场景六：关闭前确认 (beforeClose) -->
+      <div class="section">
+        <h3>关闭前确认 (beforeClose)</h3>
+        <div class="row">
+          <FButton type="primary" @click="showBeforeCloseDrawer">打开带确认的抽屉</FButton>
+          <FDrawer v-model:visible="beforeCloseDrawerVisible" title="关闭前确认" :before-close="handleBeforeClose">
+            <div>关闭此抽屉前会弹出确认提示</div>
+          </FDrawer>
+        </div>
+      </div>
+
+      <!-- 场景七：关闭销毁 (destroyOnClose) -->
+      <div class="section">
+        <h3>关闭销毁 (destroyOnClose)</h3>
+        <div class="row">
+          <FButton type="primary" @click="showDestroyOnCloseDrawer">打开关闭销毁抽屉</FButton>
+          <FDrawer v-model:visible="destroyOnCloseDrawerVisible" title="关闭销毁" destroy-on-close>
+            <div>
+              <p>关闭此抽屉后，内容会被销毁</p>
+              <FInput v-model="destroyInput" placeholder="输入内容后关闭，再次打开会清空" style="margin-top: 10px;" />
+            </div>
+          </FDrawer>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -85,6 +110,7 @@
 defineOptions({ name: "FDrawer-Demo", inheritAttrs: false })
 
 import { ref } from 'vue'
+import { FMessage } from '@geniusmanyxh/fit-ui'
 
 const drawerVisible = ref(false)
 const leftDrawerVisible = ref(false)
@@ -97,6 +123,10 @@ const largeDrawerVisible = ref(false)
 const customDrawerVisible = ref(false)
 const maskDrawerVisible = ref(false)
 const noMaskDrawerVisible = ref(false)
+const beforeCloseDrawerVisible = ref(false)
+const destroyOnCloseDrawerVisible = ref(false)
+
+const destroyInput = ref('')
 
 const showDrawer = () => {
   drawerVisible.value = true
@@ -144,6 +174,29 @@ const showNoMaskDrawer = () => {
 
 const handleClose = () => {
   maskDrawerVisible.value = false
+}
+
+const handleBeforeClose = async (): Promise<boolean> => {
+  return new Promise((resolve) => {
+    // 模拟异步确认
+    setTimeout(() => {
+      const confirmed = confirm('确定要关闭抽屉吗？')
+      resolve(confirmed)
+      if (confirmed) {
+        FMessage.success('抽屉已关闭')
+      } else {
+        FMessage.info('已取消关闭')
+      }
+    }, 100)
+  })
+}
+
+const showBeforeCloseDrawer = () => {
+  beforeCloseDrawerVisible.value = true
+}
+
+const showDestroyOnCloseDrawer = () => {
+  destroyOnCloseDrawerVisible.value = true
 }
 </script>
 

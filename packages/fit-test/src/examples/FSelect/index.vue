@@ -67,6 +67,39 @@
           </FSelect>
         </div>
       </div>
+
+      <!-- 场景七：折叠标签 (collapseTags) -->
+      <div class="section">
+        <h3>折叠标签 (collapseTags)</h3>
+        <div class="row">
+          <FSelect v-model="collapseTagsValue" multiple collapse-tags placeholder="请选择">
+            <FOption v-for="item in options" :key="item.value" :label="item.label" :value="item.value"></FOption>
+          </FSelect>
+        </div>
+      </div>
+
+      <!-- 场景八：创建新选项 (allowCreate) -->
+      <div class="section">
+        <h3>创建新选项 (allowCreate)</h3>
+        <div class="row">
+          <FSelect v-model="allowCreateValue" filterable allow-create placeholder="请输入或选择">
+            <FOption v-for="item in options" :key="item.value" :label="item.label" :value="item.value"></FOption>
+          </FSelect>
+        </div>
+      </div>
+
+      <!-- 场景九：无数据文本 -->
+      <div class="section">
+        <h3>无数据文本</h3>
+        <div class="row" style="flex-direction: column; gap: 12px;">
+          <FSelect v-model="noDataValue" no-data-text="暂无数据" placeholder="请选择">
+            <FOption v-for="item in []" :key="item.value" :label="item.label" :value="item.value"></FOption>
+          </FSelect>
+          <FSelect v-model="noMatchValue" filterable no-match-text="无匹配项" placeholder="请搜索">
+            <FOption v-for="item in options" :key="item.value" :label="item.label" :value="item.value"></FOption>
+          </FSelect>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -78,6 +111,10 @@ import { ref } from 'vue'
 
 const selectValue = ref('')
 const multipleValue = ref([])
+const collapseTagsValue = ref(['option1', 'option2', 'option3', 'option4', 'option5'])
+const allowCreateValue = ref('')
+const noDataValue = ref('')
+const noMatchValue = ref('')
 
 const options = [
   { value: 'option1', label: '选项1' },
