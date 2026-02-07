@@ -149,30 +149,6 @@ const handleClose = () => {
 
 <style scoped lang="scss">
 .demoBox {
-  width: 100%;
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  gap: 40px;
-  
-  .section {
-    width: 100%;
-    
-    h3 {
-      margin-bottom: 20px;
-      font-size: 18px;
-      font-weight: 600;
-    }
-  }
-  
-  .row {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    padding: 20px;
-    align-items: center;
-  }
-  
   .drawer-header {
     display: flex;
     justify-content: space-between;

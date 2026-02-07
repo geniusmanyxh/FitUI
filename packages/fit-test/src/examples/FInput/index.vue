@@ -239,39 +239,15 @@ const emailHelpId = 'f-input-email-help'
 
 <style scoped lang="scss">
 .demoBox {
-  width: 100%;
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  gap: 40px;
-
   .section {
-    width: 100%;
-
     h3 {
       margin-bottom: 8px;
-      font-size: 18px;
-      font-weight: 600;
-    }
-
-    .desc {
-      margin-bottom: 16px;
-      font-size: 13px;
-      color: var(--f-text-secondary, #999);
     }
   }
 
   .row {
-    display: flex;
-    flex-wrap: wrap;
     gap: 16px;
     padding: 16px 20px;
-    align-items: center;
-
-    &.column {
-      flex-direction: column;
-      align-items: stretch;
-    }
   }
 
   :deep(.f-input),

@@ -97,24 +97,14 @@ defineOptions({ name: 'FTag-Demo', inheritAttrs: false })
 
 <style scoped lang="scss">
 .demoBox {
-  width: 100%;
   height: 100%;
-  display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 20px;
-  box-sizing: border-box;
   gap: 20px;
-
-
 
   .row {
     width: 100%;
-    padding: 20px;
-    display: flex;
     flex-direction: row;
-    gap: 20px;
   }
 }
 </style>
