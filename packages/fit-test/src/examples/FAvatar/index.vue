@@ -9,9 +9,9 @@
           <FAvatar size="small" icon="user"></FAvatar>
           <FAvatar size="medium" icon="user"></FAvatar>
           <FAvatar size="large" icon="user"></FAvatar>
-          <FAvatar size="40" icon="user"></FAvatar>
-          <FAvatar size="50" icon="user"></FAvatar>
-          <FAvatar size="60" icon="user"></FAvatar>
+          <FAvatar :size="40" icon="user"></FAvatar>
+          <FAvatar :size="50" icon="user"></FAvatar>
+          <FAvatar :size="60" icon="user"></FAvatar>
         </div>
       </div>
 
@@ -29,8 +29,8 @@
         <h3>图片模式</h3>
         <div class="row">
           <FAvatar src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=user%20avatar%20portrait&image_size=square" />
-          <FAvatar src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=user%20avatar%20portrait&image_size=square" size="40" />
-          <FAvatar src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=user%20avatar%20portrait&image_size=square" size="50" />
+          <FAvatar src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=user%20avatar%20portrait&image_size=square" :size="40" />
+          <FAvatar src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=user%20avatar%20portrait&image_size=square" :size="50" />
         </div>
       </div>
 
@@ -54,6 +54,7 @@
           <FAvatar>用户</FAvatar>
           <FAvatar>Admin</FAvatar>
           <FAvatar>测试</FAvatar>
+          <FAvatar text="Text" />
         </div>
       </div>
 
@@ -72,9 +73,23 @@
       <div class="section">
         <h3>组合示例</h3>
         <div class="row">
-          <FAvatar size="40" shape="circle" src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=user%20avatar%20portrait&image_size=square"></FAvatar>
-          <FAvatar size="32" shape="square" icon="user"></FAvatar>
-          <FAvatar size="24" shape="circle">A</FAvatar>
+          <FAvatar :size="40" shape="circle" src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=user%20avatar%20portrait&image_size=square"></FAvatar>
+          <FAvatar :size="32" shape="square" icon="user"></FAvatar>
+          <FAvatar :size="24" shape="circle">A</FAvatar>
+        </div>
+      </div>
+
+      <!-- 场景八：事件示例 -->
+      <div class="section">
+        <h3>事件示例</h3>
+        <div class="row">
+          <FAvatar icon="user" @click="handleClick"></FAvatar>
+          <FAvatar src="invalid-url" @error="handleError"></FAvatar>
+        </div>
+        <div class="row" v-if="eventLog.length > 0">
+          <div class="event-log">
+            <p v-for="(log, index) in eventLog" :key="index">{{ log }}</p>
+          </div>
         </div>
       </div>
     </div>
@@ -82,7 +97,19 @@
 </template>
 
 <script setup lang="ts">
+import { ref } from 'vue'
+
 defineOptions({ name: "FAvatar-Demo", inheritAttrs: false })
+
+const eventLog = ref<string[]>([])
+
+function handleClick(event: MouseEvent) {
+  eventLog.value.push(`点击事件触发: ${new Date().toLocaleTimeString()}`)
+}
+
+function handleError(event: Event) {
+  eventLog.value.push(`图片加载错误: ${new Date().toLocaleTimeString()}`)
+}
 
 </script>
 
@@ -110,6 +137,19 @@ defineOptions({ name: "FAvatar-Demo", inheritAttrs: false })
     gap: 20px;
     padding: 20px;
     align-items: center;
+  }
+
+  .event-log {
+    width: 100%;
+    padding: 10px;
+    background-color: var(--f-bg-tertiary, #f5f5f5);
+    border-radius: 4px;
+    
+    p {
+      margin: 5px 0;
+      font-size: 14px;
+      color: var(--f-text-secondary, #666);
+    }
   }
 }
 </style>
