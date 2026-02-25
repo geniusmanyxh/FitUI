@@ -16,15 +16,15 @@
     "baseUrl": ".",
     "rootDir": "./",
     "paths": {
-      "@/*": ["src/*"],
-      "@utils/*": ["utils/*"],
-      "@enums/*": ["enums/*"],
-      "@ftypes/*": ["ftypes/*"],
-      "@fstyles/*": ["styles/*"],
+      "@/*": ["./src/*"],
+      "@utils/*": ["./utils/*"],
+      "@enums/*": ["./enums/*"],
+      "@ftypes/*": ["./ftypes/*"],
+      "@fstyles/*": ["./styles/*"],
     },
     "types": ["unplugin-vue-define-options/macros-global"]
   },
-  "include": ["./**/*.*", "./src/shims-vue.d.ts","./utils/**/*.*"],
+  "include": ["./src/**/*", "./utils/**/*", "./enums/**/*", "./ftypes/**/*"],
   "exclude": ["node_modules","dist","demo"],
   "esModuleInterop": true,
   "allowSyntheticDefaultImports": true
