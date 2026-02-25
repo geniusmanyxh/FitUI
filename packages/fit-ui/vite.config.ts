@@ -23,15 +23,7 @@ const rollupOptions = {
       dir: 'dist/es',
       entryFileNames: '[name].js',
       // chunkFileNames: 'chunks/[name]-[hash].js',
-      assetFileNames: (assetInfo: any) => {
-        if (assetInfo.name === 'uno.css') {
-          return 'uno.css'
-        }
-        if (assetInfo.name?.endsWith('.css')) {
-          return '[name].css'
-        }
-        return 'assets/[name].[ext]'
-      },
+      assetFileNames: '[name].[ext]',
       globals: { vue: 'Vue','tj-jstools':'TJJSTOOLS','shiki':'ShikiCore' },
 
       exports: 'named',
@@ -44,15 +36,7 @@ const rollupOptions = {
       dir: 'dist/lib',
       entryFileNames: '[name].js',
       // chunkFileNames: 'chunks/[name]-[hash].js',
-      assetFileNames: (assetInfo: any) => {
-        if (assetInfo.name === 'uno.css') {
-          return 'uno.css'
-        }
-        if (assetInfo.name?.endsWith('.css')) {
-          return '[name].css'
-        }
-        return 'assets/[name].[ext]'
-      },
+      assetFileNames: '[name].[ext]',
       globals: { vue: 'Vue','tj-jstools':'TJJSTOOLS','shiki':'ShikiCore' },
       exports: 'named',
       preserveModules: true,
@@ -81,7 +65,11 @@ export const config = defineConfig({
     vueJsx(),
     // VueSetupExtend(),
     UnoCSS(),
-    dts({ rollupTypes: true }),
+    dts({ 
+      rollupTypes: false,
+      cleanVueFileName: true,
+      include: ['src/**/*.ts', 'src/**/*.tsx', 'src/**/*.vue']
+    }),
     DefineOptions() as any,
   ],
   server: {
