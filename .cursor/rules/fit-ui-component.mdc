@@ -1,0 +1,35 @@
+---
+description: FitUI 新增或修改组件时必须遵循的规范，避免 withInstall/defineOptions/样式 @use 等遗漏
+globs: packages/fit-ui/src/**/*.vue, packages/fit-ui/src/**/index.ts, packages/fit-ui/src/**/style/*.scss
+---
+
+# FitUI 组件开发规则
+
+新增或修改 `packages/fit-ui/src` 下组件时，必须严格遵循 [docs/COMPONENT_DEVELOPMENT_SPEC.md](../../docs/COMPONENT_DEVELOPMENT_SPEC.md)。以下为精简要点，详细说明见该文档。
+
+## 必须遵守
+
+1. **index.ts**
+   - 使用 `withInstall(comp)` 包装后 `export default`。
+   - 不要写 `export { FComponentName }`，命名导出由 `components.ts` 完成。
+
+2. **index.vue**
+   - 在 script setup 顶部（JSDoc 之后）写：`defineOptions({ name: 'FComponentName', inheritAttrs: false })`。
+   - 不要写大段内联组件样式；使用 `@use './style/index' as *'`（或 `@use './style/xxx' as *'`）引用 style 目录。
+
+3. **style 目录**
+   - `style/index.scss` 使用 `@use './_componentname' as *'`，禁止使用 `@import`。
+   - 组件样式写在 `_componentname.scss` 中。
+
+4. **注册**
+   - 新组件必须在 `components.ts`、`entry.ts`、`full.ts` 三处添加：导出、样式 import、components 数组。
+
+5. **默认值与稳定性**
+   - 可选 props 需有默认值（withDefaults 或 computed），避免 template 出现 `undefined` class。
+   - 组件内唯一 id 只生成一次（用普通变量，不要用 ref 在每次更新时重新生成）。
+   - 使用 `position: absolute` 时，父级需有 `position: relative`。
+
+6. **测试**
+   - 每个组件在 `__tests__/xxx.test.ts` 中至少包含默认渲染、关键 props、关键事件测试。
+
+开发前请阅读 [COMPONENT_DEVELOPMENT_SPEC.md](../../docs/COMPONENT_DEVELOPMENT_SPEC.md)，提交前使用文档中的「新增组件检查清单」自检。
