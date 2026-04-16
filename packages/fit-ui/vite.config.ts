@@ -68,7 +68,7 @@ export const config = defineConfig({
     dts({ 
       rollupTypes: false,
       cleanVueFileName: true,
-      include: ['src/**/*.ts', 'src/**/*.tsx', 'src/**/*.vue']
+      include: ["./src/**/*", "./utils/**/*", "./enums/**/*", "./ftypes/**/*"]
     }),
     DefineOptions() as any,
   ],
