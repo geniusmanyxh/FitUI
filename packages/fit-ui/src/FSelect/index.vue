@@ -113,7 +113,13 @@ import FIcon from '@/FIcon'
 
 defineOptions({ name: 'FSelect', inheritAttrs: false })
 
-const slots = useSlots()
+const slots = useSlots() as {
+  default?: () => VNode[]
+  arrow?: () => VNode
+  loading?: () => VNode
+  empty?: () => VNode
+  option?: (options: { option: SelectOption }) => VNode
+}
 
 const props = withDefaults(defineProps<SelectProps>(), {
   placeholder: '请选择',
@@ -246,25 +252,30 @@ function getOptionsFromSlots(): SelectOption[] {
   
   if (!defaultSlot) return result
   
-  function extractOptionsFromVNode(vnodes: VNode[]) {
-    vnodes.forEach(vnode => {
-      // 检查是否是 FOption 组件
+  function extractOptionsFromVNode(vnodes: VNode[]): SelectOption[] {
+    return vnodes.reduce((acc: SelectOption[], vnode) => {
       if (vnode.type && (vnode.type as any).name === 'FOption') {
         const props = vnode.props || {}
-        result.push({
+        acc.push({
           value: props.value as string | number,
           label: props.label as string,
           disabled: props.disabled === true || props.disabled === '',
           children: vnode.children ? extractOptionsFromVNode(vnode.children as VNode[]) : undefined
         })
       } else if (vnode.children && Array.isArray(vnode.children)) {
-        // 递归处理子节点（例如在分组中）
-        extractOptionsFromVNode(vnode.children as VNode[])
+        const childOptions = extractOptionsFromVNode(vnode.children as VNode[])
+        if (childOptions.length > 0) {
+          acc.push(...childOptions)
+        }
       }
-    })
+      return acc
+    }, [])
   }
   
-  extractOptionsFromVNode(defaultSlot)
+  const slotOptions = extractOptionsFromVNode(defaultSlot)
+  if (slotOptions.length > 0) {
+    result.push(...slotOptions)
+  }
   return result
 }
 
