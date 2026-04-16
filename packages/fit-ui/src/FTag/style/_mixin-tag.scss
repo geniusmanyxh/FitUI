@@ -5,7 +5,7 @@
   @apply bg-#{$bgColor}-500 text-#{$textColor} border border-#{$bgColor}-500;
   
   .close-btn:hover {
-    color: var(--close-color);
+    color: #{$textColor};
     
     &::before {
       @apply bg-#{$bgColor}-100;
@@ -22,7 +22,7 @@
   @apply bg-#{$bgColor}-100 text-#{$textColor}-500 border border-#{$bgColor}-100;
   
   .close-btn:hover {
-    color: var(--close-hover-color);
+    color: white;
     
     &::before {
       @apply bg-#{$textColor}-500;
@@ -39,7 +39,7 @@
   @apply bg-white text-#{$textColor}-500 border border-#{$bgColor}-100;
   
   .close-btn:hover {
-    color: var(--close-hover-color);
+    color: white;
     
     &::before {
       @apply bg-#{$textColor}-500;
