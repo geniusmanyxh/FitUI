@@ -28,19 +28,70 @@
 </template>
 
 <script lang="ts" setup>
+/**
+ * FRadio 单选框组件
+ *
+ * @description 单选框组件，支持独立使用和组合使用
+ * @example
+ * ```vue
+ * <!-- 独立使用 -->
+ * <FRadio v-model="value" value="option1" label="选项 1" />
+ * 
+ * <!-- 组合使用 -->
+ * <FRadioGroup v-model="value">
+ *   <FRadio value="option1" label="选项 1" />
+ *   <FRadio value="option2" label="选项 2" />
+ * </FRadioGroup>
+ * 
+ * <!-- 自定义内容 -->
+ * <FRadio value="option1">
+ *   <span class="custom">自定义内容</span>
+ * </FRadio>
+ * ```
+ */
 import { computed, inject } from 'vue'
 import type { RadioGroupContext } from './RadioGroup.vue'
 
 defineOptions({ name: 'FRadio', inheritAttrs: false })
 
+/**
+ * 单选框组件属性
+ */
 export interface RadioProps {
+  /** 
+   * 绑定值
+   * @description v-model 绑定的值
+   */
   modelValue?: string | number | boolean
+  
+  /** 
+   * 单选框绑定值
+   * @description 选中时 v-model 更新的值，用于标识该选项
+   * @example value="option1"
+   */
   value?: string | number | boolean
+  
+  /** 
+   * 单选框显示文本
+   * @description 当不提供默认插槽内容时，使用此文本作为标签显示
+   * @default undefined
+   * @note 如果同时提供插槽内容和 label，插槽内容优先级更高
+   */
   label?: string
+  
+  /** 是否禁用 */
   disabled?: boolean
+  
+  /** 是否带边框 */
   border?: boolean
+  
+  /** 尺寸 */
   size?: 'small' | 'medium' | 'large'
+  
+  /** 原生 name 属性 */
   name?: string
+  
+  /** 是否触发表单校验 */
   validateEvent?: boolean
 }
 

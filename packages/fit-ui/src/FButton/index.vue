@@ -58,7 +58,12 @@ export interface ButtonProps {
   round?: boolean
   /** 按钮尺寸 */
   size?: SizeType
-  /** 图标名称 */
+  /** 
+   * 图标名称
+   * @description 指定按钮显示的图标，需配合图标插槽使用
+   * @default undefined
+   * @example icon="search"
+   */
   icon?: allIconType
   /** 是否禁用 */
   disabled?: boolean
@@ -115,7 +120,7 @@ const btnClassArr = computed(() => {
   return classes
 })
 
-const curBtnIcon = computed<allIconType>(() => props.icon ?? 'github')
+const curBtnIcon = computed<allIconType | undefined>(() => props.icon)
 
 const iconColorMap: Record<ButtonType, string> = {
   default: 'gray',
