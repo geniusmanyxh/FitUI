@@ -260,6 +260,37 @@
   }
 }
 
+// FOption 组件样式
+.f-select-option {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 12px;
+  cursor: pointer;
+  transition: all 0.2s;
+  user-select: none;
+
+  &:hover:not(.is-disabled) {
+    background-color: var(--f-select-option-hover-bg, #f5f5f5);
+  }
+
+  &.is-selected {
+    background-color: var(--f-select-option-selected-bg, #e6f7ff);
+    color: var(--f-select-option-selected-color, #1890ff);
+    font-weight: 500;
+  }
+
+  &.is-disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+    background-color: var(--f-select-option-disabled-bg, #f5f5f5);
+  }
+
+  &.is-hovering {
+    background-color: var(--f-select-option-hover-bg, #f5f5f5);
+  }
+}
+
 @keyframes rotate {
   from {
     transform: rotate(0deg);

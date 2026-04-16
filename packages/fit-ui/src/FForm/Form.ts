@@ -4,6 +4,13 @@ export type FormLabelPosition = 'left' | 'right' | 'top'
 export type FormLabelWidth = string | number
 
 export interface FormProps {
+  /**
+   * v-model 绑定的表单数据对象（Vue 3 双向绑定语法）
+   */
+  modelValue?: Record<string, any>
+  /**
+   * 表单数据对象（向后兼容，推荐使用 modelValue）
+   */
   model?: Record<string, any>
   rules?: Record<string, FormRule[]>
   labelPosition?: FormLabelPosition

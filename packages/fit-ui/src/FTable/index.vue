@@ -4,7 +4,7 @@
       <table class="f-table__header">
         <colgroup>
           <col
-            v-for="column in columns"
+            v-for="column in normalizedColumns"
             :key="column.key"
             :style="getColumnStyle(column)"
           />
@@ -12,7 +12,7 @@
         <thead>
           <tr>
             <th
-              v-for="(column, colIndex) in columns"
+              v-for="(column, colIndex) in normalizedColumns"
               :key="column.key"
               :class="getHeaderClass(column)"
               :style="getColumnStyle(column)"
@@ -56,7 +56,7 @@
       <table class="f-table__body">
         <colgroup>
           <col
-            v-for="column in columns"
+            v-for="column in normalizedColumns"
             :key="column.key"
             :style="getColumnStyle(column)"
           />
@@ -69,7 +69,7 @@
               @click="handleRowClick(row, index, $event)"
               @dblclick="handleRowDblClick(row, index, $event)"
             >
-              <template v-for="(column, colIndex) in columns" :key="column.key">
+              <template v-for="(column, colIndex) in normalizedColumns" :key="column.key">
                 <td
                   v-if="!getSpanHidden(row, column, index, colIndex)"
                   :class="getCellClass(row, column, index, colIndex)"
@@ -103,7 +103,7 @@
             </tr>
           </template>
           <tr v-if="displayData.length === 0" class="f-table__empty-row">
-            <td :colspan="columns.length" class="f-table__empty">
+            <td :colspan="normalizedColumns.length" class="f-table__empty">
               <slot name="empty">
                 {{ emptyText }}
               </slot>
@@ -111,7 +111,7 @@
           </tr>
           <tr v-if="showSummary && displayData.length > 0" class="f-table__summary-row">
             <td
-              v-for="(column, colIndex) in columns"
+              v-for="(column, colIndex) in normalizedColumns"
               :key="column.key"
               :class="getSummaryCellClass(column)"
             >
@@ -159,6 +159,20 @@ const props = withDefaults(defineProps<TableProps>(), {
 })
 
 const emit = defineEmits<TableEmits>()
+
+// Normalize columns computed property
+const normalizedColumns = computed(() => {
+  return props.columns.map((column, index) => ({
+    ...column,
+    key: column.key || column.prop || `column_${index}`,
+    label: column.label || '',
+    width: column.width,
+    minWidth: column.minWidth,
+    align: column.align || 'left',
+    sortable: column.sortable || false,
+    type: column.type || 'default'
+  }))
+})
 
 const bodyWrapperRef = ref<HTMLElement>()
 const currentSort = ref<{ prop: string; order: 'ascending' | 'descending' } | null>(null)
@@ -320,7 +334,7 @@ function getRowKey(row: Record<string, any>, index: number) {
 
 // Selection related functions
 function isRowSelectable(row: Record<string, any>, index: number) {
-  const selectionColumn = props.columns.find(col => col.type === 'selection')
+  const selectionColumn = normalizedColumns.value.find(col => col.type === 'selection')
   if (!selectionColumn || !selectionColumn.selectable) {
     return true
   }
@@ -395,7 +409,7 @@ function handleSelectAll(selected: string | number | boolean) {
 
 // Index column functions
 function getIndexValue(index: number) {
-  const indexColumn = props.columns.find(col => col.type === 'index')
+  const indexColumn = normalizedColumns.value.find(col => col.type === 'index')
   if (!indexColumn || !indexColumn.index) {
     return index + 1
   }
@@ -410,7 +424,7 @@ function getSummaryValue(columnIndex: number) {
   if (!props.summaryMethod) {
     return ''
   }
-  const result = props.summaryMethod({ columns: props.columns, data: displayData.value })
+  const result = props.summaryMethod({ columns: normalizedColumns.value, data: displayData.value })
   return result[columnIndex] ?? ''
 }
 
@@ -461,12 +475,12 @@ function handleHeaderClick(column: TableColumn, event: MouseEvent) {
   
   if (currentSort.value && currentSort.value.prop === column.key) {
     if (currentSort.value.order === 'ascending') {
-      currentSort.value = { prop: column.key, order: 'descending' }
+      currentSort.value = { prop: column.key!, order: 'descending' }
     } else {
       currentSort.value = null
     }
   } else {
-    currentSort.value = { prop: column.key, order: 'ascending' }
+    currentSort.value = { prop: column.key!, order: 'ascending' }
   }
   
   if (currentSort.value) {

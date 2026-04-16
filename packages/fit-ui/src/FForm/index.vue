@@ -7,6 +7,7 @@
 <script setup lang="ts">
 import { ref, computed, provide, watch, reactive, watchEffect } from 'vue'
 import type { FormProps, FormContext, FormRule } from './Form'
+import type { FormInstance } from './types'
 import { FORM_CONTEXT_KEY } from './Form'
 
 defineOptions({ name: 'FForm', inheritAttrs: false })
@@ -28,9 +29,16 @@ const props = withDefaults(defineProps<FormProps>(), {
 })
 
 const emit = defineEmits<{
+  (e: 'update:modelValue', value: Record<string, any>): void
   (e: 'validate', isValid: boolean, invalidFields?: Record<string, string[]>): void
   (e: 'validate-field', prop: string, isValid: boolean, message?: string): void
 }>()
+
+// 支持 v-model 的计算属性
+const formData = computed({
+  get: () => props.modelValue ?? props.model ?? {},
+  set: (val) => emit('update:modelValue', val)
+})
 
 const fields = ref<Map<string, { prop: string; rules: FormRule[] }>>(new Map())
 
@@ -47,7 +55,7 @@ const formClass = computed(() => {
 })
 
 const formContext = reactive<FormContext>({
-  model: props.model || {},
+  model: formData.value,
   rules: props.rules,
   labelPosition: props.labelPosition,
   labelWidth: props.labelWidth,
@@ -75,12 +83,12 @@ const formContext = reactive<FormContext>({
       }
     }
     
-    if (!targetField || !props.model) {
+    if (!targetField || !formData.value) {
       if (callback) callback()
       return true
     }
     
-    const value = props.model[targetField.prop]
+    const value = formData.value[targetField.prop]
     const rules = targetField.rules || []
     const formRules = formContext.rules?.[targetField.prop] || []
     const allRules = [...rules, ...formRules]
@@ -119,7 +127,7 @@ const formContext = reactive<FormContext>({
 })
 
 watchEffect(() => {
-  formContext.model = props.model || {}
+  formContext.model = formData.value
   formContext.rules = props.rules
   formContext.labelPosition = props.labelPosition
   formContext.labelWidth = props.labelWidth
@@ -197,7 +205,7 @@ async function validateRule(rule: FormRule, value: any, prop: string): Promise<s
 }
 
 async function validate(callback?: (isValid: boolean, invalidFields?: Record<string, string[]>) => void) {
-  if (!props.model || fields.value.size === 0) {
+  if (!formData.value || fields.value.size === 0) {
     if (callback) callback(true)
     emit('validate', true)
     return true
@@ -207,7 +215,7 @@ async function validate(callback?: (isValid: boolean, invalidFields?: Record<str
   const invalidFields: Record<string, string[]> = {}
   
   for (const [field, { prop, rules }] of fields.value) {
-    const value = props.model[prop]
+    const value = formData.value[prop]
     const formRules = props.rules?.[prop] || []
     const allRules = [...rules, ...formRules]
     
@@ -248,23 +256,23 @@ async function handleSubmit() {
 }
 
 function resetFields() {
-  if (!props.model) return
+  if (!formData.value) return
   
-  // 首先清除所有在fields中注册的字段
+  // 首先清除所有在 fields 中注册的字段
   for (const [field, { prop }] of fields.value) {
     const element = document.querySelector(`[data-field="${prop}"]`) as HTMLElement
     if (element) {
       element.dataset.error = ''
     }
-    delete props.model[prop]
+    delete formData.value[prop]
   }
   
   // 然后检查模型中是否还有其他字段，如果有也一并清除
-  // 这样即使没有添加FFormItem组件，resetFields也能正常工作
-  if (props.model) {
-    for (const key in props.model) {
-      if (props.model.hasOwnProperty(key)) {
-        delete props.model[key]
+  // 这样即使没有添加 FFormItem 组件，resetFields 也能正常工作
+  if (formData.value) {
+    for (const key in formData.value) {
+      if (formData.value.hasOwnProperty(key)) {
+        delete formData.value[key]
       }
     }
   }
@@ -280,7 +288,7 @@ watch(() => props.rules, () => {
   }
 }, { deep: true })
 
-defineExpose({
+defineExpose<FormInstance>({
   validate,
   validateField: formContext.validateField,
   resetFields,

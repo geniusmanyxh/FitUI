@@ -106,12 +106,14 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, watch, onMounted, onUnmounted, nextTick, getCurrentInstance } from 'vue'
+import { ref, computed, watch, onMounted, onUnmounted, nextTick, getCurrentInstance, useSlots, VNode, provide } from 'vue'
 import type { SelectOption, SelectProps } from './Select'
 import type { SelectSizeType } from './Select'
 import FIcon from '@/FIcon'
 
 defineOptions({ name: 'FSelect', inheritAttrs: false })
+
+const slots = useSlots()
 
 const props = withDefaults(defineProps<SelectProps>(), {
   placeholder: '请选择',
@@ -212,6 +214,8 @@ const noDataText = computed(() => {
 
 function getAllOptions(): SelectOption[] {
   const result: SelectOption[] = []
+  
+  // 1. 首先从 props.options 收集
   const options = props.options || []
   
   function traverse(opts: SelectOption[]) {
@@ -225,6 +229,42 @@ function getAllOptions(): SelectOption[] {
   }
   
   traverse(options)
+  
+  // 2. 从插槽中收集 FOption 组件
+  const slotOptions = getOptionsFromSlots()
+  if (slotOptions.length > 0) {
+    // 如果插槽中有选项，优先使用插槽的选项
+    return slotOptions
+  }
+  
+  return result
+}
+
+function getOptionsFromSlots(): SelectOption[] {
+  const result: SelectOption[] = []
+  const defaultSlot = slots.default?.()
+  
+  if (!defaultSlot) return result
+  
+  function extractOptionsFromVNode(vnodes: VNode[]) {
+    vnodes.forEach(vnode => {
+      // 检查是否是 FOption 组件
+      if (vnode.type && (vnode.type as any).name === 'FOption') {
+        const props = vnode.props || {}
+        result.push({
+          value: props.value as string | number,
+          label: props.label as string,
+          disabled: props.disabled === true || props.disabled === '',
+          children: vnode.children ? extractOptionsFromVNode(vnode.children as VNode[]) : undefined
+        })
+      } else if (vnode.children && Array.isArray(vnode.children)) {
+        // 递归处理子节点（例如在分组中）
+        extractOptionsFromVNode(vnode.children as VNode[])
+      }
+    })
+  }
+  
+  extractOptionsFromVNode(defaultSlot)
   return result
 }
 
@@ -464,6 +504,14 @@ watch(() => props.modelValue, () => {
   if (props.filterable) {
     query.value = ''
   }
+})
+
+// 为 FOption 提供上下文
+provide('FSelectContext', {
+  modelValue: computed(() => props.modelValue),
+  multiple: computed(() => props.multiple),
+  selectOption: (option: SelectOption) => selectOption(option),
+  updateHoverIndex: (index: number) => { hoverIndex.value = index }
 })
 
 onMounted(() => {

@@ -2,8 +2,26 @@ export type TableSizeType = 'small' | 'medium' | 'large'
 export type TableAlignType = 'left' | 'center' | 'right'
 
 export interface TableColumn {
-  key: string
+  /**
+   * 列的唯一标识（支持别名 dataIndex、prop）
+   */
+  key?: string
+  /**
+   * 列的数据字段名（与 key 互为别名）
+   */
+  dataIndex?: string
+  /**
+   * 列的唯一标识（与 key 互为别名，向后兼容）
+   */
+  prop?: string
+  /**
+   * 列的显示标题（支持别名 title、label）
+   */
   label?: string
+  /**
+   * 列的显示标题（与 label 互为别名）
+   */
+  title?: string
   width?: string | number
   minWidth?: string | number
   align?: TableAlignType

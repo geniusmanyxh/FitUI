@@ -6,7 +6,7 @@
       <div class="section">
         <h3>完整表单示例</h3>
         <div class="row">
-          <FForm v-model="formData" :rules="rules" ref="formRef" label-width="80px">
+          <FForm :model="formData" :rules="rules" ref="formRef" label-width="80px">
             <FFormItem label="用户名" prop="username">
               <FInput v-model="formData.username" placeholder="请输入用户名" />
             </FFormItem>
@@ -55,7 +55,7 @@
       <div class="section">
         <h3>行内表单</h3>
         <div class="row">
-          <FForm v-model="inlineFormData" layout="inline" label-width="60px">
+          <FForm :model="inlineFormData" :inline="true" label-width="60px">
             <FFormItem label="用户名">
               <FInput v-model="inlineFormData.username" placeholder="请输入用户名" style="width: 150px;" />
             </FFormItem>
@@ -73,7 +73,7 @@
       <div class="section">
         <h3>表单项对齐方式</h3>
         <div class="row">
-          <FForm v-model="formData" label-position="left" label-width="80px">
+          <FForm :model="formData" label-position="left" label-width="80px">
             <FFormItem label="用户名">
               <FInput v-model="formData.username" placeholder="请输入用户名" />
             </FFormItem>
@@ -88,7 +88,7 @@
       <div class="section">
         <h3>滚动到错误 (scrollToError)</h3>
         <div class="row">
-          <FForm v-model="scrollFormData" :rules="scrollRules" ref="scrollFormRef" label-width="80px" scroll-to-error>
+          <FForm :model="scrollFormData" :rules="scrollRules" ref="scrollFormRef" label-width="80px" scroll-to-error>
             <FFormItem label="用户名" prop="username">
               <FInput v-model="scrollFormData.username" placeholder="请输入用户名" />
             </FFormItem>
@@ -118,7 +118,7 @@
         <div class="row" style="flex-direction: column; gap: 20px;">
           <div>
             <h4 style="margin-bottom: 10px;">默认位置（左侧）</h4>
-            <FForm v-model="asteriskFormData" :rules="asteriskRules" label-width="80px">
+            <FForm :model="asteriskFormData" :rules="asteriskRules" label-width="80px">
               <FFormItem label="用户名" prop="username">
                 <FInput v-model="asteriskFormData.username" placeholder="请输入用户名" />
               </FFormItem>
@@ -129,7 +129,7 @@
           </div>
           <div>
             <h4 style="margin-bottom: 10px;">右侧位置</h4>
-            <FForm v-model="asteriskFormData2" :rules="asteriskRules" label-width="80px" require-asterisk-position="right">
+            <FForm :model="asteriskFormData2" :rules="asteriskRules" label-width="80px" require-asterisk-position="right">
               <FFormItem label="用户名" prop="username">
                 <FInput v-model="asteriskFormData2.username" placeholder="请输入用户名" />
               </FFormItem>

@@ -3,7 +3,7 @@ import {
   FButton, FButtonGroup,
   FIcon,
   FInput, FInputNumber, FTextarea,
-  FSelect,
+  FSelect, FOption,
   FCheckbox, FCheckboxGroup,
   FRadio, FRadioGroup,
   FSwitch,
@@ -20,6 +20,7 @@ import {
   FSkeleton, FSkeletonItem,
   FResult
 } from './components'
+import type { FormInstance, FormItemInstance } from './components'
 
 // 全量引入所有样式（不包含 UnoCSS，用户需要自己配置）
 import './index.scss'
@@ -71,7 +72,7 @@ export {
   FButton, FButtonGroup,
   FIcon,
   FInput, FInputNumber, FTextarea,
-  FSelect,
+  FSelect, FOption,
   FCheckbox, FCheckboxGroup,
   FRadio, FRadioGroup,
   FSwitch,
@@ -90,11 +91,16 @@ export {
   vLoading,
 }
 
+export type {
+  FormInstance,
+  FormItemInstance,
+}
+
 const components = [
   FButton, FButtonGroup,
   FIcon,
   FInput, FInputNumber, FTextarea,
-  FSelect,
+  FSelect, FOption,
   FCheckbox, FCheckboxGroup,
   FRadio, FRadioGroup,
   FSwitch,
