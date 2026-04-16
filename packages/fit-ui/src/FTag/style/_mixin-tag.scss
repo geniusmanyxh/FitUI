@@ -5,10 +5,10 @@
   @apply bg-#{$bgColor}-500 text-#{$textColor} border border-#{$bgColor}-500;
   
   .close-btn:hover {
-    color: #{$textColor};
+    @apply text-#{$bgColor}-600;
     
     &::before {
-      @apply bg-#{$bgColor}-100;
+      @apply bg-white;
     }
   }
 
