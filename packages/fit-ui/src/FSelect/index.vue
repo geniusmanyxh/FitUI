@@ -213,11 +213,14 @@ const selectClass = computed(() => {
 })
 
 const filteredOptions = computed(() => {
+  // 优先使用插槽中的选项
+  const sourceOptions = slotOptions.value.length > 0 ? slotOptions.value : (props.options || [])
+  
   if (!props.filterable || props.remote || !query.value) {
-    return props.options || []
+    return sourceOptions
   }
   const lowerQuery = query.value.toLowerCase()
-  return filterOptions(props.options || [], lowerQuery)
+  return filterOptions(sourceOptions, lowerQuery)
 })
 
 const noDataText = computed(() => {
