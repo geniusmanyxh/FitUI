@@ -1,0 +1,25 @@
+@use '../../../styles/global' as *;
+
+.f-select__group {
+  margin: 0;
+  padding: 0;
+
+  & + .f-select__group {
+    margin-top: 4px;
+  }
+
+  &-label {
+    padding: 8px 12px;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--f-text-secondary);
+    background-color: color-mix(in srgb, var(--f-text-secondary) 5%, transparent);
+    cursor: default;
+  }
+
+  &-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+}

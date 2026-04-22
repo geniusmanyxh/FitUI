@@ -3,7 +3,7 @@ import {
   FButton, FButtonGroup,
   FIcon,
   FInput, FInputNumber, FTextarea,
-  FSelect, FOption,
+  FSelect, FOption, FOptionGroup,
   FCheckbox, FCheckboxGroup,
   FRadio, FRadioGroup,
   FSwitch,
@@ -44,6 +44,8 @@ import './FAlert/style'
 import './FTabs/style'
 import './FDropdown/style'
 import './FSelect/style'
+import './FOption/style'
+import './FOptionGroup/style'
 import './FForm/style'
 import './FTextarea/style'
 import './FTable/style'
@@ -72,7 +74,7 @@ export {
   FButton, FButtonGroup,
   FIcon,
   FInput, FInputNumber, FTextarea,
-  FSelect, FOption,
+  FSelect, FOption, FOptionGroup,
   FCheckbox, FCheckboxGroup,
   FRadio, FRadioGroup,
   FSwitch,
@@ -100,7 +102,7 @@ const components = [
   FButton, FButtonGroup,
   FIcon,
   FInput, FInputNumber, FTextarea,
-  FSelect, FOption,
+  FSelect, FOption, FOptionGroup,
   FCheckbox, FCheckboxGroup,
   FRadio, FRadioGroup,
   FSwitch,

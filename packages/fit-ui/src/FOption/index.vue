@@ -24,7 +24,7 @@
 <script setup lang="ts">
 /**
  * FOption 选择器选项组件
- * 
+ *
  * @description 用于 FSelect 组件的选项，支持插槽语法，自动向父组件注册
  * @example
  * ```vue
@@ -35,16 +35,13 @@
  * ```
  */
 import { computed, inject, onMounted, onUnmounted, ref, useSlots, getCurrentInstance, watch, nextTick } from 'vue'
-import type { OptionProps, SelectContext, SelectOptionData } from './Select'
-import { SELECT_CONTEXT_KEY } from './Select'
+import type { SelectContext, SelectOptionData } from '@/FSelect/Select'
+import { SELECT_CONTEXT_KEY } from '@/FSelect/Select'
+import type { OptionProps } from './Option'
 
 defineOptions({ name: 'FOption', inheritAttrs: false })
 
-const props = withDefaults(defineProps<{
-  value: string | number
-  label: string
-  disabled?: boolean
-}>(), {
+const props = withDefaults(defineProps<OptionProps>(), {
   disabled: false,
 })
 
@@ -149,3 +146,7 @@ defineExpose({
   selected: isSelected,
 })
 </script>
+
+<style scoped lang="scss">
+@use './style/index' as *;
+</style>

@@ -10,7 +10,7 @@
 <script setup lang="ts">
 /**
  * FOptionGroup 选项分组组件
- * 
+ *
  * @description 用于 FSelect 组件的选项分组，必须配合 FOption 使用
  * @example
  * ```vue
@@ -25,8 +25,8 @@
  * </FSelect>
  * ```
  */
-import { computed, provide, ref } from 'vue'
-import type { OptionGroupProps } from './Select'
+import { computed, provide } from 'vue'
+import type { OptionGroupProps } from './OptionGroup'
 
 defineOptions({ name: 'FOptionGroup', inheritAttrs: false })
 
@@ -41,3 +41,7 @@ provide('FOptionGroupContext', {
   label: computed(() => props.label),
 })
 </script>
+
+<style scoped lang="scss">
+@use './style/index' as *;
+</style>
