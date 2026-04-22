@@ -96,7 +96,7 @@ export const config = defineConfig({
     sourcemap: false,
     reportCompressedSize: true,
     lib: {
-      entry: './src/entry.ts',
+      entry: './src/full.ts',
       name: 'FitUI',
       fileName: 'fitui',
     },

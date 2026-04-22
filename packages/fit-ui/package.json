@@ -15,17 +15,12 @@
     "**/*.css",
     "**/*.scss"
   ],
-  "main": "dist/lib/entry.js",
-  "module": "dist/es/entry.js",
-  "types": "dist/entry.d.ts",
+  "main": "dist/lib/full.js",
+  "module": "dist/es/full.js",
+  "types": "dist/src/full.d.ts",
   "exports": {
     ".": {
-      "types": "./dist/entry.d.ts",
-      "import": "./dist/es/entry.js",
-      "require": "./dist/lib/entry.js"
-    },
-    "./full": {
-      "types": "./dist/full.d.ts",
+      "types": "./dist/src/full.d.ts",
       "import": "./dist/es/full.js",
       "require": "./dist/lib/full.js"
     },

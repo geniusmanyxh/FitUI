@@ -435,9 +435,8 @@
 defineOptions({ name: "FSelect-Demo", inheritAttrs: false })
 
 import { ref } from 'vue'
-import type { SelectExpose } from 'fit-ui/src/FSelect/Select'
 
-const selectRef = ref<SelectExpose | null>(null)
+const selectRef = ref<any>(null)
 
 const singleValue = ref('')
 const multipleValue = ref<string[]>([])
