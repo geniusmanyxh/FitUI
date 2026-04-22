@@ -1,4 +1,14 @@
+import type { InjectionKey, Ref, ComputedRef } from 'vue'
+
 export type SelectSizeType = 'small' | 'medium' | 'large'
+
+export type SelectPlacementType =
+  | 'top'
+  | 'bottom'
+  | 'top-start'
+  | 'top-end'
+  | 'bottom-start'
+  | 'bottom-end'
 
 export interface SelectOption {
   value: string | number
@@ -8,44 +18,91 @@ export interface SelectOption {
 }
 
 export interface SelectProps {
-  modelValue?: string | number | (string | number)[]
+  modelValue?: string | number | unknown[] | Record<string, unknown>
   options?: SelectOption[]
   placeholder?: string
   disabled?: boolean
   clearable?: boolean
   filterable?: boolean
   remote?: boolean
-  remoteMethod?: (query: string) => Promise<SelectOption[]>
+  remoteMethod?: (query: string) => void | Promise<void>
   loading?: boolean
   multiple?: boolean
   size?: SelectSizeType
   multipleLimit?: number
-  /** 多选时是否折叠标签 */
   collapseTags?: boolean
-  /** 折叠标签时鼠标悬浮显示完整列表 */
   collapseTagsTooltip?: boolean
-  /** 折叠标签时最多显示的标签数 */
   maxCollapseTags?: number
-  /** 是否允许创建新选项（需配合 filterable） */
   allowCreate?: boolean
-  /** 搜索后保留关键字 */
   reserveKeyword?: boolean
-  /** 是否在输入框聚焦时默认选中第一个选项 */
   defaultFirstOption?: boolean
-  /** 自定义筛选方法 */
+  valueKey?: string
   filterMethod?: (query: string, option: SelectOption) => boolean
-  /** 下拉菜单自定义类名 */
   popperClass?: string
-  /** 下拉菜单弹出位置 */
-  placement?: string
-  /** 多选标签类型 */
+  placement?: SelectPlacementType
+  teleported?: boolean
   tagType?: 'success' | 'info' | 'warning' | 'danger'
-  /** 原生 name 属性 */
   name?: string
-  /** 输入时是否触发表单校验 */
   validateEvent?: boolean
-  /** 无数据时的文本 */
   noDataText?: string
-  /** 搜索无匹配时的文本 */
   noMatchText?: string
+  fitInputWidth?: boolean
+  popperMinWidth?: number
+  closeOnBlur?: boolean
+  closeOnClickOutside?: boolean
+  autofocus?: boolean
+}
+
+export interface SelectEmits {
+  (e: 'update:modelValue', value: SelectProps['modelValue']): void
+  (e: 'change', value: SelectProps['modelValue']): void
+  (e: 'visible-change', visible: boolean): void
+  (e: 'remove-tag', value: string | number): void
+  (e: 'clear'): void
+  (e: 'focus', event: FocusEvent): void
+  (e: 'blur', event: FocusEvent): void
+  (e: 'create', value: string): void
+}
+
+export interface OptionProps {
+  value: string | number
+  label: string
+  disabled?: boolean
+}
+
+export interface OptionGroupProps {
+  label: string
+  disabled?: boolean
+}
+
+export interface SelectOptionData {
+  value: string | number
+  label: string
+  disabled: boolean
+  index: number
+  groupLabel?: string
+  groupDisabled?: boolean
+}
+
+export interface SelectContext {
+  modelValue: ComputedRef<SelectProps['modelValue']>
+  multiple: ComputedRef<boolean>
+  disabled: ComputedRef<boolean>
+  valueKey: ComputedRef<string>
+  selectOption: (option: SelectOptionData) => void
+  registerOption: (key: string | number, data: SelectOptionData) => void
+  unregisterOption: (key: string | number) => void
+  updateHoverIndex: (index: number) => void
+  addCreatedOption: (value: string, label: string) => void
+}
+
+export const SELECT_CONTEXT_KEY: InjectionKey<SelectContext> = Symbol('FSelectContext')
+
+export interface SelectExpose {
+  focus: () => void
+  blur: () => void
+  open: () => void
+  close: () => void
+  selectedOptions: ComputedRef<SelectOption[]>
+  isOpen: Ref<boolean>
 }
