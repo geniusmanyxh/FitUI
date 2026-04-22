@@ -199,8 +199,16 @@ function handleJumperChange() {
 }
 
 function handleSizeChange() {
-  emit('update:pageSize', innerPageSize.value)
-  emit('size-change', props.currentPage, innerPageSize.value)
+  const newPageSize = innerPageSize.value
+  const newPageCount = Math.ceil(props.total / newPageSize)
+  
+  // 如果当前页超出范围，重置到最后一页
+  if (props.currentPage > newPageCount && newPageCount > 0) {
+    emit('update:currentPage', newPageCount)
+  }
+  
+  emit('update:pageSize', newPageSize)
+  emit('size-change', props.currentPage, newPageSize)
 }
 
 watch(() => props.currentPage, (newVal) => {

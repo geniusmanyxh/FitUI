@@ -115,7 +115,7 @@ const isChecked = computed(() => {
   if (isGroup.value && radioGroup) {
     return radioGroup.modelValue.value === props.value
   }
-  return props.modelValue === props.value || props.modelValue === true
+  return props.modelValue === props.value
 })
 
 const isDisabled = computed(() => {

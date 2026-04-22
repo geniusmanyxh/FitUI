@@ -259,13 +259,21 @@ const handleTabAdd = () => {
 }
 
 const handleKeyDown = (currentIndex: number, direction: 'left' | 'right') => {
-  const nextIndex = direction === 'left' 
-    ? (currentIndex - 1 + tabList.value.length) % tabList.value.length
-    : (currentIndex + 1) % tabList.value.length
+  let nextIndex = currentIndex
+  const step = direction === 'left' ? -1 : 1
   
-  const nextTab = tabList.value[nextIndex]
-  const nextKey = nextTab.key ?? nextTab.name ?? nextIndex
-  handleTabClick(nextTab, nextIndex)
+  // 循环查找下一个可用的 tab
+  for (let i = 0; i < tabList.value.length; i++) {
+    nextIndex = (nextIndex + step + tabList.value.length) % tabList.value.length
+    const nextTab = tabList.value[nextIndex]
+    
+    // 跳过禁用的 tab
+    if (!nextTab.disabled) {
+      const nextKey = nextTab.key ?? nextTab.name ?? nextIndex
+      handleTabClick(nextTab, nextIndex)
+      return
+    }
+  }
 }
 
 // Provide context for TabPane

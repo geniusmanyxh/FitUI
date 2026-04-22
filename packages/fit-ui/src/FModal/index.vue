@@ -241,6 +241,7 @@ const isDragging = ref(false)
 const dragStart = ref({ x: 0, y: 0 })
 const modalPosition = ref({ x: 0, y: 0 })
 const originalBodyOverflow = ref('')
+const isCleanedUp = ref(false)
 
 // 默认值处理
 const showHeader = computed(() => props.showHeader ?? true)
@@ -421,9 +422,28 @@ const unlockBodyScroll = () => {
   }
 }
 
+// 统一清理函数
+const cleanup = () => {
+  if (isCleanedUp.value) return
+  isCleanedUp.value = true
+  
+  unlockBodyScroll()
+  restorePreviousFocus()
+  
+  // 移除拖拽事件监听
+  if (headerRef.value) {
+    headerRef.value.removeEventListener('mousedown', handleDragStart)
+  }
+  document.removeEventListener('mousemove', handleDragMove)
+  document.removeEventListener('mouseup', handleDragEnd)
+}
+
 // 监听显示/隐藏
 watch(() => props.modelValue, async (newValue) => {
   if (newValue) {
+    // 重置清理状态
+    isCleanedUp.value = false
+    
     savePreviousFocus()
     lockBodyScroll()
     // 重置拖拽位置
@@ -437,15 +457,7 @@ watch(() => props.modelValue, async (newValue) => {
       headerRef.value.addEventListener('mousedown', handleDragStart)
     }
   } else {
-    unlockBodyScroll()
-    restorePreviousFocus()
-    
-    // 移除拖拽事件监听
-    if (headerRef.value) {
-      headerRef.value.removeEventListener('mousedown', handleDragStart)
-    }
-    document.removeEventListener('mousemove', handleDragMove)
-    document.removeEventListener('mouseup', handleDragEnd)
+    cleanup()
   }
 })
 
@@ -456,10 +468,7 @@ onMounted(() => {
 
 onUnmounted(() => {
   document.removeEventListener('keydown', handleKeydown)
-  document.removeEventListener('mousemove', handleDragMove)
-  document.removeEventListener('mouseup', handleDragEnd)
-  unlockBodyScroll()
-  restorePreviousFocus()
+  cleanup()
 })
 </script>
 

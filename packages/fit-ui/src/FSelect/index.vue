@@ -160,6 +160,7 @@ const isOpen = ref(false)
 const query = ref('')
 const dropdownStyle = ref<Record<string, string>>({})
 const hoverIndex = ref(-1)
+const searchTimer = ref<any>(null)
 
 const instance = getCurrentInstance()
 const selectId = `f-select-${instance?.uid ?? Math.random().toString(36).slice(2)}`
@@ -175,6 +176,11 @@ const selectedOptions = computed(() => {
     return getAllOptions().filter(opt => opt.value === modelValue)
   }
   return []
+})
+
+// 缓存插槽选项，避免每次遍历 VNode
+const slotOptions = computed(() => {
+  return getOptionsFromSlots()
 })
 
 const displayText = computed(() => {
@@ -237,10 +243,9 @@ function getAllOptions(): SelectOption[] {
   traverse(options)
   
   // 2. 从插槽中收集 FOption 组件
-  const slotOptions = getOptionsFromSlots()
-  if (slotOptions.length > 0) {
-    // 如果插槽中有选项，优先使用插槽的选项
-    return slotOptions
+  // 如果插槽中有选项，优先使用插槽的选项
+  if (slotOptions.value.length > 0) {
+    return slotOptions.value
   }
   
   return result
@@ -400,7 +405,17 @@ function updateDropdownPosition() {
 
 function handleInput() {
   if (props.remote && props.remoteMethod) {
-    props.remoteMethod(query.value)
+    // 清除之前的定时器
+    if (searchTimer.value) {
+      clearTimeout(searchTimer.value)
+    }
+    
+    // 300ms 防抖
+    searchTimer.value = setTimeout(() => {
+      if (props.remoteMethod) {
+        props.remoteMethod(query.value)
+      }
+    }, 300)
   }
 }
 
@@ -535,6 +550,11 @@ onUnmounted(() => {
   document.removeEventListener('click', handleClickOutside)
   window.removeEventListener('scroll', handleScroll, true)
   window.removeEventListener('resize', handleScroll)
+  
+  // 清理防抖定时器
+  if (searchTimer.value) {
+    clearTimeout(searchTimer.value)
+  }
 })
 
 defineExpose({

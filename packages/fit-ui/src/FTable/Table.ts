@@ -62,6 +62,8 @@ export interface TableProps {
   treeProps?: { children: string; hasChildren: string }
   indent?: number
   currentRowKey?: string | number
+  loading?: boolean
+  loadingText?: string
 }
 
 export interface TableEmits {

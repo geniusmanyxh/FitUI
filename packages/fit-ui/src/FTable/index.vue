@@ -1,5 +1,13 @@
 <template>
   <div class="f-table" :class="tableClass" :style="tableStyle">
+    <!-- 加载遮罩 -->
+    <div v-if="loading" class="f-table__loading-overlay">
+      <div class="f-table__loading">
+        <FIcon icon="refresh" class="is-rotate" />
+        <span v-if="loadingText" class="f-table__loading-text">{{ loadingText }}</span>
+      </div>
+    </div>
+    
     <div v-if="showHeader !== false" class="f-table__header-wrapper">
       <table class="f-table__header">
         <colgroup>
@@ -155,7 +163,9 @@ const props = withDefaults(defineProps<TableProps>(), {
   lazy: false,
   sumText: '合计',
   showSummary: false,
-  indent: 16
+  indent: 16,
+  loading: false,
+  loadingText: '加载中...'
 })
 
 const emit = defineEmits<TableEmits>()
