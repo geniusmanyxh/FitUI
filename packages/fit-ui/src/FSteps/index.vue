@@ -27,7 +27,7 @@ export interface StepsProvideValue {
   updateStepCount: (count: number) => void
 }
 
-export const stepsPropsKey = 'stepsProps' as const
+const stepsPropsKey = 'stepsProps' as const
 
 const props = withDefaults(defineProps<StepsProps>(), {
   active: 0,

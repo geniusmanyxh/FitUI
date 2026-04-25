@@ -53,7 +53,7 @@ export interface DescriptionsItemProps {
   span?: number
 }
 
-export const descriptionsPropsKey = 'descriptionsProps' as const
+const descriptionsPropsKey = 'descriptionsProps' as const
 
 const props = withDefaults(defineProps<DescriptionsProps>(), {
   title: '',

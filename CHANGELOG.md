@@ -14,12 +14,35 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - FMessage 函数式 API 支持（`useMessage()`）
 - FNotification 函数式 API 支持（`useNotification()`）
 - FLoading 服务式调用（`useLoading()`）
+- **components:** 新增 FDatePicker 日期选择器
+- **components:** 新增 FTimePicker 时间选择器
+- **components:** 新增 FSlider 滑块组件
+- **components:** 新增 FRate 评分组件
+- **components:** 新增 FSpace 间距组件
+- **components:** 新增 FScrollbar 滚动条组件
+- **components:** 新增 FBacktop 回到顶部组件
+- **components:** 新增 FWatermark 水印组件
+- **components:** 新增 FTimeline 时间线组件
+- **components:** 新增 FSteps 步骤条组件
+- **components:** 新增 FDescriptions 描述列表组件
+- **components:** 新增 FImage 图片组件
+- **components:** 新增 FMessageBox 弹窗确认组件
+- **components:** 新增 FPopconfirm 气泡确认框组件
+- **styles:** 完善 CSS 变量体系（Design Tokens）
+- **styles:** 扩展暗色主题至所有组件
 
 ### Changed
 
 - 消除所有 `any` 类型断言
 - 优化 `withInstall` 工具函数类型定义
 - 优化 vite.config.ts 类型安全性
+- 修复 `<script setup>` 中 ES 模块导出问题
+- 构建体积优化
+
+### Fixed
+
+- 修复 FMessage 中 `defaultIcon` 和 `durationTimer` 类型定义
+- 修复 FDescriptions 和 FSteps 中的 provide key 导出问题
 
 ---
 
