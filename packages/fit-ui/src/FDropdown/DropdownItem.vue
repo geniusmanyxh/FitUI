@@ -21,6 +21,7 @@
 <script setup lang="ts">
 import { inject } from 'vue'
 import FIcon from '@/FIcon'
+import type { allIconType } from '@utils/ficon'
 
 defineOptions({ name: 'FDropdownItem', inheritAttrs: false })
 
@@ -42,7 +43,7 @@ const props = withDefaults(defineProps<{
   /**
    * 图标
    */
-  icon?: any
+  icon?: allIconType
 }>(), {
   disabled: false,
   divided: false

@@ -38,7 +38,7 @@ export interface FormRule {
   max?: number
   len?: number
   pattern?: RegExp
-  validator?: (rule: FormRule, value: any, callback: (error?: string) => void) => void | boolean
+  validator?: (rule: FormRule, value: unknown, callback: (error?: string) => void) => void | boolean
   type?: 'string' | 'number' | 'boolean' | 'method' | 'regexp' | 'integer' | 'float' | 'array' | 'object' | 'enum' | 'date' | 'url' | 'hex' | 'email'
 }
 

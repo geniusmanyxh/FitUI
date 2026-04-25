@@ -75,9 +75,11 @@ const props = withDefaults(defineProps<MenuProps>(), {
 
 const emit = defineEmits<MenuEmits>()
 
+import type { Router } from 'vue-router'
+
 // Try to use router conditionally - check at runtime
-let routerInstance: any = null
-const getRouter = () => {
+let routerInstance: Router | null = null
+const getRouter = (): Router | null => {
   if (routerInstance) return routerInstance
   try {
     // @ts-ignore - vue-router may not be available

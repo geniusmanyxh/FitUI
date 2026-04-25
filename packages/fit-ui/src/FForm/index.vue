@@ -143,7 +143,7 @@ watchEffect(() => {
 
 provide(FORM_CONTEXT_KEY, formContext)
 
-async function validateRule(rule: FormRule, value: any, prop: string): Promise<string | undefined> {
+async function validateRule(rule: FormRule, value: unknown, prop: string): Promise<string | undefined> {
   if (rule.required && (value === undefined || value === null || value === '')) {
     return rule.message || `${prop} is required`
   }

@@ -144,7 +144,7 @@
 <script setup lang="ts">
 import { ref, computed, watch } from 'vue'
 import FCheckbox from '../FCheckbox'
-import type { TableProps, TableEmits, TableColumn } from './Table'
+import type { TableProps, TableEmits, TableColumn, TableRow } from './Table'
 import type { TableSizeType } from './Table'
 
 defineOptions({ name: 'FTable', inheritAttrs: false })
@@ -186,8 +186,8 @@ const normalizedColumns = computed(() => {
 
 const bodyWrapperRef = ref<HTMLElement>()
 const currentSort = ref<{ prop: string; order: 'ascending' | 'descending' } | null>(null)
-const currentRow = ref<Record<string, any> | null>(null)
-const selectedRows = ref<Record<string, any>[]>([])
+const currentRow = ref<TableRow | null>(null)
+const selectedRows = ref<TableRow[]>([])
 
 const tableClass = computed(() => {
   return [
@@ -274,7 +274,7 @@ function getHeaderClass(column: TableColumn) {
   return classes
 }
 
-function getRowClass(row: Record<string, any>, index: number) {
+function getRowClass(row: TableRow, index: number) {
   const classes: string[] = ['f-table__row']
   
   if (props.stripe && index % 2 === 1) {
@@ -299,7 +299,7 @@ function getRowClass(row: Record<string, any>, index: number) {
   return classes
 }
 
-function getRowStyle(row: Record<string, any>, index: number) {
+function getRowStyle(row: TableRow, index: number) {
   if (props.rowStyle) {
     if (typeof props.rowStyle === 'function') {
       return props.rowStyle({ row, rowIndex: index })
@@ -310,7 +310,7 @@ function getRowStyle(row: Record<string, any>, index: number) {
   return {}
 }
 
-function getCellClass(row: Record<string, any>, column: TableColumn, rowIndex: number, columnIndex: number) {
+function getCellClass(row: TableRow, column: TableColumn, rowIndex: number, columnIndex: number) {
   const classes: string[] = []
   
   if (column.cellClassName) {
@@ -320,7 +320,7 @@ function getCellClass(row: Record<string, any>, column: TableColumn, rowIndex: n
   return classes
 }
 
-function getCellStyle(row: Record<string, any>, column: TableColumn) {
+function getCellStyle(row: TableRow, column: TableColumn) {
   return {}
 }
 
@@ -338,12 +338,12 @@ function getSortClass(prop: string) {
   return currentSort.value.order === 'ascending' ? 'f-table__sort-icon--asc' : 'f-table__sort-icon--desc'
 }
 
-function getRowKey(row: Record<string, any>, index: number) {
+function getRowKey(row: TableRow, index: number) {
   return row[props.rowKey] ?? index
 }
 
 // Selection related functions
-function isRowSelectable(row: Record<string, any>, index: number) {
+function isRowSelectable(row: TableRow, index: number) {
   const selectionColumn = normalizedColumns.value.find(col => col.type === 'selection')
   if (!selectionColumn || !selectionColumn.selectable) {
     return true
@@ -351,7 +351,7 @@ function isRowSelectable(row: Record<string, any>, index: number) {
   return selectionColumn.selectable(row, index)
 }
 
-function isRowSelected(row: Record<string, any>, index: number) {
+function isRowSelected(row: TableRow, index: number) {
   const rowKey = getRowKey(row, index)
   return selectedRows.value.some(selectedRow => getRowKey(selectedRow, -1) === rowKey)
 }
@@ -375,7 +375,7 @@ const isIndeterminate = computed(() => {
   return selectedCount > 0 && selectedCount < selectableRows.length
 })
 
-function handleRowSelection(row: Record<string, any>, index: number, selected: string | number | boolean) {
+function handleRowSelection(row: TableRow, index: number, selected: string | number | boolean) {
   const rowKey = getRowKey(row, index)
   const existingIndex = selectedRows.value.findIndex(selectedRow => getRowKey(selectedRow, -1) === rowKey)
   
@@ -447,14 +447,14 @@ function getSummaryCellClass(column: TableColumn) {
 }
 
 // Span method functions
-function getSpanMethod(row: Record<string, any>, column: TableColumn, rowIndex: number, columnIndex: number) {
+function getSpanMethod(row: TableRow, column: TableColumn, rowIndex: number, columnIndex: number) {
   if (!props.spanMethod) {
     return null
   }
   return props.spanMethod({ row, column, rowIndex, columnIndex })
 }
 
-function getSpanRowspan(row: Record<string, any>, column: TableColumn, rowIndex: number, columnIndex: number) {
+function getSpanRowspan(row: TableRow, column: TableColumn, rowIndex: number, columnIndex: number) {
   const span = getSpanMethod(row, column, rowIndex, columnIndex)
   if (!span) return 1
   if (Array.isArray(span)) {
@@ -463,7 +463,7 @@ function getSpanRowspan(row: Record<string, any>, column: TableColumn, rowIndex:
   return span.rowspan ?? 1
 }
 
-function getSpanColspan(row: Record<string, any>, column: TableColumn, rowIndex: number, columnIndex: number) {
+function getSpanColspan(row: TableRow, column: TableColumn, rowIndex: number, columnIndex: number) {
   const span = getSpanMethod(row, column, rowIndex, columnIndex)
   if (!span) return 1
   if (Array.isArray(span)) {
@@ -472,7 +472,7 @@ function getSpanColspan(row: Record<string, any>, column: TableColumn, rowIndex:
   return span.colspan ?? 1
 }
 
-function getSpanHidden(row: Record<string, any>, column: TableColumn, rowIndex: number, columnIndex: number) {
+function getSpanHidden(row: TableRow, column: TableColumn, rowIndex: number, columnIndex: number) {
   // Check if this cell should be hidden due to rowspan/colspan from previous cells
   // This is a simplified implementation - in a full implementation, you'd need to track spans
   return false
@@ -498,7 +498,7 @@ function handleHeaderClick(column: TableColumn, event: MouseEvent) {
   }
 }
 
-function handleRowClick(row: Record<string, any>, index: number, event: MouseEvent) {
+function handleRowClick(row: TableRow, index: number, event: MouseEvent) {
   if (props.currentRowKey !== undefined) {
     const rowKey = getRowKey(row, index)
     if (rowKey === props.currentRowKey) {
@@ -510,15 +510,15 @@ function handleRowClick(row: Record<string, any>, index: number, event: MouseEve
   emit('row-click', row, index)
 }
 
-function handleRowDblClick(row: Record<string, any>, index: number, event: MouseEvent) {
+function handleRowDblClick(row: TableRow, index: number, event: MouseEvent) {
   emit('row-dblclick', row, index)
 }
 
-function handleRowContextMenu(row: Record<string, any>, column: TableColumn, event: MouseEvent) {
+function handleRowContextMenu(row: TableRow, column: TableColumn, event: MouseEvent) {
   emit('row-contextmenu', row, column, event)
 }
 
-function handleCellClick(row: Record<string, any>, column: TableColumn, cell: any, event: MouseEvent) {
+function handleCellClick(row: TableRow, column: TableColumn, cell: unknown, event: MouseEvent) {
   emit('cell-click', row, column, cell, event)
 }
 
@@ -544,7 +544,7 @@ defineExpose({
   clearSort: () => {
     currentSort.value = null
   },
-  toggleRowSelection: (row: Record<string, any>, selected?: boolean) => {
+  toggleRowSelection: (row: TableRow, selected?: boolean) => {
     const index = displayData.value.findIndex(r => r === row)
     if (index === -1) return
     
@@ -562,7 +562,7 @@ defineExpose({
   toggleAllSelection: () => {
     handleSelectAll(!isAllSelected.value)
   },
-  setCurrentRow: (row: Record<string, any> | null) => {
+  setCurrentRow: (row: TableRow | null) => {
     currentRow.value = row
   }
 })

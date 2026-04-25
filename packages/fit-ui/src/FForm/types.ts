@@ -120,7 +120,7 @@ export interface FormRule {
   /**
    * 自定义验证器
    */
-  validator?: (rule: FormRule, value: any, callback: (error?: string) => void) => void | boolean
+  validator?: (rule: FormRule, value: unknown, callback: (error?: string) => void) => void | boolean
   
   /**
    * 字段类型

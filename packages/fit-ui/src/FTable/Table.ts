@@ -1,6 +1,8 @@
 export type TableSizeType = 'small' | 'medium' | 'large'
 export type TableAlignType = 'left' | 'center' | 'right'
 
+export type TableRow = Record<string, unknown>
+
 export interface TableColumn {
   /**
    * 列的唯一标识（支持别名 dataIndex、prop）
@@ -32,13 +34,13 @@ export interface TableColumn {
   headerClassName?: string
   cellClassName?: string
   type?: 'default' | 'selection' | 'index' | 'expand'
-  selectable?: (row: any, index: number) => boolean
+  selectable?: (row: TableRow, index: number) => boolean
   index?: number | ((index: number) => number)
   showOverflowTooltip?: boolean
 }
 
 export interface TableProps {
-  data?: Record<string, any>[]
+  data?: TableRow[]
   columns?: TableColumn[]
   size?: TableSizeType
   stripe?: boolean
@@ -52,12 +54,12 @@ export interface TableProps {
   maxHeight?: string | number
   lazy?: boolean
   height?: string | number
-  rowClassName?: string | ((data: { row: any; rowIndex: number }) => string)
-  rowStyle?: Record<string, any> | ((data: { row: any; rowIndex: number }) => Record<string, any>)
+  rowClassName?: string | ((data: { row: TableRow; rowIndex: number }) => string)
+  rowStyle?: Record<string, string | number> | ((data: { row: TableRow; rowIndex: number }) => Record<string, string | number>)
   showSummary?: boolean
   sumText?: string
-  summaryMethod?: (data: { columns: any[]; data: any[] }) => (string | number)[]
-  spanMethod?: (data: { row: any; column: any; rowIndex: number; columnIndex: number }) => [number, number] | { rowspan: number; colspan: number }
+  summaryMethod?: (data: { columns: TableColumn[]; data: TableRow[] }) => (string | number)[]
+  spanMethod?: (data: { row: TableRow; column: TableColumn; rowIndex: number; columnIndex: number }) => [number, number] | { rowspan: number; colspan: number }
   defaultExpandAll?: boolean
   treeProps?: { children: string; hasChildren: string }
   indent?: number
@@ -68,12 +70,12 @@ export interface TableProps {
 
 export interface TableEmits {
   (e: 'sort', prop: string, order: 'ascending' | 'descending'): void
-  (e: 'selection-change', selection: Record<string, any>[]): void
-  (e: 'select', selection: Record<string, any>[], row: Record<string, any>): void
-  (e: 'select-all', selection: Record<string, any>[]): void
-  (e: 'row-click', row: Record<string, any>, index: number): void
-  (e: 'row-dblclick', row: Record<string, any>, index: number): void
-  (e: 'row-contextmenu', row: Record<string, any>, column: TableColumn, event: MouseEvent): void
+  (e: 'selection-change', selection: TableRow[]): void
+  (e: 'select', selection: TableRow[], row: TableRow): void
+  (e: 'select-all', selection: TableRow[]): void
+  (e: 'row-click', row: TableRow, index: number): void
+  (e: 'row-dblclick', row: TableRow, index: number): void
+  (e: 'row-contextmenu', row: TableRow, column: TableColumn, event: MouseEvent): void
   (e: 'header-click', column: TableColumn, event: MouseEvent): void
-  (e: 'cell-click', row: Record<string, any>, column: TableColumn, cell: any, event: MouseEvent): void
+  (e: 'cell-click', row: TableRow, column: TableColumn, cell: unknown, event: MouseEvent): void
 }

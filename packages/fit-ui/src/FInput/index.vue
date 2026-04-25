@@ -58,7 +58,7 @@
       <span v-if="$slots.prefix || prefixIcon" class="f-input__prefix">
         <span class="f-input__prefix-inner">
           <slot name="prefix">
-            <f-icon v-if="prefixIcon" :icon="prefixIcon as any" />
+            <f-icon v-if="prefixIcon" :icon="prefixIcon" />
           </slot>
         </span>
       </span>
@@ -132,7 +132,7 @@
 
           <!-- 自定义 suffix 插槽 -->
           <slot name="suffix">
-            <f-icon v-if="suffixIcon" :icon="suffixIcon as any" />
+            <f-icon v-if="suffixIcon" :icon="suffixIcon" />
           </slot>
 
           <!-- 字数统计 -->
@@ -182,6 +182,7 @@ import {
 } from 'vue'
 import type { SizeType } from '@utils/fsize'
 import type { InputAutoSize, InputType } from './Input'
+import type { allIconType } from '@utils/ficon'
 import FIcon from '@/FIcon'
 
 defineOptions({ name: 'FInput', inheritAttrs: false })
@@ -230,9 +231,9 @@ const props = withDefaults(
     /** 输入值解析函数（存储时） */
     parser?: (value: string) => string
     /** 前缀图标名称 */
-    prefixIcon?: string
+    prefixIcon?: allIconType
     /** 后缀图标名称 */
-    suffixIcon?: string
+    suffixIcon?: allIconType
     /** 原生 name 属性 */
     name?: string
     /** 输入时是否触发表单校验 */

@@ -44,7 +44,7 @@
         :aria-controls="`dropdown-menu-${id}`"
         :tabindex="disabled ? -1 : 0"
       >
-        <FIcon :icon="('chevron-down' as any)" />
+        <FIcon icon="chevron-down" />
       </div>
     </div>
     

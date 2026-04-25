@@ -186,14 +186,16 @@ const emit = defineEmits<{
 const slots: Slots = useSlots()
 const paneList = ref<Array<{ name: string | number; label: string; disabled?: boolean; closable?: boolean; lazy?: boolean }>>([])
 
+import type { VNode } from 'vue'
+
 // Collect panes from slots
 const updatePaneList = () => {
   if (slots.default) {
     const panes: typeof paneList.value = []
     const children = slots.default()
-    children.forEach((child: any) => {
-      if (child.type && (child.type.name === 'FTabPane' || child.type.__name === 'FTabPane')) {
-        const props = child.props || {}
+    children.forEach((child: VNode) => {
+      if (child.type && ((child.type as Record<string, unknown>).name === 'FTabPane' || (child.type as Record<string, unknown>).__name === 'FTabPane')) {
+        const props = child.props as Record<string, unknown> || {}
         panes.push({
           name: props.name || panes.length,
           label: props.label || '',

@@ -64,6 +64,10 @@ defineOptions({ name: 'FMessageBox', inheritAttrs: false })
 
 export type MessageBoxType = 'alert' | 'confirm' | 'prompt'
 
+export interface MessageBoxInstance {
+  inputValue: string
+}
+
 export interface MessageBoxOptions {
   title?: string
   message?: string
@@ -85,7 +89,7 @@ export interface MessageBoxOptions {
   inputValue?: string
   inputPattern?: RegExp
   inputValidator?: (value: string) => boolean | string
-  beforeClose?: (action: 'confirm' | 'cancel', instance: any) => Promise<void> | void
+  beforeClose?: (action: 'confirm' | 'cancel', instance: MessageBoxInstance) => Promise<void> | void
 }
 
 export interface MessageBoxEmits {

@@ -43,7 +43,7 @@ const content = computed(() => {
 })
 
 const badgeClass = computed(() => {
-  const cls: any[] = [
+  const cls: (string | Record<string, boolean>)[] = [
     `f-badge__content--${props.type}`,
     {
       'f-badge__content--dot': props.isDot,
@@ -55,7 +55,7 @@ const badgeClass = computed(() => {
 })
 
 const badgeStyle = computed(() => {
-  const style: Record<string, any> = {}
+  const style: Record<string, string | number> = {}
   if (props.color) style.backgroundColor = props.color
   if (props.offset) {
     style.marginRight = `${-props.offset[0]}px`

@@ -147,7 +147,8 @@ const isGroup = computed(() => !!checkboxGroup)
 
 const isChecked = computed(() => {
   if (isGroup.value && checkboxGroup) {
-    return checkboxGroup.modelValue.value.includes(props.value as any)
+    const value = props.value ?? ''
+    return checkboxGroup.modelValue.value.includes(value)
   }
   if (props.trueValue !== undefined) {
     return props.modelValue === props.trueValue
@@ -176,7 +177,8 @@ const checkboxClasses = computed(() => {
 function handleClick() {
   if (isDisabled.value) return
   if (isGroup.value && checkboxGroup) {
-    checkboxGroup.changeEvent(props.value as any)
+    const value = props.value ?? ''
+    checkboxGroup.changeEvent(value)
   } else {
     const newVal = !isChecked.value
     if (props.trueValue !== undefined && props.falseValue !== undefined) {

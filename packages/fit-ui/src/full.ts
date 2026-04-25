@@ -120,7 +120,7 @@ const components = [
   FResult,
 ]
 
-const install = (app: App): any => {
+const install = (app: App): void => {
   components.forEach((c) => app.use(c))
   // Register v-loading directive globally
   app.directive('loading', vLoading)

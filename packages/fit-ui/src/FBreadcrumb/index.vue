@@ -18,7 +18,7 @@
             v-if="index < items.length - 1"
             class="f-breadcrumb__separator"
           >
-            <FIcon v-if="separatorIcon" :icon="(separatorIcon as any)" />
+            <FIcon v-if="separatorIcon" :icon="separatorIcon" />
             <span v-else>{{ separator }}</span>
           </span>
         </template>

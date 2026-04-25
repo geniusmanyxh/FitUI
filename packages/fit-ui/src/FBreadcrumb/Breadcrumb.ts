@@ -1,3 +1,5 @@
+import type { allIconType } from '@utils/ficon'
+
 export interface BreadcrumbItem {
   label?: string
   to?: string
@@ -8,7 +10,7 @@ export interface BreadcrumbItem {
 
 export interface BreadcrumbProps {
   separator?: string
-  separatorIcon?: string
+  separatorIcon?: allIconType
   items?: BreadcrumbItem[]
 }
 

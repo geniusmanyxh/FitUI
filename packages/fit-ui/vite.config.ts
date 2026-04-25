@@ -83,7 +83,7 @@ export const config = defineConfig({
     minify: false,
     // 默认不生成 sourcemap（生产模式），可通过 --sourcemap 开启
     sourcemap: false,
-    reportCompressedSize: true,
+    reportCompressedSize: false,
     lib: {
       entry: './src/full.ts',
       name: 'FitUI',

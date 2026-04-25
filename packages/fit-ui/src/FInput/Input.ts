@@ -1,4 +1,5 @@
 import type { SizeType } from '@utils/fsize'
+import type { allIconType } from '@utils/ficon'
 
 /**
  * textarea autosize 配置
@@ -134,12 +135,12 @@ export interface InputProps {
   /**
    * 前缀图标名称
    */
-  prefixIcon?: string
+  prefixIcon?: allIconType
 
   /**
    * 后缀图标名称
    */
-  suffixIcon?: string
+  suffixIcon?: allIconType
 
   /**
    * 原生 name 属性

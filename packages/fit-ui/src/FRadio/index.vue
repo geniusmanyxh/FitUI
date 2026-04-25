@@ -137,13 +137,14 @@ const radioClasses = computed(() => {
 
 function handleClick() {
   if (isDisabled.value) return
-  if (isChecked.value) return // radio can't uncheck
+  if (isChecked.value) return
 
+  const value = props.value ?? ''
   if (isGroup.value && radioGroup) {
-    radioGroup.changeEvent(props.value as any)
+    radioGroup.changeEvent(value)
   } else {
-    emit('update:modelValue', props.value as any)
-    emit('change', props.value as any)
+    emit('update:modelValue', value)
+    emit('change', value)
   }
 }
 
