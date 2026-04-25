@@ -1,7 +1,29 @@
 import type { App } from 'vue'
 import { 
-  FButton, FIcon, FInput, FInputNumber, FMessage, FCodeBlock, FToolTip, FTag, FSwitch, FCheckbox, FModal, FRadio, FLoading, FAlert, FTabs, FDropdown, FSelect, FForm, FFormItem, FTextarea, FTable, FPagination, FCard, FDivider, FEmpty, FBadge, FAvatar, FProgress, FMenu, FBreadcrumb, FDrawer, FPopover, FNotification, FSkeleton, FResult,
-  FDatePicker, FTimePicker, FSlider, FRate, FSpace, FScrollbar, FBacktop, FWatermark, FTimeline, FTimelineItem, FSteps, FStep, FDescriptions, FImage, FMessageBox, FPopconfirm
+  FButton, FButtonGroup,
+  FIcon,
+  FInput, FInputNumber, FTextarea,
+  FSelect, FOption, FOptionGroup,
+  FCheckbox, FCheckboxGroup,
+  FRadio, FRadioGroup,
+  FSwitch,
+  FForm, FFormItem,
+  FMessage, FCodeBlock, FToolTip, FTag,
+  FModal, FLoading, FAlert,
+  FTabs, FTabPane,
+  FDropdown, FDropdownMenu, FDropdownItem,
+  FTable, FPagination, FCard, FDivider, FEmpty,
+  FBadge, FAvatar, FProgress,
+  FMenu,
+  FBreadcrumb, FBreadcrumbItem,
+  FDrawer, FPopover, FNotification,
+  FSkeleton, FSkeletonItem,
+  FResult,
+  // 新增组件
+  FSpace, FScrollbar, FBacktop, FRate,
+  FSlider, FTimePicker, FDatePicker,
+  FDescriptions, FTimeline, FTimelineItem, FSteps, FStep,
+  FWatermark, FImage, FMessageBox, FPopconfirm
 } from './components'
 
 // 全量引入所有样式（不包含 UnoCSS，用户需要自己配置）
@@ -45,17 +67,18 @@ import './FPopover/style'
 import './FNotification/style'
 import './FSkeleton/style'
 import './FResult/style'
-import './FDatePicker/style'
-import './FTimePicker/style'
-import './FSlider/style'
-import './FRate/style'
+// 新增组件样式
 import './FSpace/style'
 import './FScrollbar/style'
 import './FBacktop/style'
-import './FWatermark/style'
+import './FRate/style'
+import './FSlider/style'
+import './FTimePicker/style'
+import './FDatePicker/style'
+import './FDescriptions/style'
 import './FTimeline/style'
 import './FSteps/style'
-import './FDescriptions/style'
+import './FWatermark/style'
 import './FImage/style'
 import './FMessageBox/style'
 import './FPopconfirm/style'
@@ -67,13 +90,57 @@ import { useLoading } from '@utils/tsHooks/useLoading'
 export { useMessage, useNotification, useLoading }
 
 export { 
-  FButton, FIcon, FInput, FInputNumber, FMessage, FCodeBlock, FToolTip, FTag, FSwitch, FCheckbox, FModal, FRadio, FLoading, FAlert, FTabs, FDropdown, FSelect, FForm, FFormItem, FTextarea, FTable, FPagination, FCard, FDivider, FEmpty, FBadge, FAvatar, FProgress, FMenu, FBreadcrumb, FDrawer, FPopover, FNotification, FSkeleton, FResult,
-  FDatePicker, FTimePicker, FSlider, FRate, FSpace, FScrollbar, FBacktop, FWatermark, FTimeline, FTimelineItem, FSteps, FStep, FDescriptions, FImage, FMessageBox, FPopconfirm 
+  FButton, FButtonGroup,
+  FIcon,
+  FInput, FInputNumber, FTextarea,
+  FSelect, FOption, FOptionGroup,
+  FCheckbox, FCheckboxGroup,
+  FRadio, FRadioGroup,
+  FSwitch,
+  FForm, FFormItem,
+  FMessage, FCodeBlock, FToolTip, FTag,
+  FModal, FLoading, FAlert,
+  FTabs, FTabPane,
+  FDropdown, FDropdownMenu, FDropdownItem,
+  FTable, FPagination, FCard, FDivider, FEmpty,
+  FBadge, FAvatar, FProgress,
+  FMenu,
+  FBreadcrumb, FBreadcrumbItem,
+  FDrawer, FPopover, FNotification,
+  FSkeleton, FSkeletonItem,
+  FResult,
+  // 新增组件
+  FSpace, FScrollbar, FBacktop, FRate,
+  FSlider, FTimePicker, FDatePicker,
+  FDescriptions, FTimeline, FTimelineItem, FSteps, FStep,
+  FWatermark, FImage, FMessageBox, FPopconfirm
 }
 
 const components = [
-  FButton, FIcon, FInput, FInputNumber, FMessage, FCodeBlock, FToolTip, FTag, FSwitch, FCheckbox, FModal, FRadio, FLoading, FAlert, FTabs, FDropdown, FSelect, FForm, FFormItem, FTextarea, FTable, FPagination, FCard, FDivider, FEmpty, FBadge, FAvatar, FProgress, FMenu, FBreadcrumb, FDrawer, FPopover, FNotification, FSkeleton, FResult,
-  FDatePicker, FTimePicker, FSlider, FRate, FSpace, FScrollbar, FBacktop, FWatermark, FTimeline, FTimelineItem, FSteps, FStep, FDescriptions, FImage, FMessageBox, FPopconfirm
+  FButton, FButtonGroup,
+  FIcon,
+  FInput, FInputNumber, FTextarea,
+  FSelect, FOption, FOptionGroup,
+  FCheckbox, FCheckboxGroup,
+  FRadio, FRadioGroup,
+  FSwitch,
+  FForm, FFormItem,
+  FMessage, FCodeBlock, FToolTip, FTag,
+  FModal, FLoading, FAlert,
+  FTabs, FTabPane,
+  FDropdown, FDropdownMenu, FDropdownItem,
+  FTable, FPagination, FCard, FDivider, FEmpty,
+  FBadge, FAvatar, FProgress,
+  FMenu,
+  FBreadcrumb, FBreadcrumbItem,
+  FDrawer, FPopover, FNotification,
+  FSkeleton, FSkeletonItem,
+  FResult,
+  // 新增组件
+  FSpace, FScrollbar, FBacktop, FRate,
+  FSlider, FTimePicker, FDatePicker,
+  FDescriptions, FTimeline, FTimelineItem, FSteps, FStep,
+  FWatermark, FImage, FMessageBox, FPopconfirm
 ]
 
 const install = (app: App): void => {

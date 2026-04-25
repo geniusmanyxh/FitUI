@@ -18,7 +18,12 @@ import {
   FBreadcrumb, FBreadcrumbItem,
   FDrawer, FPopover, FNotification,
   FSkeleton, FSkeletonItem,
-  FResult
+  FResult,
+  // 新增组件
+  FSpace, FScrollbar, FBacktop, FRate,
+  FSlider, FTimePicker, FDatePicker,
+  FDescriptions, FTimeline, FTimelineItem, FSteps, FStep,
+  FWatermark, FImage, FMessageBox, FPopconfirm
 } from './components'
 import type { FormInstance, FormItemInstance } from './components'
 
@@ -63,6 +68,21 @@ import './FPopover/style'
 import './FNotification/style'
 import './FSkeleton/style'
 import './FResult/style'
+// 新增组件样式
+import './FSpace/style'
+import './FScrollbar/style'
+import './FBacktop/style'
+import './FRate/style'
+import './FSlider/style'
+import './FTimePicker/style'
+import './FDatePicker/style'
+import './FDescriptions/style'
+import './FTimeline/style'
+import './FSteps/style'
+import './FWatermark/style'
+import './FImage/style'
+import './FMessageBox/style'
+import './FPopconfirm/style'
 
 import { useMessage } from '@utils/tsHooks/useMessage'
 
@@ -91,6 +111,11 @@ export {
   FSkeleton, FSkeletonItem,
   FResult,
   vLoading,
+  // 新增组件
+  FSpace, FScrollbar, FBacktop, FRate,
+  FSlider, FTimePicker, FDatePicker,
+  FDescriptions, FTimeline, FTimelineItem, FSteps, FStep,
+  FWatermark, FImage, FMessageBox, FPopconfirm
 }
 
 export type {
@@ -118,6 +143,11 @@ const components = [
   FDrawer, FPopover, FNotification,
   FSkeleton, FSkeletonItem,
   FResult,
+  // 新增组件
+  FSpace, FScrollbar, FBacktop, FRate,
+  FSlider, FTimePicker, FDatePicker,
+  FDescriptions, FTimeline, FTimelineItem, FSteps, FStep,
+  FWatermark, FImage, FMessageBox, FPopconfirm
 ]
 
 const install = (app: App): void => {
