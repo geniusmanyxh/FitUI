@@ -9,25 +9,10 @@
 <script setup lang="ts">
 import { provide, ref, computed } from 'vue'
 import { withInstall } from '@utils/install'
+import { stepsPropsKey } from './Steps'
+import type { StepsProps, StepsProvideValue } from './Steps'
 
 defineOptions({ name: 'FSteps', inheritAttrs: false })
-
-export interface StepsProps {
-  active?: number
-  direction?: 'horizontal' | 'vertical'
-  finishStatus?: 'wait' | 'process' | 'finish' | 'error'
-  processStatus?: 'wait' | 'process' | 'finish' | 'error'
-  simple?: boolean
-  alignCenter?: boolean
-}
-
-export interface StepsProvideValue {
-  props: StepsProps
-  stepCount: number
-  updateStepCount: (count: number) => void
-}
-
-const stepsPropsKey = 'stepsProps' as const
 
 const props = withDefaults(defineProps<StepsProps>(), {
   active: 0,

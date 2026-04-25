@@ -21,9 +21,11 @@
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted, inject } from 'vue'
+import { computed, onMounted, inject, ref } from 'vue'
 import FIcon from '@/FIcon'
-import type { StepsProps, StepsProvideValue, stepsPropsKey } from './index.vue'
+import { stepsPropsKey } from './Steps'
+import type { StepsProvideValue } from './Steps'
+import type { ComputedRef } from 'vue'
 
 defineOptions({ name: 'FStep', inheritAttrs: false })
 
@@ -41,35 +43,45 @@ const props = withDefaults(defineProps<StepProps>(), {
   icon: ''
 })
 
-const stepsContext = inject<StepsProvideValue>(stepsPropsKey)
-const index = computed(() => stepsContext?.stepCount ?? 0)
+const stepsProvideRef = inject<ComputedRef<StepsProvideValue>>(stepsPropsKey)
+const index = ref(0)
+
+const stepData = computed(() => {
+  if (!stepsProvideRef) return null
+  return stepsProvideRef.value
+})
+
 const isLast = computed(() => {
-  const ctx = stepsContext
+  const ctx = stepData.value
   if (!ctx) return false
   return index.value === ctx.stepCount - 1
 })
 
 onMounted(() => {
-  stepsContext?.updateStepCount((stepsContext?.stepCount ?? 0) + 1)
+  const ctx = stepData.value
+  if (ctx) {
+    index.value = ctx.stepCount
+    ctx.updateStepCount(ctx.stepCount + 1)
+  }
 })
 
-const direction = computed(() => stepsContext?.props.direction ?? 'horizontal')
+const direction = computed(() => stepData.value?.props.direction ?? 'horizontal')
 
 const isActive = computed(() => {
-  const ctx = stepsContext
+  const ctx = stepData.value
   if (!ctx) return false
   return ctx.props.active === index.value
 })
 
 const isFinish = computed(() => {
-  const ctx = stepsContext
+  const ctx = stepData.value
   if (!ctx) return false
   return ctx.props.active > index.value
 })
 
 const status = computed(() => {
   if (props.status !== 'wait') return props.status
-  const ctx = stepsContext
+  const ctx = stepData.value
   if (!ctx) return 'wait'
   if (ctx.props.active > index.value) return ctx.props.finishStatus
   if (ctx.props.active === index.value) return ctx.props.processStatus
@@ -77,7 +89,7 @@ const status = computed(() => {
 })
 
 const stepStyle = computed(() => {
-  const ctx = stepsContext
+  const ctx = stepData.value
   if (!ctx || ctx.stepCount <= 1) return {}
   return { flex: 1 }
 })

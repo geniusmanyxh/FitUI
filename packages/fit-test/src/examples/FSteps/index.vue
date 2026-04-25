@@ -6,10 +6,10 @@
       <div class="section">
         <h3>基础步骤条</h3>
         <FSteps :active="active1">
-          <FStepItem title="步骤 1" description="这是第一步的描述"></FStepItem>
-          <FStepItem title="步骤 2" description="这是第二步的描述"></FStepItem>
-          <FStepItem title="步骤 3" description="这是第三步的描述"></FStepItem>
-          <FStepItem title="步骤 4" description="这是第四步的描述"></FStepItem>
+          <FStep title="步骤 1" description="这是第一步的描述"></FStep>
+          <FStep title="步骤 2" description="这是第二步的描述"></FStep>
+          <FStep title="步骤 3" description="这是第三步的描述"></FStep>
+          <FStep title="步骤 4" description="这是第四步的描述"></FStep>
         </FSteps>
         <div class="steps-actions">
           <FButton @click="prev1" :disabled="active1 === 0" size="small">上一步</FButton>
@@ -21,10 +21,10 @@
       <div class="section">
         <h3>竖向步骤条</h3>
         <FSteps :active="active2" direction="vertical">
-          <FStepItem title="用户注册" description="填写基本信息完成注册"></FStepItem>
-          <FStepItem title="身份验证" description="上传身份证明材料"></FStepItem>
-          <FStepItem title="审核中" description="等待平台审核"></FStepItem>
-          <FStepItem title="完成" description="审核通过，可以使用"></FStepItem>
+          <FStep title="用户注册" description="填写基本信息完成注册"></FStep>
+          <FStep title="身份验证" description="上传身份证明材料"></FStep>
+          <FStep title="审核中" description="等待平台审核"></FStep>
+          <FStep title="完成" description="审核通过，可以使用"></FStep>
         </FSteps>
       </div>
 
@@ -32,9 +32,9 @@
       <div class="section">
         <h3>简易模式</h3>
         <FSteps :active="active3" simple>
-          <FStepItem title="准备中"></FStepItem>
-          <FStepItem title="进行中"></FStepItem>
-          <FStepItem title="已完成"></FStepItem>
+          <FStep title="准备中"></FStep>
+          <FStep title="进行中"></FStep>
+          <FStep title="已完成"></FStep>
         </FSteps>
       </div>
 
@@ -42,10 +42,10 @@
       <div class="section">
         <h3>错误状态</h3>
         <FSteps :active="active4">
-          <FStepItem title="步骤 1" description="已完成"></FStepItem>
-          <FStepItem title="步骤 2" description="已完成"></FStepItem>
-          <FStepItem title="步骤 3" description="发生错误" status="error"></FStepItem>
-          <FStepItem title="步骤 4" description="待执行"></FStepItem>
+          <FStep title="步骤 1" description="已完成"></FStep>
+          <FStep title="步骤 2" description="已完成"></FStep>
+          <FStep title="步骤 3" description="发生错误" status="error"></FStep>
+          <FStep title="步骤 4" description="待执行"></FStep>
         </FSteps>
       </div>
     </div>
@@ -54,7 +54,7 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import { FSteps, FStepItem, FButton } from '@geniusmanyxh/fit-ui'
+import { FSteps, FStep, FButton } from '@geniusmanyxh/fit-ui'
 
 defineOptions({ name: 'FSteps-Demo', inheritAttrs: false })
 
