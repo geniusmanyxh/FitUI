@@ -1,47 +1,251 @@
-// packages/fit-ui/styles/theme/var.scss
-// 暗色主题覆盖设计 token
+/**
+ * FitUI Design Tokens - CSS Variables
+ * 
+ * @description 完整的 CSS 变量体系，对标 Element Plus Design Token
+ * @version 3.0.0
+ */
 
-[data-theme='dark'] {
-    --f-primary: #60a5fa;
-    --f-primary-hover: #3b82f6;
-    --f-primary-active: #2563eb;
-    --f-success: #4ade80;
-    --f-success-hover: #22c55e;
-    --f-warning: #facc15;
-    --f-warning-hover: #eab308;
-    --f-danger: #f87171;
-    --f-danger-hover: #ef4444;
-    --f-info: #9ca3af;
-    --f-info-hover: #6b7280;
+:root {
+  /* ==================== 品牌色 ==================== */
+  --f-color-primary: #409eff;
+  --f-color-primary-light-3: #79bbff;
+  --f-color-primary-light-5: #a0cfff;
+  --f-color-primary-light-7: #c6e2ff;
+  --f-color-primary-light-8: #d9ecff;
+  --f-color-primary-light-9: #ecf5ff;
+  --f-color-primary-dark-2: #337ecc;
 
-    --f-text-primary: #f1f5f9;
-    --f-text-secondary: #94a3b8;
-    --f-border: #334155;
-    --f-bg: #0f172a;
-    --f-bg-secondary: #1e293b;
+  /* ==================== 功能色 ==================== */
+  --f-color-success: #67c23a;
+  --f-color-success-light-3: #a3d98b;
+  --f-color-success-light-5: #bce6a8;
+  --f-color-success-light-7: #d5f2c5;
+  --f-color-success-light-8: #e1f5d4;
+  --f-color-success-light-9: #f0f9eb;
+  --f-color-success-dark-2: #529b2e;
 
-    --f-code-bg-color: #24292e;
-    --f-code-outside-bg-color: #1b1b1f;
-    --f-code-outside-border-color: #2e2e32;
-    --f-code-lang-color: #babab5;
-    --f-code-outside-text-color: #ffffff;
+  --f-color-warning: #e6a23c;
+  --f-color-warning-light-3: #f0c78a;
+  --f-color-warning-light-5: #f4d4a5;
+  --f-color-warning-light-7: #f8e2c0;
+  --f-color-warning-light-8: #faecd8;
+  --f-color-warning-light-9: #fdf6ec;
+  --f-color-warning-dark-2: #b88230;
 
-    --f-tooltip-background: #1e293b;
-    --f-tooltip-text-color: #f1f5f9;
-    --f-tooltip-border-color: #334155;
+  --f-color-danger: #f56c6c;
+  --f-color-danger-light-3: #f8a9a9;
+  --f-color-danger-light-5: #fab6b6;
+  --f-color-danger-light-7: #fbc3c3;
+  --f-color-danger-light-8: #fde2e2;
+  --f-color-danger-light-9: #fef0f0;
+  --f-color-danger-dark-2: #c45656;
+
+  --f-color-error: #f56c6c;
+  --f-color-info: #909399;
+  --f-color-info-light-3: #c8c9cc;
+  --f-color-info-light-5: #d3d4d6;
+  --f-color-info-light-7: #dedfe0;
+  --f-color-info-light-8: #e9e9eb;
+  --f-color-info-light-9: #f4f4f5;
+  --f-color-info-dark-2: #73767a;
+
+  /* ==================== 文本色 ==================== */
+  --f-text-color-primary: #303133;
+  --f-text-color-regular: #606266;
+  --f-text-color-secondary: #909399;
+  --f-text-color-placeholder: #a8abb2;
+  --f-text-color-disabled: #c0c4cc;
+
+  /* ==================== 边框色 ==================== */
+  --f-border-color-base: #dcdfe6;
+  --f-border-color-light: #e4e7ed;
+  --f-border-color-lighter: #ebeef5;
+  --f-border-color-extra-light: #f2f6fc;
+  --f-border-color-dark: #d4d7de;
+  --f-border-color-darker: #cdd0d6;
+
+  /* ==================== 填充色 ==================== */
+  --f-fill-color: #f0f2f5;
+  --f-fill-color-light: #f5f7fa;
+  --f-fill-color-lighter: #fafafa;
+  --f-fill-color-dark: #ebedf0;
+  --f-fill-color-darker: #e6e8eb;
+  --f-fill-color-blank: #ffffff;
+
+  /* ==================== 背景色 ==================== */
+  --f-bg-color: #ffffff;
+  --f-bg-color-page: #f2f3f5;
+  --f-bg-color-overlay: #ffffff;
+
+  /* ==================== 阴影 ==================== */
+  --f-box-shadow-light: 0 2px 12px rgba(0, 0, 0, 0.1);
+  --f-box-shadow-lighter: 0 2px 8px rgba(0, 0, 0, 0.06);
+  --f-box-shadow-dark: 0 4px 16px rgba(0, 0, 0, 0.15);
+
+  /* ==================== 字体 ==================== */
+  --f-font-size-extra-large: 20px;
+  --f-font-size-large: 18px;
+  --f-font-size-medium: 16px;
+  --f-font-size-base: 14px;
+  --f-font-size-small: 13px;
+  --f-font-size-extra-small: 12px;
+
+  --f-font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  --f-font-family-code: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace;
+  --f-font-weight-primary: 500;
+  --f-font-weight-bold: 600;
+
+  --f-line-height: 1.5;
+
+  /* ==================== 间距 ==================== */
+  --f-spacing-xs: 4px;
+  --f-spacing-sm: 8px;
+  --f-spacing-base: 12px;
+  --f-spacing-md: 16px;
+  --f-spacing-lg: 20px;
+  --f-spacing-xl: 24px;
+  --f-spacing-2xl: 32px;
+
+  /* ==================== 圆角 ==================== */
+  --f-border-radius-base: 4px;
+  --f-border-radius-small: 2px;
+  --f-border-radius-round: 20px;
+  --f-border-radius-circle: 100%;
+
+  /* ==================== 尺寸 ==================== */
+  --f-size-base: 32px;
+  --f-size-small: 24px;
+  --f-size-large: 40px;
+
+  /* ==================== Z-index ==================== */
+  --f-z-index-normal: 1;
+  --f-z-index-top: 1000;
+  --f-z-index-popper: 2000;
+  --f-z-index-modal: 3000;
+  --f-z-index-fullscreen: 4000;
+
+  /* ==================== 动画 ==================== */
+  --f-transition-duration: 0.3s;
+  --f-transition-duration-fast: 0.2s;
+  --f-transition-duration-slow: 0.5s;
+
+  /* ==================== 状态色 ==================== */
+  --f-disabled-color: #c0c4cc;
+  --f-disabled-bg: #f5f7fa;
+  --f-disabled-border: #e4e7ed;
+
+  /* ==================== 输入框 ==================== */
+  --f-input-height: var(--f-size-base);
+  --f-input-height-small: var(--f-size-small);
+  --f-input-height-large: var(--f-size-large);
+  --f-input-bg-color: var(--f-bg-color);
+  --f-input-border-color: var(--f-border-color-base);
+  --f-input-hover-border-color: var(--f-color-primary);
+  --f-input-focus-border-color: var(--f-color-primary);
+  --f-input-placeholder-color: var(--f-text-color-placeholder);
+  --f-input-text-color: var(--f-text-color-regular);
+  --f-input-icon-color: var(--f-text-color-placeholder);
+
+  /* ==================== 按钮 ==================== */
+  --f-button-height: var(--f-size-base);
+  --f-button-height-small: var(--f-size-small);
+  --f-button-height-large: var(--f-size-large);
+  --f-button-bg-color: var(--f-fill-color-blank);
+  --f-button-border-color: var(--f-border-color-base);
+  --f-button-text-color: var(--f-text-color-regular);
+  --f-button-hover-text-color: var(--f-color-primary);
+  --f-button-hover-border-color: var(--f-color-primary-light-7);
+  --f-button-active-text-color: var(--f-color-primary-dark-2);
+  --f-button-active-border-color: var(--f-color-primary-dark-2);
+  --f-button-disabled-text-color: var(--f-disabled-color);
+  --f-button-disabled-bg-color: var(--f-fill-color-blank);
+  --f-button-disabled-border-color: var(--f-border-color-light);
+
+  /* ==================== 表格 ==================== */
+  --f-table-border-color: var(--f-border-color-lighter);
+  --f-table-border: 1px solid var(--f-table-border-color);
+  --f-table-text-color: var(--f-text-color-regular);
+  --f-table-header-text-color: var(--f-text-color-secondary);
+  --f-table-row-hover-bg-color: var(--f-fill-color-light);
+  --f-table-current-row-bg-color: var(--f-color-primary-light-9);
+  --f-table-header-bg-color: var(--f-fill-color-blank);
+  --f-table-fixed-box-shadow: var(--f-box-shadow-light);
+  --f-table-bg-color: var(--f-fill-color-blank);
+
+  /* ==================== 弹出层 ==================== */
+  --f-overlay-color: rgba(0, 0, 0, 0.5);
+  --f-popup-bg-color: var(--f-bg-color);
+  --f-popup-border-color: var(--f-border-color-lighter);
 }
 
-// 尊重用户「减少动效」偏好
-@media (prefers-reduced-motion: reduce) {
-    :root {
-        --f-transition-duration: 0.01ms;
-    }
-}
+/* ==================== 暗色主题 ==================== */
+[data-theme='dark'],
+.dark {
+  color-scheme: dark;
 
-// [data-theme=''] {
-//   --f-code-bg-color:#f6f6f7; // 代码块背景色
-//   --f-code-outside-bg-color:#ffffff; // 代码块外部背景颜色
-//   --f-code-outside-border-color:#e2e2e3; // 代码块外部边框颜色
-//   --f-code-lang-color:#0c0c0b; // 代码块语言颜色
-//   --f-code-outside-text-color: #000000; // 代码块外部文字颜色
-// }
+  /* 品牌色 */
+  --f-color-primary: #409eff;
+  --f-color-primary-light-3: #3375b7;
+  --f-color-primary-light-5: #2a598a;
+  --f-color-primary-light-7: #213d5c;
+  --f-color-primary-light-8: #1d3047;
+  --f-color-primary-light-9: #182233;
+  --f-color-primary-dark-2: #66b1ff;
+
+  /* 功能色 */
+  --f-color-success: #67c23a;
+  --f-color-warning: #e6a23c;
+  --f-color-danger: #f56c6c;
+  --f-color-error: #f56c6c;
+  --f-color-info: #909399;
+
+  /* 文本色 */
+  --f-text-color-primary: #e5eaf3;
+  --f-text-color-regular: #cfd3dc;
+  --f-text-color-secondary: #a3a6ad;
+  --f-text-color-placeholder: #8d9095;
+  --f-text-color-disabled: #6c6e72;
+
+  /* 边框色 */
+  --f-border-color-base: #4c4d4f;
+  --f-border-color-light: #414243;
+  --f-border-color-lighter: #363637;
+  --f-border-color-extra-light: #2b2b2c;
+  --f-border-color-dark: #58585b;
+  --f-border-color-darker: #636466;
+
+  /* 填充色 */
+  --f-fill-color: #262727;
+  --f-fill-color-light: #262727;
+  --f-fill-color-lighter: #1d1e1f;
+  --f-fill-color-dark: #1d1e1f;
+  --f-fill-color-darker: #141414;
+  --f-fill-color-blank: #141414;
+
+  /* 背景色 */
+  --f-bg-color: #141414;
+  --f-bg-color-page: #0a0a0a;
+  --f-bg-color-overlay: #1d1e1f;
+
+  /* 阴影 */
+  --f-box-shadow-light: 0 2px 12px rgba(0, 0, 0, 0.5);
+  --f-box-shadow-lighter: 0 2px 8px rgba(0, 0, 0, 0.4);
+  --f-box-shadow-dark: 0 4px 16px rgba(0, 0, 0, 0.6);
+
+  /* 输入框 */
+  --f-input-bg-color: #141414;
+  --f-input-border-color: #434343;
+  --f-input-hover-border-color: var(--f-color-primary);
+  --f-input-focus-border-color: var(--f-color-primary);
+
+  /* 表格 */
+  --f-table-border-color: #434343;
+  --f-table-row-hover-bg-color: #1d1e1f;
+  --f-table-header-bg-color: #1d1e1f;
+  --f-table-bg-color: #141414;
+
+  /* 弹出层 */
+  --f-overlay-color: rgba(0, 0, 0, 0.7);
+  --f-popup-bg-color: #1d1e1f;
+  --f-popup-border-color: #434343;
+}

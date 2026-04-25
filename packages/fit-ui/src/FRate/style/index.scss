@@ -1,0 +1,70 @@
+@use '../../../styles/global' as *;
+
+.f-rate {
+  display: inline-flex;
+  align-items: center;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+
+  &__item {
+    display: inline-flex;
+    cursor: pointer;
+    margin-right: 4px;
+    transition: transform 0.2s ease;
+
+    &:last-child {
+      margin-right: 0;
+    }
+
+    &:hover {
+      transform: scale(1.15);
+    }
+  }
+
+  &__icon {
+    color: #dcdfe6;
+    transition: color 0.2s ease;
+
+    &.active {
+      color: #e6a23c;
+    }
+
+    &.half {
+      position: relative;
+      color: #dcdfe6;
+
+      &::after {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 50%;
+        height: 100%;
+        overflow: hidden;
+        color: #e6a23c;
+      }
+    }
+  }
+
+  &__text {
+    margin-left: 8px;
+    font-size: 14px;
+    color: #606266;
+  }
+
+  &.is-disabled {
+    .f-rate__item {
+      cursor: not-allowed;
+
+      &:hover {
+        transform: none;
+      }
+    }
+  }
+}
+
+.f-rate__star {
+  width: 1em;
+  height: 1em;
+}

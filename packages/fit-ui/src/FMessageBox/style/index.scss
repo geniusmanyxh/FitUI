@@ -1,0 +1,153 @@
+@use '../../../styles/global' as *;
+
+.f-message-box {
+  &__wrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2000;
+  }
+
+  & {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+    padding: 20px;
+    max-width: 90%;
+  }
+
+  &__header {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 12px;
+  }
+
+  &__close {
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    padding: 4px;
+    color: #909399;
+    border-radius: 4px;
+
+    &:hover {
+      background-color: #f5f7fa;
+      color: #606266;
+    }
+  }
+
+  &__title {
+    font-size: 16px;
+    font-weight: 500;
+    color: #303133;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  &__icon {
+    &--success {
+      color: #67c23a;
+    }
+
+    &--warning {
+      color: #e6a23c;
+    }
+
+    &--error {
+      color: #f56c6c;
+    }
+
+    &--info {
+      color: #909399;
+    }
+  }
+
+  &__content {
+    margin-bottom: 20px;
+  }
+
+  &__message {
+    font-size: 14px;
+    color: #606266;
+    line-height: 1.5;
+  }
+
+  &__input {
+    width: 100%;
+    margin-top: 12px;
+    padding: 8px 12px;
+    border: 1px solid #dcdfe6;
+    border-radius: 4px;
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.2s;
+
+    &:focus {
+      border-color: #409eff;
+    }
+  }
+
+  &__errormsg {
+    color: #f56c6c;
+    font-size: 12px;
+    margin-top: 4px;
+  }
+
+  &__btns {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+  }
+
+  &__btn {
+    padding: 8px 16px;
+    border-radius: 4px;
+    font-size: 14px;
+    cursor: pointer;
+    border: 1px solid #dcdfe6;
+    background-color: white;
+    color: #606266;
+    transition: all 0.2s;
+
+    &--confirm {
+      background-color: #409eff;
+      border-color: #409eff;
+      color: white;
+
+      &:hover {
+        background-color: #66b1ff;
+        border-color: #66b1ff;
+      }
+    }
+
+    &--cancel {
+      &:hover {
+        background-color: #f5f7fa;
+        border-color: #c0c4cc;
+      }
+    }
+
+    &.is-disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+  }
+}
+
+.f-message-box-fade-enter-active,
+.f-message-box-fade-leave-active {
+  transition: opacity 0.3s;
+}
+
+.f-message-box-fade-enter-from,
+.f-message-box-fade-leave-to {
+  opacity: 0;
+}
