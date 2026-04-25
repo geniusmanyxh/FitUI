@@ -41,6 +41,21 @@ const routes:Readonly<RouteRecordRaw[]> = [
     name: 'progress',
     component: () => import('@/examples/FProgress/index.vue')
   },
+  {
+    path: '/space',
+    name: 'space',
+    component: () => import('@/examples/FSpace/index.vue')
+  },
+  {
+    path: '/scrollbar',
+    name: 'scrollbar',
+    component: () => import('@/examples/FScrollbar/index.vue')
+  },
+  {
+    path: '/backtop',
+    name: 'backtop',
+    component: () => import('@/examples/FBacktop/index.vue')
+  },
   // 表单组件
   {
     path: '/input',
@@ -82,6 +97,21 @@ const routes:Readonly<RouteRecordRaw[]> = [
     name: 'form',
     component: () => import('@/examples/FForm/index.vue')
   },
+  {
+    path: '/slider',
+    name: 'slider',
+    component: () => import('@/examples/FSlider/index.vue')
+  },
+  {
+    path: '/time-picker',
+    name: 'time-picker',
+    component: () => import('@/examples/FTimePicker/index.vue')
+  },
+  {
+    path: '/date-picker',
+    name: 'date-picker',
+    component: () => import('@/examples/FDatePicker/index.vue')
+  },
   // 数据展示
   {
     path: '/table',
@@ -112,6 +142,31 @@ const routes:Readonly<RouteRecordRaw[]> = [
     path: '/code-block',
     name: 'code-block',
     component: () => import('@/examples/FCodeBlock/index.vue')
+  },
+  {
+    path: '/descriptions',
+    name: 'descriptions',
+    component: () => import('@/examples/FDescriptions/index.vue')
+  },
+  {
+    path: '/timeline',
+    name: 'timeline',
+    component: () => import('@/examples/FTimeline/index.vue')
+  },
+  {
+    path: '/steps',
+    name: 'steps',
+    component: () => import('@/examples/FSteps/index.vue')
+  },
+  {
+    path: '/image',
+    name: 'image',
+    component: () => import('@/examples/FImage/index.vue')
+  },
+  {
+    path: '/rate',
+    name: 'rate',
+    component: () => import('@/examples/FRate/index.vue')
   },
   // 导航组件
   {
@@ -179,6 +234,21 @@ const routes:Readonly<RouteRecordRaw[]> = [
     path: '/result',
     name: 'result',
     component: () => import('@/examples/FResult/index.vue')
+  },
+  {
+    path: '/watermark',
+    name: 'watermark',
+    component: () => import('@/examples/FWatermark/index.vue')
+  },
+  {
+    path: '/message-box',
+    name: 'message-box',
+    component: () => import('@/examples/FMessageBox/index.vue')
+  },
+  {
+    path: '/popconfirm',
+    name: 'popconfirm',
+    component: () => import('@/examples/FPopconfirm/index.vue')
   },
 ]
 
