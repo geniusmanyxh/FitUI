@@ -198,6 +198,9 @@ const componentsConfig: IExampleItem[] = [
   { name: 'Avatar', displayName: 'Avatar 头像', path: '/avatar', open: true, category: 'basic', desc: '用户头像展示', icon: '👤' },
   { name: 'Divider', displayName: 'Divider 分割线', path: '/divider', open: true, category: 'basic', desc: '区隔内容的分割线', icon: '➖' },
   { name: 'Progress', displayName: 'Progress 进度条', path: '/progress', open: true, category: 'basic', desc: '展示操作进度', icon: '📊' },
+  { name: 'Space', displayName: 'Space 间距', path: '/space', open: true, category: 'basic', desc: '设置组件之间的间距', icon: '↔️' },
+  { name: 'Scrollbar', displayName: 'Scrollbar 滚动条', path: '/scrollbar', open: true, category: 'basic', desc: '自定义滚动条样式', icon: '📜' },
+  { name: 'Backtop', displayName: 'Backtop 回到顶部', path: '/backtop', open: true, category: 'basic', desc: '返回页面顶部', icon: '⬆️' },
 
   // 表单组件
   { name: 'Input', displayName: 'Input 输入框', path: '/input', open: true, category: 'form', desc: '基础表单输入', icon: '📝' },
@@ -208,6 +211,9 @@ const componentsConfig: IExampleItem[] = [
   { name: 'Radio', displayName: 'Radio 单选框', path: '/radio', open: true, category: 'form', desc: '单项选择', icon: '🔘' },
   { name: 'Switch', displayName: 'Switch 开关', path: '/switch', open: true, category: 'form', desc: '开关状态切换', icon: '🔛' },
   { name: 'Form', displayName: 'Form 表单', path: '/form', open: true, category: 'form', desc: '表单容器', icon: '📋' },
+  { name: 'Slider', displayName: 'Slider 滑块', path: '/slider', open: true, category: 'form', desc: '滑动选择器', icon: '🎚️' },
+  { name: 'TimePicker', displayName: 'TimePicker 时间选择器', path: '/time-picker', open: true, category: 'form', desc: '选择时间', icon: '🕐' },
+  { name: 'DatePicker', displayName: 'DatePicker 日期选择器', path: '/date-picker', open: true, category: 'form', desc: '选择日期', icon: '📅' },
 
   // 数据展示
   { name: 'Table', displayName: 'Table 表格', path: '/table', open: true, category: 'data', desc: '展示行列数据', icon: '📊' },
@@ -216,6 +222,11 @@ const componentsConfig: IExampleItem[] = [
   { name: 'Empty', displayName: 'Empty 空状态', path: '/empty', open: true, category: 'data', desc: '空状态占位', icon: '📭' },
   { name: 'Skeleton', displayName: 'Skeleton 骨架屏', path: '/skeleton', open: true, category: 'data', desc: '内容加载占位', icon: '💀' },
   { name: 'CodeBlock', displayName: 'CodeBlock 代码块', path: '/code-block', open: true, category: 'data', desc: '代码展示', icon: '💻' },
+  { name: 'Rate', displayName: 'Rate 评分', path: '/rate', open: true, category: 'data', desc: '评分组件', icon: '⭐' },
+  { name: 'Descriptions', displayName: 'Descriptions 描述列表', path: '/descriptions', open: true, category: 'data', desc: '成组展示多个字段', icon: '📝' },
+  { name: 'Timeline', displayName: 'Timeline 时间线', path: '/timeline', open: true, category: 'data', desc: '时间序列展示', icon: '📆' },
+  { name: 'Steps', displayName: 'Steps 步骤条', path: '/steps', open: true, category: 'data', desc: '引导流程步骤', icon: '🔢' },
+  { name: 'Image', displayName: 'Image 图片', path: '/image', open: true, category: 'data', desc: '图片展示与预览', icon: '🖼️' },
 
   // 导航组件
   { name: 'Menu', displayName: 'Menu 菜单', path: '/menu', open: true, category: 'navigation', desc: '导航菜单', icon: '📑' },
@@ -233,6 +244,9 @@ const componentsConfig: IExampleItem[] = [
   { name: 'Popover', displayName: 'Popover 气泡卡片', path: '/popover', open: true, category: 'feedback', desc: '弹出气泡', icon: '💭' },
   { name: 'Tooltip', displayName: 'Tooltip 文字提示', path: '/tooltip', open: true, category: 'feedback', desc: '简单的文字提示', icon: '💡' },
   { name: 'Result', displayName: 'Result 结果', path: '/result', open: true, category: 'feedback', desc: '操作结果反馈', icon: '✅' },
+  { name: 'Watermark', displayName: 'Watermark 水印', path: '/watermark', open: true, category: 'feedback', desc: '页面水印效果', icon: '💧' },
+  { name: 'MessageBox', displayName: 'MessageBox 消息弹窗', path: '/message-box', open: true, category: 'feedback', desc: '弹出消息框', icon: '💬' },
+  { name: 'Popconfirm', displayName: 'Popconfirm 气泡确认框', path: '/popconfirm', open: true, category: 'feedback', desc: '点击元素后弹出确认框', icon: '🗨️' },
 ]
 
 // 计算过滤后的组件
