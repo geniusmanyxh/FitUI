@@ -1,50 +1,42 @@
-import { defineConfig } from 'vitest/config'
-import type { ServerOptions } from 'vite'
+import { defineConfig, type RollupOptions } from 'vitest/config'
+import type { ServerOptions, Plugin as VitePlugin } from 'vite'
 import { resolve } from 'path'
 import vue from '@vitejs/plugin-vue'
 import vueJsx from '@vitejs/plugin-vue-jsx'
-// import VueSetupExtend from 'vite-plugin-vue-setup-extend'
 import UnoCSS from './config/unocss'
 import dts from 'vite-plugin-dts'
 import DefineOptions from 'unplugin-vue-define-options/vite'
 
-type ExportsType = 'default' | 'named' | 'none' | 'auto'
-
-const rollupOptions = {
-  external: ['vue', 'vue-router','tj-jstools','shiki'],
+const rollupOptions: RollupOptions = {
+  external: ['vue', 'vue-router', 'tj-jstools', 'shiki'],
   input: {
-    entry: resolve(__dirname, "./src/entry.ts"),
-    full: resolve(__dirname, "./src/full.ts"),
-    components: resolve(__dirname, "./src/components.ts"),
+    entry: resolve(__dirname, './src/entry.ts'),
+    full: resolve(__dirname, './src/full.ts'),
+    components: resolve(__dirname, './src/components.ts'),
   },
   output: [
     {
       format: 'es',
       dir: 'dist/es',
       entryFileNames: '[name].js',
-      // chunkFileNames: 'chunks/[name]-[hash].js',
       assetFileNames: '[name].[ext]',
-      globals: { vue: 'Vue','tj-jstools':'TJJSTOOLS','shiki':'ShikiCore' },
-
+      globals: { vue: 'Vue', 'tj-jstools': 'TJJSTOOLS', shiki: 'ShikiCore' },
       exports: 'named',
       preserveModules: true,
       preserveModulesRoot: './',
-      // preserveEntrySignatures: 'allow-extension',
     },
     {
       format: 'cjs',
       dir: 'dist/lib',
       entryFileNames: '[name].js',
-      // chunkFileNames: 'chunks/[name]-[hash].js',
       assetFileNames: '[name].[ext]',
-      globals: { vue: 'Vue','tj-jstools':'TJJSTOOLS','shiki':'ShikiCore' },
+      globals: { vue: 'Vue', 'tj-jstools': 'TJJSTOOLS', shiki: 'ShikiCore' },
       exports: 'named',
       preserveModules: true,
       preserveModulesRoot: './',
-      // preserveEntrySignatures: 'allow-extension',
     },
   ],
-} as any;
+}
 
 export const config = defineConfig({
   define: {
@@ -63,27 +55,24 @@ export const config = defineConfig({
   plugins: [
     vue(),
     vueJsx(),
-    // VueSetupExtend(),
     UnoCSS(),
     dts({ 
       rollupTypes: false,
       cleanVueFileName: true,
-      include: ["./src/**/*", "./utils/**/*", "./enums/**/*", "./ftypes/**/*"]
+      include: ['./src/**/*', './utils/**/*', './enums/**/*', './ftypes/**/*']
     }),
-    DefineOptions() as any,
+    DefineOptions() as unknown as VitePlugin,
   ],
   server: {
     host: '0.0.0.0',
     port: 8444,
     open: false,
-    https: false as unknown as ServerOptions['https'], // 显式指定类型
+    https: false as ServerOptions['https'],
   },
   css: {
     preprocessorOptions: {
       scss: {
-        // @ts-ignore
-        api: 'modern-compiler' as any,
-        // 移除 additionalData，改为显式引入
+        api: 'modern-compiler',
       }
     },
   },

@@ -146,7 +146,7 @@ const iconMap = {
   info: 'circle-information'
 }
 const isShow = ref(true);
-const defaultIcon = ref<any>('circle-information')
+const defaultIcon = ref('circle-information')
 const curTypeClass = computed(() => {
   return msgBgClass[props.type]
 })
@@ -154,47 +154,25 @@ const msgContent = computed(() => {
   return props.msg
 })
 
-let durationTimer: any = null
+let durationTimer: ReturnType<typeof setTimeout> | null = null
 
-/**
-* 根据设定的持续时间显示或隐藏消息。该函数首先会清除任何现有的计时器，然后根据props中的duration属性来决定是否设置一个新的计时器以在指定时间后调用closeMessage函数。
-* 该函数不接受参数。
-* 该函数没有返回值。
-*/
 const showOrHide = () => {
-  // 清除现有的计时器，避免重复计时
   if (durationTimer) {
     clearTimeout(durationTimer)
   }
-  // 如果duration为0或'notime'，则不设置计时器，直接返回
   if (props.duration === 0 || props.duration === 'notime') {
-    return;
+    return
   }
-  // 根据props.duration设置新的计时器，并在计时结束后调用closeMessage函数
   durationTimer = setTimeout(() => {
     closeMessage()
   }, props.duration)
 }
 
-/**
-* 该函数用于关闭消息框。
-* 它首先将`isShow`的值设置为`false`，从而在视图上隐藏消息框。
-* 接着，它会检查是否有子元素存在，并在子元素数量小于等于1的情况下，
-* 经过500毫秒的延迟后移除消息框元素。
-*/
 const closeMessage = () => {
-  // 隐藏消息框
   isShow.value = false
-
   emit('close')
 }
 
-/**
-* 定义并暴露 `closeMessage` 函数给外部使用。
-* 该函数通常用于关闭或处理消息提示等UI元素。
-* 
-* @expose {Function} closeMessage - 用于关闭消息提示的函数。
-*/
 defineExpose({ closeMessage })
 
 onMounted(() => {

@@ -1,24 +1,80 @@
 name: CI
+
 on:
   push:
-    branches: [ master ] # github默认分支是main,我这里是master
+    branches: [ master ]
   pull_request:
-    branches: [ master ] # github默认分支是main,我这里是master
+    branches: [ master ]
+
 jobs:
-  # Lint:
-    # Lint任务
-  UnitTest:
-   # The type of runner that the job will run on
+  Lint:
     runs-on: ubuntu-latest
-    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      - uses: actions/checkout@v2
-      - uses: pnpm/action-setup@v2.1.0
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
         with:
-          version: latest
-      - name: Change NPM mirror to Taobao
-        run: npm config set registry  https://registry.npmmirror.com/
-      - name: Install modules
-        run: cd packages/fit-ui && pnpm install
-      - name: Run Test
-        run: cd packages/fit-ui && pnpm run test:run
+          version: 9
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'pnpm'
+      - name: Install dependencies
+        run: pnpm install
+      - name: Run Lint
+        run: pnpm run lint
+
+  UnitTest:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [18, 20, 22]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 9
+      - name: Setup Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'pnpm'
+      - name: Install dependencies
+        run: pnpm install
+      - name: Run Tests
+        run: pnpm run test:run
+
+  Build:
+    runs-on: ubuntu-latest
+    needs: [Lint, UnitTest]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 9
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'pnpm'
+      - name: Install dependencies
+        run: pnpm install
+      - name: Build
+        run: pnpm run build
+
+  Security:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 9
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'pnpm'
+      - name: Install dependencies
+        run: pnpm install
+      - name: Run Security Audit
+        run: pnpm audit --audit-level=high

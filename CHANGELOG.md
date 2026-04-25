@@ -1,46 +1,91 @@
-# [2.0.0](https://github.com/geniusmanyxh/FitUI/compare/v1.0.2...v2.0.0) (2023-11-13)
+# Changelog
 
+All notable changes to this project will be documented in this file.
 
-### Bug Fixes
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
+and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-* **icon:** 修复未知图标 ([17c889b](https://github.com/geniusmanyxh/FitUI/commit/17c889b8e4b7172d7900bed2a285c3e720cc6316))
+---
 
+## [Unreleased]
+
+### Added
+
+- FMessage 函数式 API 支持（`useMessage()`）
+- FNotification 函数式 API 支持（`useNotification()`）
+- FLoading 服务式调用（`useLoading()`）
+
+### Changed
+
+- 消除所有 `any` 类型断言
+- 优化 `withInstall` 工具函数类型定义
+- 优化 vite.config.ts 类型安全性
+
+---
+
+## [2.0.1](https://github.com/geniusmanyxh/FitUI/compare/v2.0.0...v2.0.1) (2025-04-26)
+
+### Fixed
+
+- 修复 FModal 组件拖拽功能中 ref 类型错误
+
+---
+
+## [2.0.0](https://github.com/geniusmanyxh/FitUI/compare/v1.0.2...v2.0.0) (2023-11-13)
+
+### Breaking Changes
+
+- 全面升级至 Vue 3 Composition API
+- 全面采用 TypeScript
+- 引入 UnoCSS 原子化 CSS 方案
 
 ### Features
 
-* **icon:** 新增mono—icon ([25e7a8d](https://github.com/geniusmanyxh/FitUI/commit/25e7a8dd095c6480cd5543266b7dc924a92d6b33))
-
-
-
-# [2.0.0](https://github.com2/geniusmanyxh/FitUI/compare/v1.0.3...v2.0.0) (2023-11-10)
-
-
-### Features
-
-* **icon:** 新增mono—icon ([25e7a8d](https://github.com2/geniusmanyxh/FitUI/commit/25e7a8dd095c6480cd5543266b7dc924a92d6b33))
-
-
-
-## [1.0.1](https://github.com2/geniusmanyxh/FitUI/compare/0.0.1-alpha...v1.0.1) (2023-11-07)
-
+- **icon:** 新增 mono-icon
+- **select:** 新增 FSelect 下拉选择器（支持多选、远程搜索、分组）
+- **input:** 新增 FInput 输入框（支持 textarea、password、前后缀）
+- **modal:** 新增 FModal 对话框（支持拖拽、焦点陷阱）
+- **tabs:** 新增 FTabs 标签页
 
 ### Bug Fixes
 
-* 修复fit-ui类型声明的路径问题 ([c436691](https://github.com2/geniusmanyxh/FitUI/commit/c43669125f813f45f5ad3c044b8616af8ca69561))
+- **icon:** 修复未知图标
 
+---
+
+## [1.0.2](https://github.com/geniusmanyxh/FitUI/compare/v1.0.1...v1.0.2) (2023-11-10)
 
 ### Features
 
-* 发布fit-ui 0.0.2版本 ([ef616f0](https://github.com2/geniusmanyxh/FitUI/commit/ef616f0c1901095a0bf46c44ee6ca62547ac2611))
-* 完善按钮组件基本样式 ([f748dcf](https://github.com2/geniusmanyxh/FitUI/commit/f748dcfa144a55634893572fca22d84ff6e67753))
-* 完善fbutton和ficon组件内容 ([4da842c](https://github.com2/geniusmanyxh/FitUI/commit/4da842cf145114ef309b2d510204b8c441497a14))
-* first publish ([75140a6](https://github.com2/geniusmanyxh/FitUI/commit/75140a6dfd084ac7e07b5efa7163be1cab8217b4))
+- 新增 FTable 表格组件
+- 新增 FForm 表单组件
+- 新增 FMessage 消息提示组件
+- 新增 FNotification 通知组件
+- 新增 FLoading 加载组件
 
+---
 
+## [1.0.1](https://github.com/geniusmanyxh/FitUI/compare/v0.0.1-alpha...v1.0.1) (2023-11-07)
 
-## [0.0.1-alpha](https://github.com2/geniusmanyxh/FitUI/compare/93ae1f1d59c7ab1705f26ce0bbebdc76b29bf983...0.0.1-alpha) (2023-08-10)
+### Features
 
+- 发布 fit-ui 0.0.2 版本
+- 完善按钮组件基本样式
+- 完善 FButton 和 FIcon 组件内容
+- 首次发布
 
 ### Bug Fixes
 
-* 修复github工作流代码注释错误 ([93ae1f1](https://github.com2/geniusmanyxh/FitUI/commit/93ae1f1d59c7ab1705f26ce0bbebdc76b29bf983))
+- 修复 fit-ui 类型声明的路径问题
+
+---
+
+## [0.0.1-alpha](https://github.com/geniusmanyxh/FitUI/compare/93ae1f1...0.0.1-alpha) (2023-08-10)
+
+### Features
+
+- 项目初始化
+
+### Bug Fixes
+
+- 修复 GitHub 工作流代码注释错误
