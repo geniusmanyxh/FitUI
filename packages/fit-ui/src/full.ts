@@ -85,11 +85,13 @@ import './FMessageBox/style'
 import './FPopconfirm/style'
 
 import { useMessage } from '@utils/tsHooks/useMessage'
+import { useNotification } from '@utils/tsHooks/useNotification'
+import { useLoading } from '@utils/tsHooks/useLoading'
 
 // v-loading directive
 import vLoading from './FLoading/directive'
 
-export { useMessage }
+export { useMessage, useNotification, useLoading }
 export {
   FButton, FButtonGroup,
   FIcon,

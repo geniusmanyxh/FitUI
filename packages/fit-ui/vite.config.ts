@@ -10,7 +10,6 @@ import DefineOptions from 'unplugin-vue-define-options/vite'
 const rollupOptions: RollupOptions = {
   external: ['vue', 'vue-router', 'tj-jstools', 'shiki'],
   input: {
-    entry: resolve(__dirname, './src/entry.ts'),
     full: resolve(__dirname, './src/full.ts'),
     components: resolve(__dirname, './src/components.ts'),
   },
